@@ -4543,3 +4543,6 @@ Caused by: javax.el.ELException: Cannot convert 017fe8f5-97ec-40e3-ad75-6829336a
 	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
 	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
 	... 40 more
+
+2016-10-09 17:52:38
+[ERROR]-[Thread: http-bio-8089-exec-8]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误

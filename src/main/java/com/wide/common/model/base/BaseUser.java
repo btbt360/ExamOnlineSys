@@ -160,5 +160,36 @@ public abstract class BaseUser<M extends BaseUser<M>> extends DbModel<M> impleme
 	public java.lang.String getDelFlag() {
 		return get("del_flag");
 	}
+	
+	public void setCardno(java.lang.String cardno) {
+		set("cardno", cardno);
+	}
 
+	public java.lang.String getCardno() {
+		return get("cardno");
+	}
+
+	public void setFingerprintone(java.lang.String fingerprintone) {
+		set("fingerprintone", fingerprintone);
+	}
+
+	public java.lang.String getFingerprintone() {
+		return get("fingerprintone");
+	}
+	
+	public void setFingerprinttwo(java.lang.String fingerprinttwo) {
+		set("fingerprinttwo", fingerprinttwo);
+	}
+
+	public java.lang.String getFingerprinttwo() {
+		return get("fingerprinttwo");
+	}
+	
+	public void setIsonline(java.lang.Integer isonline) {
+		set("isonline", isonline);
+	}
+
+	public java.lang.Integer getIsonline() {
+		return get("isonline");
+	}
 }
