@@ -1,45 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <c:import url="/pages/include/pageNavigation.jsp" />
-<script type="text/javascript">
-	function edit(ids) {
-		location.href = "${basepath}/role/addroleinfo?id=" + ids;
-	}
-
-	function del(ids) {
-		if(confirm("确定要删除该角色？")){
-			$.ajax({
-				type : 'post',
-				url : '${basepath}/role/delroleinfo?id=' + ids,
-				cache : false,
-				dataType : 'json',
-				success : function(data) {
-					if (data == '1') {
-						$("#successmessage").hide();
-						$("#errormessage").show();
-						$("#messageee").text("当前角色已被用户使用中，无法删除！");
-					} else {
-						$("#errormessage").hide();
-						$("#successmessage").show();
-						$("#messagess").text("删除成功！");
-					}
-					reshcg();
-				}
-
-			});
-		}
-	}
-</script>
-</head>
-<body>
 	<!-- block -->
-	<div class="block" style="margin: 5%;">
+	<div class="block">
 		<div class="navbar navbar-inner block-header">
 			<div class="muted pull-left">
 				<ul class="breadcrumb">
@@ -75,38 +39,36 @@
 					</div>
 					<form action="${basepath}/role/exportRole" method="post"
 						id="roleform">
-					<div class="span12">
+					<div class="span12"  style="text-align: center;">
 						<div class="span3">
-							<label class="control-label" for="rolename">角色名称：</label> <input
+							<label class="control-label" for="rolename">角色名称：<input
 								class="input-medium focused" id="rolename" name="rolename"
-								type="text" />
+								type="text" /></label> 
 						</div>
 						<div class="span3">
-							<label class="control-label" for="usertype">角色类型：</label> <select
-								class="span6 m-wrap" id="roletype" name="roletype">
+							<label class="control-label" for="usertype">角色类型：
+							<select class="span6 m-wrap" id="roletype" name="roletype">
 								<option value="">--全部--</option>
 								<c:forEach items="${listdict}" var="dict">
 									<option value="${dict.dictkey}">${dict.dictvalue}</option>
 								</c:forEach>
-							</select>
+							</select></label> 
 						</div>
 						<div class="span3">
 							<label class="control-label" for="starttimes"><a href='#'
-								id="ceatetimes" style="color: black; text-decoration: none;">创建时间：</a></label>
-							<input type="text" class="input-medium datepicker"
-								id="starttimes" value="" name="starttimes">
+								id="ceatetimes" style="color: black; text-decoration: none;">创建时间：</a><input type="text" class="input-medium datepicker"
+								id="starttimes" value="" name="starttimes"></label>
 						</div>
 						<div class="span3">
 							<label class="control-label" for="endtimes"><a href='#'
-								id="ceatetimee" style="color: black; text-decoration: none;">至：</a></label>
-							<input type="text" class="input-medium datepicker" id="endtimes"
-								value="" name="endtimes">
+								id="ceatetimee" style="color: black; text-decoration: none;">至：</a><input type="text" class="input-medium datepicker" id="endtimes"
+								value="" name="endtimes"></label>
 						</div>
 					</div>
 					<input type="hidden" id="rolepages" name="rolepages" /><input
 							type="hidden" id="rolerp" name="rolerp" />
 					</form>
-					<div class="span12 text-right" style="padding-right: 7%;">
+					<div class="span12 text-right" style="padding-right: 5%;">
 						<button class="btn btn-medium btn-primary" type="button"
 							id="query">查询</button>
 						<button class="btn btn-medium btn-primary" type="button"
@@ -133,9 +95,35 @@
 			</div>
 		</div>
 	</div>
-
 </body>
 <script type="text/javascript">
+	function edit(ids) {
+		location.href = "${basepath}/role/addroleinfo?id=" + ids;
+	}
+	
+	function del(ids) {
+		if(confirm("确定要删除该角色？")){
+			$.ajax({
+				type : 'post',
+				url : '${basepath}/role/delroleinfo?id=' + ids,
+				cache : false,
+				dataType : 'json',
+				success : function(data) {
+					if (data == '1') {
+						$("#successmessage").hide();
+						$("#errormessage").show();
+						$("#messageee").text("当前角色已被用户使用中，无法删除！");
+					} else {
+						$("#errormessage").hide();
+						$("#successmessage").show();
+						$("#messagess").text("删除成功！");
+					}
+					reshcg();
+				}
+	
+			});
+		}
+	}
 	$(document).ready(function() {
 		$(".datepicker").datepicker({
 			dateFormat : 'yyyy-mm-dd',
@@ -187,4 +175,4 @@
 		oTable.gridSearch(this, oSettings);
 	}
 </script>
-</html>
+<c:import url="/pages/include/pageFoot.jsp" />

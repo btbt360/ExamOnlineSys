@@ -1,76 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<c:import url="/pages/include/pageNavigation.jsp" />
 <%@page import="com.wide.constant.EnumDictType"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-<meta name="decorator" content="default"/>
-
-	<c:import url="/pages/include/pageNavigation.jsp" />
-</head>
-
-<script type="text/javascript">
-$(document).ready(function() {
-
-	
-	$(".datepicker").datepicker({
-		dateFormat : 'yyyy-mm-dd',
-		showButtonPanel : true,
-		changeMonth : true,
-		changeYear : true
-	});
-	
-	oTable = $('#dictList').initDT({
-		serverSide : true,
-		"sAjaxSource" : "${basepath}/dict/findlist"
-	});
-
-	$("#query").click(function() {
-		var dictname = $('#dictname').val();
-		var dicttype = $('#dicttype').val();
-		var starttimes = $('#starttimes').val();
-		var endtimes = $('#endtimes').val();
-		var oSettings = [ {
-			"name" : "dictname",
-			"value" : dictname
-		}, {
-			"name" : "dicttype",
-			"value" : dicttype
-		}, {
-			"name" : "starttimes",
-			"value" : starttimes
-		}, {
-			"name" : "endtimes",
-			"value" : endtimes
-		} ];
-		oTable.gridSearch(this, oSettings);
-	});
-
-	$('#ceatetimes').click(function() {
-		$('#starttimes').val('');
-	});
-	$('#ceatetimee').click(function() {
-		$('#endtimes').val('');
-	});
-});
-function updateSort() {
-	loading('正在提交，请稍等...');
-	$("#listForm").attr("action", "${ctx}/sys/menu/updateSort");
-	$("#listForm").submit();
-}
-
-		
-	
-</script>
-	
-<body>
-	
-
-	<div class="block" style="margin: 5%;">
+<%@ taglib prefix='fmt' uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<div class="block">
 			<div class="navbar navbar-inner block-header">
 			<div class="muted pull-left">
 				<ul class="breadcrumb">
@@ -158,8 +92,54 @@ function updateSort() {
 	</div>
 	</div>
 	</div>
-			
-		
+<script type="text/javascript">
+$(document).ready(function() {
 
-</body>
-</html>
+	
+	$(".datepicker").datepicker({
+		dateFormat : 'yyyy-mm-dd',
+		showButtonPanel : true,
+		changeMonth : true,
+		changeYear : true
+	});
+	
+	oTable = $('#dictList').initDT({
+		serverSide : true,
+		"sAjaxSource" : "${basepath}/dict/findlist"
+	});
+
+	$("#query").click(function() {
+		var dictname = $('#dictname').val();
+		var dicttype = $('#dicttype').val();
+		var starttimes = $('#starttimes').val();
+		var endtimes = $('#endtimes').val();
+		var oSettings = [ {
+			"name" : "dictname",
+			"value" : dictname
+		}, {
+			"name" : "dicttype",
+			"value" : dicttype
+		}, {
+			"name" : "starttimes",
+			"value" : starttimes
+		}, {
+			"name" : "endtimes",
+			"value" : endtimes
+		} ];
+		oTable.gridSearch(this, oSettings);
+	});
+
+	$('#ceatetimes').click(function() {
+		$('#starttimes').val('');
+	});
+	$('#ceatetimee').click(function() {
+		$('#endtimes').val('');
+	});
+});
+function updateSort() {
+	loading('正在提交，请稍等...');
+	$("#listForm").attr("action", "${ctx}/sys/menu/updateSort");
+	$("#listForm").submit();
+}
+</script>
+<c:import url="/pages/include/pageFoot.jsp" />

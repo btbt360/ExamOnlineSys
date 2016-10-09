@@ -1,131 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%
-	String baseURL = request.getContextPath();
-%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:import url="/pages/include/pageNavigation.jsp" />
-<script type="text/javascript">
-	
-	var userid = '${user.id}';
-	var settingoffice = {
-		check : {
-			enable : true,
-			chkStyle : "checkbox"
-		},
-		async : {
-			enable : true,
-			url : "${basepath}/office/getOfficeTree",
-			autoParam : [ "id", "name" ],
-			otherParam : {
-				"otherParam" : "zTreeAsyncTest",
-				"userid" : userid
-			},
-			dataFilter : filter
-		},
-		callback : {
-			onClick : zTreeOnClick,
-			onAsyncSuccess : onAsyncSuccesso
-		}
-	};
-
-	var treeNodez;
-
-	function filter(treeId, parentNode, childNodes) {
-		if (!childNodes)
-			return null;
-		for (var i = 0, l = childNodes.length; i < l; i++) {
-			childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
-		}
-		return childNodes;
-	}
-
-	function onAsyncSuccesso(event, treeId, treeNode, msg) {
-		var treeObj = $.fn.zTree.getZTreeObj("otree");
-		var nodes = treeObj.getNodesByParam("parentId", 0, null);
-		if (nodes.length > 0) {
-			treeObj.expandNode(nodes[0], true, false, false);
-		}
-	}
-
-	//机构树单击事件
-
-	function zTreeOnClick(event, treeId, treeNode) {
-		if (treeNode.nodetype == 1) {
-			treeNodez = treeNode.nodetype;
-
-		} else {
-			treeNodez = treeNode.nodetype;
-
-		}
-	}
-
-	function getAllCheckedNodeo() {
-		var treeObj = $.fn.zTree.getZTreeObj("otree");
-		var nodes = treeObj.getCheckedNodes(true);
-		var str = "";
-		var ids = "";
-		for (var i = 0; i < nodes.length; i++) {
-			str = str + nodes[i].name + "|";
-			ids = ids + nodes[i].id + "|";
-		}
-		$("#offids").val(ids);
-		$("#offnames").text(str);
-	}
-	$(document).ready(function() {
-		$.fn.zTree.init($("#otree"), settingoffice);
-		$("#editoff").click(function() {
-			$('#oModal').modal('show');
-		});
-		$("#oclosed").click(function() {
-			$('#oModal').modal('hide');
-		});
-		$("#saveoffice").click(function() {
-			$("#offnames").text("");
-			getAllCheckedNodeo();
-			$('#oModal').modal('hide');
-		});
-		$("#savebutton").click(function() {
-			var box = "";
-			$("input[id^='optionsCheckbox']").each(function(i) {
-
-				if ($(this).is(':checked')) {
-					box = box + $(this).val() + "|";
-				}
-			});
-			$("#roleids").val(box);
-			$("#userform").submit();
-		});
-		var jqObj = new JQvalidate();
-		var id = $('#nid').val();
- 	     var userform ="userform"; 
-     	jqObj.setform(userform);
- 	    jqObj.set("user.name", "required",  "请输入用户姓名!");
- 	    jqObj.set("user.loginName", "required",  "请输入登录名!");
- 	    if(id!=null&&id==0){
- 	    	  jqObj.set("user.loginName", "remote",  "登录名重复!");
- 	    }
- 	 
- 	    jqObj.set("user.email", "required",  "请输入用户邮箱!");  
- 	    jqObj.set("user.email", "email",  "请输入正确的用户邮箱!");	   
- 	    jqObj.set("user.mobile", "required",  "请输入用户手机!");
- 	    jqObj.set("user.mobile", "number",  "请输入正确的手机号!");
- 	    jqObj.set("user.mobile", "isMobile",  "请输入正确格式的手机号!");
- 	    jqObj.set("usertype", "required",  "请选择用户类型!");
- 	    jqObj.Run();
-
-	})
-</script>
-</head>
-<body>
-
 	<!-- block -->
-	<div class="block" style="margin: 5%;">
+	<div class="block" >
 		<div class="navbar navbar-inner block-header">
 			<div class="muted pull-left">
 				<ul class="breadcrumb">
@@ -237,7 +116,7 @@
 									<label class="uniform" for="optionsCheckbox_${status.index+1}">
 										<input class="uniform_on" type="checkbox"
 										id="optionsCheckbox_${status.index+1}" value="${role.id}"
-										<c:if test="${roleids.indexOf((role.id))!=-1}">checked</c:if> />${role.name}
+										<c:if test="${fn:indexOf(roleids,role.id)!=-1}">checked</c:if> />${role.name}
 										&nbsp;&nbsp;&nbsp;&nbsp;
 									</label>
 								</c:forEach>
@@ -280,7 +159,7 @@
 						<div class="form-actions">
 							<button type="button" class="btn btn-primary" id="savebutton">保存</button>
 							<input type="button" value="返回" class="btn"
-								onclick="javascript:window.location.href='<%=baseURL%>/user/add'">
+								onclick="javascript:window.location.href='${basepath}/user/add'">
 						</div>
 					</fieldset>
 				</form>
@@ -288,5 +167,115 @@
 			</div>
 		</div>
 	</div>
-</body>
-</html>
+<script type="text/javascript">
+	
+	var userid = '${user.id}';
+	var settingoffice = {
+		check : {
+			enable : true,
+			chkStyle : "checkbox"
+		},
+		async : {
+			enable : true,
+			url : "${basepath}/office/getOfficeTree",
+			autoParam : [ "id", "name" ],
+			otherParam : {
+				"otherParam" : "zTreeAsyncTest",
+				"userid" : userid
+			},
+			dataFilter : filter
+		},
+		callback : {
+			onClick : zTreeOnClick,
+			onAsyncSuccess : onAsyncSuccesso
+		}
+	};
+
+	var treeNodez;
+
+	function filter(treeId, parentNode, childNodes) {
+		if (!childNodes)
+			return null;
+		for (var i = 0, l = childNodes.length; i < l; i++) {
+			childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
+		}
+		return childNodes;
+	}
+
+	function onAsyncSuccesso(event, treeId, treeNode, msg) {
+		var treeObj = $.fn.zTree.getZTreeObj("otree");
+		var nodes = treeObj.getNodesByParam("parentId", 0, null);
+		if (nodes.length > 0) {
+			treeObj.expandNode(nodes[0], true, false, false);
+		}
+	}
+
+	//机构树单击事件
+
+	function zTreeOnClick(event, treeId, treeNode) {
+		if (treeNode.nodetype == 1) {
+			treeNodez = treeNode.nodetype;
+
+		} else {
+			treeNodez = treeNode.nodetype;
+
+		}
+	}
+
+	function getAllCheckedNodeo() {
+		var treeObj = $.fn.zTree.getZTreeObj("otree");
+		var nodes = treeObj.getCheckedNodes(true);
+		var str = "";
+		var ids = "";
+		for (var i = 0; i < nodes.length; i++) {
+			str = str + nodes[i].name + "|";
+			ids = ids + nodes[i].id + "|";
+		}
+		$("#offids").val(ids);
+		$("#offnames").text(str);
+	}
+	$(document).ready(function() {
+		$.fn.zTree.init($("#otree"), settingoffice);
+		$("#editoff").click(function() {
+			$('#oModal').modal('show');
+		});
+		$("#oclosed").click(function() {
+			$('#oModal').modal('hide');
+		});
+		$("#saveoffice").click(function() {
+			$("#offnames").text("");
+			getAllCheckedNodeo();
+			$('#oModal').modal('hide');
+		});
+		$("#savebutton").click(function() {
+			var box = "";
+			$("input[id^='optionsCheckbox']").each(function(i) {
+
+				if ($(this).is(':checked')) {
+					box = box + $(this).val() + "|";
+				}
+			});
+			$("#roleids").val(box);
+			$("#userform").submit();
+		});
+		var jqObj = new JQvalidate();
+		var id = $('#nid').val();
+ 	     var userform ="userform"; 
+     	jqObj.setform(userform);
+ 	    jqObj.set("user.name", "required",  "请输入用户姓名!");
+ 	    jqObj.set("user.loginName", "required",  "请输入登录名!");
+ 	    if(id!=null&&id==0){
+ 	    	  jqObj.set("user.loginName", "remote",  "登录名重复!");
+ 	    }
+ 	 
+ 	    jqObj.set("user.email", "required",  "请输入用户邮箱!");  
+ 	    jqObj.set("user.email", "email",  "请输入正确的用户邮箱!");	   
+ 	    jqObj.set("user.mobile", "required",  "请输入用户手机!");
+ 	    jqObj.set("user.mobile", "number",  "请输入正确的手机号!");
+ 	    jqObj.set("user.mobile", "isMobile",  "请输入正确格式的手机号!");
+ 	    jqObj.set("usertype", "required",  "请选择用户类型!");
+ 	    jqObj.Run();
+
+	})
+</script>
+<c:import url="/pages/include/pageFoot.jsp" />

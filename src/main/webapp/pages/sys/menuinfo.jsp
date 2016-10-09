@@ -1,119 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <c:import url="/pages/include/pageNavigation.jsp" />
-<script type="text/javascript">
-	var menuid = '${menu.parentId}';
-	var settingmenu = {
-		check : {
-			enable : true, //设置 zTree 的节点上是否显示 checkbox / radio
-			chkStyle : "radio", //设置为单选框
-			radioType : "all"
-		},
-		async : {
-			enable : true, //设置 zTree 是否开启异步加载模式
-			url : "${basepath}/menu/getMenuTree", //Ajax 获取数据的 URL 地址。
-			autoParam : [ "id", "name" ], //异步加载时需要自动提交父节点属性的参数。
-			otherParam : { //Ajax 请求提交的静态参数键值对。
-				"otherParam" : "zTreeAsyncTest",
-				"menuid" : menuid
-			},
-			dataFilter : filter
-		//用于对 Ajax 返回数据进行预处理的函数。
-		},
-		callback : {
-			onClick : zTreeOnClick, //用于捕获节点被点击的事件回调函数
-			onAsyncSuccess : onAsyncSuccesso
-		//用于捕获异步加载正常结束的事件回调函数
-		}
-	};
-
-	var treeNodez;
-
-	function filter(treeId, parentNode, childNodes) {
-		if (!childNodes)
-			return null;
-		for (var i = 0, l = childNodes.length; i < l; i++) {
-			childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
-		}
-		return childNodes;
-	}
-
-	function onAsyncSuccesso(event, treeId, treeNode, msg) {
-		var treeObj = $.fn.zTree.getZTreeObj("otree");
-		var nodes = treeObj.getNodesByParam("parentId", 0, null);
-		if (nodes.length > 0) {
-			treeObj.expandNode(nodes[0], true, false, false);
-		}
-	}
-
-	//机构树单击事件
-
-	function zTreeOnClick(event, treeId, treeNode) {
-		if (treeNode.nodetype == 1) {
-			treeNodez = treeNode.nodetype;
-
-		} else {
-			treeNodez = treeNode.nodetype;
-
-		}
-	}
-
-	function getAllCheckedNodeo() {
-		var treeObj = $.fn.zTree.getZTreeObj("otree");
-		var nodes = treeObj.getCheckedNodes(true);
-		var str = "";
-		var ids = "";
-		for (var i = 0; i < nodes.length; i++) {
-			str = str + nodes[i].name;
-			ids = ids + nodes[i].id;
-		}
-		$("#menuids").val(ids);
-		$("#menunames").val(str);
-	}
-	$(document).ready(function() {
-		$.fn.zTree.init($("#otree"), settingmenu);
-		$("#edithigh").click(function() {
-			$('#oModal').modal('show');
-		});
-		$("#oclosed").click(function() {
-			$('#oModal').modal('hide');
-		});
-		$("#savemenu").click(function() {
-			$("#menunames").text("");
-			getAllCheckedNodeo();
-			$('#oModal').modal('hide');
-		});
-		$("#savebutton").click(function() {
-			var box = "";
-			$("input[id^='optionsCheckbox_']").each(function(i) {
-				box = box + $(this).val() + "|";
-			});
-			$("#menuids").val(box);
-			$("#menuform").submit();
-		});
-		
-		var jqObj = new JQvalidate();
- 	    var menuform ="menuform"; 
-     	jqObj.setform(menuform);
- 	    jqObj.set("menu.name", "required",  "请填写菜单名称!");
- 	    jqObj.set("menu.href", "required",  "请填写链接地址!");
- 	    //jqObj.set("menu.href", "url",  "请填写正确的链接地址!");    
- 	    jqObj.set("menu.permission", "required",  "请填写权限标识!"); 
- 	    jqObj.Run();
-		
-	})
-</script>
-</head>
-<body>
-
-	<!-- block -->
-	<div class="block" style="margin: 5%;">
+<!-- block -->
+	<div class="block">
 		<div class="navbar navbar-inner block-header">
 			<div class="muted pull-left">
 				<ul class="breadcrumb">
@@ -218,5 +108,106 @@
 			</div>
 		</div>
 	</div>
-</body>
-</html>
+<script type="text/javascript">
+	var menuid = '${menu.parentId}';
+	var settingmenu = {
+		check : {
+			enable : true, //设置 zTree 的节点上是否显示 checkbox / radio
+			chkStyle : "radio", //设置为单选框
+			radioType : "all"
+		},
+		async : {
+			enable : true, //设置 zTree 是否开启异步加载模式
+			url : "${basepath}/menu/getMenuTree", //Ajax 获取数据的 URL 地址。
+			autoParam : [ "id", "name" ], //异步加载时需要自动提交父节点属性的参数。
+			otherParam : { //Ajax 请求提交的静态参数键值对。
+				"otherParam" : "zTreeAsyncTest",
+				"menuid" : menuid
+			},
+			dataFilter : filter
+		//用于对 Ajax 返回数据进行预处理的函数。
+		},
+		callback : {
+			onClick : zTreeOnClick, //用于捕获节点被点击的事件回调函数
+			onAsyncSuccess : onAsyncSuccesso
+		//用于捕获异步加载正常结束的事件回调函数
+		}
+	};
+
+	var treeNodez;
+
+	function filter(treeId, parentNode, childNodes) {
+		if (!childNodes)
+			return null;
+		for (var i = 0, l = childNodes.length; i < l; i++) {
+			childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
+		}
+		return childNodes;
+	}
+
+	function onAsyncSuccesso(event, treeId, treeNode, msg) {
+		var treeObj = $.fn.zTree.getZTreeObj("otree");
+		var nodes = treeObj.getNodesByParam("parentId", 0, null);
+		if (nodes.length > 0) {
+			treeObj.expandNode(nodes[0], true, false, false);
+		}
+	}
+
+	//机构树单击事件
+
+	function zTreeOnClick(event, treeId, treeNode) {
+		if (treeNode.nodetype == 1) {
+			treeNodez = treeNode.nodetype;
+
+		} else {
+			treeNodez = treeNode.nodetype;
+
+		}
+	}
+
+	function getAllCheckedNodeo() {
+		var treeObj = $.fn.zTree.getZTreeObj("otree");
+		var nodes = treeObj.getCheckedNodes(true);
+		var str = "";
+		var ids = "";
+		for (var i = 0; i < nodes.length; i++) {
+			str = str + nodes[i].name;
+			ids = ids + nodes[i].id;
+		}
+		$("#menuids").val(ids);
+		$("#menunames").val(str);
+	}
+	$(document).ready(function() {
+		$.fn.zTree.init($("#otree"), settingmenu);
+		$("#edithigh").click(function() {
+			$('#oModal').modal('show');
+		});
+		$("#oclosed").click(function() {
+			$('#oModal').modal('hide');
+		});
+		$("#savemenu").click(function() {
+			$("#menunames").text("");
+			getAllCheckedNodeo();
+			$('#oModal').modal('hide');
+		});
+		$("#savebutton").click(function() {
+			var box = "";
+			$("input[id^='optionsCheckbox_']").each(function(i) {
+				box = box + $(this).val() + "|";
+			});
+			$("#menuids").val(box);
+			$("#menuform").submit();
+		});
+		
+		var jqObj = new JQvalidate();
+ 	    var menuform ="menuform"; 
+     	jqObj.setform(menuform);
+ 	    jqObj.set("menu.name", "required",  "请填写菜单名称!");
+ 	    jqObj.set("menu.href", "required",  "请填写链接地址!");
+ 	    //jqObj.set("menu.href", "url",  "请填写正确的链接地址!");    
+ 	    jqObj.set("menu.permission", "required",  "请填写权限标识!"); 
+ 	    jqObj.Run();
+		
+	})
+</script>
+<c:import url="/pages/include/pageFoot.jsp" />

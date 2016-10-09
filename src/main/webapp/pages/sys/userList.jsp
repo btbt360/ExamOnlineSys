@@ -1,66 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <c:import url="/pages/include/pageNavigation.jsp" />
-<script type="text/javascript">
-	function edit(ids) {
-		location.href = "${basepath}/user/adduserinfo?id=" + ids;
-	}
-	function reset(ids){
-		if(confirm("确定要重置该用户密码？重置后的密码是6个1")){
-			$.ajax({
-				type : 'post',
-				url : '${basepath}/user/resetpassword?id=' + ids,
-				cache : false,
-				dataType : 'json',
-				success : function(data) {
-					if (data == '1') {
-						$("#successmessage").hide();
-						$("#errormessage").show();
-						$("#messageee").text("重置失败，请联系管理员！");
-					} else {
-						$("#errormessage").hide();
-						$("#successmessage").show();
-						$("#messagess").text("重置成功！");
-					}
-					reshcg();
-				}
-			});
-		}
-	}
-	
-	function del(ids) {
-		if (confirm("确定要删除该用户？")) {
-			$.ajax({
-				type : 'post',
-				url : '${basepath}/user/deluserinfo?id=' + ids,
-				cache : false,
-				dataType : 'json',
-				success : function(data) {
-					if (data == '1') {
-						$("#successmessage").hide();
-						$("#errormessage").show();
-						$("#messageee").text("删除失败，请联系管理员！");
-					} else {
-						$("#errormessage").hide();
-						$("#successmessage").show();
-						$("#messagess").text("删除成功！");
-					}
-					reshcg();
-				}
-			});
-		}
-	}
-</script>
-</head>
-<body>
 	<!-- block -->
-	<div class="block" style="margin: 5%;">
+	<div class="block">
 		<div class="navbar navbar-inner block-header">
 			<div class="muted pull-left">
 				<ul class="breadcrumb">
@@ -98,31 +41,31 @@
 					<form action="${basepath}/user/exportUser" method="post"
 						id="userform">
 						<div class="span12">
-							<div class="span3">
-								<label class="control-label" for="username">用户姓名：</label> <input
+							<div class="span4">
+								<label class="control-label" for="username">用户姓名：<input
 									class="input-medium focused" id="username" name="username"
-									type="text" />
+									type="text" /></label> 
 							</div>
-							<div class="span3">
-								<label class="control-label" for="usertype">用户类型：</label> <select
+							<div class="span4">
+								<label class="control-label" for="usertype">用户类型：<select
 									class="span6 m-wrap" id="usertype" name="usertype">
 									<option value="">--全部--</option>
 									<c:forEach items="${listdict}" var="dict">
 										<option value="${dict.dictkey}">${dict.dictvalue}</option>
 									</c:forEach>
-								</select>
+								</select></label> 
 							</div>
-							
-						</div>
-						<input type="hidden" id="userpages" name="userpages" /><input
-							type="hidden" id="userrp" name="userrp" />
-					</form>
-					<div class="span12 text-right" style="padding-right: 7%;">
+							<div class="span4 text-right" >
 						<button class="btn btn-medium btn-primary" type="button"
 							id="query">查询</button>
 						<button class="btn btn-medium btn-primary" type="button"
 							id="export">导出</button>
 					</div>
+						</div>
+						<input type="hidden" id="userpages" name="userpages" /><input
+							type="hidden" id="userrp" name="userrp" />
+					</form>
+					
 					<table id="userList" class="table table-striped table-bordered">
 						<thead>
 							<tr>
@@ -145,6 +88,54 @@
 	</div>
 </body>
 <script type="text/javascript">
+function edit(ids) {
+	location.href = "${basepath}/user/adduserinfo?id=" + ids;
+}
+function reset(ids){
+	if(confirm("确定要重置该用户密码？重置后的密码是6个1")){
+		$.ajax({
+			type : 'post',
+			url : '${basepath}/user/resetpassword?id=' + ids,
+			cache : false,
+			dataType : 'json',
+			success : function(data) {
+				if (data == '1') {
+					$("#successmessage").hide();
+					$("#errormessage").show();
+					$("#messageee").text("重置失败，请联系管理员！");
+				} else {
+					$("#errormessage").hide();
+					$("#successmessage").show();
+					$("#messagess").text("重置成功！");
+				}
+				reshcg();
+			}
+		});
+	}
+}
+
+function del(ids) {
+	if (confirm("确定要删除该用户？")) {
+		$.ajax({
+			type : 'post',
+			url : '${basepath}/user/deluserinfo?id=' + ids,
+			cache : false,
+			dataType : 'json',
+			success : function(data) {
+				if (data == '1') {
+					$("#successmessage").hide();
+					$("#errormessage").show();
+					$("#messageee").text("删除失败，请联系管理员！");
+				} else {
+					$("#errormessage").hide();
+					$("#successmessage").show();
+					$("#messagess").text("删除成功！");
+				}
+				reshcg();
+			}
+		});
+	}
+}
 	$(document).ready(function() {
 		$(".datepicker").datepicker({
 			dateFormat : 'yyyy-mm-dd',
@@ -196,4 +187,4 @@
 		oTable.gridSearch(this, oSettings);
 	}
 </script>
-</html>
+<c:import url="/pages/include/pageFoot.jsp" />

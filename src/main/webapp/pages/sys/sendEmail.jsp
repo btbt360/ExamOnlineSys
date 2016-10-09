@@ -1,69 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <c:import url="/pages/include/pageNavigationFile.jsp" />
-<script type="text/javascript">
-	$(document).ready(function() {
-		var editor = null;
-		$("#successmessage").hide();
-		$("#errormessage").hide();
-		editor = CKEDITOR.replace('content'); //参数‘content’是textarea元素的name属性值，而非id属性值
-	});
-
-	function sendemail() {
-		alert($("#content").val());
-		var mail = {
-			toMail : $("#toMail").val(),
-			ccMail : $("#ccMail").val(),
-			subject : $("#subject").val(),
-			content : $("#content").val()
-		};
-
-		if (confirm("确定发送邮件？")) {
-			$.ajax({
-				type : 'post',
-				url : '${basepath}/file/sendmail',
-				data : mail,
-				cache : false,
-				dataType : 'json',
-				success : function(data) {
-					if (data == '1') {
-						$("#successmessage").hide();
-						$("#errormessage").show();
-						$("#messageee").text("发送失败！");
-					} else {
-						$("#errormessage").hide();
-						$("#successmessage").show();
-						$("#messagess").text("发送成功！");
-					}
-					reshcg();
-				}
-			});
-		}
-	}
-	//使用input框打开ckfinder
-	function BrowseServer(inputId) {
-		var finder = new CKFinder();
-		finder.basePath = '${basepath}/ckfinder'; //导入CKFinder的路径 
-		finder.selectActionFunction = SetFileField; //设置文件被选中时的函数 
-		finder.selectActionData = inputId; //接收地址的input ID 
-		finder.popup();
-	}
-	//文件选中时执行 
-	function SetFileField(fileUrl, data) {
-		document.getElementById(data["selectActionData"]).value = fileUrl;
-	}
-</script>
-</head>
-<body>
-
 	<!-- block -->
-	<div class="block" style="margin: 5%;">
+	<div class="block">
 	<div class="navbar navbar-inner block-header">
 			<div class="muted pull-left">
 				<ul class="breadcrumb">
@@ -139,6 +79,56 @@
 			</div>
 		</div>
 	</div>
-</body>
+<script type="text/javascript">
+	$(document).ready(function() {
+		var editor = null;
+		$("#successmessage").hide();
+		$("#errormessage").hide();
+		editor = CKEDITOR.replace('content'); //参数‘content’是textarea元素的name属性值，而非id属性值
+	});
 
-</html>
+	function sendemail() {
+		alert($("#content").val());
+		var mail = {
+			toMail : $("#toMail").val(),
+			ccMail : $("#ccMail").val(),
+			subject : $("#subject").val(),
+			content : $("#content").val()
+		};
+
+		if (confirm("确定发送邮件？")) {
+			$.ajax({
+				type : 'post',
+				url : '${basepath}/file/sendmail',
+				data : mail,
+				cache : false,
+				dataType : 'json',
+				success : function(data) {
+					if (data == '1') {
+						$("#successmessage").hide();
+						$("#errormessage").show();
+						$("#messageee").text("发送失败！");
+					} else {
+						$("#errormessage").hide();
+						$("#successmessage").show();
+						$("#messagess").text("发送成功！");
+					}
+					reshcg();
+				}
+			});
+		}
+	}
+	//使用input框打开ckfinder
+	function BrowseServer(inputId) {
+		var finder = new CKFinder();
+		finder.basePath = '${basepath}/ckfinder'; //导入CKFinder的路径 
+		finder.selectActionFunction = SetFileField; //设置文件被选中时的函数 
+		finder.selectActionData = inputId; //接收地址的input ID 
+		finder.popup();
+	}
+	//文件选中时执行 
+	function SetFileField(fileUrl, data) {
+		document.getElementById(data["selectActionData"]).value = fileUrl;
+	}
+</script>
+<c:import url="/pages/include/pageFoot.jsp" />

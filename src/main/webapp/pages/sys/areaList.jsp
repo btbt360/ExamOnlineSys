@@ -1,17 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>地区列表</title>
-<meta name="decorator" content="default" />
-
-</head>
-<body>
-	<c:import url="/pages/include/pageNavigation.jsp" />
-	<div class="block" style="margin: 5%;">
+<c:import url="/pages/include/pageNavigation.jsp" />
+	<div class="block">
 		<div class="navbar navbar-inner block-header">
 			<div class="muted pull-left">
 				<ul class="breadcrumb">
@@ -50,24 +41,21 @@
 					<li><a href="${basepath}/area/addareainfo">地区添加</a></li>
 				</ul>
 			<form action="${basepath}/area/add" method="post">
-				<div class="span12">
+				<div class="span12" style="text-align: center;">
 					<div class="span3">
-						<label class="control-label" for="areaname">地区名：</label> <input
+						<label class="control-label" for="areaname">地区名：<input
 							class="input-medium focused" id="areaname" name="areaname"
-							type="text" value = "${areaname}" />
+							type="text" value = "${areaname}" /></label> 
 					</div>
 					<div class="span3">
-						<label class="control-label" for="areatype">区域类型：</label> <select
+						<label class="control-label" for="areatype">区域类型：<select
 							class="span6 m-wrap" id="areatype" name="areatype">
 							<option value="">--全部--</option>
 							<c:forEach items="${listdict}" var="dict">
 								<option value="${dict.dictkey}" <c:if test="${areatype==dict.dictkey}">selected</c:if>>${dict.dictvalue}</option>
 							</c:forEach>
-						</select>
+						</select></label> 
 					</div>
-					
-				</div>
-				<div class="span12 text-right" style="padding-right: 7%;">
 					<button class="btn btn-medium btn-primary" type="submit" id="query">查询</button>
 				</div>
 			</form>
@@ -102,7 +90,6 @@
 			</div>
 		</div>
 	</div>
-</body>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#treeTable").treeTable({
@@ -123,4 +110,4 @@
 	});
 
 </script>
-</html>
+<c:import url="/pages/include/pageFoot.jsp" />

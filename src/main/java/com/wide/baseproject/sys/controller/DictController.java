@@ -49,7 +49,7 @@ public class DictController extends Controller {
 	/**
 	 * 跳转列表页
 	 */
-	@RequiresPermissions("dict:add")
+	//@RequiresPermissions("dict:add")
 	public void add() {
 		render("dictlist.jsp");
 

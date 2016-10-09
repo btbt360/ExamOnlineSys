@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
       <script src="${basepath}/static/js/html5.js"></script>
@@ -61,4 +62,5 @@
 <script src="${basepath}/static/frame/theme/vendors/flot/jquery.flot.time.js"></script>
 <script src="${basepath}/static/frame/theme/vendors/flot/jquery.flot.stack.js"></script>
 <script src="${basepath}/static/frame/theme/vendors/flot/jquery.flot.resize.js"></script>
+
 

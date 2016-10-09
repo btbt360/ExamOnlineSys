@@ -1,35 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
 <c:import url="/pages/include/pageNavigation.jsp" />
-<script type="text/javascript">
-	
-
-	$(document).ready(function() {
-	
-		var jqObj = new JQvalidate();
- 	     var userform ="userinfoform"; 
-     	jqObj.setform(userform);
- 	   
- 	    jqObj.set("user.email", "required",  "请输入用户邮箱!");  
- 	    jqObj.set("user.email", "email",  "请输入正确的用户邮箱!");	   
- 	    jqObj.set("user.mobile", "required",  "请输入用户手机!");
- 	    jqObj.set("user.mobile", "number",  "请输入正确的手机号!");
- 	    jqObj.set("user.mobile", "isMobile",  "请输入正确格式的手机号!");
-	    
- 	    jqObj.Run();
-
-	})
-</script>
-</head>
-<body>
-	<!-- block -->
-	<div class="block" style="margin: 5%;">
+	<div class="block" >
 		<div class="navbar navbar-inner block-header">
 			<div class="muted pull-left">
 				<ul class="breadcrumb">
@@ -109,5 +82,17 @@
 			</div>
 		</div>
 	</div>
-</body>
-</html>
+<script type="text/javascript">
+$(document).ready(function() {
+		var jqObj = new JQvalidate();
+ 	     var userform ="userinfoform"; 
+     	jqObj.setform(userform);
+ 	    jqObj.set("user.email", "required",  "请输入用户邮箱!");  
+ 	    jqObj.set("user.email", "email",  "请输入正确的用户邮箱!");	   
+ 	    jqObj.set("user.mobile", "required",  "请输入用户手机!");
+ 	    jqObj.set("user.mobile", "number",  "请输入正确的手机号!");
+ 	    jqObj.set("user.mobile", "isMobile",  "请输入正确格式的手机号!");
+ 	    jqObj.Run();
+	})
+</script>
+<c:import url="/pages/include/pageFoot.jsp" />

@@ -1,45 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@page import="com.wide.constant.EnumDictType"%>
-<%
-	String baseURL=request.getContextPath();
-%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <c:import url="/pages/include/pageNavigation.jsp" />
-<title>Insert title here</title>
-<script type="text/JavaScript">
-        function gradeChange(s){       
-         var typeval = $("#"+s).val();      
-         var typename = $("#"+s).find("option:selected").text(); 
-         $("#hidTypeInfo").val(typename);
-         $("#hidType").val(typeval);      
-        }
-        $().ready(function() {
-        	var jqObj = new JQvalidate();
-        	 var dict ="dict"; 
-         var id = $('#did').val();
-        	jqObj.setform(dict);
-        	jqObj.set("dict.dictvalue", "required",  "请输入数据字典名称!");
-        	jqObj.set("dict.dictkey", "required",  "请输入数据字典键值!");
-        	if(id!=null&id==0){
-        		jqObj.set("dict.dictkey", "remote",  "数据字典键值重复!");
-        	 } 
-        	jqObj.set("dict.type", "required",  "请选择数据字典类型!");  
-        	jqObj.set("dict.type", "remote",  "数据字典重复!");
-        	jqObj.Run();
-        
-        });
- </script>
-
-</head>
-<body>
-
+<%@page import="com.wide.constant.EnumDictType"%>
 	<!-- block -->
-	<div class="block" style="margin: 5%;">
+	<div class="block">
 		<div class="navbar navbar-inner block-header">
 			<div class="muted pull-left">
 				<ul class="breadcrumb">
@@ -123,7 +88,7 @@
 						</div>						
 						     <div class="form-actions">
 							<button type="submit" class="btn btn-primary">保存</button>
-							<input type="button" value="返回"   class="btn"  onclick="javascript:window.location.href='<%=baseURL%>/dict/add'" >
+							<input type="button" value="返回"   class="btn"  onclick="javascript:window.location.href='${basepath}/dict/add'" >
 						</div>				      								
 						</fieldset>	
 				
@@ -132,5 +97,27 @@
 			</div>
 		</div>
 	</div>
-</body>
-</html>
+<script type="text/JavaScript">
+        function gradeChange(s){       
+         var typeval = $("#"+s).val();      
+         var typename = $("#"+s).find("option:selected").text(); 
+         $("#hidTypeInfo").val(typename);
+         $("#hidType").val(typeval);      
+        }
+        $().ready(function() {
+        	var jqObj = new JQvalidate();
+        	 var dict ="dict"; 
+         var id = $('#did').val();
+        	jqObj.setform(dict);
+        	jqObj.set("dict.dictvalue", "required",  "请输入数据字典名称!");
+        	jqObj.set("dict.dictkey", "required",  "请输入数据字典键值!");
+        	if(id!=null&id==0){
+        		jqObj.set("dict.dictkey", "remote",  "数据字典键值重复!");
+        	 } 
+        	jqObj.set("dict.type", "required",  "请选择数据字典类型!");  
+        	jqObj.set("dict.type", "remote",  "数据字典重复!");
+        	jqObj.Run();
+        
+        });
+ </script>
+ <c:import url="/pages/include/pageFoot.jsp" />
