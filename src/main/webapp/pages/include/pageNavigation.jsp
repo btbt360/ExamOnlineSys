@@ -8,7 +8,7 @@
 <title>在线考试系统</title>
 </head>
 <c:import url="/pages/include/pageHead.jsp" />
-<body >
+<body>
 	<div class="navbar navbar-fixed-top" >
             <div class="navbar-inner" >
                 <div class="container-fluid">
@@ -30,7 +30,7 @@
                                     </li>
                                     <li class="divider"></li>
                                     <li>
-                                        <a tabindex="-1" href="${basepath}/delSession">注销</a>
+                                        <a tabindex="-1" href="${basepath}/logout">注销</a>
                                     </li>
                                 </ul>
                             </li>

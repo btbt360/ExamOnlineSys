@@ -35,7 +35,7 @@
 						<div class="control-group">
 							<label class="control-label" for="">新密码：</label>
 							<div class="controls">
-								<input class="input-xlarge focused" id="password" name="user.password"
+								<input class="input-xlarge focused" id="password" name="password"
 									type="password" placeholder="请输入您的新密码！"  ><span class="help-inline" id="newpass" style="color: red;"></span>
 							</div>
 						</div>

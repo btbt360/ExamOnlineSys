@@ -3,6 +3,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -16,6 +18,7 @@ import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
 import com.jfinal.aop.Enhancer;
 import com.jfinal.core.Controller;
+import com.jfinal.plugin.activerecord.Db;
 import com.wide.baseproject.sys.service.LoginService;
 import com.wide.baseproject.sys.service.MenuService;
 import com.wide.baseproject.sys.service.OfficeService;
@@ -84,6 +87,9 @@ public class LoginController extends Controller {
             subject.login(token);
             //获取当前用户，并将当前用户保存在Session中。
             User user = User.dao.findByUsername(token.getUsername());
+            if(user!=null&&!user.equals("")){
+            	Db.update("update sys_user set isonline = 1 where id = '"+user.getId()+"'");
+	   		 }
             vuser.setUser(user);
 			Map<String,String> rolenamemap = roleService.getRoleByuserID(user.getId());
 			List<Menu> mlist = menuService.getMenuByuserID(user.getId());
@@ -95,7 +101,7 @@ public class LoginController extends Controller {
 			setSessionAttr("userToken", userToken);
             //调转到主页面
             setAttr("user",user);
-            redirect("/user/addInfo");
+            redirect("/user/mainindex");
             
         } catch (IncorrectCaptchaException e) {
         	LOG.error(e.getMessage());
@@ -122,7 +128,12 @@ public class LoginController extends Controller {
     @RequiresAuthentication
     public void logout() {
         Subject currentUser = SecurityUtils.getSubject();
-        try {
+        try { 
+        	 HttpSession session = getSession();
+	   		 UserToken ut = (UserToken) session.getAttribute("userToken");
+	   		 if(ut!=null&&!ut.equals("")){
+	   			 Db.update("update sys_user set isonline = 0 where id = ?",ut.getVuser().getUser().getId());
+	   		 }
         	removeSessionAttr("UserToken"); 
             currentUser.logout();
             render(LOGIN_URL);
@@ -132,7 +143,18 @@ public class LoginController extends Controller {
             LOG.debug("登出发生错误", e);
         }
     }
-	
+    /**
+	 * 关闭浏览器
+	 */
+    @Clear
+	public void closeout(){
+		 HttpSession session = getSession();
+   		 UserToken ut = (UserToken) session.getAttribute("userToken");
+   		 if(ut!=null&&!ut.equals("")){
+   			 Db.update("update sys_user set isonline = 0 where id = ?",ut.getVuser().getUser().getId());
+   		 }
+   		 renderJson();
+	}
 	
 	/**
 	 * 用户登录验证用户名和密码，结果返回登录页面  1 未填写  2密码或用户名错误  0正常

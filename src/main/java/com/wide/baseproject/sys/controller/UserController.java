@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.shiro.crypto.hash.Sha256Hash;
+
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
 import com.jfinal.aop.Enhancer;
@@ -133,8 +135,6 @@ public class UserController extends Controller {
 		ut.getVuser().setUser(userService.getUser(ut.getVuser().getUser()));
 		setAttr("userToken", ut);
 		String mark = getPara("message");
-		
-		
 		setAttr("message", mark);
 		render("main.jsp");
 	}
@@ -161,8 +161,11 @@ public class UserController extends Controller {
 	 * @author cg 更新密码
 	 */
 	public void updatepass() {	
-		getModel(User.class).update();		
-		logService.saveLog(EnumOptType.password.getEnumKey(), EnumFuncType.user.getEnumKey(), userService.getUser(getCurrentUserToken().getVuser().getUser())); //用户密码修改日志保存
+		String password = getPara("password");
+		User user=getCurrentUserToken().getVuser().getUser();
+		user.setPassword(new Sha256Hash(password, user.getLoginName(), 1024).toBase64());
+		user.update();
+		logService.saveLog(EnumOptType.password.getEnumKey(), EnumFuncType.user.getEnumKey(), userService.getUser(user)); //用户密码修改日志保存
 		redirect("/user/addpass?message=success", true);
 	}
 
@@ -170,10 +173,10 @@ public class UserController extends Controller {
 	 * @author cg 验证密码
 	 */
 	public void checkpass() {
-		String pass = getPara("oldpassword");
 		HttpSession session = getSession();
 		UserToken ut = (UserToken) session.getAttribute("userToken");
 		User user = userService.getUser(ut.getVuser().getUser());
+		String pass = new Sha256Hash(getPara("oldpassword")+"", user.getLoginName(), 1024).toBase64();
 		renderJson(pass.equals(user.getPassword()) ? 1 : 2);// 1输入正确、2输入错误
 	}
 

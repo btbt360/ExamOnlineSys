@@ -94,7 +94,7 @@ public class MenuService {
 		List<Menu> menulist = new ArrayList<Menu>();
 		menulist = Menu.dao.find(
 				"select DISTINCT t5.* from `sys_user_role` t1,`sys_role` t2,`sys_role_right` t3,`sys_right` t4,`sys_menu` t5 "
-						+ " where t1.`role_id` = t2.id and t2.id = t3.`role_id` and t3.`right_id` = t4.id and t4.`resourcesid` = t5.id and t1.`user_id` = ?",
+						+ " where t1.`role_id` = t2.id and t2.id = t3.`role_id` and t3.`right_id` = t4.id and t4.`resourcesid` = t5.id and t1.`user_id` = ? order by t5.sort asc",
 				id);
 		return menulist;
 	}

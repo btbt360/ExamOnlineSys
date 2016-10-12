@@ -40,7 +40,7 @@ public class User extends BaseUser<User> {
 	 */
 	public DataTablesModel pageDataTables(int pageNum, int pageSize, QueryUser queryUser) {
 	    final List<Object> parameters = new ArrayList<Object>();
-	    String select = "select id,name,login_name,email,mobile,user_type,login_flag ";
+	    String select = "select id,name,login_name,email,mobile,user_type,login_flag,isonline ";
 	    StringBuilder sqlExceptSelect = new StringBuilder(" from sys_user  ");
 	    /**
 	    if (search!=null&&!search.equals("")) {

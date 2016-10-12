@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.shiro.crypto.hash.Sha256Hash;
+
 import com.wide.common.model.Dict;
 import com.wide.common.model.OfficeUser;
 import com.wide.common.model.Right;
@@ -63,8 +65,9 @@ public class UserService {
 					List<String> row = rows.get(i);
 					String usertype = row.get(5) + "";// 需要从数据字典中查询
 					String typename=Dict.dao.getDictByKeyType(usertype,"1003");
-					row.set(5, Integer.parseInt((row.get(6) + "")) == 1 ? "启用" : "禁用");
-					row.set(6, "<a href ='#' onclick=edit('" + row.get(0).trim()
+					row.set(5, Integer.parseInt((row.get(6) + "")) == 1 ? "<font color='#00ff66'>启用</font>" : "<font color='#C9C9C9'>禁用</font>");
+					row.set(6, Integer.parseInt((row.get(7) + "")) == 1 ? "<font color='#00ff66'>在线</font>" : "<font color='#C9C9C9'>离线</font>");
+					row.set(7, "<a href ='#' onclick=edit('" + row.get(0).trim()
 							+ "') >修改</a> | <a href='#' onclick=del('" + row.get(0).trim() + "') >删除</a>|" +"<a href='#' onclick=reset('" + row.get(0).trim() + "') >重置密码</a>"  );
 					row.set(0, row.get(1));
 					row.set(1, row.get(2));
@@ -107,7 +110,7 @@ public class UserService {
 			vu.getUser().setId(ids);
 			vu.getUser().setCreateBy(createuser.getId());
 			vu.getUser().setCreateDate(new Date());
-			vu.getUser().setPassword("111111");
+			vu.getUser().setPassword(new Sha256Hash("111111", vu.getUser().getLoginName(), 1024).toBase64());
 			vu.getUser().setNo("000000");
 			vu.getUser().setDelFlag("0");
 			vu.getUser().save();

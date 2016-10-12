@@ -2,22 +2,21 @@ SET SESSION FOREIGN_KEY_CHECKS=0;
 
 /* Drop Tables */
 
-DROP TABLE IF EXISTS ex_case;
-DROP TABLE IF EXISTS ex_error;
-DROP TABLE IF EXISTS ex_exam_answer;
-DROP TABLE IF EXISTS ex_examinee;
-DROP TABLE IF EXISTS ex_exampapers_qtypes;
-DROP TABLE IF EXISTS ex_exampapers_question;
-DROP TABLE IF EXISTS ex_exampapers;
-DROP TABLE IF EXISTS ex_exam;
-DROP TABLE IF EXISTS ex_exercise_question;
-DROP TABLE IF EXISTS ex_exercise;
-DROP TABLE IF EXISTS ex_questionoptions;
-DROP TABLE IF EXISTS ex_questions;
-DROP TABLE IF EXISTS ex_itembank;
-DROP TABLE IF EXISTS ex_textbook;
-DROP TABLE IF EXISTS ex_subject;
-DROP TABLE IF EXISTS sys_user;
+DROP TABLE IF EXISTS sys_case;
+DROP TABLE IF EXISTS sys_error;
+DROP TABLE IF EXISTS sys_exam_answer;
+DROP TABLE IF EXISTS sys_examinee;
+DROP TABLE IF EXISTS sys_exampapers_qtypes;
+DROP TABLE IF EXISTS sys_exampapers_question;
+DROP TABLE IF EXISTS sys_exampapers;
+DROP TABLE IF EXISTS sys_exam;
+DROP TABLE IF EXISTS sys_exercise_question;
+DROP TABLE IF EXISTS sys_exercise;
+DROP TABLE IF EXISTS sys_questionoptions;
+DROP TABLE IF EXISTS sys_questions;
+DROP TABLE IF EXISTS sys_itembank;
+DROP TABLE IF EXISTS sys_textbook;
+DROP TABLE IF EXISTS sys_subject;
 
 
 
@@ -25,7 +24,7 @@ DROP TABLE IF EXISTS sys_user;
 /* Create Tables */
 
 -- 案例表
-CREATE TABLE ex_case
+CREATE TABLE sys_case
 (
 	-- 唯一编码
 	id varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
@@ -56,7 +55,7 @@ CREATE TABLE ex_case
 
 
 -- 错题表
-CREATE TABLE ex_error
+CREATE TABLE sys_error
 (
 	-- 唯一编码
 	id varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
@@ -87,7 +86,7 @@ CREATE TABLE ex_error
 
 
 -- 考试表
-CREATE TABLE ex_exam
+CREATE TABLE sys_exam
 (
 	-- 唯一编码
 	id varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
@@ -136,7 +135,7 @@ CREATE TABLE ex_exam
 
 
 -- 考生表
-CREATE TABLE ex_examinee
+CREATE TABLE sys_examinee
 (
 	-- 唯一编码
 	id varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
@@ -188,7 +187,7 @@ CREATE TABLE ex_examinee
 
 
 -- 试卷表
-CREATE TABLE ex_exampapers
+CREATE TABLE sys_exampapers
 (
 	-- 唯一编码
 	id varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
@@ -223,7 +222,7 @@ CREATE TABLE ex_exampapers
 
 
 -- 试卷题型表
-CREATE TABLE ex_exampapers_qtypes
+CREATE TABLE sys_exampapers_qtypes
 (
 	-- 唯一编码
 	id varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
@@ -239,7 +238,7 @@ CREATE TABLE ex_exampapers_qtypes
 
 
 -- 试卷试题对照表
-CREATE TABLE ex_exampapers_question
+CREATE TABLE sys_exampapers_question
 (
 	-- 唯一编码
 	id varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
@@ -256,7 +255,7 @@ CREATE TABLE ex_exampapers_question
 
 
 -- 考生试卷答案表
-CREATE TABLE ex_exam_answer
+CREATE TABLE sys_exam_answer
 (
 	-- 唯一编码
 	id varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
@@ -299,7 +298,7 @@ CREATE TABLE ex_exam_answer
 
 
 -- 练习表 : 练习表
-CREATE TABLE ex_exercise
+CREATE TABLE sys_exercise
 (
 	-- 唯一编码
 	id varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
@@ -333,7 +332,7 @@ CREATE TABLE ex_exercise
 
 
 -- 练习试题对照表
-CREATE TABLE ex_exercise_question
+CREATE TABLE sys_exercise_question
 (
 	-- 唯一编码
 	id varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
@@ -349,7 +348,7 @@ CREATE TABLE ex_exercise_question
 
 
 -- 题库表
-CREATE TABLE ex_itembank
+CREATE TABLE sys_itembank
 (
 	-- 唯一编码
 	id varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
@@ -382,7 +381,7 @@ CREATE TABLE ex_itembank
 
 
 -- 试题选项表
-CREATE TABLE ex_questionoptions
+CREATE TABLE sys_questionoptions
 (
 	-- 唯一编码
 	id varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
@@ -414,7 +413,7 @@ CREATE TABLE ex_questionoptions
 
 
 -- 试题表题头表
-CREATE TABLE ex_questions
+CREATE TABLE sys_questions
 (
 	-- 唯一编码
 	id varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
@@ -477,7 +476,7 @@ CREATE TABLE ex_questions
 
 
 -- 科目表
-CREATE TABLE ex_subject
+CREATE TABLE sys_subject
 (
 	-- 唯一编码
 	id varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
@@ -511,7 +510,7 @@ CREATE TABLE ex_subject
 
 
 -- 教材表
-CREATE TABLE ex_textbook
+CREATE TABLE sys_textbook
 (
 	-- 唯一编码
 	id varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
@@ -541,156 +540,146 @@ CREATE TABLE ex_textbook
 ) COMMENT = '教材表';
 
 
--- sys_user
-CREATE TABLE sys_user
-(
-	-- 唯一编码
-	id varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
-	PRIMARY KEY (id),
-	UNIQUE (id)
-) COMMENT = 'sys_user';
-
-
 
 /* Create Foreign Keys */
 
-ALTER TABLE ex_examinee
+ALTER TABLE sys_examinee
 	ADD FOREIGN KEY (exam_id)
-	REFERENCES ex_exam (id)
+	REFERENCES sys_exam (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
-ALTER TABLE ex_exampapers
+ALTER TABLE sys_exampapers
 	ADD FOREIGN KEY (exam_id)
-	REFERENCES ex_exam (id)
+	REFERENCES sys_exam (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
-ALTER TABLE ex_exam_answer
+ALTER TABLE sys_exam_answer
 	ADD FOREIGN KEY (exam_id)
-	REFERENCES ex_exam (id)
+	REFERENCES sys_exam (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
-ALTER TABLE ex_exam_answer
+ALTER TABLE sys_exam_answer
 	ADD FOREIGN KEY (examinee_id)
-	REFERENCES ex_examinee (id)
+	REFERENCES sys_examinee (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
-ALTER TABLE ex_examinee
+ALTER TABLE sys_examinee
 	ADD FOREIGN KEY (exampapers_id)
-	REFERENCES ex_exampapers (id)
+	REFERENCES sys_exampapers (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
-ALTER TABLE ex_exampapers_qtypes
+ALTER TABLE sys_exampapers_qtypes
 	ADD FOREIGN KEY (exampapers_id)
-	REFERENCES ex_exampapers (id)
+	REFERENCES sys_exampapers (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
-ALTER TABLE ex_exampapers_question
+ALTER TABLE sys_exampapers_question
 	ADD FOREIGN KEY (exampapers_id)
-	REFERENCES ex_exampapers (id)
+	REFERENCES sys_exampapers (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
-ALTER TABLE ex_exercise_question
+ALTER TABLE sys_exercise_question
 	ADD FOREIGN KEY (exercise_id)
-	REFERENCES ex_exercise (id)
+	REFERENCES sys_exercise (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
-ALTER TABLE ex_questions
+ALTER TABLE sys_questions
 	ADD FOREIGN KEY (itembank_id)
-	REFERENCES ex_itembank (id)
+	REFERENCES sys_itembank (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
-ALTER TABLE ex_error
+ALTER TABLE sys_error
 	ADD FOREIGN KEY (question_id)
-	REFERENCES ex_questions (id)
+	REFERENCES sys_questions (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
-ALTER TABLE ex_exampapers_question
+ALTER TABLE sys_exampapers_question
 	ADD FOREIGN KEY (question_id)
-	REFERENCES ex_questions (id)
+	REFERENCES sys_questions (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
-ALTER TABLE ex_exam_answer
+ALTER TABLE sys_exam_answer
 	ADD FOREIGN KEY (question_id)
-	REFERENCES ex_questions (id)
+	REFERENCES sys_questions (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
-ALTER TABLE ex_exercise_question
+ALTER TABLE sys_exercise_question
 	ADD FOREIGN KEY (question_id)
-	REFERENCES ex_questions (id)
+	REFERENCES sys_questions (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
-ALTER TABLE ex_questionoptions
+ALTER TABLE sys_questionoptions
 	ADD FOREIGN KEY (questions_id)
-	REFERENCES ex_questions (id)
+	REFERENCES sys_questions (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
-ALTER TABLE ex_case
+ALTER TABLE sys_case
 	ADD FOREIGN KEY (subject_id)
-	REFERENCES ex_subject (id)
+	REFERENCES sys_subject (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
-ALTER TABLE ex_itembank
+ALTER TABLE sys_itembank
 	ADD FOREIGN KEY (subject_id)
-	REFERENCES ex_subject (id)
+	REFERENCES sys_subject (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
-ALTER TABLE ex_textbook
+ALTER TABLE sys_textbook
 	ADD FOREIGN KEY (subject_id)
-	REFERENCES ex_subject (id)
+	REFERENCES sys_subject (id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
 
 
-ALTER TABLE ex_error
+ALTER TABLE sys_error
 	ADD FOREIGN KEY (user_id)
 	REFERENCES sys_user (id)
 	ON UPDATE RESTRICT
@@ -698,7 +687,7 @@ ALTER TABLE ex_error
 ;
 
 
-ALTER TABLE ex_exercise
+ALTER TABLE sys_exercise
 	ADD FOREIGN KEY (user_id)
 	REFERENCES sys_user (id)
 	ON UPDATE RESTRICT

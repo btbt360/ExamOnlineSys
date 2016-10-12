@@ -26,10 +26,10 @@ public class CaptchaFormAuthenticationInterceptor extends FormAuthenticationFilt
     }
 
     protected AuthenticationToken createToken(HttpServletRequest request) {
-        String username = getUsername(request);
-        String password = getPassword(request);
+        String username = getUsername(request)==null?"":getUsername(request);
+        String password = getPassword(request)==null?"":getPassword(request);
+        String captcha = getCaptcha(request)==null?"":getCaptcha(request);
         String pwd = new Sha256Hash(password, username, 1024).toBase64(); // 将用户输入密码与用户名salt加密
-        String captcha = getCaptcha(request);
         boolean rememberMe = isRememberMe(request);
         String host = getHost(request);
         return new CaptchaUsernamePasswordToken(username, pwd, rememberMe, host, captcha);
