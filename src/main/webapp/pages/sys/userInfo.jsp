@@ -82,6 +82,14 @@
 							</div>
 						</div>
 						<div class="control-group">
+							<label class="control-label">用户身份证号：</label>
+							<div class="controls">
+								<input class="input-xlarge focused" id="cardno"
+									name="user.cardno" type="text" placeholder="请输入身份证号！"
+									value="${user.cardno}">
+							</div>
+						</div>
+						<div class="control-group">
 							<label class="control-label" for="userType">用户类型： </label>
 							<div class="controls">
 								<select class="span6 m-wrap" id="usertype" name="usertype">
@@ -123,6 +131,26 @@
 								<input class="input-xlarge focused" id="roleids" name="roleids"
 									type="hidden" value="${roleids}">
 
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="fingerprintone">指纹信息一：</label>
+							<div class="controls">
+								<div class="progress progress-success" id="fingerprintone" style="width: 20%;">
+											<div style="width: 0%;" class="bar" id="fingerprintoneempty"></div>
+											<div style="width: 100%;" class="bar" id="fingerprintonefull" ></div>
+								</div>请在指纹机中录入指纹
+								<input type="hidden" name="user.fingerprintone" id="fingerprintone" value="${user.fingerprintone}" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label" for="fingerprinttwo">指纹信息二：</label>
+							<div class="controls">
+								<div class="progress progress-success" id="fingerprinttwo" style="width: 20%;">
+											<div style="width: 0%;" class="bar" id="fingerprinttwoempty"></div>
+											<div style="width: 100%;" class="bar" id="fingerprinttwofull" ></div>
+								</div>请在指纹机中录入指纹
+								<input type="hidden" name="user.fingerprinttwo" id="fingerprinttwo" value="${user.fingerprinttwo}" />
 							</div>
 						</div>
 						<div class="control-group">
@@ -235,6 +263,8 @@
 		$("#offnames").text(str);
 	}
 	$(document).ready(function() {
+		$("#fingerprintonefull").hide();
+		$("#fingerprinttwofull").hide();
 		$.fn.zTree.init($("#otree"), settingoffice);
 		$("#editoff").click(function() {
 			$('#oModal').modal('show');
@@ -264,6 +294,7 @@
      	jqObj.setform(userform);
  	    jqObj.set("user.name", "required",  "请输入用户姓名!");
  	    jqObj.set("user.loginName", "required",  "请输入登录名!");
+ 	    jqObj.set("user.cardno", "required",  "请输入身份证号码!");
  	    if(id!=null&&id==0){
  	    	  jqObj.set("user.loginName", "remote",  "登录名重复!");
  	    }

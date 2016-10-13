@@ -8,7 +8,7 @@ public class ResourceRoutes extends Routes{
 	@Override
 	public void config() {
 		// TODO Auto-generated method stub
-		add("/Subject",SubjectController.class,"/pages/resource/");
+		add("/subject",SubjectController.class,"/pages/resource/");
 	}
 
 }

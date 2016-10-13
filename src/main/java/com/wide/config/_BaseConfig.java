@@ -6,6 +6,9 @@ import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.wall.WallFilter;
 import com.wide.interceptor.LoginInterceptor;
 import com.wide.common.model._MappingKit;
+import com.wide.route.ExamRoutes;
+import com.wide.route.ExerciseRoutes;
+import com.wide.route.ResourceRoutes;
 import com.wide.route.SysRoutes;
 import com.wide.util.JspSkipHandler;
 import com.jfinal.config.Constants;
@@ -50,6 +53,9 @@ public class _BaseConfig extends JFinalConfig {
 	public void configRoute(Routes me) {
 		this.routes = me;
 		me.add(new SysRoutes());
+		me.add(new ExamRoutes());
+		me.add(new ResourceRoutes());
+		me.add(new ExerciseRoutes());
 	}
 	
 	/**

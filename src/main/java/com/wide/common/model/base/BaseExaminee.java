@@ -168,5 +168,21 @@ public abstract class BaseExaminee<M extends BaseExaminee<M>> extends Model<M> i
 	public java.lang.Integer getIsdel() {
 		return get("isdel");
 	}
+	
+	public void setTotalscore(java.lang.Integer totalscore) {
+		set("totalscore", totalscore);
+	}
+
+	public java.lang.Integer getTotalscore() {
+		return get("totalscore");
+	}
+	
+	public void setScoreslevel(java.lang.Integer scoreslevel) {
+		set("scoreslevel", scoreslevel);
+	}
+
+	public java.lang.Integer getScoreslevel() {
+		return get("scoreslevel");
+	}
 
 }
