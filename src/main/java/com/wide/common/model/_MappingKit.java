@@ -17,7 +17,7 @@ public class _MappingKit {
 
 	public static void mapping(ActiveRecordPlugin arp) {
 		arp.addMapping("sys_area", "id", Area.class);
-		arp.addMapping("sys_case", "id", Case.class);
+		arp.addMapping("sys_cases", "id", Cases.class);
 		arp.addMapping("sys_dict", "id", Dict.class);
 		arp.addMapping("sys_error", "id", Error.class);
 		arp.addMapping("sys_exam", "id", Exam.class);

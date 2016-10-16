@@ -2,7 +2,7 @@ SET SESSION FOREIGN_KEY_CHECKS=0;
 
 /* Drop Tables */
 
-DROP TABLE IF EXISTS sys_case;
+DROP TABLE IF EXISTS sys_cases;
 DROP TABLE IF EXISTS sys_error;
 DROP TABLE IF EXISTS sys_exam_answer;
 DROP TABLE IF EXISTS sys_examinee;
@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS sys_subject;
 /* Create Tables */
 
 -- 案例表
-CREATE TABLE sys_case
+CREATE TABLE sys_cases
 (
 	-- 唯一编码
 	id varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
@@ -655,7 +655,7 @@ ALTER TABLE sys_questionoptions
 ;
 
 
-ALTER TABLE sys_case
+ALTER TABLE sys_cases
 	ADD FOREIGN KEY (subject_id)
 	REFERENCES sys_subject (id)
 	ON UPDATE RESTRICT

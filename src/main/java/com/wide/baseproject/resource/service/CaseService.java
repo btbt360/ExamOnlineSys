@@ -1,23 +1,21 @@
 package com.wide.baseproject.resource.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.wide.common.model.Dict;
+import com.wide.common.model.Cases;
 import com.wide.common.model.Subject;
-import com.wide.common.model.User;
+import com.wide.common.model.query.QueryCase;
 import com.wide.common.model.query.QuerySubject;
 import com.wide.viewmodel.DataTablesModel;
-import com.wide.viewmodel.ViewRole;
 
-public class SubjectService {
+public class CaseService {
 
-	public DataTablesModel getPageSubject(int pageNum, int pageSize, QuerySubject querySubject) {
+	public DataTablesModel getPageCase(int pageNum, int pageSize, QueryCase queryCase) {
 		// TODO Auto-generated method stub
-		DataTablesModel subjectpage = Subject.dao.pageDataTables(pageNum, pageSize, querySubject);
+		DataTablesModel casepage = Cases.dao.pageDataTables(pageNum, pageSize, queryCase);
 		
-		if (subjectpage != null && !subjectpage.equals("")) {
-			List<List<String>> rows = subjectpage.getRows();
+		if (casepage != null && !casepage.equals("")) {
+			List<List<String>> rows = casepage.getRows();
 			if (rows.size() > 0) {
 				for (int i = 0; i < rows.size(); i++) {
 					List<String> row = rows.get(i);
@@ -31,15 +29,10 @@ public class SubjectService {
 				}
 			}
 		}
-		return subjectpage;
+		return casepage;
 		
 	}
 
-	public List<Subject> getSubjecyListAll() {
-		// TODO Auto-generated method stub
-		List<Subject> list = new ArrayList();
-		list = Subject.dao.find("select * from sys_subject where isdel = 0 and isenable = 1 ");
-		return list;
-	}
+	
 
 }
