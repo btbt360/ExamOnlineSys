@@ -13,14 +13,16 @@ import com.wide.viewmodel.DataTablesModel;
  */
 @SuppressWarnings("serial")
 public class Dict extends BaseDict<Dict> {
+	public static final Dict dao = new Dict();
 	/**
 	 * 全列表查询
 	 */
-	public static final Dict dao = new Dict();
 	public List<Dict> getDictAll() {
-		List<Dict> lists = find("SELECT * FROM sys_dict WHERE del_flag=0");
+		List<Dict> lists = find("SELECT * FROM sys_dict WHERE del_flag=0 order by create_date asc");
 		return 	 lists ;
 	}
+	
+	
 	/**
 	 * datatables 查询
 	 * @param pageNum
@@ -84,7 +86,7 @@ public class Dict extends BaseDict<Dict> {
 	public String getDictByKeyType(String key, String type) {
 		// TODO Auto-generated method stub
 		List<Dict> list = new ArrayList<Dict>();
-		list = find(" select * from sys_dict where dictkey = ? and type = ? ",key,type);
+		list = find(" select * from sys_dict where dictkey = ? and type = ?  order by create_date asc ",key,type);
 		String value="";
 		if(list.size()>0){
 			value = list.get(0).getDictvalue();
@@ -97,21 +99,8 @@ public class Dict extends BaseDict<Dict> {
 	 * @return
 	 */
 	public List<Dict> getDictByType(String type) {
-		List<Dict> lists = find("select * from sys_dict where type = ?",type);
+		List<Dict> lists = find("select * from sys_dict where type = ? and del_flag=0  order by create_date asc ",type);
 		return 	 lists ;
 	}
-     /**
-      * 按字典key查询
-      * @param string
-      * @return
-      */
-	public String getRoleDictVlaueBykey(String string) {
-		List<Dict> list = new ArrayList<Dict>();
-		list = find(" select * from sys_dict where dictkey = ? and type = 1001 ",string);
-		String value="";
-		if(list.size()>0){
-			value = list.get(0).getDictvalue();
-		}
-		return value;
-	}
+   
 }

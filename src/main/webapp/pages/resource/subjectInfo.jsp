@@ -61,7 +61,6 @@
 								</label>
 							</div>
 						</div>
-						
 						<div class="form-actions">
 							<button type="submit" class="btn btn-primary">保存</button>							
 							<input type="button" value="取消" class="btn"

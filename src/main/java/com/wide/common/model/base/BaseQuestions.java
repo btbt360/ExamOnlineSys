@@ -16,7 +16,16 @@ public abstract class BaseQuestions<M extends BaseQuestions<M>> extends Model<M>
 	public java.lang.String getId() {
 		return get("id");
 	}
+	
 
+	public void setSubjectId(java.lang.String subjectId) {
+		set("subjectId", subjectId);
+	}
+
+	public java.lang.String getSubjectId() {
+		return get("subjectId");
+	}
+	
 	public void setItembankId(java.lang.String itembankId) {
 		set("itembank_id", itembankId);
 	}

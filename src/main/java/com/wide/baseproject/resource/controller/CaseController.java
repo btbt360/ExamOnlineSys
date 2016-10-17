@@ -26,6 +26,8 @@ public class CaseController extends BaseController{
 	 * 进入试题类型
 	 * */
 	public void add(){
+		List<Subject> subjectlist = subjectService.getSubjecyListAll();
+		setAttr("subjectlist", subjectlist);
 		render("caseList.jsp");
 		
 	}

@@ -7,7 +7,6 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.shiro.authz.annotation.RequiresPermissions;
 
 import com.wide.config.UserToken;
 import com.wide.constant.EnumFuncType;
@@ -16,16 +15,17 @@ import com.wide.common.model.Dict;
 import com.wide.common.model.User;
 import com.wide.common.model.query.QueryDict;
 import com.wide.viewmodel.DataTablesModel;
+import com.wide.base.BaseController;
+import com.wide.base.RenturnInfo;
 import com.wide.baseproject.sys.service.DictService;
 import com.wide.baseproject.sys.service.LogService;
 import com.wide.baseproject.sys.service.UserService;
 import com.jfinal.aop.Clear;
 import com.jfinal.aop.Enhancer;
-import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 
-public class DictController extends Controller {
+public class DictController extends BaseController {
 
 	private static final DictService dictService = Enhancer
 			.enhance(DictService.class);
@@ -120,12 +120,23 @@ public class DictController extends Controller {
 	 * 删除
 	 */
 	public void delete() {
+		returninfo = new RenturnInfo();
 		String id = getPara("id");
-		dictService.deldict(id);
-		logService.saveLog(EnumOptType.del.getEnumKey(),
-				EnumFuncType.dict.getEnumKey(), getCurrentUser()); // 数据字典删除日志保存
-		setAttr("message", "success");
-		render("dictlist.jsp");
+		try{
+			if(id!=null&&!id.equals("")){
+				Db.update("update sys_cases set isdel = 1 where id = ? ",id);
+			}
+			logService.saveLog(EnumOptType.del.getEnumKey(),
+					EnumFuncType.dict.getEnumKey(), getCurrentUser()); // 数据字典删除日志保存
+			returninfo.setResult(0);
+			returninfo.setResultInfo("删除成功！");
+		}catch(Exception ex){
+			ex.printStackTrace();
+			returninfo.setResult(1);
+			returninfo.setResultInfo("删除失败！");
+		}
+		setAttr("returninfo", returninfo);
+		renderJson();
 	}
 
 	/**

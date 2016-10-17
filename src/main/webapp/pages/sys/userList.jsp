@@ -40,7 +40,7 @@
 					</div>
 					<form action="${basepath}/user/exportUser" method="post"
 						id="userform">
-						<div class="span12">
+						<div class="span12 text-center">
 							<div class="span4">
 								<label class="control-label" for="username">用户姓名：<input
 									class="input-medium focused" id="username" name="username"
@@ -48,7 +48,7 @@
 							</div>
 							<div class="span4">
 								<label class="control-label" for="usertype">用户类型：<select
-									class="span6 m-wrap" id="usertype" name="usertype">
+									class="m-wrap" id="usertype" name="usertype">
 									<option value="">--全部--</option>
 									<c:forEach items="${listdict}" var="dict">
 										<option value="${dict.dictkey}">${dict.dictvalue}</option>

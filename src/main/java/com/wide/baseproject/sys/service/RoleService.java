@@ -89,7 +89,7 @@ public class RoleService {
 							+ "') >修改</a> | <a href='#' onclick=del('" + row.get(0).trim() + "') >删除</a>");
 					row.set(0, row.get(1));
 					if (row.get(2) != null && !row.get(2).equals("")) {
-						String dictvalue = Dict.dao.getRoleDictVlaueBykey(row.get(2));
+						String dictvalue = Dict.dao.getDictByKeyType(row.get(2),"1001");
 						row.set(1, dictvalue);
 					} else {
 						row.set(1, "无");

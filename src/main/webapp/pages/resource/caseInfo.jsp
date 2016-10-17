@@ -59,12 +59,8 @@
 									value='${subject.id}'>${subject.name}</option>
 							</c:forEach>
 							</select> 
-							      <input type="hidden" id="hidTypeInfo" name="dict.typeinfo"
-						value="${dict.typeinfo}">	
-						   <input type="hidden" id="hidType" name="dict.type"
-						value="${dict.type}"> <div style="color: red; margin-top: 5px;"> ${dicttypeMsg}</div>	  
-							</div>						
 						</div>	
+						</div>
 						<div class="control-group">
 							<label class="control-label" for="isenable">是否启用：</label>
 							<div class="controls">
@@ -76,16 +72,16 @@
 								<c:if test="${cases.isenable==0}">checked</c:if> />
 								</label>
 							</div>
-						</div>
-						
+						</div> 
+							
 						<div class="form-actions">
 							<button type="submit" class="btn btn-primary">保存</button>							
 							<input type="button" value="取消" class="btn"
 								onclick="javascript:window.location.href='${basepath}/case/add'">
 						</div>
+						
 					</fieldset>
 				</form>
-
 			</div>
 		</div>
 	</div>

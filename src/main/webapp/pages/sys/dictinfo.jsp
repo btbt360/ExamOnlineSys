@@ -105,17 +105,13 @@
          $("#hidType").val(typeval);      
         }
         $().ready(function() {
-        	var jqObj = new JQvalidate();
-        	 var dict ="dict"; 
+         var jqObj = new JQvalidate();
+         var dict ="dict"; 
          var id = $('#did').val();
         	jqObj.setform(dict);
         	jqObj.set("dict.dictvalue", "required",  "请输入数据字典名称!");
-        	jqObj.set("dict.dictkey", "required",  "请输入数据字典键值!");
-        	if(id!=null&id==0){
-        		jqObj.set("dict.dictkey", "remote",  "数据字典键值重复!");
-        	 } 
-        	jqObj.set("dict.type", "required",  "请选择数据字典类型!");  
-        	jqObj.set("dict.type", "remote",  "数据字典重复!");
+        	jqObj.set("dict.dictkey", "required",  "请输入数据字典键值!"); 
+        	jqObj.set("dict.type", "required",  "请选择数据字典类型!");
         	jqObj.Run();
         
         });
