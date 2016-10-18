@@ -41,11 +41,17 @@
 					<form action="${basepath}/case/exportCase" method="post"
 						id="subform">
 						<div class="span12 text-center">
-							<div class="span3">
-								<label class="control-label" for="name">试题编码：<input
-									class="input-medium focused" id="code" name="code"
-									type="text" /></label> 
+							<div class="span4">
+								<label class="control-label" for="questionstype">试题类型：
+								<select class="m-wrap" id="questionstype" name="questionstype" placeholder="请选择试题类型！">
+										<option value='0'>请选择试题类型</option>
+										<c:forEach var="dict" items="${dictlist}">
+											<option value='${dict.dictkey}'>${dict.dictvalue}</option>
+										</c:forEach>
+								</select>
+								</label> 
 							</div>
+							
 							<div class="span4">
 								<label class="control-label" for="subjectid">科目名称：
 									<select class="m-wrap" id="subjectid" name="subjectid" placeholder="请选择科目！">
@@ -58,32 +64,26 @@
 							</div>
 							<div class="span4">
 								<label class="control-label" for="subjectid">题库名称：
-									<select class="m-wrap" id="itembankid" name="itembankid" placeholder="请选择科目！">
+									<select class="m-wrap" id="itembankid" name="itembankid" placeholder="请选择题库！">
 										<option value='0'>请选择科目</option>
-										<c:forEach var="subject" items="${subjectlist}">
-											<option value='${subject.id}'>${subject.name}</option>
-										</c:forEach>
 									</select>
 								</label> 
 							</div>
-							<div class="span4">
-								<label class="control-label" for="questionstype">试题类型：
-								<select class="m-wrap" id="questionstype" name="questionstype" placeholder="请选择试题类型！">
-										<option value='0'>请选择试题类型</option>
-										<c:forEach var="dict" items="${dictlist}">
-											<option value='${dict.dictkey}'>${dict.dictvalue}</option>
-										</c:forEach>
-								</select>
-								</label> 
+						</div>
+						<div class="span12">
+							<div class="span4" style="margin-left: 1.2%;">
+								<label class="control-label" for="name">试题编码：<input
+									class="input-medium focused" id="code" name="code"
+									type="text" /></label> 
 							</div>
-							<div class="span1 text-right" >
+							<div class="span7 text-right" >
 							<button class="btn btn-medium btn-primary" type="button"
 							id="query">查询</button>
 <!-- 							<button class="btn btn-medium btn-primary" type="button" -->
 <!-- 								id="export">导出</button> -->
+							</div>
+							<div class="span1 text-right"></div>
 						</div>
-						</div>
-						
 						<input type="hidden" id="subpages" name="subpages" /><input
 							type="hidden" id="subrp" name="subrp" />
 					</form>
@@ -91,14 +91,13 @@
 					<table id="userList" class="table table-striped table-bordered">
 						<thead>
 							<tr>
-								<th>科目名称</th>
-								<th>题库名称</th>
-								<th>试题编码</th>
-								<th>试题标题</th>
-								<th>试题内容</th>
-								<th>试题类型</th>
-								<th>是否启用</th>
-								<th>操作</th>
+								<th width="5%">序号</th>
+								<th width="10%">试题类型</th>
+								<th width="10%">试题编码</th>
+								<th width="30%">试题内容</th>
+								<th width="25%">试题答案</th>
+								<th width="5%">是否启用</th>
+								<th width="15%">操作</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -157,6 +156,7 @@ function del(ids) {
 		var name = $('#name').val();
 		var subjectid = $('#subjectid').val();
 		var questionstype = $('#questionstype').val();
+		var itembankid = $('#itembankid').val();
 		var oSettings = [ {
 			"name" : "name",
 			"value" : name
@@ -166,6 +166,9 @@ function del(ids) {
 		}, {
 			"name" : "questionstype",
 			"value" : questionstype
+		}, {
+			"name" : "itembankid",
+			"value" : itembankid
 		} ];
 		oTable.gridSearch(this, oSettings);
 	}

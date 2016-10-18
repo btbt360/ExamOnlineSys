@@ -5,6 +5,9 @@ import com.wide.base.BaseController;
 import com.wide.baseproject.resource.service.CaseService;
 import com.wide.baseproject.resource.service.QuestionsService;
 import com.wide.baseproject.resource.service.SubjectService;
+import com.wide.common.model.query.QueryQuestion;
+import com.wide.common.model.query.QuerySubject;
+import com.wide.viewmodel.DataTablesModel;
 
 public class QuestionsController extends BaseController{
 	
@@ -27,7 +30,14 @@ public class QuestionsController extends BaseController{
 	 * 查询试题管理
 	 * */
 	public void find(){
-		
+		QueryQuestion question = new QueryQuestion();
+		question.setCode(getPara("code"));
+		question.setItembankid(getPara("itembankid"));
+		question.setQuestionstype(getPara("questionstype"));
+		question.setSubjectid(getPara("subjectid"));
+		DataTablesModel questiontpage = questionsService.getPageQuestion(getParaToInt("page")
+				.intValue(), getParaToInt("rp").intValue(), question);
+		this.renderJson(questiontpage);
 		
 	}
 	

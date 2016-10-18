@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.5-10.1.16-MariaDB)
 # Database: jfinalbasedb
-# Generation Time: 2016-10-13 09:24:51 +0000
+# Generation Time: 2016-10-18 09:47:43 +0000
 # ************************************************************
 
 
@@ -90,6 +90,32 @@ CREATE TABLE `sys_case` (
 
 
 
+# Dump of table sys_cases
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `sys_cases`;
+
+CREATE TABLE `sys_cases` (
+  `id` varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
+  `subject_id` varchar(64) NOT NULL COMMENT '科目编码 : 科目编码',
+  `casetitle` varchar(2000) NOT NULL COMMENT '案例题目',
+  `caseanswer` varchar(2000) DEFAULT NULL COMMENT '案例答案',
+  `creator_id` varchar(64) DEFAULT NULL COMMENT '创建者 : 创建者',
+  `create_date` datetime DEFAULT NULL COMMENT '创建时间 : 创建时间',
+  `update_date` datetime DEFAULT NULL COMMENT '更新时间 : 更新时间',
+  `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
+  `remark` varchar(64) DEFAULT NULL COMMENT '备注信息 : 备注',
+  `isenable` int(11) NOT NULL DEFAULT '0' COMMENT '是否启用 : 0未启用\n1已启用',
+  `isdel` int(11) NOT NULL DEFAULT '0' COMMENT '是否删除 : 0已删除 1未删除',
+  `name` varchar(256) NOT NULL COMMENT '名称',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `subject_id` (`subject_id`),
+  CONSTRAINT `sys_cases_ibfk_1` FOREIGN KEY (`subject_id`) REFERENCES `sys_subject` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='案例表';
+
+
+
 # Dump of table sys_dict
 # ------------------------------------------------------------
 
@@ -140,6 +166,7 @@ VALUES
 	('a7410bb4-009c-4fa7-a2bc-627458e226a6','4','校园讲座',NULL,'1013','','2016-07-12 08:44:50','9b70e448-58e7-4a46-ac83-c408d835643d','2016-07-12 08:44:50',NULL,'0','微信信息分类'),
 	('ad91383b-ed5a-4eb3-8e43-aedf0f2af63d','3','岗位',NULL,'1000','','2016-06-24 15:02:20','9b70e448-58e7-4a46-ac83-c408d835643d','2016-06-24 15:02:20','岗位','0','机构'),
 	('af463a95-ad57-499e-9565-afb17164ad14','0','未审核',NULL,'1017','9b70e448-58e7-4a46-ac83-c408d835643d','2016-07-11 10:56:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-07-11 10:56:00','评论没通过审核','0','操作'),
+	('b30bcc07-196b-4d2c-acdd-8d1a8784568e','1','单选题',NULL,'1002','','2016-10-18 16:54:19','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:54:19','单选题','0','试题类型'),
 	('b9809775-027d-4cfe-816c-e4603d6fdf80','1','已发布',NULL,'1015','','2016-07-11 10:58:04','9b70e448-58e7-4a46-ac83-c408d835643d','2016-07-11 16:30:18',NULL,'0','发布状态'),
 	('c8f0ee06-55a1-4b18-8630-4ca2db244b0e',NULL,NULL,NULL,NULL,'','2016-08-24 10:58:08','9b70e448-58e7-4a46-ac83-c408d835643d','2016-08-24 10:58:08',NULL,'1',NULL),
 	('d16a60a5-2856-458e-91b0-71e60efdf772','1','机构',NULL,'1000','','2016-06-24 15:00:30','9b70e448-58e7-4a46-ac83-c408d835643d','2016-06-24 15:00:30','机构','0','机构'),
@@ -165,12 +192,12 @@ CREATE TABLE `sys_error` (
   `update_date` datetime DEFAULT NULL COMMENT '更新时间 : 更新时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
   `remark` varchar(64) DEFAULT NULL COMMENT '备注信息 : 备注',
-  `isenable` int(11) NOT NULL COMMENT '是否启用 : 0未启用\n1已启用',
+  `isenable` int(11) NOT NULL DEFAULT '0' COMMENT '是否启用 : 0未启用\n1已启用',
   `isdel` int(11) NOT NULL DEFAULT '0' COMMENT '是否删除 : 0已删除 1未删除',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `question_id` (`question_id`),
-  UNIQUE KEY `user_id` (`user_id`),
+  KEY `question_id` (`question_id`),
+  KEY `user_id` (`user_id`),
   CONSTRAINT `sys_error_ibfk_1` FOREIGN KEY (`question_id`) REFERENCES `sys_questions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `sys_error_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `sys_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='错题表';
@@ -201,7 +228,7 @@ CREATE TABLE `sys_exam` (
   `update_date` datetime DEFAULT NULL COMMENT '更新时间 : 更新时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
   `remark` varchar(64) DEFAULT NULL COMMENT '备注信息 : 备注',
-  `isenable` int(11) NOT NULL COMMENT '是否启用 : 0未启用\n1已启用',
+  `isenable` int(11) NOT NULL DEFAULT '0' COMMENT '是否启用 : 0未启用\n1已启用',
   `isdel` int(11) NOT NULL DEFAULT '0' COMMENT '是否删除 : 0已删除 1未删除',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
@@ -230,12 +257,13 @@ CREATE TABLE `sys_exam_answer` (
   `update_date` datetime DEFAULT NULL COMMENT '更新时间 : 更新时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
   `remark` varchar(64) DEFAULT NULL COMMENT '备注信息 : 备注',
-  `isenable` int(11) NOT NULL COMMENT '是否启用 : 0未启用\n1已启用',
+  `isenable` int(11) NOT NULL DEFAULT '0' COMMENT '是否启用 : 0未启用\n1已启用',
   `isdel` int(11) NOT NULL DEFAULT '0' COMMENT '是否删除 : 0已删除 1未删除',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `examinee_id` (`examinee_id`),
-  UNIQUE KEY `exam_id` (`exam_id`),
-  UNIQUE KEY `question_id` (`question_id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `exam_id` (`exam_id`),
+  KEY `examinee_id` (`examinee_id`),
+  KEY `question_id` (`question_id`),
   CONSTRAINT `sys_exam_answer_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `sys_exam` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `sys_exam_answer_ibfk_2` FOREIGN KEY (`examinee_id`) REFERENCES `sys_examinee` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `sys_exam_answer_ibfk_3` FOREIGN KEY (`question_id`) REFERENCES `sys_questions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -259,6 +287,8 @@ CREATE TABLE `sys_examinee` (
   `seatno` int(11) NOT NULL COMMENT '座位号',
   `macaddress` varchar(128) NOT NULL COMMENT 'mac地址',
   `ipaddress` varchar(128) NOT NULL COMMENT 'ip地址',
+  `totalscore` int(11) NOT NULL DEFAULT '0' COMMENT '总成绩',
+  `scoreslevel` int(11) NOT NULL DEFAULT '0' COMMENT '成绩水平 : 0未合格\n1已合格\n2优秀',
   `photoname` varchar(128) NOT NULL COMMENT '照片名称',
   `photocontant` blob NOT NULL COMMENT '照片内容 : 照片内容',
   `extension` varchar(128) NOT NULL COMMENT '照片扩展名',
@@ -267,14 +297,12 @@ CREATE TABLE `sys_examinee` (
   `update_date` datetime DEFAULT NULL COMMENT '更新时间 : 更新时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
   `remark` varchar(64) DEFAULT NULL COMMENT '备注信息 : 备注',
-  `isenable` int(11) NOT NULL COMMENT '是否启用 : 0未启用\n1已启用',
+  `isenable` int(11) NOT NULL DEFAULT '0' COMMENT '是否启用 : 0未启用\n1已启用',
   `isdel` int(11) NOT NULL DEFAULT '0' COMMENT '是否删除 : 0已删除 1未删除',
-  `totalscore` int(11) NOT NULL DEFAULT '0' COMMENT '总成绩',
-  `scoreslevel` int(11) NOT NULL DEFAULT '0' COMMENT '0未合格1已合格2优秀',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `exampapers_id` (`exampapers_id`),
-  UNIQUE KEY `exam_id` (`exam_id`),
+  KEY `exam_id` (`exam_id`),
+  KEY `exampapers_id` (`exampapers_id`),
   CONSTRAINT `sys_examinee_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `sys_exam` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `sys_examinee_ibfk_2` FOREIGN KEY (`exampapers_id`) REFERENCES `sys_exampapers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='考生表';
@@ -299,11 +327,11 @@ CREATE TABLE `sys_exampapers` (
   `update_date` datetime DEFAULT NULL COMMENT '更新时间 : 更新时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
   `remark` varchar(64) DEFAULT NULL COMMENT '备注信息 : 备注',
-  `isenable` int(11) NOT NULL COMMENT '是否启用 : 0未启用\n1已启用',
+  `isenable` int(11) NOT NULL DEFAULT '0' COMMENT '是否启用 : 0未启用\n1已启用',
   `isdel` int(11) NOT NULL DEFAULT '0' COMMENT '是否删除 : 0已删除 1未删除',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `exam_id` (`exam_id`),
+  KEY `exam_id` (`exam_id`),
   CONSTRAINT `sys_exampapers_ibfk_1` FOREIGN KEY (`exam_id`) REFERENCES `sys_exam` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='试卷表';
 
@@ -322,7 +350,7 @@ CREATE TABLE `sys_exampapers_qtypes` (
   `exampapers_id` varchar(64) NOT NULL COMMENT '试卷编码 : 试卷编码',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `exampapers_id` (`exampapers_id`),
+  KEY `exampapers_id` (`exampapers_id`),
   CONSTRAINT `sys_exampapers_qtypes_ibfk_1` FOREIGN KEY (`exampapers_id`) REFERENCES `sys_exampapers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='试卷题型表';
 
@@ -340,8 +368,8 @@ CREATE TABLE `sys_exampapers_question` (
   `scores` int(11) NOT NULL DEFAULT '0' COMMENT '单题分数',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `exampapers_id` (`exampapers_id`),
-  UNIQUE KEY `question_id` (`question_id`),
+  KEY `exampapers_id` (`exampapers_id`),
+  KEY `question_id` (`question_id`),
   CONSTRAINT `sys_exampapers_question_ibfk_1` FOREIGN KEY (`exampapers_id`) REFERENCES `sys_exampapers` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `sys_exampapers_question_ibfk_2` FOREIGN KEY (`question_id`) REFERENCES `sys_questions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='试卷试题对照表';
@@ -366,11 +394,11 @@ CREATE TABLE `sys_exercise` (
   `update_date` datetime DEFAULT NULL COMMENT '更新时间 : 更新时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
   `remark` varchar(64) DEFAULT NULL COMMENT '备注信息 : 备注',
-  `isenable` int(11) NOT NULL COMMENT '是否启用 : 0未启用\n1已启用',
+  `isenable` int(11) NOT NULL DEFAULT '0' COMMENT '是否启用 : 0未启用\n1已启用',
   `isdel` int(11) NOT NULL DEFAULT '0' COMMENT '是否删除 : 0已删除 1未删除',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `user_id` (`user_id`),
+  KEY `user_id` (`user_id`),
   CONSTRAINT `sys_exercise_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `sys_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='练习表 : 练习表';
 
@@ -387,8 +415,8 @@ CREATE TABLE `sys_exercise_question` (
   `question_id` varchar(64) NOT NULL COMMENT '试题编码 : 试题编码',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `exercise_id` (`exercise_id`),
-  UNIQUE KEY `question_id` (`question_id`),
+  KEY `exercise_id` (`exercise_id`),
+  KEY `question_id` (`question_id`),
   CONSTRAINT `sys_exercise_question_ibfk_1` FOREIGN KEY (`exercise_id`) REFERENCES `sys_exercise` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `sys_exercise_question_ibfk_2` FOREIGN KEY (`question_id`) REFERENCES `sys_questions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='练习试题对照表';
@@ -423,22 +451,32 @@ DROP TABLE IF EXISTS `sys_itembank`;
 CREATE TABLE `sys_itembank` (
   `id` varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
   `subject_id` varchar(64) NOT NULL COMMENT '科目编码 : 科目编码',
-  `sumtotal` int(11) DEFAULT '0' COMMENT '总题数 : 总题数',
-  `selectnum` int(11) NOT NULL DEFAULT '0' COMMENT '选择次数 : 选择次数',
+  `sumtotal` int(11) NOT NULL DEFAULT '0' COMMENT '总题数 : 总题数',
+  `checknum` int(11) NOT NULL DEFAULT '0' COMMENT '选择次数 : 选择次数',
+  `questiontype` int(11) NOT NULL DEFAULT '0' COMMENT '试题类型',
   `name` varchar(256) NOT NULL COMMENT '名称',
   `creator_id` varchar(64) DEFAULT NULL COMMENT '创建者 : 创建者',
   `create_date` datetime DEFAULT NULL COMMENT '创建时间 : 创建时间',
   `update_date` datetime DEFAULT NULL COMMENT '更新时间 : 更新时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
   `remark` varchar(64) DEFAULT NULL COMMENT '备注信息 : 备注',
-  `isenable` int(11) NOT NULL COMMENT '是否启用 : 0未启用\n1已启用',
+  `isenable` int(11) NOT NULL DEFAULT '0' COMMENT '是否启用 : 0未启用\n1已启用',
   `isdel` int(11) NOT NULL DEFAULT '0' COMMENT '是否删除 : 0已删除 1未删除',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `subject_id` (`subject_id`),
+  KEY `subject_id` (`subject_id`),
   CONSTRAINT `sys_itembank_ibfk_1` FOREIGN KEY (`subject_id`) REFERENCES `sys_subject` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='题库表';
 
+LOCK TABLES `sys_itembank` WRITE;
+/*!40000 ALTER TABLE `sys_itembank` DISABLE KEYS */;
+
+INSERT INTO `sys_itembank` (`id`, `subject_id`, `sumtotal`, `checknum`, `questiontype`, `name`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`)
+VALUES
+	('1cb3b61d-9851-40e9-8c88-799735c59dae','cd84d06e-5b8c-47e9-8b44-c9c63e77e896',0,0,1,'题库1','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:54:48','2016-10-18 16:54:48','9b70e448-58e7-4a46-ac83-c408d835643d','题库1',1,0);
+
+/*!40000 ALTER TABLE `sys_itembank` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table sys_log
@@ -471,6 +509,7 @@ VALUES
 	('127e732e-b49b-4066-9eb0-8c758586c4ab','3','用户密码修改','陈钢在2016-10-01 22:18:04操作了用户密码修改功能','9b70e448-58e7-4a46-ac83-c408d835643d','陈钢','2016-10-01 22:18:04'),
 	('13fe65f7-2c0a-47c7-946f-64ce6664084b','7','用户删除','陈钢在2016-08-30 11:24:12操作了用户删除功能','9b70e448-58e7-4a46-ac83-c408d835643d','陈钢','2016-08-30 11:24:12'),
 	('1428b52c-feb1-46aa-a8bf-9e1b9fb09e27','3','用户密码修改','陈钢在2016-10-01 22:20:22操作了用户密码修改功能','9b70e448-58e7-4a46-ac83-c408d835643d','陈钢','2016-10-01 22:20:22'),
+	('14dcb417-e12e-4b80-8c9f-41435e485ebc','6','角色修改','陈钢在2016-10-18 17:35:17操作了角色修改功能','9b70e448-58e7-4a46-ac83-c408d835643d','陈钢','2016-10-18 17:35:17'),
 	('1a66c9af-0b08-4768-bd44-37bbf09757cc','3','用户密码修改','陈钢在2016-10-02 16:33:44操作了用户密码修改功能','9b70e448-58e7-4a46-ac83-c408d835643d','陈钢','2016-10-02 16:33:44'),
 	('25381bee-c2c2-466f-ba5f-fd0861ebdc63','1','用户登录','陈钢在2016-08-24 11:41:54操作了用户登录功能','9b70e448-58e7-4a46-ac83-c408d835643d','陈钢','2016-08-24 11:41:54'),
 	('2ad2d170-0007-42bd-9573-b5c2f3e05fe1','3','用户密码修改','陈钢在2016-10-01 22:07:29操作了用户密码修改功能','9b70e448-58e7-4a46-ac83-c408d835643d','陈钢','2016-10-01 22:07:29'),
@@ -526,6 +565,7 @@ VALUES
 	('d033c597-91df-4cf9-a526-b00aab2634a2','6','角色修改','陈钢在2016-10-12 09:41:31操作了角色修改功能','9b70e448-58e7-4a46-ac83-c408d835643d','陈钢','2016-10-12 09:41:31'),
 	('d765ef8e-8d1a-4dc3-bebb-52115525fcfc','3','用户密码修改','王世伦在2016-10-12 16:27:30操作了用户密码修改功能','8ff16130-6c01-425d-96ac-bf7e895f83f5','王世伦','2016-10-12 16:27:30'),
 	('d9baf2d0-f999-4913-8a9d-98401e8a8da9','7','用户删除','陈钢在2016-08-30 11:24:15操作了用户删除功能','9b70e448-58e7-4a46-ac83-c408d835643d','陈钢','2016-08-30 11:24:15'),
+	('dcfc7572-11a2-4f0d-ba70-b398fec9862c','5','数据字典添加','陈钢在2016-10-18 16:54:19操作了数据字典添加功能','9b70e448-58e7-4a46-ac83-c408d835643d','陈钢','2016-10-18 16:54:19'),
 	('e0444d4a-c049-4f12-8f77-5eae70069a01','3','用户密码修改','陈钢在2016-10-01 22:20:06操作了用户密码修改功能','9b70e448-58e7-4a46-ac83-c408d835643d','陈钢','2016-10-01 22:20:06'),
 	('e1f6e309-7aeb-4221-9424-b938c87f4289','1','用户登录','陈钢在2016-08-24 11:29:30操作了用户登录功能','9b70e448-58e7-4a46-ac83-c408d835643d','陈钢','2016-08-24 11:29:30'),
 	('e89b5875-3b58-4df0-9598-ed1ce7fdf168','7','数据字典删除','陈钢在2016-08-30 11:31:12操作了数据字典删除功能','9b70e448-58e7-4a46-ac83-c408d835643d','陈钢','2016-08-30 11:31:12'),
@@ -576,12 +616,12 @@ VALUES
 	('3d8295dc-93da-41bc-842b-594b780491ac','','','监控管理',5,'#',NULL,NULL,'1','monitoring','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:07:49','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:07:49',NULL,'0'),
 	('4ac0c3cd-62e7-4a3e-a0e0-78b1f2e0bde3','32fb3800-8354-4473-baf2-257747715db1','','用户管理',10.4,'/user/add',NULL,NULL,'1','user:add','9b70e448-58e7-4a46-ac83-c408d835643d','0000-00-00 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-08-30 11:20:23',NULL,'0'),
 	('57eb0ae0-6294-4642-bfee-a061b7410eef','','','我的练习',4,'#',NULL,NULL,'1','mypractise','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:05:13','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:05:13',NULL,'0'),
-	('59a15d85-fe3a-4766-bd29-91a12976ca11','d7a4acfe-5687-4cf1-bc12-6def965b5eec','d7a4acfe-5687-4cf1-bc12-6def965b5eec|59a15d85-fe3a-4766-bd29-91a12976ca11','题型管理',7.02,'#',NULL,NULL,'1','pattern','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:20:30','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:20:30',NULL,'0'),
+	('59a15d85-fe3a-4766-bd29-91a12976ca11','d7a4acfe-5687-4cf1-bc12-6def965b5eec','d7a4acfe-5687-4cf1-bc12-6def965b5eec|59a15d85-fe3a-4766-bd29-91a12976ca11','案例管理',7.02,'/case/add',NULL,NULL,'1','cases:add','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:20:30','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:47:43',NULL,'0'),
 	('627bd157-8c91-4b0c-a4f1-81b91db777b8','d7a4acfe-5687-4cf1-bc12-6def965b5eec','d7a4acfe-5687-4cf1-bc12-6def965b5eec|627bd157-8c91-4b0c-a4f1-81b91db777b8','试卷管理',7.04,'#',NULL,NULL,'1','exampapars','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:22:11','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:22:11',NULL,'1'),
 	('6664601d-6c49-4da5-8a07-e4be09735a91','86bf129a-ce2d-4dd1-82fd-51a9e9f4c1d5','86bf129a-ce2d-4dd1-82fd-51a9e9f4c1d5|6664601d-6c49-4da5-8a07-e4be09735a91','考试成绩按部门统计',8.02,'#',NULL,NULL,'1','examscoresparts','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:13:07','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:13:07',NULL,'0'),
 	('680eec23-f42f-4ef4-a7c1-640718ad92f4','8986d7fe-de73-4467-bb39-96d0422fac4b','8986d7fe-de73-4467-bb39-96d0422fac4b|680eec23-f42f-4ef4-a7c1-640718ad92f4','人工复评',6.02,'#',NULL,NULL,'1','artificial','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:11:14','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:11:14',NULL,'0'),
 	('6d6ce90b-1030-4e19-9a3e-85dddc63ce80','32fb3800-8354-4473-baf2-257747715db1','32fb3800-8354-4473-baf2-257747715db1|','角色管理',10.1,'/role/add',NULL,NULL,'1','role:add','9b70e448-58e7-4a46-ac83-c408d835643d','0000-00-00 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-08-30 11:19:29',NULL,'0'),
-	('7fb63e8e-731c-4fa0-8fcb-4c86df5953d8','d7a4acfe-5687-4cf1-bc12-6def965b5eec','d7a4acfe-5687-4cf1-bc12-6def965b5eec|7fb63e8e-731c-4fa0-8fcb-4c86df5953d8','试题管理',7.03,'#',NULL,NULL,'1','questionmanage','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:21:01','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 16:38:06',NULL,'0'),
+	('7fb63e8e-731c-4fa0-8fcb-4c86df5953d8','d7a4acfe-5687-4cf1-bc12-6def965b5eec','d7a4acfe-5687-4cf1-bc12-6def965b5eec|7fb63e8e-731c-4fa0-8fcb-4c86df5953d8','试题管理',7.03,'/questions/add',NULL,NULL,'1','questions:add','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:21:01','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:48',NULL,'0'),
 	('86bf129a-ce2d-4dd1-82fd-51a9e9f4c1d5','','','统计分析',8,'#',NULL,NULL,'1','analysis','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:10:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:10:48',NULL,'0'),
 	('8986d7fe-de73-4467-bb39-96d0422fac4b','','','考试管理',6,'#',NULL,NULL,'1','exammanage','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:09:30','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:09:30','考试管理','0'),
 	('a1f56cee-bb70-49d5-a0d6-285e3a43d0f9','be58f3a0-6065-4086-8b5e-abf41a7151cd','f766bb48-1396-41e5-b137-fe24a2bf8d6b|a1f56cee-bb70-49d5-a0d6-285e3a43d0f9','邮件发送',1.31,'/file/addmailinfo',NULL,NULL,'1','file:addmailinfo','9b70e448-58e7-4a46-ac83-c408d835643d','2016-07-06 18:11:38','9b70e448-58e7-4a46-ac83-c408d835643d','2016-08-30 11:19:00','邮件发送','0'),
@@ -599,7 +639,7 @@ VALUES
 	('d7a4acfe-5687-4cf1-bc12-6def965b5eec','','','资源管理',7,'#',NULL,NULL,'1','resource','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:19:16','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:19:16',NULL,'0'),
 	('d9ed9269-ebac-4c6a-8853-6aad031242db','57eb0ae0-6294-4642-bfee-a061b7410eef','57eb0ae0-6294-4642-bfee-a061b7410eef|d9ed9269-ebac-4c6a-8853-6aad031242db','练习管理',4.01,'#',NULL,NULL,'1','exercisemanage','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:05:57','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:05:57',NULL,'0'),
 	('dbc26b0f-f865-410a-9f31-181eb481dc21','32fb3800-8354-4473-baf2-257747715db1','32fb3800-8354-4473-baf2-257747715db1|','日志管理',10.6,'/log/add',NULL,NULL,'1','log:add','9b70e448-58e7-4a46-ac83-c408d835643d','2016-06-30 17:58:27','9b70e448-58e7-4a46-ac83-c408d835643d','2016-08-30 11:28:55',NULL,'0'),
-	('dd999ea4-7c50-465e-9cd6-8bb7a442982e','d7a4acfe-5687-4cf1-bc12-6def965b5eec','d7a4acfe-5687-4cf1-bc12-6def965b5eec|dd999ea4-7c50-465e-9cd6-8bb7a442982e','题库管理',7.01,'#',NULL,NULL,'1','questionbank','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:19:51','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:19:51',NULL,'0'),
+	('dd999ea4-7c50-465e-9cd6-8bb7a442982e','d7a4acfe-5687-4cf1-bc12-6def965b5eec','d7a4acfe-5687-4cf1-bc12-6def965b5eec|dd999ea4-7c50-465e-9cd6-8bb7a442982e','题库管理',7.01,'/item/add',NULL,NULL,'1','itembank:add','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:19:51','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:49:30',NULL,'0'),
 	('e0b3d08c-8018-4075-856d-ddad933b25af','8986d7fe-de73-4467-bb39-96d0422fac4b','8986d7fe-de73-4467-bb39-96d0422fac4b|e0b3d08c-8018-4075-856d-ddad933b25af','考试安排',6.01,'#',NULL,NULL,'1','examarrangement','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:10:15','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:10:15',NULL,'0'),
 	('e86c9f73-9a8d-4198-91f7-15ad27f79f22','86bf129a-ce2d-4dd1-82fd-51a9e9f4c1d5','86bf129a-ce2d-4dd1-82fd-51a9e9f4c1d5|e86c9f73-9a8d-4198-91f7-15ad27f79f22','考试统计',8.05,'#',NULL,NULL,'1','examtotals','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:15:59','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:15:59',NULL,'0'),
 	('e9ed4a79-0291-4ff9-8594-52bed769ac39','32fb3800-8354-4473-baf2-257747715db1','32fb3800-8354-4473-baf2-257747715db1|','地区管理',10.2,'/area/add',NULL,NULL,'1','area:add','9b70e448-58e7-4a46-ac83-c408d835643d','0000-00-00 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-08-30 11:19:56',NULL,'0'),
@@ -714,14 +754,26 @@ CREATE TABLE `sys_questionoptions` (
   `update_date` datetime DEFAULT NULL COMMENT '更新时间 : 更新时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
   `remark` varchar(64) DEFAULT NULL COMMENT '备注信息 : 备注',
-  `isenable` int(11) NOT NULL COMMENT '是否启用 : 0未启用\n1已启用',
+  `isenable` int(11) NOT NULL DEFAULT '0' COMMENT '是否启用 : 0未启用\n1已启用',
   `isdel` int(11) NOT NULL DEFAULT '0' COMMENT '是否删除 : 0已删除 1未删除',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `questions_id` (`questions_id`),
+  KEY `questions_id` (`questions_id`),
   CONSTRAINT `sys_questionoptions_ibfk_1` FOREIGN KEY (`questions_id`) REFERENCES `sys_questions` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='试题选项表';
 
+LOCK TABLES `sys_questionoptions` WRITE;
+/*!40000 ALTER TABLE `sys_questionoptions` DISABLE KEYS */;
+
+INSERT INTO `sys_questionoptions` (`id`, `questions_id`, `code`, `contant`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`)
+VALUES
+	('54882460-afcd-4134-8f26-f072b6c11f6d','fc45c3c1-8ea0-4ff2-b8fd-d96477761af2','B','违法行为','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:51:37','2016-10-18 16:51:37','9b70e448-58e7-4a46-ac83-c408d835643d','',1,0),
+	('83689182-39c9-41b0-aa35-acbc0db5898e','fc45c3c1-8ea0-4ff2-b8fd-d96477761af2','A','违章行为','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:51:37','2016-10-18 16:51:37','9b70e448-58e7-4a46-ac83-c408d835643d','',1,0),
+	('a5336ff5-3c5b-4d01-9139-8b42c7bffc05','fc45c3c1-8ea0-4ff2-b8fd-d96477761af2','D','违规行为','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:51:37','2016-10-18 16:51:37','9b70e448-58e7-4a46-ac83-c408d835643d','',1,0),
+	('c767deb9-5249-430a-a9ff-f85512674759','fc45c3c1-8ea0-4ff2-b8fd-d96477761af2','C','过失行为','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:51:37','2016-10-18 16:51:37','9b70e448-58e7-4a46-ac83-c408d835643d','',1,0);
+
+/*!40000 ALTER TABLE `sys_questionoptions` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table sys_questions
@@ -731,15 +783,13 @@ DROP TABLE IF EXISTS `sys_questions`;
 
 CREATE TABLE `sys_questions` (
   `id` varchar(64) NOT NULL COMMENT '唯一编码 : 唯一编码',
+  `subject_id` varchar(64) NOT NULL DEFAULT '' COMMENT '科目编码',
   `itembank_id` varchar(64) NOT NULL COMMENT '题库编码 : 唯一编码',
   `code` varchar(64) NOT NULL COMMENT '试题编码',
   `name` varchar(256) NOT NULL COMMENT '名称',
-  `title` varchar(1000) NOT NULL COMMENT '试题标题 : 试题标题',
-  `contant` blob COMMENT '试题内容 : 试题内容',
-  `extensiontype` int(11) NOT NULL DEFAULT '0' COMMENT '试题内容扩展名类型 : 0 字符类型\n1 jpg\n2 png\n3 avi\n4 mp4\n5 flv\n6 mp3',
+  `title` varchar(4000) NOT NULL COMMENT '试题标题 : 试题标题',
   `info` varchar(2000) DEFAULT NULL COMMENT '试题描述',
   `questiontype` int(11) NOT NULL DEFAULT '0' COMMENT '试题类型 : 0单选、1多选、2判断、3问答、4填空、5阅读理解、6打字题、7组合\n',
-  `headertype` int(11) NOT NULL DEFAULT '0' COMMENT '题头类型 : 0文本题\n1图文题\n2音频题\n3动画题',
   `questionanswer` varchar(2000) NOT NULL COMMENT '试题答案',
   `questionanswerinfo` varchar(2000) DEFAULT NULL COMMENT '试题解答',
   `creator_id` varchar(64) DEFAULT NULL COMMENT '创建者 : 创建者',
@@ -747,14 +797,23 @@ CREATE TABLE `sys_questions` (
   `update_date` datetime DEFAULT NULL COMMENT '更新时间 : 更新时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
   `remark` varchar(64) DEFAULT NULL COMMENT '备注信息 : 备注',
-  `isenable` int(11) NOT NULL COMMENT '是否启用 : 0未启用\n1已启用',
+  `isenable` int(11) NOT NULL DEFAULT '0' COMMENT '是否启用 : 0未启用\n1已启用',
   `isdel` int(11) NOT NULL DEFAULT '0' COMMENT '是否删除 : 0已删除 1未删除',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `itembank_id` (`itembank_id`),
+  KEY `itembank_id` (`itembank_id`),
   CONSTRAINT `sys_questions_ibfk_1` FOREIGN KEY (`itembank_id`) REFERENCES `sys_itembank` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='试题表题头表';
 
+LOCK TABLES `sys_questions` WRITE;
+/*!40000 ALTER TABLE `sys_questions` DISABLE KEYS */;
+
+INSERT INTO `sys_questions` (`id`, `subject_id`, `itembank_id`, `code`, `name`, `title`, `info`, `questiontype`, `questionanswer`, `questionanswerinfo`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`)
+VALUES
+	('fc45c3c1-8ea0-4ff2-b8fd-d96477761af2','cd84d06e-5b8c-47e9-8b44-c9c63e77e896','1cb3b61d-9851-40e9-8c88-799735c59dae','dx0001','','驾驶机动车在道路上违反道路交通安全法的行为，属于什么行为？','驾驶机动车在道路上违反道路交通安全法的行为，属于什么行为？',1,'B','“违反道路交通安全法”，违反法律法规即为违法行为。官方已无违章/违规的说法。','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:54:48','2016-10-18 16:54:48','9b70e448-58e7-4a46-ac83-c408d835643d','',1,0);
+
+/*!40000 ALTER TABLE `sys_questions` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table sys_right
@@ -782,44 +841,44 @@ LOCK TABLES `sys_right` WRITE;
 
 INSERT INTO `sys_right` (`id`, `resourcesid`, `resourcestype`, `create_by`, `create_date`, `update_by`, `update_date`, `remarks`, `del_flag`, `resourcesname`, `permission`)
 VALUES
-	('0175a43c-9e91-4cd8-83cc-d1d0200f317b','caa32364-c4fd-4b5a-9d46-4ee6dd28a66e',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','','0','角色添加','role:addroleinfo'),
-	('051d4712-1e31-4c6b-97b9-10e4121390d7','86bf129a-ce2d-4dd1-82fd-51a9e9f4c1d5',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','统计分析','analysis'),
-	('082310c7-d307-4159-af1c-232048e4b3d9','ebf5a648-6579-4b1b-b337-1e2e8f8f7a60',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 16:29:55','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','科目管理','itemmanage'),
-	('096aa185-3780-450e-ac89-14ad8fa372f3','e86c9f73-9a8d-4198-91f7-15ad27f79f22',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','考试统计','examtotals'),
-	('0b19e2b7-612a-4337-b0cd-a5d990cdb61a','d9ed9269-ebac-4c6a-8853-6aad031242db',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','练习管理','exercisemanage'),
-	('0f17f755-310e-484c-b11d-36d77605be4a','cbc3dd45-a212-4b74-af69-e1d157e6eb1d',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','我的考试','myexam'),
-	('1d7eeac1-78cb-428b-8d7a-1f8f4f16837a','6d6ce90b-1030-4e19-9a3e-85dddc63ce80',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','','0','角色管理','role:add'),
-	('1feeed6b-70b4-493b-9d30-a4a526feb137','6664601d-6c49-4da5-8a07-e4be09735a91',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','考试成绩按部门统计','examscoresparts'),
-	('20e2f1f9-6635-4701-a7fb-228c97e40832','a1f56cee-bb70-49d5-a0d6-285e3a43d0f9',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-07-06 18:11:43','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','邮件发送','file:addmailinfo'),
-	('39760dc4-14ab-4209-bb84-fb3a5e08d3b3','59a15d85-fe3a-4766-bd29-91a12976ca11',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','题型管理','pattern'),
-	('53795ce3-44bb-4722-8c2f-ab8744077cec','f9ce3125-1bf0-4dbb-9305-ea829ddf5a01',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','我的成绩','myachievement'),
-	('56d2cdfc-63fe-411b-aedd-c92c08348dc2','c2ed7881-76e3-44d4-ab1d-c3a942dc306a',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','','0','组织机构管理','office:add'),
-	('5d89d027-5a43-43dc-81d2-55582a2b49ee','e0b3d08c-8018-4075-856d-ddad933b25af',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','考试安排','examarrangement'),
-	('69b8f436-ac77-414f-8210-1e4a9277cb85','e9ed4a79-0291-4ff9-8594-52bed769ac39',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','','0','地区管理','area:add'),
-	('6b05dd7a-8fcd-447e-abcd-a1c6befe1e58','3d8295dc-93da-41bc-842b-594b780491ac',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','监控管理','monitoring'),
-	('6c9229a5-5b48-4da7-9bf1-f33284ceba24','7fb63e8e-731c-4fa0-8fcb-4c86df5953d8',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','试题管理','questionmanage'),
-	('6e0e9028-4e38-40d1-8c5b-1e7a76fd3945','4ac0c3cd-62e7-4a3e-a0e0-78b1f2e0bde3',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','','0','用户管理','user:add'),
-	('73b5075c-3316-4b47-b50b-e42f819e308c','ee419286-9932-4c66-999d-fe35b1705651',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','在线考试监控','monitoringonline'),
-	('74a47279-afcb-4901-bde6-5eb3ef1b8c20','ce645e4c-9b72-4f5c-aecd-dfeeaac0044c',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','试题错误率统计','questionerrortotal'),
-	('7c968cf8-4609-478a-abbe-2266c8cc2761','d6c0cb62-a443-4957-8f23-9867764ca595',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','考试成绩按岗位统计','examscoresposts'),
-	('7f97db56-50c7-485f-a75c-330eb0cd125f','8986d7fe-de73-4467-bb39-96d0422fac4b',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','考试管理','exammanage'),
-	('80be0a73-b56e-47b4-90da-1fe11dffe58f','fe2aa5d7-8563-4b28-8422-7b48050b558f',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','','0','个人基本信息','user:adding'),
-	('80ca1ae9-b020-4314-a5bd-631ad5ef683e','32fb3800-8354-4473-baf2-25774771qwb1',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','','0','系统设置','dict:add'),
-	('906f64bf-8897-4f6a-b2cd-92a222bf3d63','ad09fe84-fa17-4d53-a3a3-a1cb12f0b2e0',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','试卷管理','papersmanage'),
-	('9afeb7c9-85e6-4830-88e0-8236c126e1f1','dd999ea4-7c50-465e-9cd6-8bb7a442982e',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','题库管理','questionbank'),
-	('a7d309a4-421f-4df1-88b9-3a171bced3b7','57eb0ae0-6294-4642-bfee-a061b7410eef',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','我的练习','mypractise'),
-	('ad7c3833-f900-4751-ac2b-38df9119e465','be58f3a0-6065-4086-8b5e-abf41a7151cd',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','','0','我的信息','myface'),
-	('bae5dab5-153a-4dfb-93a2-80c830e088c8','2ce26f7d-2813-4ee0-8c6f-46ab66fcd34e',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','','0','我的密码修改','user:addpass'),
-	('be22d3b6-ecb9-4ad4-bdab-a419206d020a','f766bb48-1396-41e5-b137-fe24a2bf8d6b',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','文件管理','file:add'),
-	('c20145e5-39cb-469f-bb9f-0d1c499fcf1f','32fb3800-8354-4473-baf2-257747715db1',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','','0','系统管理','sys'),
-	('cfa9415c-5adc-403d-8f6c-6e1153e8d2d7','b0582881-0eed-4b7f-870b-594cdf87d1e3',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','错题练习','errorexercise'),
-	('d5d6e48b-1637-48fe-82d5-c32e48c66285','680eec23-f42f-4ef4-a7c1-640718ad92f4',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','人工复评','artificial'),
-	('d79b1179-265d-4f24-b50a-854b5f67902c','badcdb66-9d0d-49c4-93bd-98d133db4513',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','','0','模块管理','menu:add'),
-	('d8ea49bc-5111-4f67-a468-d663871d8a03','d7a4acfe-5687-4cf1-bc12-6def965b5eec',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','资源管理','resource'),
-	('ebfa1e07-4cb9-4e92-9ce7-1453f4223163','dbc26b0f-f865-410a-9f31-181eb481dc21',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-06-30 18:00:26','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','日志管理','log:add'),
-	('ee5c0f59-eefa-4dd6-9665-47d9af5e07bf','3207af45-5511-4980-8aab-6b3d6dffb8b7',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','参加考试','joinexam'),
-	('fb5c7d66-6284-489a-b631-1312d39273a1','aa3a660e-91df-446d-9d28-0a088072427a',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','考试成绩统计','examscorestotal'),
-	('feb0893f-d2e3-4e65-b976-c3a402ac5988','ad052487-d282-4c33-8fc4-783a86a1de46',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05',NULL,'0','我的错题','myerrorq');
+	('0175a43c-9e91-4cd8-83cc-d1d0200f317b','caa32364-c4fd-4b5a-9d46-4ee6dd28a66e',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50','','0','角色添加','role:addroleinfo'),
+	('051d4712-1e31-4c6b-97b9-10e4121390d7','86bf129a-ce2d-4dd1-82fd-51a9e9f4c1d5',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','统计分析','analysis'),
+	('082310c7-d307-4159-af1c-232048e4b3d9','ebf5a648-6579-4b1b-b337-1e2e8f8f7a60',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 16:29:55','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','科目管理','itemmanage'),
+	('096aa185-3780-450e-ac89-14ad8fa372f3','e86c9f73-9a8d-4198-91f7-15ad27f79f22',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','考试统计','examtotals'),
+	('0b19e2b7-612a-4337-b0cd-a5d990cdb61a','d9ed9269-ebac-4c6a-8853-6aad031242db',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','练习管理','exercisemanage'),
+	('0f17f755-310e-484c-b11d-36d77605be4a','cbc3dd45-a212-4b74-af69-e1d157e6eb1d',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','我的考试','myexam'),
+	('1d7eeac1-78cb-428b-8d7a-1f8f4f16837a','6d6ce90b-1030-4e19-9a3e-85dddc63ce80',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50','','0','角色管理','role:add'),
+	('1feeed6b-70b4-493b-9d30-a4a526feb137','6664601d-6c49-4da5-8a07-e4be09735a91',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','考试成绩按部门统计','examscoresparts'),
+	('20e2f1f9-6635-4701-a7fb-228c97e40832','a1f56cee-bb70-49d5-a0d6-285e3a43d0f9',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-07-06 18:11:43','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','邮件发送','file:addmailinfo'),
+	('39760dc4-14ab-4209-bb84-fb3a5e08d3b3','59a15d85-fe3a-4766-bd29-91a12976ca11',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','案例管理','cases:add'),
+	('53795ce3-44bb-4722-8c2f-ab8744077cec','f9ce3125-1bf0-4dbb-9305-ea829ddf5a01',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','我的成绩','myachievement'),
+	('56d2cdfc-63fe-411b-aedd-c92c08348dc2','c2ed7881-76e3-44d4-ab1d-c3a942dc306a',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50','','0','组织机构管理','office:add'),
+	('5d89d027-5a43-43dc-81d2-55582a2b49ee','e0b3d08c-8018-4075-856d-ddad933b25af',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','考试安排','examarrangement'),
+	('69b8f436-ac77-414f-8210-1e4a9277cb85','e9ed4a79-0291-4ff9-8594-52bed769ac39',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50','','0','地区管理','area:add'),
+	('6b05dd7a-8fcd-447e-abcd-a1c6befe1e58','3d8295dc-93da-41bc-842b-594b780491ac',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','监控管理','monitoring'),
+	('6c9229a5-5b48-4da7-9bf1-f33284ceba24','7fb63e8e-731c-4fa0-8fcb-4c86df5953d8',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','试题管理','questions:add'),
+	('6e0e9028-4e38-40d1-8c5b-1e7a76fd3945','4ac0c3cd-62e7-4a3e-a0e0-78b1f2e0bde3',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50','','0','用户管理','user:add'),
+	('73b5075c-3316-4b47-b50b-e42f819e308c','ee419286-9932-4c66-999d-fe35b1705651',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','在线考试监控','monitoringonline'),
+	('74a47279-afcb-4901-bde6-5eb3ef1b8c20','ce645e4c-9b72-4f5c-aecd-dfeeaac0044c',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','试题错误率统计','questionerrortotal'),
+	('7c968cf8-4609-478a-abbe-2266c8cc2761','d6c0cb62-a443-4957-8f23-9867764ca595',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','考试成绩按岗位统计','examscoresposts'),
+	('7f97db56-50c7-485f-a75c-330eb0cd125f','8986d7fe-de73-4467-bb39-96d0422fac4b',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','考试管理','exammanage'),
+	('80be0a73-b56e-47b4-90da-1fe11dffe58f','fe2aa5d7-8563-4b28-8422-7b48050b558f',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50','','0','个人基本信息','user:adding'),
+	('80ca1ae9-b020-4314-a5bd-631ad5ef683e','32fb3800-8354-4473-baf2-25774771qwb1',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50','','0','系统设置','dict:add'),
+	('906f64bf-8897-4f6a-b2cd-92a222bf3d63','ad09fe84-fa17-4d53-a3a3-a1cb12f0b2e0',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','试卷管理','papersmanage'),
+	('9afeb7c9-85e6-4830-88e0-8236c126e1f1','dd999ea4-7c50-465e-9cd6-8bb7a442982e',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','题库管理','itembank:add'),
+	('a7d309a4-421f-4df1-88b9-3a171bced3b7','57eb0ae0-6294-4642-bfee-a061b7410eef',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','我的练习','mypractise'),
+	('ad7c3833-f900-4751-ac2b-38df9119e465','be58f3a0-6065-4086-8b5e-abf41a7151cd',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50','','0','我的信息','myface'),
+	('bae5dab5-153a-4dfb-93a2-80c830e088c8','2ce26f7d-2813-4ee0-8c6f-46ab66fcd34e',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50','','0','我的密码修改','user:addpass'),
+	('be22d3b6-ecb9-4ad4-bdab-a419206d020a','f766bb48-1396-41e5-b137-fe24a2bf8d6b',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','文件管理','file:add'),
+	('c20145e5-39cb-469f-bb9f-0d1c499fcf1f','32fb3800-8354-4473-baf2-257747715db1',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50','','0','系统管理','sys'),
+	('cfa9415c-5adc-403d-8f6c-6e1153e8d2d7','b0582881-0eed-4b7f-870b-594cdf87d1e3',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','错题练习','errorexercise'),
+	('d5d6e48b-1637-48fe-82d5-c32e48c66285','680eec23-f42f-4ef4-a7c1-640718ad92f4',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','人工复评','artificial'),
+	('d79b1179-265d-4f24-b50a-854b5f67902c','badcdb66-9d0d-49c4-93bd-98d133db4513',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50','','0','模块管理','menu:add'),
+	('d8ea49bc-5111-4f67-a468-d663871d8a03','d7a4acfe-5687-4cf1-bc12-6def965b5eec',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','资源管理','resource'),
+	('ebfa1e07-4cb9-4e92-9ce7-1453f4223163','dbc26b0f-f865-410a-9f31-181eb481dc21',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-06-30 18:00:26','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','日志管理','log:add'),
+	('ee5c0f59-eefa-4dd6-9665-47d9af5e07bf','3207af45-5511-4980-8aab-6b3d6dffb8b7',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','参加考试','joinexam'),
+	('fb5c7d66-6284-489a-b631-1312d39273a1','aa3a660e-91df-446d-9d28-0a088072427a',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','考试成绩统计','examscorestotal'),
+	('feb0893f-d2e3-4e65-b976-c3a402ac5988','ad052487-d282-4c33-8fc4-783a86a1de46',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:50:50',NULL,'0','我的错题','myerrorq');
 
 /*!40000 ALTER TABLE `sys_right` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -853,7 +912,7 @@ LOCK TABLES `sys_role` WRITE;
 
 INSERT INTO `sys_role` (`id`, `office_id`, `name`, `enname`, `role_type`, `data_scope`, `is_sys`, `useable`, `create_by`, `create_date`, `update_by`, `update_date`, `remarks`, `del_flag`)
 VALUES
-	('017fe8f5-97ec-40e3-ad75-6829336ad71a',NULL,'管理员','','11','1','0','1','9b70e448-58e7-4a46-ac83-c408d835643d','2016-06-20 18:14:04','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:34','管理员','0');
+	('017fe8f5-97ec-40e3-ad75-6829336ad71a',NULL,'管理员','','11','1','0','1','9b70e448-58e7-4a46-ac83-c408d835643d','2016-06-20 18:14:04','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 17:35:17','管理员','0');
 
 /*!40000 ALTER TABLE `sys_role` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -902,6 +961,7 @@ VALUES
 	('017fe8f5-97ec-40e3-ad75-6829336ad71a','0f17f755-310e-484c-b11d-36d77605be4a'),
 	('017fe8f5-97ec-40e3-ad75-6829336ad71a','1d7eeac1-78cb-428b-8d7a-1f8f4f16837a'),
 	('017fe8f5-97ec-40e3-ad75-6829336ad71a','1feeed6b-70b4-493b-9d30-a4a526feb137'),
+	('017fe8f5-97ec-40e3-ad75-6829336ad71a','20e2f1f9-6635-4701-a7fb-228c97e40832'),
 	('017fe8f5-97ec-40e3-ad75-6829336ad71a','39760dc4-14ab-4209-bb84-fb3a5e08d3b3'),
 	('017fe8f5-97ec-40e3-ad75-6829336ad71a','53795ce3-44bb-4722-8c2f-ab8744077cec'),
 	('017fe8f5-97ec-40e3-ad75-6829336ad71a','56d2cdfc-63fe-411b-aedd-c92c08348dc2'),
@@ -921,6 +981,7 @@ VALUES
 	('017fe8f5-97ec-40e3-ad75-6829336ad71a','a7d309a4-421f-4df1-88b9-3a171bced3b7'),
 	('017fe8f5-97ec-40e3-ad75-6829336ad71a','ad7c3833-f900-4751-ac2b-38df9119e465'),
 	('017fe8f5-97ec-40e3-ad75-6829336ad71a','bae5dab5-153a-4dfb-93a2-80c830e088c8'),
+	('017fe8f5-97ec-40e3-ad75-6829336ad71a','be22d3b6-ecb9-4ad4-bdab-a419206d020a'),
 	('017fe8f5-97ec-40e3-ad75-6829336ad71a','c20145e5-39cb-469f-bb9f-0d1c499fcf1f'),
 	('017fe8f5-97ec-40e3-ad75-6829336ad71a','cfa9415c-5adc-403d-8f6c-6e1153e8d2d7'),
 	('017fe8f5-97ec-40e3-ad75-6829336ad71a','d5d6e48b-1637-48fe-82d5-c32e48c66285'),
@@ -953,7 +1014,7 @@ CREATE TABLE `sys_subject` (
   `update_date` datetime DEFAULT NULL COMMENT '更新时间 : 更新时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
   `remark` varchar(64) DEFAULT NULL COMMENT '备注信息 : 备注',
-  `isenable` int(11) NOT NULL COMMENT '是否启用 : 0未启用\n1已启用',
+  `isenable` int(11) NOT NULL DEFAULT '0' COMMENT '是否启用 : 0未启用\n1已启用',
   `isdel` int(11) NOT NULL DEFAULT '0' COMMENT '是否删除 : 0已删除 1未删除',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
@@ -964,7 +1025,7 @@ LOCK TABLES `sys_subject` WRITE;
 
 INSERT INTO `sys_subject` (`id`, `info`, `code`, `name`, `parentid`, `parentpath`, `sort`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`)
 VALUES
-	('86d7a8d6-ad98-466e-879d-72a0adbf5fe9','语文','0001','语文',NULL,NULL,0,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 16:12:48','2016-10-13 16:16:56','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,1);
+	('cd84d06e-5b8c-47e9-8b44-c9c63e77e896','语文','yw001','语文',NULL,NULL,0,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:51:37','2016-10-18 16:51:37','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0);
 
 /*!40000 ALTER TABLE `sys_subject` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -983,14 +1044,14 @@ CREATE TABLE `sys_textbook` (
   `update_date` datetime DEFAULT NULL COMMENT '更新时间 : 更新时间',
   `update_by` varchar(64) DEFAULT NULL COMMENT '更新者',
   `remark` varchar(64) DEFAULT NULL COMMENT '备注信息 : 备注',
-  `isenable` int(11) NOT NULL COMMENT '是否启用 : 0未启用\n1已启用',
+  `isenable` int(11) NOT NULL DEFAULT '0' COMMENT '是否启用 : 0未启用\n1已启用',
   `isdel` int(11) NOT NULL DEFAULT '0' COMMENT '是否删除 : 0已删除 1未删除',
   `code` varchar(128) NOT NULL COMMENT '教材编码',
   `issuedate` date NOT NULL COMMENT '发布日期',
   `editorinchief` varchar(256) DEFAULT NULL COMMENT '主编名称',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `subject_id` (`subject_id`),
+  KEY `subject_id` (`subject_id`),
   CONSTRAINT `sys_textbook_ibfk_1` FOREIGN KEY (`subject_id`) REFERENCES `sys_subject` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='教材表';
 

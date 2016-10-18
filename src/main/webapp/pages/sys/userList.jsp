@@ -56,6 +56,7 @@
 								</select></label> 
 							</div>
 							<div class="span4 text-right" >
+							<input type="text" class="datetimepicker">
 						<button class="btn btn-medium btn-primary" type="button"
 							id="query">查询</button>
 						<button class="btn btn-medium btn-primary" type="button"
@@ -138,12 +139,19 @@ function del(ids) {
 	}
 }
 	$(document).ready(function() {
-		$(".datepicker").datepicker({
-			dateFormat : 'yyyy-mm-dd',
-			showButtonPanel : true,
-			changeMonth : true,
-			changeYear : true
-		});
+		$('.datetimepicker').datetimepicker({  
+            language:  'zh-CN',
+            format: 'yyyy-mm-dd hh:ii:ss',
+            weekStart: 1,  
+            todayBtn:  1,  
+            autoclose: 1,  
+            todayHighlight: 1,  
+            startView: 2,  
+            forceParse: 0,  
+            showMeridian: 1  
+        }).on('changeDate', function (ev) {  
+            $(this).datetimepicker('hide');  
+        });
 
 		oTable = $('#userList').initDT({
 			serverSide : true,

@@ -14,6 +14,10 @@ public class CGUtil {
 		UUID uuid = UUID.randomUUID();
 		return uuid+"";
 	}
+
+	public static void main(String[] args){
+		System.out.println(createUUid());
+	}
 	/**
 	 * @author cg
 	 * @param lastnum 上级num
