@@ -76,7 +76,7 @@
 						</div>
 						<div id="content"></div>
 						<c:choose>
-						<c:when test="${question.questiontype==1||question.questiontype==2}">
+						<c:when test="${question.questiontype<3}">
 							<div class="control-group" id="operationadd">
 								<label class="control-label">选项添加：</label>
 								<div class="controls">
@@ -153,8 +153,10 @@
 <script type="text/javascript">
 var num =0;
 $(document).ready(function() {
+	
 		var editor = null;
 		editor = CKEDITOR.replace('question.title'); //参数‘content’是textarea元素的name属性值，而非id属性值
+		
 		$("#messagealert").hide();
 		var returninfo = '${returninfo}';
 		if(returninfo!=null&&returninfo!=''){
@@ -163,10 +165,14 @@ $(document).ready(function() {
 		$("#closebut").click(function(){
 			$("#messagealert").hide();
 		});
+		var questiontitle = '${question.title}';
+		if(questiontitle!=null&&questiontitle!=''){
+			editor.setData(questiontitle);
+		}
 		var questionoptionslist ='${questionoptionslist}';
 		if(questionoptionslist!=null){
 			var listsize=0;
-			jQuery.each(questionoptionslist, function(i,item){
+			$.each(questionoptionslist, function(i,item){
 				var addhtml='<div class="span12" id="options'+i+'">'+
 				'<div class="span3">'+
 				'<input class="input-mini focused" id="intitle_'+i+'" name="questionoptionslist['+i+'].questionoptions.code" type="text" value="${questionoptionslist['+i+'].questionoptions.code}"></div>'+
@@ -181,6 +187,8 @@ $(document).ready(function() {
 			num= num+listsize;
 		}
 		
+		
+			
 		$("#subjectid").change(function(){
 			$("#itembank").empty();
 			$("#itembank").append("<option value=''>请选择题库</option>");
@@ -197,6 +205,7 @@ $(document).ready(function() {
 				}
 			});
 		});
+		
 		$("#itembank").change(function(){
 			$("#questiontypename").val('');
 			$("#questiontype").val('');
@@ -260,7 +269,10 @@ $(document).ready(function() {
  	    jqObj.set("question.questionanswer", "required",  "请输入试题答案!");
  	    jqObj.Run();
  	   $("#savebutton").click(function(){
- 		  alert(editor.getData());
+ 		  if(editor.getData()==null||editor.getData()==''){
+ 			  alert("请填写试题内容！");
+ 			  return false;
+ 		  }
  		  editor.updateElement();
  	   });
  	    

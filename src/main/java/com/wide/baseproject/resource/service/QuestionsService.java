@@ -42,6 +42,11 @@ public class QuestionsService {
 		}
 		return questionpage;
 	}
+
+	public List<Questionoptions> getQuestionoptionsByQuestionId(String id) {
+		// TODO Auto-generated method stub
+		return Questionoptions.dao.findByQuestionId(id);
+	}
 	
 	
 
