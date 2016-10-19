@@ -1,10 +1,15 @@
 package com.wide.baseproject.resource.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.jfinal.aop.Enhancer;
 import com.wide.base.BaseController;
 import com.wide.baseproject.resource.service.CaseService;
 import com.wide.baseproject.resource.service.QuestionsService;
 import com.wide.baseproject.resource.service.SubjectService;
+import com.wide.common.model.Dict;
+import com.wide.common.model.Subject;
 import com.wide.common.model.query.QueryQuestion;
 import com.wide.common.model.query.QuerySubject;
 import com.wide.viewmodel.DataTablesModel;
@@ -20,7 +25,12 @@ public class QuestionsController extends BaseController{
 	 * 进入试题管理
 	 * */
 	public void add(){
-		
+		List<Dict> dictlist = new ArrayList<Dict>();
+		dictlist = Dict.dao.getDictByType("1002");
+		List<Subject> subjectlist = new ArrayList<Subject>();
+		subjectlist = Subject.dao.getAllSubject();
+		setAttr("dictlist", dictlist);
+		setAttr("subjectlist",subjectlist);
 		render("questionList.jsp");
 		
 	}
@@ -41,13 +51,16 @@ public class QuestionsController extends BaseController{
 		
 	}
 	
+	
 	/**
 	 * @author cg
 	 * 添加试题信息
 	 * */
 	public void addinfo(){
-		
-		
+		List<Subject> subjectlist = new ArrayList<Subject>();
+		subjectlist = Subject.dao.getAllSubject();
+		setAttr("subjectlist",subjectlist);
+		render("questionInfo.jsp");
 	}
 	
 	/**
@@ -68,4 +81,5 @@ public class QuestionsController extends BaseController{
 		
 		
 	}
+
 }

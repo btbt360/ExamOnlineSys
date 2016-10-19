@@ -1,5 +1,6 @@
 package com.wide.baseproject.resource.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -130,6 +131,27 @@ public class ItemBankController extends BaseController{
 	public void importExcel(){
 		returninfo = new RenturnInfo();
 		
+		renderJson();
+	}
+	/**
+	 * @author cg
+	 * 二级联动查询题库
+	 * */
+	public void getSelectSubject(){
+		String subjectid= getPara("id");
+		List<Itembank> list  = new ArrayList<Itembank>();
+		list= ItemBankService.getItembankBySubjectId(subjectid);
+		renderJson(list);
+	}
+	/**
+	 * @author cg
+	 * 根据题库编码查询试题类型
+	 * */
+	public void getQuestionTypeByItemBankId(){
+		String itemBankId= getPara("id");
+		Itembank itembank=Itembank.dao.findById(itemBankId);
+		Dict questiontype = Dict.dao.getDictObjBykeyType(itembank!=null&&!itembank.equals("")?itembank.getQuestiontype()+"":"", "1002");
+		setAttr("questiontype", questiontype);
 		renderJson();
 	}
 

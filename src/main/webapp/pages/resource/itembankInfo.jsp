@@ -34,6 +34,8 @@
 							<div class="controls">
 								<input class="input-xlarge focused" id="name" name="itembank.name"
 									type="text" placeholder="请输入题库名称!" value="${itembank.name}" >
+								<input name="itembank.id" type="hidden"  value="${itembank.id}" >
+									
 							</div>
 						</div>
 						<div class="control-group">

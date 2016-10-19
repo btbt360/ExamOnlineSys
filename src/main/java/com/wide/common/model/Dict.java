@@ -102,5 +102,19 @@ public class Dict extends BaseDict<Dict> {
 		List<Dict> lists = find("select * from sys_dict where type = ? and del_flag=0  order by create_date asc ",type);
 		return 	 lists ;
 	}
+	/**
+	 * 按字典类型查询对象
+	 * @param type
+	 * @return
+	 */
+	public Dict getDictObjBykeyType(String key, String type) {
+		List<Dict> list = new ArrayList<Dict>();
+		Dict d =new Dict();
+		list = find(" select * from sys_dict where dictkey = ? and type = ?  order by create_date asc ",key,type);
+		if(list.size()>0){
+			d = list.get(0);
+		}
+		return d ;
+	}
    
 }

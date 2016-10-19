@@ -63,5 +63,7 @@
 <script src="${basepath}/static/frame/theme/vendors/flot/jquery.flot.stack.js"></script>
 <script src="${basepath}/static/frame/theme/vendors/flot/jquery.flot.resize.js"></script>
 <script src="${basepath}/static/frame/theme/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="${basepath}/ckeditor/ckeditor.js"></script>
+<script src="${basepath}/ckfinder/ckfinder.js"></script>
 
 

@@ -13,7 +13,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.disableNativeSpellChecker = false;
 	config.resize_dir = 'vertical';
 	
-	config.ckfinderPath='/JfinalYBaseV1.0/ckfinder';
+	config.ckfinderPath='/ExamOnlineSys/ckfinder';
 	//alert(config.ckfinderPath);
 	config.ckfinderUploadPath='';
 	config.keystrokes =[[ CKEDITOR.CTRL + 13 /*Enter*/, 'maximize' ]];	

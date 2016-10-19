@@ -55,7 +55,7 @@
 							<div class="span4">
 								<label class="control-label" for="subjectid">科目名称：
 									<select class="m-wrap" id="subjectid" name="subjectid" placeholder="请选择科目！">
-										<option value='0'>请选择科目</option>
+										<option value=''>请选择科目</option>
 										<c:forEach var="subject" items="${subjectlist}">
 											<option value='${subject.id}'>${subject.name}</option>
 										</c:forEach>
@@ -65,7 +65,7 @@
 							<div class="span4">
 								<label class="control-label" for="subjectid">题库名称：
 									<select class="m-wrap" id="itembankid" name="itembankid" placeholder="请选择题库！">
-										<option value='0'>请选择科目</option>
+										<option value=''>请选择科目</option>
 									</select>
 								</label> 
 							</div>
@@ -82,7 +82,7 @@
 <!-- 							<button class="btn btn-medium btn-primary" type="button" -->
 <!-- 								id="export">导出</button> -->
 							</div>
-							<div class="span1 text-right"></div>
+							<div class="span1" id="htmlssss"></div>
 						</div>
 						<input type="hidden" id="subpages" name="subpages" /><input
 							type="hidden" id="subrp" name="subrp" />
@@ -149,6 +149,22 @@ function del(ids) {
 			$("#subpages").val(oTable.getCurrentPage());
 			$("#subrp").val(oTable.getPageSize());
 			$("#subform").submit();
+		});
+		$("#subjectid").change(function(){
+			$("#itembankid").empty();
+			$("#itembankid").append("<option value=''>请选择题库</option>");
+			var ids = $("#subjectid").val();
+			$.ajax({
+				type : 'post',
+				url : '${basepath}/item/getSelectSubject?id=' + ids,
+				cache : false,
+				dataType : 'json',
+				success : function(data) {
+					jQuery.each(data, function(i,item){
+		                $("#itembankid").append("<option value='"+item.ID+"'>"+item.NAME+"</option>");
+		            });
+				}
+			});
 		});
 
 	});

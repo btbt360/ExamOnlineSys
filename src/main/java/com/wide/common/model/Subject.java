@@ -1,5 +1,7 @@
 package com.wide.common.model;
 
+import java.util.List;
+
 import com.wide.common.model.base.BaseSubject;
 import com.wide.common.model.query.QuerySubject;
 import com.wide.viewmodel.DataTablesModel;
@@ -11,6 +13,16 @@ import com.wide.viewmodel.DataTablesModel;
 public class Subject extends BaseSubject<Subject> {
 	public static final Subject dao = new Subject();
 
+	/**
+	 * 
+	 * */
+	public List<Subject> getAllSubject(){
+		List<Subject> list =find("select * from sys_subject where isdel = 0 and isenable = 1 ");
+		return list;
+	}
+	/**
+	 * DT
+	 * */
 	@SuppressWarnings("rawtypes")
 	public DataTablesModel pageDataTables(int pageNum, int pageSize, QuerySubject querySubject) {
 		// TODO Auto-generated method stub

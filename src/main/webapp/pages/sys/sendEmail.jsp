@@ -70,7 +70,7 @@
 
 						<div class="form-actions">
 							<button type="button" class="btn btn-primary"
-								onclick="sendemail();">发送</button>
+								id="sendemail">发送</button>
 							<button type="reset" class="btn">取消</button>
 						</div>
 					</fieldset>
@@ -85,39 +85,39 @@
 		$("#successmessage").hide();
 		$("#errormessage").hide();
 		editor = CKEDITOR.replace('content'); //参数‘content’是textarea元素的name属性值，而非id属性值
-	});
+		$("#sendemail").click(function(){
+			editor.updateElement();
+			alert($("#content").val());
+			var mail = {
+				toMail : $("#toMail").val(),
+				ccMail : $("#ccMail").val(),
+				subject : $("#subject").val(),
+				content : $("#content").val()
+			};
 
-	function sendemail() {
-		alert($("#content").val());
-		var mail = {
-			toMail : $("#toMail").val(),
-			ccMail : $("#ccMail").val(),
-			subject : $("#subject").val(),
-			content : $("#content").val()
-		};
-
-		if (confirm("确定发送邮件？")) {
-			$.ajax({
-				type : 'post',
-				url : '${basepath}/file/sendmail',
-				data : mail,
-				cache : false,
-				dataType : 'json',
-				success : function(data) {
-					if (data == '1') {
-						$("#successmessage").hide();
-						$("#errormessage").show();
-						$("#messageee").text("发送失败！");
-					} else {
-						$("#errormessage").hide();
-						$("#successmessage").show();
-						$("#messagess").text("发送成功！");
+			if (confirm("确定发送邮件？")) {
+				$.ajax({
+					type : 'post',
+					url : '${basepath}/file/sendmail',
+					data : mail,
+					cache : false,
+					dataType : 'json',
+					success : function(data) {
+						if (data == '1') {
+							$("#successmessage").hide();
+							$("#errormessage").show();
+							$("#messageee").text("发送失败！");
+						} else {
+							$("#errormessage").hide();
+							$("#successmessage").show();
+							$("#messagess").text("发送成功！");
+						}
+						reshcg();
 					}
-					reshcg();
-				}
-			});
-		}
-	}
+				});
+			}
+		});
+	});
 	//使用input框打开ckfinder
 	function BrowseServer(inputId) {
 		var finder = new CKFinder();
