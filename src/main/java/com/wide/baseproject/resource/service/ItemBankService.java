@@ -44,7 +44,17 @@ public class ItemBankService {
 		// TODO Auto-generated method stub
 		return Itembank.dao.find("select * from sys_itembank where isdel = 0 and isenable = 1 and subject_id = ? ",subjectid);
 	}
-
+	/**
+	 * 更新题库试题总数
+	 * */
+	public void updateItembankCount(String itembankId) {
+		// TODO Auto-generated method stub
+		Itembank it= Itembank.dao.findById(itembankId);
+		if(it!=null&&!it.equals("")){
+			it.setSumtotal(it.getSumtotal()+1);
+			it.update();
+		}
+	}
 
 
 }

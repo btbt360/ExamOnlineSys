@@ -19,11 +19,12 @@
 			<li class="active"><a href="${basepath}/case/addinfo">案例添加</a></li>
 		</ul>
 			<div class="span12">
-				<div <c:if test="${returninfo.result==0}">class="alert alert-success"</c:if>
-					 <c:if test="${returninfo.result==1}">class="alert alert-error"</c:if>
+				<div <c:if test="${flagcg==1}">class="alert alert-success"</c:if>
+					 <c:if test="${flagcg==0}">class="alert alert-error"</c:if>
 					 style="margin-right: 8%;text-align: center;" id ="messagealert">
 						<button class="close" id="closebut">&times;</button>
-						<strong>${returninfo.resultInfo}</strong>
+						<c:if test="${flagcg==1}"><strong>保存成功！</strong></c:if>
+						<c:if test="${flagcg==0}"><strong>保存失败！</strong></c:if>
 				</div>
 				<form id="caseinfoform" class="form-horizontal" action="${basepath}/case/save" method="post">
 					<fieldset>
@@ -88,8 +89,8 @@
 <script type="text/javascript">
 $(document).ready(function() {
 		$("#messagealert").hide();
-		var returninfo = '${returninfo}';
-		if(returninfo!=null&&returninfo!=''){
+		var flagcg = '${flagcg}';
+		if(flagcg!=null&&flagcg!=''){
 			$("#messagealert").show();
 		}
 		$("#closebut").click(function(){

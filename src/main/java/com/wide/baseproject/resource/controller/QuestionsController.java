@@ -1,28 +1,36 @@
 package com.wide.baseproject.resource.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import com.jfinal.aop.Before;
 import com.jfinal.aop.Enhancer;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wide.base.BaseController;
 import com.wide.base.RenturnInfo;
 import com.wide.baseproject.resource.service.CaseService;
+import com.wide.baseproject.resource.service.ItemBankService;
 import com.wide.baseproject.resource.service.QuestionsService;
 import com.wide.baseproject.resource.service.SubjectService;
 import com.wide.common.model.Dict;
+import com.wide.common.model.Itembank;
 import com.wide.common.model.Questionoptions;
 import com.wide.common.model.Questions;
 import com.wide.common.model.Subject;
 import com.wide.common.model.query.QueryQuestion;
 import com.wide.common.model.query.QuerySubject;
+import com.wide.util.CGUtil;
 import com.wide.viewmodel.DataTablesModel;
+import com.wide.viewmodel.ViewOperation;
 
 public class QuestionsController extends BaseController{
 	
 	private static final SubjectService subjectService = Enhancer.enhance(SubjectService.class);
 	private static final CaseService caseService = Enhancer.enhance(CaseService.class);
 	private static final QuestionsService questionsService = Enhancer.enhance(QuestionsService.class);
+	private static final ItemBankService itembankService = Enhancer.enhance(ItemBankService.class);
 
 	/**
 	 * @author cg
@@ -64,17 +72,22 @@ public class QuestionsController extends BaseController{
 		List<Subject> subjectlist = new ArrayList<Subject>();
 		subjectlist = Subject.dao.getAllSubject();
 		String id = getPara("id");
-		Questions question = Questions.dao.findById(id!=null&&!id.equals("")?id:"");
+		Questions questions = Questions.dao.findById(id!=null&&!id.equals("")?id:"");
 		String questiontypename= "";
-		List<Questionoptions> questionoptionslist  =new ArrayList<Questionoptions>();
-		if(question!=null&&!question.equals("")){
-			questiontypename = Dict.dao.getDictByKeyType(question.getQuestiontype()+"", "1002");
+		List<Questionoptions> questionoptionslist  =null;
+		Itembank itembank =null;
+		if(questions!=null&&!questions.equals("")){
+			questiontypename = Dict.dao.getDictByKeyType(questions.getQuestiontype()+"", "1002");
 			questionoptionslist= questionsService.getQuestionoptionsByQuestionId(id);
+			itembank = Itembank.dao.findById(questions.getItembankId());
 		}
 		setAttr("questiontypename",questiontypename);
-		setAttr("question",question);
+		setAttr("questions",questions);
+		setAttr("itembank",itembank);
 		setAttr("subjectlist",subjectlist);
+		setAttr("numcount",questionoptionslist!=null&&!questionoptionslist.equals("")?questionoptionslist.size():0);
 		setAttr("questionoptionslist",questionoptionslist);
+		setAttr("flagcg", getPara("flagcg"));
 		render("questionInfo.jsp");
 	}
 	
@@ -82,9 +95,56 @@ public class QuestionsController extends BaseController{
 	 * @author cg
 	 * 保存试题管理
 	 * */
+	@Before(Tx.class)
 	public void save(){
-		
-		
+		int flagcg=0;
+		try{
+			List<Questionoptions> questionoptionslist = new ArrayList<Questionoptions>();
+			Questions questions  = getModel(Questions.class)==null||getModel(Questions.class).equals("")?new Questions():getModel(Questions.class);
+			int flag=0;
+			if(questions.getId()!=null&&!questions.getId().equals("")){
+				questions.setUpdateBy(getUser().getId());
+				questions.setUpdateDate(new Date());
+			}else{
+				questions.setId(createUUid());
+				questions.getItembankId();
+				questions.setCreatorId(getUser().getId());
+				questions.setCreateDate(new Date());
+				questions.setUpdateBy(getUser().getId());
+				questions.setUpdateDate(new Date());
+				questions.setName(questions.getCode());
+				questions.setIsdel(0);
+				flag = 1;
+				itembankService.updateItembankCount(questions.getItembankId());
+			}
+			//保存选项目
+			if(questions.getQuestiontype()!=null&&questions.getQuestiontype()<3){
+				int numcount = getParaToInt("numcount");
+				if(numcount>0){
+					for(int i = 0 ;i<numcount+1;i++){
+						if(getPara("code"+i)!=null&&!getPara("code"+i).equals("")&&getPara("contant"+i)!=null&&!getPara("contant"+i).equals("")){
+							Questionoptions qo = new Questionoptions();
+							qo.setId(createUUid());
+							qo.setCreatorId(getUser().getId());
+							qo.setQuestionsId(questions.getId());
+							qo.setCreateDate(new Date());
+							qo.setUpdateBy(getUser().getId());
+							qo.setUpdateDate(new Date());
+							qo.setIsenable(1);
+							qo.setIsdel(0);
+							qo.setCode(getPara("code"+i));
+							qo.setContant(getPara("contant"+i));
+							questionoptionslist.add(qo);
+						}
+					}
+				}
+			}
+			questionsService.saveOrUpdateQuestion(questions,questionoptionslist,flag);
+			flagcg =1;
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		redirect("/questions/addinfo?flagcg="+flagcg, true);
 	}
 	
 	/**

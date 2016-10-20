@@ -59,6 +59,7 @@ public class CaseController extends BaseController{
 		}else{
 			cases = new Cases();
 		}
+		setAttr("flagcg", getPara("flagcg"));
 		setAttr("cases", cases);
 		setAttr("subjectlist", subjectlist);
 		render("caseInfo.jsp");
@@ -71,7 +72,7 @@ public class CaseController extends BaseController{
 	 * 
 	 * */
 	public void save(){
-		returninfo = new RenturnInfo();
+		int flagcg=0;
 		try{
 			Cases cases = getModel(Cases.class)==null||getModel(Cases.class).equals("")?new Cases():getModel(Cases.class);
 			if(cases.getId()!=null&&!cases.getId().equals("")){
@@ -87,15 +88,11 @@ public class CaseController extends BaseController{
 				cases.setIsdel(0);
 				cases.save();
 			}
-			returninfo.setResult(0);
-			returninfo.setResultInfo("保存成功！");
+			flagcg = 1;
 		}catch(Exception ex){
 			ex.printStackTrace();
-			returninfo.setResult(1);
-			returninfo.setResultInfo("保存失败！");
 		}
-		setAttr("returninfo", returninfo);
-		render("caseInfo.jsp");
+		redirect("/case/addinfo?flagcg="+flagcg, true);
 	}
 	/**
 	 * @author cg

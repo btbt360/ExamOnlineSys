@@ -7,7 +7,7 @@
 #
 # Host: 127.0.0.1 (MySQL 5.5.5-10.1.16-MariaDB)
 # Database: jfinalbasedb
-# Generation Time: 2016-10-19 10:33:47 +0000
+# Generation Time: 2016-10-20 10:15:17 +0000
 # ************************************************************
 
 
@@ -114,6 +114,15 @@ CREATE TABLE `sys_cases` (
   CONSTRAINT `sys_cases_ibfk_1` FOREIGN KEY (`subject_id`) REFERENCES `sys_subject` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='案例表';
 
+LOCK TABLES `sys_cases` WRITE;
+/*!40000 ALTER TABLE `sys_cases` DISABLE KEYS */;
+
+INSERT INTO `sys_cases` (`id`, `subject_id`, `casetitle`, `caseanswer`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`, `name`)
+VALUES
+	('79e9d5a7-12e9-444a-87b5-73c2c21da577','cd84d06e-5b8c-47e9-8b44-c9c63e77e896','22223','222222223','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-20 17:49:03','2016-10-20 18:12:40','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0,'22223');
+
+/*!40000 ALTER TABLE `sys_cases` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table sys_dict
@@ -460,7 +469,7 @@ LOCK TABLES `sys_itembank` WRITE;
 INSERT INTO `sys_itembank` (`id`, `subject_id`, `sumtotal`, `checknum`, `questiontype`, `name`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`)
 VALUES
 	('11441fa2-dd82-4cc0-8a21-342e773515d4','cd84d06e-5b8c-47e9-8b44-c9c63e77e896',0,0,2,'题库2','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-19 16:52:44','2016-10-19 16:52:44','9b70e448-58e7-4a46-ac83-c408d835643d','题库2',1,0),
-	('1cb3b61d-9851-40e9-8c88-799735c59dae','cd84d06e-5b8c-47e9-8b44-c9c63e77e896',0,0,1,'题库1','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:54:48','2016-10-18 16:54:48','9b70e448-58e7-4a46-ac83-c408d835643d','题库1',1,0),
+	('1cb3b61d-9851-40e9-8c88-799735c59dae','cd84d06e-5b8c-47e9-8b44-c9c63e77e896',3,0,1,'题库1','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:54:48','2016-10-20 18:12:21','9b70e448-58e7-4a46-ac83-c408d835643d','题库1',1,0),
 	('424705a8-0db5-4d7e-a505-7a654eabe9c5','cd84d06e-5b8c-47e9-8b44-c9c63e77e896',0,0,5,'题库5','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-19 16:53:34','2016-10-19 16:53:34','9b70e448-58e7-4a46-ac83-c408d835643d','题库5',1,0),
 	('aae282ba-eafe-45b0-a2c6-ee321ef965f5','cd84d06e-5b8c-47e9-8b44-c9c63e77e896',0,0,4,'题库4','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-19 16:53:16','2016-10-19 16:53:16','9b70e448-58e7-4a46-ac83-c408d835643d','题库4',1,0),
 	('c5e83e76-08a8-427b-b2c7-85ef3ccf5d47','cd84d06e-5b8c-47e9-8b44-c9c63e77e896',0,0,3,'题库3','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-19 16:52:59','2016-10-19 16:52:59','9b70e448-58e7-4a46-ac83-c408d835643d','题库3',1,0);
@@ -763,8 +772,12 @@ LOCK TABLES `sys_questionoptions` WRITE;
 INSERT INTO `sys_questionoptions` (`id`, `questions_id`, `code`, `contant`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`)
 VALUES
 	('54882460-afcd-4134-8f26-f072b6c11f6d','fc45c3c1-8ea0-4ff2-b8fd-d96477761af2','B','违法行为','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:51:37','2016-10-18 16:51:37','9b70e448-58e7-4a46-ac83-c408d835643d','',1,0),
+	('81ed3103-6ec1-4472-9ad4-a861ea890372','d3d674d9-dd49-4664-9d50-6e38e867dec0','D','dddddddddd','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-20 18:13:02','2016-10-20 18:13:02','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0),
 	('83689182-39c9-41b0-aa35-acbc0db5898e','fc45c3c1-8ea0-4ff2-b8fd-d96477761af2','A','违章行为','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:51:37','2016-10-18 16:51:37','9b70e448-58e7-4a46-ac83-c408d835643d','',1,0),
+	('83b696a3-5194-4fd4-a232-44af1b69b0f1','d3d674d9-dd49-4664-9d50-6e38e867dec0','C','ccccccccccc','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-20 18:13:02','2016-10-20 18:13:02','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0),
 	('a5336ff5-3c5b-4d01-9139-8b42c7bffc05','fc45c3c1-8ea0-4ff2-b8fd-d96477761af2','D','违规行为','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:51:37','2016-10-18 16:51:37','9b70e448-58e7-4a46-ac83-c408d835643d','',1,0),
+	('a9e052a8-18fd-4aba-86c6-2dd7c318c5a5','d3d674d9-dd49-4664-9d50-6e38e867dec0','A','aaaaaaaaaa','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-20 18:13:02','2016-10-20 18:13:02','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0),
+	('c35bce4b-a835-4055-99cb-30d49249a10a','d3d674d9-dd49-4664-9d50-6e38e867dec0','B','bbbbbbbbbb','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-20 18:13:02','2016-10-20 18:13:02','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0),
 	('c767deb9-5249-430a-a9ff-f85512674759','fc45c3c1-8ea0-4ff2-b8fd-d96477761af2','C','过失行为','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:51:37','2016-10-18 16:51:37','9b70e448-58e7-4a46-ac83-c408d835643d','',1,0);
 
 /*!40000 ALTER TABLE `sys_questionoptions` ENABLE KEYS */;
@@ -805,6 +818,8 @@ LOCK TABLES `sys_questions` WRITE;
 
 INSERT INTO `sys_questions` (`id`, `subject_id`, `itembank_id`, `code`, `name`, `title`, `info`, `questiontype`, `questionanswer`, `questionanswerinfo`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`)
 VALUES
+	('36cccfe4-2fcc-495e-a631-0a828e386e97','cd84d06e-5b8c-47e9-8b44-c9c63e77e896','1cb3b61d-9851-40e9-8c88-799735c59dae','6666666666','6666666666','<p>6666666666</p>\r\n\r\n<p><img alt=\"\" src=\"/ExamOnlineSys/userfiles/images/c05f42f9jw1eglmwqjwgjj2074074glo.jpg\" style=\"height:256px; width:256px\" /></p>\r\n','6666666666',1,'A','6666666666','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-20 17:04:13','2016-10-20 17:18:59','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,1),
+	('d3d674d9-dd49-4664-9d50-6e38e867dec0','cd84d06e-5b8c-47e9-8b44-c9c63e77e896','1cb3b61d-9851-40e9-8c88-799735c59dae','222222','222222','<p><img alt=\"\" src=\"/ExamOnlineSys/userfiles/images/c05f42f9jw1eglmwqjwgjj2074074glo.jpg\" style=\"height:256px; width:256px\" />我是谁</p>\r\n','c',1,'C','C','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-20 17:22:49','2016-10-20 18:13:02','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0),
 	('fc45c3c1-8ea0-4ff2-b8fd-d96477761af2','cd84d06e-5b8c-47e9-8b44-c9c63e77e896','1cb3b61d-9851-40e9-8c88-799735c59dae','dx0001','','驾驶机动车在道路上违反道路交通安全法的行为，属于什么行为？','驾驶机动车在道路上违反道路交通安全法的行为，属于什么行为？',1,'B','“违反道路交通安全法”，违反法律法规即为违法行为。官方已无违章/违规的说法。','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:54:48','2016-10-18 16:54:48','9b70e448-58e7-4a46-ac83-c408d835643d','',1,0);
 
 /*!40000 ALTER TABLE `sys_questions` ENABLE KEYS */;
@@ -1020,7 +1035,7 @@ LOCK TABLES `sys_subject` WRITE;
 
 INSERT INTO `sys_subject` (`id`, `info`, `code`, `name`, `parentid`, `parentpath`, `sort`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`)
 VALUES
-	('cd84d06e-5b8c-47e9-8b44-c9c63e77e896','语文','yw001','语文',NULL,NULL,0,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:51:37','2016-10-18 16:51:37','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0);
+	('cd84d06e-5b8c-47e9-8b44-c9c63e77e896','语文22','yw001','语文',NULL,NULL,0,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:51:37','2016-10-20 18:13:30','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0);
 
 /*!40000 ALTER TABLE `sys_subject` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1090,7 +1105,7 @@ LOCK TABLES `sys_user` WRITE;
 INSERT INTO `sys_user` (`id`, `login_name`, `password`, `no`, `name`, `email`, `phone`, `mobile`, `user_type`, `photo`, `login_ip`, `login_date`, `login_flag`, `create_by`, `create_date`, `update_by`, `update_date`, `remarks`, `del_flag`, `cardno`, `fingerprintone`, `fingerprinttwo`, `isonline`)
 VALUES
 	('8ff16130-6c01-425d-96ac-bf7e895f83f5','wsl','JipBPiOSVW7laA5qEXEtxT921olQBkpRS0YDKpNjWiU=','000000','王世伦','wsl@126.com','3811630','15034942952','2',NULL,NULL,NULL,'1','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 16:17:44','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 16:17:44',NULL,'0','',NULL,NULL,0),
-	('9b70e448-58e7-4a46-ac83-c408d835643d','admin','4yl9RZ6rTkywSVtu2b2jkPl5XuCY8xUScfYzDSTaplc=','01','陈钢','chengang1986_2006@126.com','15034942952','15034942952','1',NULL,NULL,'2016-01-01 00:00:00','1','','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-09 17:50:38','备注123222','0','',NULL,NULL,1);
+	('9b70e448-58e7-4a46-ac83-c408d835643d','admin','4yl9RZ6rTkywSVtu2b2jkPl5XuCY8xUScfYzDSTaplc=','01','陈钢','chengang1986_2006@126.com','15034942952','15034942952','1',NULL,NULL,'2016-01-01 00:00:00','1','','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-09 17:50:38','备注123222','0','',NULL,NULL,0);
 
 /*!40000 ALTER TABLE `sys_user` ENABLE KEYS */;
 UNLOCK TABLES;

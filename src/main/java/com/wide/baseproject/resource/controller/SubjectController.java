@@ -51,6 +51,7 @@ public class SubjectController extends BaseController{
 			subject = new Subject();
 		}
 		setAttr("subject", subject);
+		setAttr("flagcg", getPara("flagcg"));
 		render("subjectInfo.jsp");
 	}
 	/**
@@ -60,7 +61,7 @@ public class SubjectController extends BaseController{
 	 * */
 	
 	public void savesub(){
-		returninfo = new RenturnInfo();
+		int flagcg =0;
 		try{
 			Subject subject = getModel(Subject.class)==null||getModel(Subject.class).equals("")?new Subject():getModel(Subject.class);
 			if(subject.getId()!=null&&!subject.getId().equals("")){
@@ -76,15 +77,11 @@ public class SubjectController extends BaseController{
 				subject.setIsdel(0);
 				subject.save();
 			}
-			returninfo.setResult(0);
-			returninfo.setResultInfo("保存成功！");
+			flagcg =1;
 		}catch(Exception ex){
 			ex.printStackTrace();
-			returninfo.setResult(1);
-			returninfo.setResultInfo("保存失败！");
 		}
-		setAttr("returninfo", returninfo);
-		render("subjectInfo.jsp");
+		redirect("/subject/addsubinfo?flagcg="+flagcg, true);
 	}
 	/**
 	 * @author cg

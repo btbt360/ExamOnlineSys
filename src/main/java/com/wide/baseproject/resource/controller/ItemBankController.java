@@ -64,6 +64,7 @@ public class ItemBankController extends BaseController{
 		}
 		List<Dict> dictlist = Dict.dao.getDictByType("1002");
 		setAttr("itembank", itembank);
+		setAttr("flagcg", getPara("flagcg"));
 		setAttr("subjectlist", subjectlist);
 		setAttr("dictlist", dictlist);
 		render("itembankInfo.jsp");
@@ -74,7 +75,7 @@ public class ItemBankController extends BaseController{
 	 * 提交题库
 	 * */
 	public void save(){
-		returninfo = new RenturnInfo();
+		int flagcg=0;
 		try{
 			Itembank itembank = getModel(Itembank.class)==null||getModel(Itembank.class).equals("")?new Itembank():getModel(Itembank.class);
 			if(itembank.getId()!=null&&!itembank.getId().equals("")){
@@ -90,15 +91,12 @@ public class ItemBankController extends BaseController{
 				itembank.setIsdel(0);
 				itembank.save();
 			}
-			returninfo.setResult(0);
-			returninfo.setResultInfo("保存成功！");
+			flagcg =1;
 		}catch(Exception ex){
 			ex.printStackTrace();
-			returninfo.setResult(1);
-			returninfo.setResultInfo("保存失败！");
+			
 		}
-		setAttr("returninfo", returninfo);
-		render("itembankInfo.jsp");
+		redirect("/item/addinfo?flagcg="+flagcg, true);
 		
 	}
 	

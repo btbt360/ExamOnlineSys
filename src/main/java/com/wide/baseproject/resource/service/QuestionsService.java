@@ -1,6 +1,7 @@
 package com.wide.baseproject.resource.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.wide.common.model.Dict;
@@ -8,7 +9,9 @@ import com.wide.common.model.Itembank;
 import com.wide.common.model.Questionoptions;
 import com.wide.common.model.Questions;
 import com.wide.common.model.Subject;
+import com.wide.common.model.User;
 import com.wide.common.model.query.QueryQuestion;
+import com.wide.util.CGUtil;
 import com.wide.viewmodel.DataTablesModel;
 
 public class QuestionsService {
@@ -46,6 +49,39 @@ public class QuestionsService {
 	public List<Questionoptions> getQuestionoptionsByQuestionId(String id) {
 		// TODO Auto-generated method stub
 		return Questionoptions.dao.findByQuestionId(id);
+	}
+	/**
+	 * 保存questions
+	 * */
+	public void saveOrUpdateQuestion(Questions questions, List<Questionoptions> questionoptionslist,int flag) {
+		// TODO Auto-generated method stub
+		if(flag==0){
+			questions.update();
+		}else{
+			questions.save();
+		}
+		saveQuestionoptions(questions.getId(),questionoptionslist);
+		
+	}
+
+
+	/**
+	 * 保存选项
+	 * */
+	private void saveQuestionoptions(String id, List<Questionoptions> questionoptionslist) {
+		// TODO Auto-generated method stub
+		List<Questionoptions> list = new ArrayList<Questionoptions>();
+		list=Questionoptions.dao.findByQuestionId(id);
+		if(list.size()>0){
+			for(Questionoptions qt:list){
+				qt.delete();
+			}
+		}
+		if(questionoptionslist.size()>0){
+			for(Questionoptions ql:questionoptionslist){
+				ql.save();
+			}
+		}
 	}
 	
 	
