@@ -56,12 +56,12 @@
 						</div>
 						<div class="span3">
 							<label class="control-label" for="starttimes"><a href='#'
-								id="ceatetimes" style="color: black; text-decoration: none;">创建时间：</a><input type="text" class="input-medium datepicker"
+								id="ceatetimes" style="color: black; text-decoration: none;">创建时间：</a><input type="text" class="input-medium datetimepicker"
 								id="starttimes" value="" name="starttimes"></label>
 						</div>
 						<div class="span3">
 							<label class="control-label" for="endtimes"><a href='#'
-								id="ceatetimee" style="color: black; text-decoration: none;">至：</a><input type="text" class="input-medium datepicker" id="endtimes"
+								id="ceatetimee" style="color: black; text-decoration: none;">至：</a><input type="text" class="input-medium datetimepicker" id="endtimes"
 								value="" name="endtimes"></label>
 						</div>
 					</div>
@@ -125,12 +125,20 @@
 		}
 	}
 	$(document).ready(function() {
-		$(".datepicker").datepicker({
-			dateFormat : 'yyyy-mm-dd',
-			showButtonPanel : true,
-			changeMonth : true,
-			changeYear : true
-		});
+		$('.datetimepicker').datetimepicker({  
+            language:  'zh-CN',
+            format: 'yyyy-mm-dd',
+            weekStart: 1,  
+            todayBtn:  1,  
+            autoclose: true,  
+            todayHighlight: 1,  
+            startView: 2,  
+            forceParse: true,  
+            minView:2,//只到天
+            showMeridian: 1  
+        }).on('changeDate', function (ev) {  
+            $(this).datetimepicker('hide');  
+        });
 
 		oTable = $('#roleList').initDT({
 			serverSide : true,

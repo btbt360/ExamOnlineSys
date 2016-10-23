@@ -42,13 +42,13 @@
 						<div class="span3">
 							<label class="control-label" for="starttimes"><a href='#'
 								id="ceatetimes" style="color: black; text-decoration: none;">创建时间：</a></label>
-							<input type="text" class="input-medium datepicker"
+							<input type="text" class="input-medium datetimepicker"
 								id="starttimes" value="" name="starttimes">
 						</div>
 						<div class="span3">
 							<label class="control-label" for="endtimes"><a href='#'
 								id="ceatetimee" style="color: black; text-decoration: none;">至：</a></label>
-							<input type="text" class="input-medium datepicker" id="endtimes"
+							<input type="text" class="input-medium datetimepicker" id="endtimes"
 								value="" name="endtimes">
 						</div>
 						<div class="span3 text-right" style="padding-right: 3%;">
@@ -85,12 +85,20 @@
 	$(document).ready(function() {
 		$("#successmessage").hide();
 		$("#errormessage").hide();
-		$(".datepicker").datepicker({
-			dateFormat : 'yyyy-mm-dd',
-			showButtonPanel : true,
-			changeMonth : true,
-			changeYear : true
-		});
+		$('.datetimepicker').datetimepicker({  
+            language:  'zh-CN',
+            format: 'yyyy-mm-dd',
+            weekStart: 1,  
+            todayBtn:  1,  
+            autoclose: true,  
+            todayHighlight: 1,  
+            startView: 2,  
+            forceParse: true,  
+            minView:2,//只到天
+            showMeridian: 1  
+        }).on('changeDate', function (ev) {  
+            $(this).datetimepicker('hide');  
+        });
 
 		oTable = $('#listlog').initDT({
 			serverSide : true,
