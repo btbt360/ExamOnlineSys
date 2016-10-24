@@ -1,9 +1,7 @@
 package com.wide.common.model;
 
 import com.wide.common.model.base.BaseExam;
-import com.wide.common.model.query.QueryCase;
 import com.wide.common.model.query.QueryExam;
-import com.wide.util.DateUtil;
 import com.wide.viewmodel.DataTablesModel;
 
 /**
@@ -12,48 +10,48 @@ import com.wide.viewmodel.DataTablesModel;
 @SuppressWarnings("serial")
 public class Exam extends BaseExam<Exam> {
 	public static final Exam dao = new Exam();
-
-	public DataTablesModel pageDataTables(int pageNum, int pageSize, QueryExam queryExam,int pint) {
+	
+	
+	@SuppressWarnings("rawtypes")
+	public DataTablesModel pageDataTables(int pageNum, int pageSize, QueryExam queryExam) {
 		// TODO Auto-generated method stub
-		 String select = "select id,name,code,starttime,endtime,duration,number,invigilatenameone,invigilatenametwo,status";
-		    StringBuilder sqlExceptSelect = new StringBuilder(" from sys_exam ");
-		    /**
-		    if (search!=null&&!search.equals("")) {
-		        sqlExceptSelect.append(" AND (b.title like ? or b.content like ? )");
-		        parameters.add("%" + search + "%");
-		        parameters.add("%" + search + "%");
-		    } 
-		     **/
-		    sqlExceptSelect.append(whereQuery(queryExam));
-		    sqlExceptSelect.append(orderbyQuery(queryExam));
-		    
-		    return this.paginateDataTables(pageNum, pageSize, select, sqlExceptSelect.toString());
-		}
-		/**
-		 * query where查询
-		 * 
-		 * */
-		private String whereQuery(QueryExam query){
-			String where=" where 1=1  and isdel = 0 and isenable = 1 ";
-			if(query.getName()!=null&&!query.getName().equals("")){
-				where += " and name like '%"+query.getName()+"%'";
-			}
-			if(query.getStarttimes()!=null&&!query.getStarttimes().equals("")){
-				where  +=" and starttime < '"+DateUtil.toDateTimeStr(query.getStarttimes())+"'";
-			}
-			if(query.getEndtimes()!=null&&!query.getEndtimes().equals("")){
-				where  +=" and endtime > '"+DateUtil.toDateTimeStr(query.getEndtimes())+"'";
-			}
-			return where;
-			
-		}
-		/**
-		 * query order by 
-		 * 
-		 * */
-		private String orderbyQuery(QueryExam queryExam){
-			String orderby = " order by create_date desc ";
-			return orderby;
-			
-		}
+	    String select = "select id,name,starttime,duration,address,number,status,isenable";
+	    StringBuilder sqlExceptSelect = new StringBuilder(" from sys_exam ");
+	    /**
+	    if (search!=null&&!search.equals("")) {
+	        sqlExceptSelect.append(" AND (b.title like ? or b.content like ? )");
+	        parameters.add("%" + search + "%");
+	        parameters.add("%" + search + "%");
+	    } 
+	     **/
+	    sqlExceptSelect.append(whereQuery(queryExam));
+	    sqlExceptSelect.append(orderbyQuery(queryExam));
+	    
+	    return this.paginateDataTables(pageNum, pageSize, select, sqlExceptSelect.toString());
 	}
+	/**
+	 * query where查询
+	 * 
+	 * */
+	private String whereQuery(QueryExam query){
+		String where=" where 1=1  and isdel = 0 ";
+		if(query.getName()!=null&&!query.getName().equals("")){
+			where += " and name like '%"+query.getName()+"%'";
+		}
+		if(query.getCode()!=null&&!query.getCode().equals("")){
+			where  +=" and code = '"+query.getCode()+"'";
+		}
+		
+		return where;
+		
+	}
+	/**
+	 * query order by 
+	 * 
+	 * */
+	private String orderbyQuery(QueryExam query){
+		String orderby = " order by create_date desc ";
+		return orderby;
+		
+	}
+}

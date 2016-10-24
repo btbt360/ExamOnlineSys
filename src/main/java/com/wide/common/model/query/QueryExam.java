@@ -7,6 +7,7 @@ public class QueryExam {
 	private String name;
 	private Date starttimes;
 	private Date endtimes;
+	private String code;
 
 	public String getName() {
 		return name;
@@ -30,6 +31,12 @@ public class QueryExam {
 
 	public void setEndtimes(Date endtimes) {
 		this.endtimes = endtimes;
+	}
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 
 }

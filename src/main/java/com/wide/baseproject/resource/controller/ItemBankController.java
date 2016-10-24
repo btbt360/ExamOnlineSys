@@ -150,6 +150,7 @@ public class ItemBankController extends BaseController{
 		Itembank itembank=Itembank.dao.findById(itemBankId);
 		Dict questiontype = Dict.dao.getDictObjBykeyType(itembank!=null&&!itembank.equals("")?itembank.getQuestiontype()+"":"", "1002");
 		setAttr("questiontype", questiontype);
+		setAttr("itembank",itembank);
 		renderJson();
 	}
 

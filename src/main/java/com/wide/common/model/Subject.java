@@ -21,6 +21,14 @@ public class Subject extends BaseSubject<Subject> {
 		return list;
 	}
 	/**
+	 * 通过id查询名称
+	 * @return
+	 */
+	public Subject getSubjectNameById(String id){
+		Subject list =findById(id);
+		return list;
+	}
+	/**
 	 * DT
 	 * */
 	@SuppressWarnings("rawtypes")
