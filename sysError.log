@@ -7632,6 +7632,7 @@ java.lang.NullPointerException
 2016-10-23 22:40:19
 [WARN]-[Thread: http-bio-8089-exec-3]-[com.jfinal.core.ActionHandler.handle()]: 404 Not Found: /invigilate/getTable
 
+<<<<<<< Updated upstream
 2016-10-24 20:02:37
 [ERROR]-[Thread: localhost-startStop-1]-[com.alibaba.druid.pool.DruidDataSource.init()]: init datasource error
 com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
@@ -8145,3 +8146,1822 @@ Caused by: java.sql.SQLException: Access denied for user 'root'@'localhost' (usi
 	at com.alibaba.druid.pool.DruidDataSource.getConnection(DruidDataSource.java:97)
 	at com.jfinal.plugin.activerecord.TableBuilder.build(TableBuilder.java:42)
 	... 17 more
+=======
+2016-10-24 14:44:46
+[ERROR]-[Thread: http-bio-8089-exec-6]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/getEETable
+java.lang.NullPointerException
+	at com.wide.config.DbModel.getObjToString(DbModel.java:114)
+	at com.wide.config.DbModel.getSelectToList(DbModel.java:106)
+	at com.wide.config.DbModel.paginateDataTables(DbModel.java:49)
+	at com.wide.config.DbModel.paginateDataTables(DbModel.java:85)
+	at com.wide.common.model.Examinee.pageDataTables(Examinee.java:30)
+	at com.wide.baseproject.exam.service.InvigilateService.getPageExaminee(InvigilateService.java:45)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$71fd4611.CGLIB$getPageExaminee$1(<generated>)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$71fd4611$$FastClassByCGLIB$$7ef7bfff.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:82)
+	at com.jfinal.aop.Callback.intercept(Callback.java:96)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$71fd4611.getPageExaminee(<generated>)
+	at com.wide.baseproject.exam.controller.InvigilateController.getEETable(InvigilateController.java:66)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:73)
+	at com.jfinal.ext.plugin.shiro.ShiroInterceptor.intercept(ShiroInterceptor.java:59)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.wide.interceptor.LoginInterceptor.intercept(LoginInterceptor.java:17)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.ext.interceptor.SessionInViewInterceptor.intercept(SessionInViewInterceptor.java:44)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:74)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2016-10-24 14:49:59
+[ERROR]-[Thread: http-bio-8089-exec-8]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/getEETable
+java.lang.NullPointerException
+	at com.wide.config.DbModel.getObjToString(DbModel.java:114)
+	at com.wide.config.DbModel.getSelectToList(DbModel.java:106)
+	at com.wide.config.DbModel.paginateDataTables(DbModel.java:49)
+	at com.wide.config.DbModel.paginateDataTables(DbModel.java:85)
+	at com.wide.common.model.Examinee.pageDataTables(Examinee.java:30)
+	at com.wide.baseproject.exam.service.InvigilateService.getPageExaminee(InvigilateService.java:45)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$cd13c947.CGLIB$getPageExaminee$1(<generated>)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$cd13c947$$FastClassByCGLIB$$867b54c1.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:82)
+	at com.jfinal.aop.Callback.intercept(Callback.java:96)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$cd13c947.getPageExaminee(<generated>)
+	at com.wide.baseproject.exam.controller.InvigilateController.getEETable(InvigilateController.java:66)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:73)
+	at com.jfinal.ext.plugin.shiro.ShiroInterceptor.intercept(ShiroInterceptor.java:59)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.wide.interceptor.LoginInterceptor.intercept(LoginInterceptor.java:17)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.ext.interceptor.SessionInViewInterceptor.intercept(SessionInViewInterceptor.java:44)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:74)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2016-10-24 14:52:21
+[ERROR]-[Thread: http-bio-8089-exec-5]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/getEETable
+java.lang.NullPointerException
+	at com.wide.config.DbModel.getObjToString(DbModel.java:114)
+	at com.wide.config.DbModel.getSelectToList(DbModel.java:106)
+	at com.wide.config.DbModel.paginateDataTables(DbModel.java:49)
+	at com.wide.config.DbModel.paginateDataTables(DbModel.java:85)
+	at com.wide.common.model.Examinee.pageDataTables(Examinee.java:30)
+	at com.wide.baseproject.exam.service.InvigilateService.getPageExaminee(InvigilateService.java:45)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$b6d9c74e.CGLIB$getPageExaminee$1(<generated>)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$b6d9c74e$$FastClassByCGLIB$$f4972f93.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:82)
+	at com.jfinal.aop.Callback.intercept(Callback.java:96)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$b6d9c74e.getPageExaminee(<generated>)
+	at com.wide.baseproject.exam.controller.InvigilateController.getEETable(InvigilateController.java:66)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:73)
+	at com.jfinal.ext.plugin.shiro.ShiroInterceptor.intercept(ShiroInterceptor.java:59)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.wide.interceptor.LoginInterceptor.intercept(LoginInterceptor.java:17)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.ext.interceptor.SessionInViewInterceptor.intercept(SessionInViewInterceptor.java:44)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:74)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2016-10-24 14:54:38
+[ERROR]-[Thread: http-bio-8089-exec-1]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/getEETable
+java.lang.NumberFormatException: For input string: "null"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:580)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at com.wide.baseproject.exam.service.InvigilateService.getPageExaminee(InvigilateService.java:57)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$d3a7bfae.CGLIB$getPageExaminee$1(<generated>)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$d3a7bfae$$FastClassByCGLIB$$206c6032.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:82)
+	at com.jfinal.aop.Callback.intercept(Callback.java:96)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$d3a7bfae.getPageExaminee(<generated>)
+	at com.wide.baseproject.exam.controller.InvigilateController.getEETable(InvigilateController.java:66)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:73)
+	at com.jfinal.ext.plugin.shiro.ShiroInterceptor.intercept(ShiroInterceptor.java:59)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.wide.interceptor.LoginInterceptor.intercept(LoginInterceptor.java:17)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.ext.interceptor.SessionInViewInterceptor.intercept(SessionInViewInterceptor.java:44)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:74)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2016-10-24 14:55:50
+[ERROR]-[Thread: http-bio-8089-exec-11]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 验证码错误!
+
+2016-10-24 14:56:38
+[ERROR]-[Thread: http-bio-8089-exec-5]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/getEETable
+java.lang.NumberFormatException: For input string: "null"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:580)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at com.wide.baseproject.exam.service.InvigilateService.getPageExaminee(InvigilateService.java:57)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$630e2b4c.CGLIB$getPageExaminee$1(<generated>)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$630e2b4c$$FastClassByCGLIB$$24cb2c96.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:82)
+	at com.jfinal.aop.Callback.intercept(Callback.java:96)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$630e2b4c.getPageExaminee(<generated>)
+	at com.wide.baseproject.exam.controller.InvigilateController.getEETable(InvigilateController.java:66)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:73)
+	at com.jfinal.ext.plugin.shiro.ShiroInterceptor.intercept(ShiroInterceptor.java:59)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.wide.interceptor.LoginInterceptor.intercept(LoginInterceptor.java:17)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.ext.interceptor.SessionInViewInterceptor.intercept(SessionInViewInterceptor.java:44)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:74)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2016-10-24 14:57:55
+[ERROR]-[Thread: http-bio-8089-exec-12]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/getEETable
+java.lang.NumberFormatException: For input string: "null"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:580)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at com.wide.baseproject.exam.service.InvigilateService.getPageExaminee(InvigilateService.java:57)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$630e2b4c.CGLIB$getPageExaminee$1(<generated>)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$630e2b4c$$FastClassByCGLIB$$24cb2c96.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:82)
+	at com.jfinal.aop.Callback.intercept(Callback.java:96)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$630e2b4c.getPageExaminee(<generated>)
+	at com.wide.baseproject.exam.controller.InvigilateController.getEETable(InvigilateController.java:66)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:73)
+	at com.jfinal.ext.plugin.shiro.ShiroInterceptor.intercept(ShiroInterceptor.java:59)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.wide.interceptor.LoginInterceptor.intercept(LoginInterceptor.java:17)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.ext.interceptor.SessionInViewInterceptor.intercept(SessionInViewInterceptor.java:44)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:74)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2016-10-24 15:07:19
+[ERROR]-[Thread: http-bio-8089-exec-9]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/getEETable
+java.lang.ArrayIndexOutOfBoundsException: 1
+	at com.wide.config.DbModel.getSelectToList(DbModel.java:97)
+	at com.wide.config.DbModel.paginateDataTables(DbModel.java:49)
+	at com.wide.config.DbModel.paginateDataTables(DbModel.java:85)
+	at com.wide.common.model.Examinee.pageDataTables(Examinee.java:30)
+	at com.wide.baseproject.exam.service.InvigilateService.getPageExaminee(InvigilateService.java:45)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$47fdcb12.CGLIB$getPageExaminee$1(<generated>)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$47fdcb12$$FastClassByCGLIB$$84cf9f86.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:82)
+	at com.jfinal.aop.Callback.intercept(Callback.java:96)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$47fdcb12.getPageExaminee(<generated>)
+	at com.wide.baseproject.exam.controller.InvigilateController.getEETable(InvigilateController.java:66)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:73)
+	at com.jfinal.ext.plugin.shiro.ShiroInterceptor.intercept(ShiroInterceptor.java:59)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.wide.interceptor.LoginInterceptor.intercept(LoginInterceptor.java:17)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.ext.interceptor.SessionInViewInterceptor.intercept(SessionInViewInterceptor.java:44)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:74)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2016-10-24 15:09:37
+[ERROR]-[Thread: http-bio-8089-exec-4]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/getEETable
+java.lang.IndexOutOfBoundsException: Index: 6, Size: 6
+	at java.util.ArrayList.rangeCheck(ArrayList.java:653)
+	at java.util.ArrayList.get(ArrayList.java:429)
+	at com.wide.baseproject.exam.service.InvigilateService.getPageExaminee(InvigilateService.java:57)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$eb1a440f.CGLIB$getPageExaminee$1(<generated>)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$eb1a440f$$FastClassByCGLIB$$eee400a8.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:82)
+	at com.jfinal.aop.Callback.intercept(Callback.java:96)
+	at com.wide.baseproject.exam.service.InvigilateService$$EnhancerByCGLIB$$eb1a440f.getPageExaminee(<generated>)
+	at com.wide.baseproject.exam.controller.InvigilateController.getEETable(InvigilateController.java:66)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:73)
+	at com.jfinal.ext.plugin.shiro.ShiroInterceptor.intercept(ShiroInterceptor.java:59)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.wide.interceptor.LoginInterceptor.intercept(LoginInterceptor.java:17)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.ext.interceptor.SessionInViewInterceptor.intercept(SessionInViewInterceptor.java:44)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:74)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2016-10-24 16:35:18
+[ERROR]-[Thread: http-bio-8089-exec-7]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/getExamineeList?name=null&examId=34d44059-2280-48cb-98dd-0d00cbb583b3
+com.jfinal.plugin.activerecord.ActiveRecordException: java.sql.SQLException: sql injection violation, syntax error: ERROR. token : PERCENT, pos : 44 : select * from sys_examinee where name like %?% and exam_id = ? 
+	at com.jfinal.plugin.activerecord.Model.find(Model.java:565)
+	at com.wide.baseproject.exam.controller.InvigilateController.getExamineeList(InvigilateController.java:119)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:73)
+	at com.jfinal.ext.plugin.shiro.ShiroInterceptor.intercept(ShiroInterceptor.java:59)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.wide.interceptor.LoginInterceptor.intercept(LoginInterceptor.java:17)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.ext.interceptor.SessionInViewInterceptor.intercept(SessionInViewInterceptor.java:44)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:74)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.sql.SQLException: sql injection violation, syntax error: ERROR. token : PERCENT, pos : 44 : select * from sys_examinee where name like %?% and exam_id = ? 
+	at com.alibaba.druid.wall.WallFilter.check(WallFilter.java:706)
+	at com.alibaba.druid.wall.WallFilter.connection_prepareStatement(WallFilter.java:234)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_prepareStatement(FilterChainImpl.java:448)
+	at com.alibaba.druid.filter.FilterAdapter.connection_prepareStatement(FilterAdapter.java:929)
+	at com.alibaba.druid.filter.FilterEventAdapter.connection_prepareStatement(FilterEventAdapter.java:122)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_prepareStatement(FilterChainImpl.java:448)
+	at com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl.prepareStatement(ConnectionProxyImpl.java:342)
+	at com.alibaba.druid.pool.DruidPooledConnection.prepareStatement(DruidPooledConnection.java:311)
+	at com.jfinal.plugin.activerecord.Model.find(Model.java:544)
+	at com.jfinal.plugin.activerecord.Model.find(Model.java:563)
+	... 42 more
+Caused by: com.alibaba.druid.sql.parser.ParserException: ERROR. token : PERCENT, pos : 44
+	at com.alibaba.druid.sql.parser.SQLExprParser.primary(SQLExprParser.java:558)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlExprParser.primary(MySqlExprParser.java:185)
+	at com.alibaba.druid.sql.parser.SQLExprParser.bitXor(SQLExprParser.java:135)
+	at com.alibaba.druid.sql.parser.SQLExprParser.multiplicative(SQLExprParser.java:151)
+	at com.alibaba.druid.sql.parser.SQLExprParser.additive(SQLExprParser.java:1034)
+	at com.alibaba.druid.sql.parser.SQLExprParser.shift(SQLExprParser.java:1062)
+	at com.alibaba.druid.sql.parser.SQLExprParser.bitAnd(SQLExprParser.java:940)
+	at com.alibaba.druid.sql.parser.SQLExprParser.bitOr(SQLExprParser.java:954)
+	at com.alibaba.druid.sql.parser.SQLExprParser.relationalRest(SQLExprParser.java:1206)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlExprParser.relationalRest(MySqlExprParser.java:90)
+	at com.alibaba.druid.sql.parser.SQLExprParser.exprRest(SQLExprParser.java:126)
+	at com.alibaba.druid.sql.parser.SQLExprParser.expr(SQLExprParser.java:115)
+	at com.alibaba.druid.sql.parser.SQLSelectParser.expr(SQLSelectParser.java:435)
+	at com.alibaba.druid.sql.parser.SQLSelectParser.parseWhere(SQLSelectParser.java:235)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlSelectParser.query(MySqlSelectParser.java:189)
+	at com.alibaba.druid.sql.parser.SQLSelectParser.select(SQLSelectParser.java:59)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlStatementParser.parseSelect(MySqlStatementParser.java:193)
+	at com.alibaba.druid.sql.parser.SQLStatementParser.parseStatementList(SQLStatementParser.java:129)
+	at com.alibaba.druid.sql.parser.SQLStatementParser.parseStatementList(SQLStatementParser.java:108)
+	at com.alibaba.druid.wall.WallProvider.checkInternal(WallProvider.java:627)
+	at com.alibaba.druid.wall.WallProvider.check(WallProvider.java:586)
+	at com.alibaba.druid.wall.WallFilter.check(WallFilter.java:694)
+	... 51 more
+
+2016-10-24 16:35:21
+[ERROR]-[Thread: http-bio-8089-exec-12]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/getExamineeList?name=null&examId=34d44059-2280-48cb-98dd-0d00cbb583b3
+com.jfinal.plugin.activerecord.ActiveRecordException: java.sql.SQLException: sql injection violation, syntax error: ERROR. token : PERCENT, pos : 44 : select * from sys_examinee where name like %?% and exam_id = ? 
+	at com.jfinal.plugin.activerecord.Model.find(Model.java:565)
+	at com.wide.baseproject.exam.controller.InvigilateController.getExamineeList(InvigilateController.java:119)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:73)
+	at com.jfinal.ext.plugin.shiro.ShiroInterceptor.intercept(ShiroInterceptor.java:59)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.wide.interceptor.LoginInterceptor.intercept(LoginInterceptor.java:17)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.ext.interceptor.SessionInViewInterceptor.intercept(SessionInViewInterceptor.java:44)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:74)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.sql.SQLException: sql injection violation, syntax error: ERROR. token : PERCENT, pos : 44 : select * from sys_examinee where name like %?% and exam_id = ? 
+	at com.alibaba.druid.wall.WallFilter.check(WallFilter.java:706)
+	at com.alibaba.druid.wall.WallFilter.connection_prepareStatement(WallFilter.java:234)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_prepareStatement(FilterChainImpl.java:448)
+	at com.alibaba.druid.filter.FilterAdapter.connection_prepareStatement(FilterAdapter.java:929)
+	at com.alibaba.druid.filter.FilterEventAdapter.connection_prepareStatement(FilterEventAdapter.java:122)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_prepareStatement(FilterChainImpl.java:448)
+	at com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl.prepareStatement(ConnectionProxyImpl.java:342)
+	at com.alibaba.druid.pool.DruidPooledConnection.prepareStatement(DruidPooledConnection.java:311)
+	at com.jfinal.plugin.activerecord.Model.find(Model.java:544)
+	at com.jfinal.plugin.activerecord.Model.find(Model.java:563)
+	... 42 more
+Caused by: com.alibaba.druid.sql.parser.ParserException: ERROR. token : PERCENT, pos : 44
+	at com.alibaba.druid.sql.parser.SQLExprParser.primary(SQLExprParser.java:558)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlExprParser.primary(MySqlExprParser.java:185)
+	at com.alibaba.druid.sql.parser.SQLExprParser.bitXor(SQLExprParser.java:135)
+	at com.alibaba.druid.sql.parser.SQLExprParser.multiplicative(SQLExprParser.java:151)
+	at com.alibaba.druid.sql.parser.SQLExprParser.additive(SQLExprParser.java:1034)
+	at com.alibaba.druid.sql.parser.SQLExprParser.shift(SQLExprParser.java:1062)
+	at com.alibaba.druid.sql.parser.SQLExprParser.bitAnd(SQLExprParser.java:940)
+	at com.alibaba.druid.sql.parser.SQLExprParser.bitOr(SQLExprParser.java:954)
+	at com.alibaba.druid.sql.parser.SQLExprParser.relationalRest(SQLExprParser.java:1206)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlExprParser.relationalRest(MySqlExprParser.java:90)
+	at com.alibaba.druid.sql.parser.SQLExprParser.exprRest(SQLExprParser.java:126)
+	at com.alibaba.druid.sql.parser.SQLExprParser.expr(SQLExprParser.java:115)
+	at com.alibaba.druid.sql.parser.SQLSelectParser.expr(SQLSelectParser.java:435)
+	at com.alibaba.druid.sql.parser.SQLSelectParser.parseWhere(SQLSelectParser.java:235)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlSelectParser.query(MySqlSelectParser.java:189)
+	at com.alibaba.druid.sql.parser.SQLSelectParser.select(SQLSelectParser.java:59)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlStatementParser.parseSelect(MySqlStatementParser.java:193)
+	at com.alibaba.druid.sql.parser.SQLStatementParser.parseStatementList(SQLStatementParser.java:129)
+	at com.alibaba.druid.sql.parser.SQLStatementParser.parseStatementList(SQLStatementParser.java:108)
+	at com.alibaba.druid.wall.WallProvider.checkInternal(WallProvider.java:627)
+	at com.alibaba.druid.wall.WallProvider.check(WallProvider.java:586)
+	at com.alibaba.druid.wall.WallFilter.check(WallFilter.java:694)
+	... 51 more
+
+2016-10-24 16:36:05
+[ERROR]-[Thread: http-bio-8089-exec-13]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/getExamineeList?name=null&examId=34d44059-2280-48cb-98dd-0d00cbb583b3
+com.jfinal.plugin.activerecord.ActiveRecordException: java.sql.SQLException: sql injection violation, syntax error: ERROR. token : PERCENT, pos : 44 : select * from sys_examinee where name like %?% and exam_id = ? 
+	at com.jfinal.plugin.activerecord.Model.find(Model.java:565)
+	at com.wide.baseproject.exam.controller.InvigilateController.getExamineeList(InvigilateController.java:119)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:73)
+	at com.jfinal.ext.plugin.shiro.ShiroInterceptor.intercept(ShiroInterceptor.java:59)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.wide.interceptor.LoginInterceptor.intercept(LoginInterceptor.java:17)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.ext.interceptor.SessionInViewInterceptor.intercept(SessionInViewInterceptor.java:44)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:74)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.sql.SQLException: sql injection violation, syntax error: ERROR. token : PERCENT, pos : 44 : select * from sys_examinee where name like %?% and exam_id = ? 
+	at com.alibaba.druid.wall.WallFilter.check(WallFilter.java:706)
+	at com.alibaba.druid.wall.WallFilter.connection_prepareStatement(WallFilter.java:234)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_prepareStatement(FilterChainImpl.java:448)
+	at com.alibaba.druid.filter.FilterAdapter.connection_prepareStatement(FilterAdapter.java:929)
+	at com.alibaba.druid.filter.FilterEventAdapter.connection_prepareStatement(FilterEventAdapter.java:122)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_prepareStatement(FilterChainImpl.java:448)
+	at com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl.prepareStatement(ConnectionProxyImpl.java:342)
+	at com.alibaba.druid.pool.DruidPooledConnection.prepareStatement(DruidPooledConnection.java:311)
+	at com.jfinal.plugin.activerecord.Model.find(Model.java:544)
+	at com.jfinal.plugin.activerecord.Model.find(Model.java:563)
+	... 42 more
+Caused by: com.alibaba.druid.sql.parser.ParserException: ERROR. token : PERCENT, pos : 44
+	at com.alibaba.druid.sql.parser.SQLExprParser.primary(SQLExprParser.java:558)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlExprParser.primary(MySqlExprParser.java:185)
+	at com.alibaba.druid.sql.parser.SQLExprParser.bitXor(SQLExprParser.java:135)
+	at com.alibaba.druid.sql.parser.SQLExprParser.multiplicative(SQLExprParser.java:151)
+	at com.alibaba.druid.sql.parser.SQLExprParser.additive(SQLExprParser.java:1034)
+	at com.alibaba.druid.sql.parser.SQLExprParser.shift(SQLExprParser.java:1062)
+	at com.alibaba.druid.sql.parser.SQLExprParser.bitAnd(SQLExprParser.java:940)
+	at com.alibaba.druid.sql.parser.SQLExprParser.bitOr(SQLExprParser.java:954)
+	at com.alibaba.druid.sql.parser.SQLExprParser.relationalRest(SQLExprParser.java:1206)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlExprParser.relationalRest(MySqlExprParser.java:90)
+	at com.alibaba.druid.sql.parser.SQLExprParser.exprRest(SQLExprParser.java:126)
+	at com.alibaba.druid.sql.parser.SQLExprParser.expr(SQLExprParser.java:115)
+	at com.alibaba.druid.sql.parser.SQLSelectParser.expr(SQLSelectParser.java:435)
+	at com.alibaba.druid.sql.parser.SQLSelectParser.parseWhere(SQLSelectParser.java:235)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlSelectParser.query(MySqlSelectParser.java:189)
+	at com.alibaba.druid.sql.parser.SQLSelectParser.select(SQLSelectParser.java:59)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlStatementParser.parseSelect(MySqlStatementParser.java:193)
+	at com.alibaba.druid.sql.parser.SQLStatementParser.parseStatementList(SQLStatementParser.java:129)
+	at com.alibaba.druid.sql.parser.SQLStatementParser.parseStatementList(SQLStatementParser.java:108)
+	at com.alibaba.druid.wall.WallProvider.checkInternal(WallProvider.java:627)
+	at com.alibaba.druid.wall.WallProvider.check(WallProvider.java:586)
+	at com.alibaba.druid.wall.WallFilter.check(WallFilter.java:694)
+	... 51 more
+
+2016-10-24 16:36:11
+[ERROR]-[Thread: http-bio-8089-exec-2]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/getExamineeList?name=null&examId=34d44059-2280-48cb-98dd-0d00cbb583b3
+com.jfinal.plugin.activerecord.ActiveRecordException: java.sql.SQLException: sql injection violation, syntax error: ERROR. token : PERCENT, pos : 44 : select * from sys_examinee where name like %?% and exam_id = ? 
+	at com.jfinal.plugin.activerecord.Model.find(Model.java:565)
+	at com.wide.baseproject.exam.controller.InvigilateController.getExamineeList(InvigilateController.java:119)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:73)
+	at com.jfinal.ext.plugin.shiro.ShiroInterceptor.intercept(ShiroInterceptor.java:59)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.wide.interceptor.LoginInterceptor.intercept(LoginInterceptor.java:17)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.ext.interceptor.SessionInViewInterceptor.intercept(SessionInViewInterceptor.java:44)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:74)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.sql.SQLException: sql injection violation, syntax error: ERROR. token : PERCENT, pos : 44 : select * from sys_examinee where name like %?% and exam_id = ? 
+	at com.alibaba.druid.wall.WallFilter.check(WallFilter.java:706)
+	at com.alibaba.druid.wall.WallFilter.connection_prepareStatement(WallFilter.java:234)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_prepareStatement(FilterChainImpl.java:448)
+	at com.alibaba.druid.filter.FilterAdapter.connection_prepareStatement(FilterAdapter.java:929)
+	at com.alibaba.druid.filter.FilterEventAdapter.connection_prepareStatement(FilterEventAdapter.java:122)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_prepareStatement(FilterChainImpl.java:448)
+	at com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl.prepareStatement(ConnectionProxyImpl.java:342)
+	at com.alibaba.druid.pool.DruidPooledConnection.prepareStatement(DruidPooledConnection.java:311)
+	at com.jfinal.plugin.activerecord.Model.find(Model.java:544)
+	at com.jfinal.plugin.activerecord.Model.find(Model.java:563)
+	... 42 more
+Caused by: com.alibaba.druid.sql.parser.ParserException: ERROR. token : PERCENT, pos : 44
+	at com.alibaba.druid.sql.parser.SQLExprParser.primary(SQLExprParser.java:558)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlExprParser.primary(MySqlExprParser.java:185)
+	at com.alibaba.druid.sql.parser.SQLExprParser.bitXor(SQLExprParser.java:135)
+	at com.alibaba.druid.sql.parser.SQLExprParser.multiplicative(SQLExprParser.java:151)
+	at com.alibaba.druid.sql.parser.SQLExprParser.additive(SQLExprParser.java:1034)
+	at com.alibaba.druid.sql.parser.SQLExprParser.shift(SQLExprParser.java:1062)
+	at com.alibaba.druid.sql.parser.SQLExprParser.bitAnd(SQLExprParser.java:940)
+	at com.alibaba.druid.sql.parser.SQLExprParser.bitOr(SQLExprParser.java:954)
+	at com.alibaba.druid.sql.parser.SQLExprParser.relationalRest(SQLExprParser.java:1206)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlExprParser.relationalRest(MySqlExprParser.java:90)
+	at com.alibaba.druid.sql.parser.SQLExprParser.exprRest(SQLExprParser.java:126)
+	at com.alibaba.druid.sql.parser.SQLExprParser.expr(SQLExprParser.java:115)
+	at com.alibaba.druid.sql.parser.SQLSelectParser.expr(SQLSelectParser.java:435)
+	at com.alibaba.druid.sql.parser.SQLSelectParser.parseWhere(SQLSelectParser.java:235)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlSelectParser.query(MySqlSelectParser.java:189)
+	at com.alibaba.druid.sql.parser.SQLSelectParser.select(SQLSelectParser.java:59)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlStatementParser.parseSelect(MySqlStatementParser.java:193)
+	at com.alibaba.druid.sql.parser.SQLStatementParser.parseStatementList(SQLStatementParser.java:129)
+	at com.alibaba.druid.sql.parser.SQLStatementParser.parseStatementList(SQLStatementParser.java:108)
+	at com.alibaba.druid.wall.WallProvider.checkInternal(WallProvider.java:627)
+	at com.alibaba.druid.wall.WallProvider.check(WallProvider.java:586)
+	at com.alibaba.druid.wall.WallFilter.check(WallFilter.java:694)
+	... 51 more
+
+2016-10-24 16:36:20
+[ERROR]-[Thread: http-bio-8089-exec-6]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/getExamineeList?name=null&examId=34d44059-2280-48cb-98dd-0d00cbb583b3
+com.jfinal.plugin.activerecord.ActiveRecordException: java.sql.SQLException: sql injection violation, syntax error: ERROR. token : PERCENT, pos : 44 : select * from sys_examinee where name like %?% and exam_id = ? 
+	at com.jfinal.plugin.activerecord.Model.find(Model.java:565)
+	at com.wide.baseproject.exam.controller.InvigilateController.getExamineeList(InvigilateController.java:119)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:73)
+	at com.jfinal.ext.plugin.shiro.ShiroInterceptor.intercept(ShiroInterceptor.java:59)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.wide.interceptor.LoginInterceptor.intercept(LoginInterceptor.java:17)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.ext.interceptor.SessionInViewInterceptor.intercept(SessionInViewInterceptor.java:44)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:74)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.sql.SQLException: sql injection violation, syntax error: ERROR. token : PERCENT, pos : 44 : select * from sys_examinee where name like %?% and exam_id = ? 
+	at com.alibaba.druid.wall.WallFilter.check(WallFilter.java:706)
+	at com.alibaba.druid.wall.WallFilter.connection_prepareStatement(WallFilter.java:234)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_prepareStatement(FilterChainImpl.java:448)
+	at com.alibaba.druid.filter.FilterAdapter.connection_prepareStatement(FilterAdapter.java:929)
+	at com.alibaba.druid.filter.FilterEventAdapter.connection_prepareStatement(FilterEventAdapter.java:122)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_prepareStatement(FilterChainImpl.java:448)
+	at com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl.prepareStatement(ConnectionProxyImpl.java:342)
+	at com.alibaba.druid.pool.DruidPooledConnection.prepareStatement(DruidPooledConnection.java:311)
+	at com.jfinal.plugin.activerecord.Model.find(Model.java:544)
+	at com.jfinal.plugin.activerecord.Model.find(Model.java:563)
+	... 42 more
+Caused by: com.alibaba.druid.sql.parser.ParserException: ERROR. token : PERCENT, pos : 44
+	at com.alibaba.druid.sql.parser.SQLExprParser.primary(SQLExprParser.java:558)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlExprParser.primary(MySqlExprParser.java:185)
+	at com.alibaba.druid.sql.parser.SQLExprParser.bitXor(SQLExprParser.java:135)
+	at com.alibaba.druid.sql.parser.SQLExprParser.multiplicative(SQLExprParser.java:151)
+	at com.alibaba.druid.sql.parser.SQLExprParser.additive(SQLExprParser.java:1034)
+	at com.alibaba.druid.sql.parser.SQLExprParser.shift(SQLExprParser.java:1062)
+	at com.alibaba.druid.sql.parser.SQLExprParser.bitAnd(SQLExprParser.java:940)
+	at com.alibaba.druid.sql.parser.SQLExprParser.bitOr(SQLExprParser.java:954)
+	at com.alibaba.druid.sql.parser.SQLExprParser.relationalRest(SQLExprParser.java:1206)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlExprParser.relationalRest(MySqlExprParser.java:90)
+	at com.alibaba.druid.sql.parser.SQLExprParser.exprRest(SQLExprParser.java:126)
+	at com.alibaba.druid.sql.parser.SQLExprParser.expr(SQLExprParser.java:115)
+	at com.alibaba.druid.sql.parser.SQLSelectParser.expr(SQLSelectParser.java:435)
+	at com.alibaba.druid.sql.parser.SQLSelectParser.parseWhere(SQLSelectParser.java:235)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlSelectParser.query(MySqlSelectParser.java:189)
+	at com.alibaba.druid.sql.parser.SQLSelectParser.select(SQLSelectParser.java:59)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlStatementParser.parseSelect(MySqlStatementParser.java:193)
+	at com.alibaba.druid.sql.parser.SQLStatementParser.parseStatementList(SQLStatementParser.java:129)
+	at com.alibaba.druid.sql.parser.SQLStatementParser.parseStatementList(SQLStatementParser.java:108)
+	at com.alibaba.druid.wall.WallProvider.checkInternal(WallProvider.java:627)
+	at com.alibaba.druid.wall.WallProvider.check(WallProvider.java:586)
+	at com.alibaba.druid.wall.WallFilter.check(WallFilter.java:694)
+	... 51 more
+
+2016-10-24 16:36:28
+[ERROR]-[Thread: http-bio-8089-exec-12]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/getExamineeList?name=null&examId=34d44059-2280-48cb-98dd-0d00cbb583b3
+com.jfinal.plugin.activerecord.ActiveRecordException: java.sql.SQLException: sql injection violation, syntax error: ERROR. token : PERCENT, pos : 44 : select * from sys_examinee where name like %?% and exam_id = ? 
+	at com.jfinal.plugin.activerecord.Model.find(Model.java:565)
+	at com.wide.baseproject.exam.controller.InvigilateController.getExamineeList(InvigilateController.java:119)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:73)
+	at com.jfinal.ext.plugin.shiro.ShiroInterceptor.intercept(ShiroInterceptor.java:59)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.wide.interceptor.LoginInterceptor.intercept(LoginInterceptor.java:17)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.ext.interceptor.SessionInViewInterceptor.intercept(SessionInViewInterceptor.java:44)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:74)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.sql.SQLException: sql injection violation, syntax error: ERROR. token : PERCENT, pos : 44 : select * from sys_examinee where name like %?% and exam_id = ? 
+	at com.alibaba.druid.wall.WallFilter.check(WallFilter.java:706)
+	at com.alibaba.druid.wall.WallFilter.connection_prepareStatement(WallFilter.java:234)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_prepareStatement(FilterChainImpl.java:448)
+	at com.alibaba.druid.filter.FilterAdapter.connection_prepareStatement(FilterAdapter.java:929)
+	at com.alibaba.druid.filter.FilterEventAdapter.connection_prepareStatement(FilterEventAdapter.java:122)
+	at com.alibaba.druid.filter.FilterChainImpl.connection_prepareStatement(FilterChainImpl.java:448)
+	at com.alibaba.druid.proxy.jdbc.ConnectionProxyImpl.prepareStatement(ConnectionProxyImpl.java:342)
+	at com.alibaba.druid.pool.DruidPooledConnection.prepareStatement(DruidPooledConnection.java:311)
+	at com.jfinal.plugin.activerecord.Model.find(Model.java:544)
+	at com.jfinal.plugin.activerecord.Model.find(Model.java:563)
+	... 42 more
+Caused by: com.alibaba.druid.sql.parser.ParserException: ERROR. token : PERCENT, pos : 44
+	at com.alibaba.druid.sql.parser.SQLExprParser.primary(SQLExprParser.java:558)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlExprParser.primary(MySqlExprParser.java:185)
+	at com.alibaba.druid.sql.parser.SQLExprParser.bitXor(SQLExprParser.java:135)
+	at com.alibaba.druid.sql.parser.SQLExprParser.multiplicative(SQLExprParser.java:151)
+	at com.alibaba.druid.sql.parser.SQLExprParser.additive(SQLExprParser.java:1034)
+	at com.alibaba.druid.sql.parser.SQLExprParser.shift(SQLExprParser.java:1062)
+	at com.alibaba.druid.sql.parser.SQLExprParser.bitAnd(SQLExprParser.java:940)
+	at com.alibaba.druid.sql.parser.SQLExprParser.bitOr(SQLExprParser.java:954)
+	at com.alibaba.druid.sql.parser.SQLExprParser.relationalRest(SQLExprParser.java:1206)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlExprParser.relationalRest(MySqlExprParser.java:90)
+	at com.alibaba.druid.sql.parser.SQLExprParser.exprRest(SQLExprParser.java:126)
+	at com.alibaba.druid.sql.parser.SQLExprParser.expr(SQLExprParser.java:115)
+	at com.alibaba.druid.sql.parser.SQLSelectParser.expr(SQLSelectParser.java:435)
+	at com.alibaba.druid.sql.parser.SQLSelectParser.parseWhere(SQLSelectParser.java:235)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlSelectParser.query(MySqlSelectParser.java:189)
+	at com.alibaba.druid.sql.parser.SQLSelectParser.select(SQLSelectParser.java:59)
+	at com.alibaba.druid.sql.dialect.mysql.parser.MySqlStatementParser.parseSelect(MySqlStatementParser.java:193)
+	at com.alibaba.druid.sql.parser.SQLStatementParser.parseStatementList(SQLStatementParser.java:129)
+	at com.alibaba.druid.sql.parser.SQLStatementParser.parseStatementList(SQLStatementParser.java:108)
+	at com.alibaba.druid.wall.WallProvider.checkInternal(WallProvider.java:627)
+	at com.alibaba.druid.wall.WallProvider.check(WallProvider.java:586)
+	at com.alibaba.druid.wall.WallFilter.check(WallFilter.java:694)
+	... 51 more
+
+2016-10-24 16:51:35
+[ERROR]-[Thread: http-bio-8089-exec-5]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/addmonitoringonline?id=34d44059-2280-48cb-98dd-0d00cbb583b3
+com.jfinal.render.RenderException: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 45
+
+42: 							<label class="control-label" for="name">考生名称：
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                	<c:forEach var="examinee" items="${elist}">
+45: 											<option value='${examinee.id}'>${examinee.name}</option>
+46: 										</c:forEach>
+47: 	                                </select>
+48: 	                        </label>
+
+
+Stacktrace:
+	at com.jfinal.render.JspRender.render(JspRender.java:69)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:97)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 45
+
+42: 							<label class="control-label" for="name">考生名称：
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                	<c:forEach var="examinee" items="${elist}">
+45: 											<option value='${examinee.id}'>${examinee.name}</option>
+46: 										</c:forEach>
+47: 	                                </select>
+48: 	                        </label>
+
+
+Stacktrace:
+	at org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:568)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:470)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:487)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:412)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:339)
+	at com.jfinal.render.JspRender.render(JspRender.java:67)
+	... 30 more
+Caused by: javax.el.PropertyNotFoundException: Property 'name' not found on type com.wide.common.model.Examinee
+	at javax.el.BeanELResolver$BeanProperties.get(BeanELResolver.java:237)
+	at javax.el.BeanELResolver$BeanProperties.access$400(BeanELResolver.java:214)
+	at javax.el.BeanELResolver.property(BeanELResolver.java:325)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:85)
+	at org.apache.jasper.el.JasperELResolver.getValue(JasperELResolver.java:104)
+	at org.apache.el.parser.AstValue.getValue(AstValue.java:183)
+	at org.apache.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:185)
+	at org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate(PageContextImpl.java:1026)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspx_meth_c_005fforEach_005f0(monitoringonline_jsp.java:308)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspService(monitoringonline_jsp.java:120)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	... 40 more
+
+2016-10-24 16:52:28
+[ERROR]-[Thread: http-bio-8089-exec-5]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/addmonitoringonline?id=34d44059-2280-48cb-98dd-0d00cbb583b3
+com.jfinal.render.RenderException: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 45
+
+42: 							<label class="control-label" for="name">考生名称：
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                	<c:forEach var="examinee" items="${elist}">
+45: 											<option value='${examinee.id}'>${examinee.name}</option>
+46: 										</c:forEach>
+47: 	                                </select>
+48: 	                        </label>
+
+
+Stacktrace:
+	at com.jfinal.render.JspRender.render(JspRender.java:69)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:97)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 45
+
+42: 							<label class="control-label" for="name">考生名称：
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                	<c:forEach var="examinee" items="${elist}">
+45: 											<option value='${examinee.id}'>${examinee.name}</option>
+46: 										</c:forEach>
+47: 	                                </select>
+48: 	                        </label>
+
+
+Stacktrace:
+	at org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:568)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:470)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:487)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:412)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:339)
+	at com.jfinal.render.JspRender.render(JspRender.java:67)
+	... 30 more
+Caused by: javax.el.PropertyNotFoundException: Property 'name' not found on type com.wide.common.model.Examinee
+	at javax.el.BeanELResolver$BeanProperties.get(BeanELResolver.java:237)
+	at javax.el.BeanELResolver$BeanProperties.access$400(BeanELResolver.java:214)
+	at javax.el.BeanELResolver.property(BeanELResolver.java:325)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:85)
+	at org.apache.jasper.el.JasperELResolver.getValue(JasperELResolver.java:104)
+	at org.apache.el.parser.AstValue.getValue(AstValue.java:183)
+	at org.apache.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:185)
+	at org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate(PageContextImpl.java:1026)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspx_meth_c_005fforEach_005f0(monitoringonline_jsp.java:308)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspService(monitoringonline_jsp.java:120)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	... 40 more
+
+2016-10-24 16:52:30
+[ERROR]-[Thread: http-bio-8089-exec-10]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/addmonitoringonline?id=34d44059-2280-48cb-98dd-0d00cbb583b3
+com.jfinal.render.RenderException: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 45
+
+42: 							<label class="control-label" for="name">考生名称：
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                	<c:forEach var="examinee" items="${elist}">
+45: 											<option value='${examinee.id}'>${examinee.name}</option>
+46: 										</c:forEach>
+47: 	                                </select>
+48: 	                        </label>
+
+
+Stacktrace:
+	at com.jfinal.render.JspRender.render(JspRender.java:69)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:97)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 45
+
+42: 							<label class="control-label" for="name">考生名称：
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                	<c:forEach var="examinee" items="${elist}">
+45: 											<option value='${examinee.id}'>${examinee.name}</option>
+46: 										</c:forEach>
+47: 	                                </select>
+48: 	                        </label>
+
+
+Stacktrace:
+	at org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:568)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:470)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:487)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:412)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:339)
+	at com.jfinal.render.JspRender.render(JspRender.java:67)
+	... 30 more
+Caused by: javax.el.PropertyNotFoundException: Property 'name' not found on type com.wide.common.model.Examinee
+	at javax.el.BeanELResolver$BeanProperties.get(BeanELResolver.java:237)
+	at javax.el.BeanELResolver$BeanProperties.access$400(BeanELResolver.java:214)
+	at javax.el.BeanELResolver.property(BeanELResolver.java:325)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:85)
+	at org.apache.jasper.el.JasperELResolver.getValue(JasperELResolver.java:104)
+	at org.apache.el.parser.AstValue.getValue(AstValue.java:183)
+	at org.apache.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:185)
+	at org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate(PageContextImpl.java:1026)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspx_meth_c_005fforEach_005f0(monitoringonline_jsp.java:308)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspService(monitoringonline_jsp.java:120)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	... 40 more
+
+2016-10-24 16:52:31
+[ERROR]-[Thread: http-bio-8089-exec-5]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/addmonitoringonline?id=34d44059-2280-48cb-98dd-0d00cbb583b3
+com.jfinal.render.RenderException: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 45
+
+42: 							<label class="control-label" for="name">考生名称：
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                	<c:forEach var="examinee" items="${elist}">
+45: 											<option value='${examinee.id}'>${examinee.name}</option>
+46: 										</c:forEach>
+47: 	                                </select>
+48: 	                        </label>
+
+
+Stacktrace:
+	at com.jfinal.render.JspRender.render(JspRender.java:69)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:97)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 45
+
+42: 							<label class="control-label" for="name">考生名称：
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                	<c:forEach var="examinee" items="${elist}">
+45: 											<option value='${examinee.id}'>${examinee.name}</option>
+46: 										</c:forEach>
+47: 	                                </select>
+48: 	                        </label>
+
+
+Stacktrace:
+	at org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:568)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:470)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:487)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:412)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:339)
+	at com.jfinal.render.JspRender.render(JspRender.java:67)
+	... 30 more
+Caused by: javax.el.PropertyNotFoundException: Property 'name' not found on type com.wide.common.model.Examinee
+	at javax.el.BeanELResolver$BeanProperties.get(BeanELResolver.java:237)
+	at javax.el.BeanELResolver$BeanProperties.access$400(BeanELResolver.java:214)
+	at javax.el.BeanELResolver.property(BeanELResolver.java:325)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:85)
+	at org.apache.jasper.el.JasperELResolver.getValue(JasperELResolver.java:104)
+	at org.apache.el.parser.AstValue.getValue(AstValue.java:183)
+	at org.apache.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:185)
+	at org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate(PageContextImpl.java:1026)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspx_meth_c_005fforEach_005f0(monitoringonline_jsp.java:308)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspService(monitoringonline_jsp.java:120)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	... 40 more
+
+2016-10-24 16:52:32
+[ERROR]-[Thread: http-bio-8089-exec-5]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/addmonitoringonline?id=34d44059-2280-48cb-98dd-0d00cbb583b3
+com.jfinal.render.RenderException: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 45
+
+42: 							<label class="control-label" for="name">考生名称：
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                	<c:forEach var="examinee" items="${elist}">
+45: 											<option value='${examinee.id}'>${examinee.name}</option>
+46: 										</c:forEach>
+47: 	                                </select>
+48: 	                        </label>
+
+
+Stacktrace:
+	at com.jfinal.render.JspRender.render(JspRender.java:69)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:97)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 45
+
+42: 							<label class="control-label" for="name">考生名称：
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                	<c:forEach var="examinee" items="${elist}">
+45: 											<option value='${examinee.id}'>${examinee.name}</option>
+46: 										</c:forEach>
+47: 	                                </select>
+48: 	                        </label>
+
+
+Stacktrace:
+	at org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:568)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:470)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:487)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:412)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:339)
+	at com.jfinal.render.JspRender.render(JspRender.java:67)
+	... 30 more
+Caused by: javax.el.PropertyNotFoundException: Property 'name' not found on type com.wide.common.model.Examinee
+	at javax.el.BeanELResolver$BeanProperties.get(BeanELResolver.java:237)
+	at javax.el.BeanELResolver$BeanProperties.access$400(BeanELResolver.java:214)
+	at javax.el.BeanELResolver.property(BeanELResolver.java:325)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:85)
+	at org.apache.jasper.el.JasperELResolver.getValue(JasperELResolver.java:104)
+	at org.apache.el.parser.AstValue.getValue(AstValue.java:183)
+	at org.apache.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:185)
+	at org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate(PageContextImpl.java:1026)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspx_meth_c_005fforEach_005f0(monitoringonline_jsp.java:308)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspService(monitoringonline_jsp.java:120)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	... 40 more
+
+2016-10-24 16:52:33
+[ERROR]-[Thread: http-bio-8089-exec-1]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/addmonitoringonline?id=34d44059-2280-48cb-98dd-0d00cbb583b3
+com.jfinal.render.RenderException: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 45
+
+42: 							<label class="control-label" for="name">考生名称：
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                	<c:forEach var="examinee" items="${elist}">
+45: 											<option value='${examinee.id}'>${examinee.name}</option>
+46: 										</c:forEach>
+47: 	                                </select>
+48: 	                        </label>
+
+
+Stacktrace:
+	at com.jfinal.render.JspRender.render(JspRender.java:69)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:97)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 45
+
+42: 							<label class="control-label" for="name">考生名称：
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                	<c:forEach var="examinee" items="${elist}">
+45: 											<option value='${examinee.id}'>${examinee.name}</option>
+46: 										</c:forEach>
+47: 	                                </select>
+48: 	                        </label>
+
+
+Stacktrace:
+	at org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:568)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:470)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:487)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:412)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:339)
+	at com.jfinal.render.JspRender.render(JspRender.java:67)
+	... 30 more
+Caused by: javax.el.PropertyNotFoundException: Property 'name' not found on type com.wide.common.model.Examinee
+	at javax.el.BeanELResolver$BeanProperties.get(BeanELResolver.java:237)
+	at javax.el.BeanELResolver$BeanProperties.access$400(BeanELResolver.java:214)
+	at javax.el.BeanELResolver.property(BeanELResolver.java:325)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:85)
+	at org.apache.jasper.el.JasperELResolver.getValue(JasperELResolver.java:104)
+	at org.apache.el.parser.AstValue.getValue(AstValue.java:183)
+	at org.apache.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:185)
+	at org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate(PageContextImpl.java:1026)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspx_meth_c_005fforEach_005f0(monitoringonline_jsp.java:308)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspService(monitoringonline_jsp.java:120)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	... 40 more
+
+2016-10-24 16:52:58
+[ERROR]-[Thread: http-bio-8089-exec-10]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/addmonitoringonline?id=34d44059-2280-48cb-98dd-0d00cbb583b3
+com.jfinal.render.RenderException: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 45
+
+42: 							<label class="control-label" for="name">考生名称：
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                	<c:forEach var="examinee" items="${elist}">
+45: 											<option value='${examinee.id}'>${examinee.name}</option>
+46: 										</c:forEach>
+47: 	                                </select>
+48: 	                        </label>
+
+
+Stacktrace:
+	at com.jfinal.render.JspRender.render(JspRender.java:69)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:97)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 45
+
+42: 							<label class="control-label" for="name">考生名称：
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                	<c:forEach var="examinee" items="${elist}">
+45: 											<option value='${examinee.id}'>${examinee.name}</option>
+46: 										</c:forEach>
+47: 	                                </select>
+48: 	                        </label>
+
+
+Stacktrace:
+	at org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:568)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:470)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:487)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:412)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:339)
+	at com.jfinal.render.JspRender.render(JspRender.java:67)
+	... 30 more
+Caused by: javax.el.PropertyNotFoundException: Property 'name' not found on type com.wide.common.model.Examinee
+	at javax.el.BeanELResolver$BeanProperties.get(BeanELResolver.java:237)
+	at javax.el.BeanELResolver$BeanProperties.access$400(BeanELResolver.java:214)
+	at javax.el.BeanELResolver.property(BeanELResolver.java:325)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:85)
+	at org.apache.jasper.el.JasperELResolver.getValue(JasperELResolver.java:104)
+	at org.apache.el.parser.AstValue.getValue(AstValue.java:183)
+	at org.apache.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:185)
+	at org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate(PageContextImpl.java:1026)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspx_meth_c_005fforEach_005f0(monitoringonline_jsp.java:308)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspService(monitoringonline_jsp.java:120)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	... 40 more
+
+2016-10-24 16:53:47
+[ERROR]-[Thread: http-bio-8089-exec-7]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/addmonitoringonline?id=34d44059-2280-48cb-98dd-0d00cbb583b3
+com.jfinal.render.RenderException: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 45
+
+42: 							<label class="control-label" for="name">考生名称：
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                	<c:forEach var="examinee" items="${elist}">
+45: 											<option value='${examinee.id}'>${examinee.name}</option>
+46: 										</c:forEach>
+47: 	                                </select>
+48: 	                        </label>
+
+
+Stacktrace:
+	at com.jfinal.render.JspRender.render(JspRender.java:69)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:97)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 45
+
+42: 							<label class="control-label" for="name">考生名称：
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                	<c:forEach var="examinee" items="${elist}">
+45: 											<option value='${examinee.id}'>${examinee.name}</option>
+46: 										</c:forEach>
+47: 	                                </select>
+48: 	                        </label>
+
+
+Stacktrace:
+	at org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:568)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:470)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:487)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:412)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:339)
+	at com.jfinal.render.JspRender.render(JspRender.java:67)
+	... 30 more
+Caused by: javax.el.PropertyNotFoundException: Property 'name' not found on type com.wide.common.model.Examinee
+	at javax.el.BeanELResolver$BeanProperties.get(BeanELResolver.java:237)
+	at javax.el.BeanELResolver$BeanProperties.access$400(BeanELResolver.java:214)
+	at javax.el.BeanELResolver.property(BeanELResolver.java:325)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:85)
+	at org.apache.jasper.el.JasperELResolver.getValue(JasperELResolver.java:104)
+	at org.apache.el.parser.AstValue.getValue(AstValue.java:183)
+	at org.apache.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:185)
+	at org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate(PageContextImpl.java:1026)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspx_meth_c_005fforEach_005f0(monitoringonline_jsp.java:308)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspService(monitoringonline_jsp.java:120)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	... 40 more
+
+2016-10-24 16:54:17
+[ERROR]-[Thread: http-bio-8089-exec-7]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/addmonitoringonline?id=34d44059-2280-48cb-98dd-0d00cbb583b3
+com.jfinal.render.RenderException: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 46
+
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                	<c:forEach var="examinee" items="${elist}">
+45: 	                                	<option value='0'>请选择科目</option>
+46: 											<option value='${examinee.id}'>${examinee.name}</option>
+47: 										</c:forEach>
+48: 	                                </select>
+49: 	                        </label>
+
+
+Stacktrace:
+	at com.jfinal.render.JspRender.render(JspRender.java:69)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:97)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 46
+
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                	<c:forEach var="examinee" items="${elist}">
+45: 	                                	<option value='0'>请选择科目</option>
+46: 											<option value='${examinee.id}'>${examinee.name}</option>
+47: 										</c:forEach>
+48: 	                                </select>
+49: 	                        </label>
+
+
+Stacktrace:
+	at org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:568)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:470)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:487)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:412)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:339)
+	at com.jfinal.render.JspRender.render(JspRender.java:67)
+	... 30 more
+Caused by: javax.el.PropertyNotFoundException: Property 'name' not found on type com.wide.common.model.Examinee
+	at javax.el.BeanELResolver$BeanProperties.get(BeanELResolver.java:237)
+	at javax.el.BeanELResolver$BeanProperties.access$400(BeanELResolver.java:214)
+	at javax.el.BeanELResolver.property(BeanELResolver.java:325)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:85)
+	at org.apache.jasper.el.JasperELResolver.getValue(JasperELResolver.java:104)
+	at org.apache.el.parser.AstValue.getValue(AstValue.java:183)
+	at org.apache.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:185)
+	at org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate(PageContextImpl.java:1026)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspx_meth_c_005fforEach_005f0(monitoringonline_jsp.java:309)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspService(monitoringonline_jsp.java:120)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	... 40 more
+
+2016-10-24 16:54:28
+[ERROR]-[Thread: http-bio-8089-exec-9]-[com.jfinal.core.ActionHandler.handle()]: /invigilate/addmonitoringonline?id=34d44059-2280-48cb-98dd-0d00cbb583b3
+com.jfinal.render.RenderException: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 46
+
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                <option value='0'>请选择科目</option>
+45: 	                                	<c:forEach var="examinee" items="${elist}">
+46: 											<option value='${examinee.id}'>${examinee.name}</option>
+47: 										</c:forEach>
+48: 	                                </select>
+49: 	                        </label>
+
+
+Stacktrace:
+	at com.jfinal.render.JspRender.render(JspRender.java:69)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:97)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/monitoringonline.jsp at line 46
+
+43: 	                                <select  id="name" name="name" class="chzn-select">
+44: 	                                <option value='0'>请选择科目</option>
+45: 	                                	<c:forEach var="examinee" items="${elist}">
+46: 											<option value='${examinee.id}'>${examinee.name}</option>
+47: 										</c:forEach>
+48: 	                                </select>
+49: 	                        </label>
+
+
+Stacktrace:
+	at org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:568)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:470)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:487)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:412)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:339)
+	at com.jfinal.render.JspRender.render(JspRender.java:67)
+	... 30 more
+Caused by: javax.el.PropertyNotFoundException: Property 'name' not found on type com.wide.common.model.Examinee
+	at javax.el.BeanELResolver$BeanProperties.get(BeanELResolver.java:237)
+	at javax.el.BeanELResolver$BeanProperties.access$400(BeanELResolver.java:214)
+	at javax.el.BeanELResolver.property(BeanELResolver.java:325)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:85)
+	at org.apache.jasper.el.JasperELResolver.getValue(JasperELResolver.java:104)
+	at org.apache.el.parser.AstValue.getValue(AstValue.java:183)
+	at org.apache.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:185)
+	at org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate(PageContextImpl.java:1026)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspx_meth_c_005fforEach_005f0(monitoringonline_jsp.java:309)
+	at org.apache.jsp.pages.exam.monitoringonline_jsp._jspService(monitoringonline_jsp.java:121)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	... 40 more
+
+2016-10-24 17:12:23
+[ERROR]-[Thread: http-bio-8089-exec-10]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 验证码错误!
+>>>>>>> Stashed changes

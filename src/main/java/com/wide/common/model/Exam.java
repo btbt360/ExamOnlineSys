@@ -13,7 +13,7 @@ public class Exam extends BaseExam<Exam> {
 	
 	
 	@SuppressWarnings("rawtypes")
-	public DataTablesModel pageDataTables(int pageNum, int pageSize, QueryExam queryExam) {
+	public DataTablesModel pageDataTables(int pageNum, int pageSize, QueryExam queryExam,int i) {
 		// TODO Auto-generated method stub
 	    String select = "select id,name,starttime,duration,address,number,status,isenable";
 	    StringBuilder sqlExceptSelect = new StringBuilder(" from sys_exam ");

@@ -12,7 +12,7 @@ public class ExamService {
 
 	public DataTablesModel getPageExam(int pageNum, int pageSize, QueryExam queryExam) {
 		// TODO Auto-generated method stub
-		DataTablesModel exampage = Exam.dao.pageDataTables(pageNum, pageSize, queryExam);
+		DataTablesModel exampage = Exam.dao.pageDataTables(pageNum, pageSize, queryExam,2);
 		
 		if (exampage != null && !exampage.equals("")) {
 			List<List<String>> rows = exampage.getRows();

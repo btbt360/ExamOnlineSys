@@ -62,9 +62,7 @@
 						<div class="control-group">
 							<label class="control-label">选择附件：</label>
 							<div class="controls">
-								<input id="xFilePath" name="FilePath" type="text" size="60" />
-								<input type="button" class="btn btn-primary" value="上传附件"
-									onclick="BrowseServer('xFilePath');" />
+								<input id="xFilePath" name="FilePath" type="text" size="60" /><input type="button" class="btn btn-primary" value="上传附件" onclick="BrowseServer('xFilePath');" />
 							</div>
 						</div>
 

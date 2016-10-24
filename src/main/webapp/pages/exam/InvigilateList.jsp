@@ -70,7 +70,7 @@
 </body>
 <script type="text/javascript">
 function alink(ids) {
-	location.href = "${basepath}/invigilate/add?id=" + ids;
+	location.href = "${basepath}/invigilate/addmonitoringonline?id=" + ids;
 }
 
 	$(document).ready(function() {

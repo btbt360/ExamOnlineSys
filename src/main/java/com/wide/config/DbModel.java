@@ -93,7 +93,7 @@ public abstract class DbModel<T extends DbModel> extends Model<T> {
     	Map<String,String> map  = new LinkedHashMap<String,String>();
     	if(rps.length>0){
     		for(String s: rps){
-    			if(s.indexOf("[.]")!=-1){
+    			if(s.indexOf(".")!=-1){
     				String sssew = s.split("[.]")[1];
     				list.add(sssew);    				
     			}else{
@@ -111,7 +111,7 @@ public abstract class DbModel<T extends DbModel> extends Model<T> {
  
     public String getObjToString(Class<?> res,Object o){
     	String str = o+"";
-    	if(res.equals(java.sql.Timestamp.class)){
+    	if(res!=null&&!res.equals("")&&res.equals(java.sql.Timestamp.class)){
     		Timestamp t = (Timestamp) o;
     		str=DateUtil.timestamp2Str(t);
     	}
