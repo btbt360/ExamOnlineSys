@@ -2,6 +2,7 @@ package com.wide.common.model;
 
 import com.wide.common.model.base.BaseExam;
 import com.wide.common.model.query.QueryExam;
+import com.wide.util.DateUtil;
 import com.wide.viewmodel.DataTablesModel;
 
 /**
@@ -13,7 +14,7 @@ public class Exam extends BaseExam<Exam> {
 	
 	
 	@SuppressWarnings("rawtypes")
-	public DataTablesModel pageDataTables(int pageNum, int pageSize, QueryExam queryExam,int i) {
+	public DataTablesModel pageDataTables(int pageNum, int pageSize, QueryExam queryExam) {
 		// TODO Auto-generated method stub
 	    String select = "select id,name,starttime,duration,address,number,status,isenable";
 	    StringBuilder sqlExceptSelect = new StringBuilder(" from sys_exam ");
@@ -29,6 +30,26 @@ public class Exam extends BaseExam<Exam> {
 	    
 	    return this.paginateDataTables(pageNum, pageSize, select, sqlExceptSelect.toString());
 	}
+	
+	public DataTablesModel pageDataTables(int pageNum, int pageSize, QueryExam queryExam,int pint) {
+		// TODO Auto-generated method stub
+		 String select = "select id,name,code,starttime,endtime,duration,number,invigilatenameone,invigilatenametwo,status";
+		    StringBuilder sqlExceptSelect = new StringBuilder(" from sys_exam ");
+		    /**
+		    if (search!=null&&!search.equals("")) {
+		        sqlExceptSelect.append(" AND (b.title like ? or b.content like ? )");
+		        parameters.add("%" + search + "%");
+		        parameters.add("%" + search + "%");
+		    } 
+		     **/
+		    sqlExceptSelect.append(whereQuery(queryExam));
+		    sqlExceptSelect.append(orderbyQuery(queryExam));
+		    
+		    return this.paginateDataTables(pageNum, pageSize, select, sqlExceptSelect.toString());
+		}
+	
+	
+	
 	/**
 	 * query where查询
 	 * 
@@ -41,7 +62,12 @@ public class Exam extends BaseExam<Exam> {
 		if(query.getCode()!=null&&!query.getCode().equals("")){
 			where  +=" and code = '"+query.getCode()+"'";
 		}
-		
+		if(query.getStarttimes()!=null&&!query.getStarttimes().equals("")){
+			where  +=" and starttime < '"+DateUtil.toDateTimeStr(query.getStarttimes())+"'";
+		}
+		if(query.getEndtimes()!=null&&!query.getEndtimes().equals("")){
+			where  +=" and endtime > '"+DateUtil.toDateTimeStr(query.getEndtimes())+"'";
+		}
 		return where;
 		
 	}
@@ -55,3 +81,5 @@ public class Exam extends BaseExam<Exam> {
 		
 	}
 }
+
+

@@ -83,7 +83,8 @@ public class InvigilateController  extends BaseController {
 		if(id!=null&&!id.equals("")){
 			Db.update("update sys_examinee set status = 1 where exam_id = '"+id+"'");
 		}
-		renderJson("考试开始");
+		setAttr("message", "考试开始");
+		renderJson();
 	}
 	
 	/**
@@ -98,7 +99,8 @@ public class InvigilateController  extends BaseController {
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
-		renderJson("考试结束");
+		setAttr("message", "考试结束");
+		renderJson();
 	}
 	
 	/**
@@ -106,7 +108,12 @@ public class InvigilateController  extends BaseController {
 	 * 考生下机
 	 * */
 	public void getgoDown(){
-		
+		String id = getPara("id");
+		if(id!=null&&!id.equals("")){
+			Db.update("update sys_examinee set status = 3 where id = '"+id+"'");
+		}
+		setAttr("message", "该考生已经下机");
+		renderJson();
 	}
 	
 	/**
@@ -114,15 +121,27 @@ public class InvigilateController  extends BaseController {
 	 * 考生指纹录入
 	 * */
 	public void getfingerprint(){
-		
+		String id = getPara("id");
+		String fingerpath =getPara("fingerpath");
+		if(id!=null&&!id.equals("")){
+			invigilateService.getfingerprint(id,fingerpath);
+		}
+		setAttr("message", "该考生指纹录入");
+		renderJson();
 	}
 	
 	/**
 	 * @author cg
 	 * 考生头像上传
 	 * */
-	public void getculpturepath(){
-		
+	public void getSculpturepath(){
+		String id = getPara("id");
+		String sculpturepath =getPara("sculpturepath");
+		if(id!=null&&!id.equals("")){
+			Db.update("update sys_examinee set sculpturepath ='"+sculpturepath+"' where id ='"+id+"'");
+		}
+		setAttr("message", "该考生头像上传成功");
+		renderJson();
 	}
 	
 	/**
@@ -130,7 +149,12 @@ public class InvigilateController  extends BaseController {
 	 * 考生缺考
 	 * */
 	public void gettoAbsent(){
-		
+		String id = getPara("id");
+		if(id!=null&&!id.equals("")){
+			Db.update("update sys_examinee set status = 4 where id = '"+id+"'");
+		}
+		setAttr("message", "该考生已经视为缺考");
+		renderJson();
 	}	
 	
 	/**

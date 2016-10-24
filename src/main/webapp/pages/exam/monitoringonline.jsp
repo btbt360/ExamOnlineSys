@@ -85,6 +85,7 @@
 <script type="text/javascript">
 	var intDiff = parseInt(3600);//倒计时总秒数量
 	var timerss;
+	var examineeitemid='';
 	function timer(intDiff){
 		timerss=window.setInterval(function(){
 		var day=0,
@@ -116,6 +117,7 @@
 		intDiff--;
 		}, 1000);
 	} 
+	//考生下机
 	function goDown(ids) {
 		if (confirm("是否将该考生执行下机？")) {
 			$.ajax({
@@ -124,7 +126,7 @@
 				cache : false,
 				dataType : 'json',
 				success : function(data) {
-					alert(data);
+					alert(data.message);
 					reshcg();
 				}
 			});
@@ -139,25 +141,12 @@
 			cache : false,
 			dataType : 'json',
 			success : function(data) {
-				alert(data);
+				alert(data.message);
 				reshcg();
 			}
 		});
 	}
-	//上传图片
-	function sculptureupload(ids) {
-		var sculpture=$("#sculpture").val();
-		$.ajax({
-			type : 'post',
-			url : '${basepath}/invigilate/getSculptureupload?id=' + ids+'&fingerpath='+fingerpath,
-			cache : false,
-			dataType : 'json',
-			success : function(data) {
-				alert(data);
-				reshcg();
-			}
-		});
-	}
+	//考生缺考
 	function toAbsent(ids) {
 		if (confirm("是否将该考生设为缺考？")) {
 			$.ajax({
@@ -166,13 +155,25 @@
 				cache : false,
 				dataType : 'json',
 				success : function(data) {
-					alert(data);
+					alert(data.message);
 					reshcg();
 				}
 			});
 		}
 	}
 	$(document).ready(function() {
+		$(document).bind("contextmenu",function(e) { 
+			alert("不能进行右键操作！"); 
+			return false; 
+		});
+		$(document).bind("keydown",function(e){ 
+			e=window.event||e; 
+			if(e.keyCode==116){ 
+				e.keyCode = 0; 
+				alert("正在考试不要进行刷新操作！"); 
+				return false; 
+			} 
+		}); 
 		$(".chzn-select").chosen();
 		var examId = $("#examId").val();
 		oTable = $('#userList').initDT({
@@ -180,6 +181,7 @@
 			"sAjaxSource" : "${basepath}/invigilate/getEETable"
 		});
 		$(".uniform_on").uniform();
+		//开始考试
 		$("#startexam").click(function() {
 			$.ajax({
 				type : 'post',
@@ -187,13 +189,15 @@
 				cache : false,
 				dataType : 'json',
 				success : function(data) {
-					alert(data);
+					alert(data.message);
 					reshcg();
 				}
 			});
 			timer(intDiff);
-			
+			$("#startexam").hide();
+			$("#endexam").show();
 		});
+		//结束考试
 		$("#endexam").click(function(){
 			if (confirm("确定停止该考试？")) {
 				$.ajax({
@@ -202,7 +206,7 @@
 					cache : false,
 					dataType : 'json',
 					success : function(data) {
-						alert(data);
+						alert(data.message);
 						reshcg();
 					}
 				});
@@ -211,10 +215,12 @@
 				$('#minute_show').html('<span class="badge badge-important"><h1>0分</h1></span>');
 				$('#second_show').html('<span class="badge badge-important"><h1>0秒</h1></span>');
 			}
+			$("#endexam").hide();
 		});
 		$("#name").change(function(){
 			reshcg();
 		});
+		$("#endexam").hide();
 	});
 	function reshcg() {
 		var examineeId = $('#name').val();
@@ -225,16 +231,28 @@
 		oTable.gridSearch(this, oSettings);
 	}
 	//使用input框打开ckfinder
-	function BrowseServer(inputId) {
+	function BrowseServer(inputId,id) {
 		var finder = new CKFinder();
 		finder.basePath = '${basepath}/ckfinder'; //导入CKFinder的路径 
 		finder.selectActionFunction = SetFileField; //设置文件被选中时的函数 
 		finder.selectActionData = inputId; //接收地址的input ID 
 		finder.popup();
+		examineeitemid = id;
 	}
 	//文件选中时执行 
 	function SetFileField(fileUrl, data) {
 		document.getElementById(data["selectActionData"]).value = fileUrl;
+		var ids=examineeitemid!=null&&examineeitemid!=''?examineeitemid:"";
+		$.ajax({
+			type : 'post',
+			url : '${basepath}/invigilate/getSculpturepath?id='+ids+'&sculpturepath='+fileUrl,
+			cache : false,
+			dataType : 'json',
+			success : function(data) {
+				alert(data.message);
+				reshcg();
+			}
+		});
 	}
 </script>
 <c:import url="/pages/include/pageFoot.jsp" />
