@@ -13,7 +13,7 @@
 						<a href='#' title="Show Sidebar" rel='tooltip'>&nbsp;</a>
 					</i>
 					<li><a href="#">考试管理</a> <span class="divider">/</span></li>
-					<li class="active">考试安排</li>
+					<li class="active">试卷管理</li>
 				</ul>
 			</div>
 		</div>
@@ -21,8 +21,9 @@
 			<div class="block" style="border: 0px;">
 				<div class="block-content collapse in">
 					<ul class="nav nav-tabs">
-						<li class="active"><a href="${basepath}/exam/addExam">考试列表</a></li>
-						<li><a href="${basepath}/exam/addExamInfo">考试安排添加</a></li>
+						<li class="active"><a href="${basepath}/exampapers/add">试卷列表</a></li>
+						<li><a href="${basepath}/exampapers/addinfo">试卷添加</a></li>
+						<li><a href="${basepath}/exampapers/add">试卷选题</a></li>
 					</ul>
 					
 					<!-- 删除用户提示 -->
@@ -38,38 +39,46 @@
 							<strong><span id="messageee"></span></strong>
 						</div>
 					</div>
-					<form action="${basepath}/exam/exportSubject" method="post" id="subform">
+					<form action="${basepath}/exampapers/exportCase" method="post"
+						id="subform">
 						<div class="span12">
-							<div class="span4">
+							<div class="span3">
 								<label class="control-label" for="name">试卷名称：<input
 									class="input-medium focused" id="name" name="name"
 									type="text" /></label> 
 							</div>
-							<div class="span4">
+							<div class="span3">
 								<label class="control-label" for="code">试卷编码：<input
 									class="input-medium focused" id="code" name="code"
 									type="text" /></label> 
 							</div>
-							<div class="span4 text-right" >
-						<button class="btn btn-medium btn-primary" type="button"
-							id="query">查询</button>
-<!-- 						<button class="btn btn-medium btn-primary" type="button" -->
-<!-- 							id="export">导出</button> -->
-					</div>
+							<div class="span3">
+								<label class="control-label" for="starttimes"><a href='#'
+									id="ceatetimes" style="color: black; text-decoration: none;">创建时间：</a><input type="text" class="input-medium datetimepicker"
+									id="starttimes" value="" name="createtimes"></label>
+							</div>
+							<div class="span3">
+								<label class="control-label" for="endtimes"><a href='#'
+									id="ceatetimee" style="color: black; text-decoration: none;">至：</a><input type="text" class="input-medium datetimepicker" id="endtimes"
+									value="" name="createtimee"></label>
+							</div>
+							</div>
+						<div class="span11 text-right" >
+							<button class="btn btn-medium btn-primary" type="button"id="query">查询</button>
+<!-- 						<button class="btn btn-medium btn-primary" type="button" id="export">导出</button> -->
 						</div>
-						<input type="hidden" id="subpages" name="subpages" /><input
-							type="hidden" id="subrp" name="subrp" />
+						<input type="hidden" id="subpages" name="subpages" />
+						<input type="hidden" id="subrp" name="subrp" />
 					</form>
 					
 					<table id="userList" class="table table-striped table-bordered">
 						<thead>
 							<tr>
+								<th>试卷编码</th>
 								<th>试卷名称</th>
-								<th>考试开始时间</th>
-								<th>考试时长</th>
-								<th>考试地点</th>
-								<th>考试人数</th>
-								<th>考试状态</th>
+								<th>试卷总分</th>
+								<th>试卷使用次数</th>
+								<th>试卷总题数</th>
 								<th>是否启用</th>
 								<th>操作</th>
 							</tr>
@@ -85,14 +94,14 @@
 </body>
 <script type="text/javascript">
 function edit(ids) {
-	location.href = "${basepath}/exam/addExamInfo?id=" + ids;
+	location.href = "${basepath}/exampapers/addinfo?id=" + ids;
 }
 
 function del(ids) {
-	if (confirm("确定要删除该科目？")) {
+	if (confirm("确定要删除该试卷？")) {
 		$.ajax({
 			type : 'post',
-			url : '${basepath}/exam/delExam?id=' + ids,
+			url : '${basepath}/exampapers/del?id=' + ids,
 			cache : false,
 			dataType : 'json',
 			success : function(data) {
@@ -111,11 +120,30 @@ function del(ids) {
 	}
 }
 	$(document).ready(function() {
+		$('.datetimepicker').datetimepicker({  
+            language:  'zh-CN',
+            format: 'yyyy-mm-dd',
+            weekStart: 1,  
+            todayBtn:  1,  
+            autoclose: true,  
+            todayHighlight: 1,  
+            startView: 2,  
+            forceParse: true,  
+            minView:2,//只到天  
+            showMeridian: 1  
+        }).on('changeDate', function (ev) {  
+            $(this).datetimepicker('hide');  
+        });
 		oTable = $('#userList').initDT({
 			serverSide : true,
-			"sAjaxSource" : "${basepath}/exam/getExamlist"
+			"sAjaxSource" : "${basepath}/exampapers/find"
 		});
-
+		$('#ceatetimes').click(function() {
+			$('#starttimes').val('');
+		});
+		$('#ceatetimee').click(function() {
+			$('#endtimes').val('');
+		});
 		$("#query").click(function() {
 			reshcg();
 		});
@@ -129,12 +157,20 @@ function del(ids) {
 	function reshcg() {
 		var name = $('#name').val();
 		var code = $('#code').val();
+		var createtimes = $('#createtimes').val();
+		var createtimee = $('#createtimee').val();
 		var oSettings = [ {
 			"name" : "name",
 			"value" : name
 		}, {
 			"name" : "code",
 			"value" : code
+		}, {
+			"name" : "createtimes",
+			"value" : createtimes
+		}, {
+			"name" : "createtimee",
+			"value" : createtimee
 		} ];
 		oTable.gridSearch(this, oSettings);
 	}

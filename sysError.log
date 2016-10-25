@@ -10180,3 +10180,435 @@ java.lang.IndexOutOfBoundsException: Index: 8, Size: 8
 
 2016-10-24 22:43:41
 [WARN]-[Thread: http-bio-8089-exec-1]-[com.jfinal.core.ActionHandler.handle()]: 404 Action Not Found: /invigilate/getSculptureupload?id=a3416194-d3c0-4d05-a9cf-b1b920fd5208&sculpturepath=/ExamOnlineSys/userfiles/images/c05f42f9jw1eglmwqjwgjj2074074glo.jpg
+
+2016-10-25 17:20:00
+[ERROR]-[Thread: http-bio-8089-exec-7]-[com.jfinal.core.ActionHandler.handle()]: /exam/getExamlist
+java.lang.NumberFormatException: For input string: "赵毅"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:580)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at com.wide.baseproject.exam.service.ExamService.getPageExam(ExamService.java:22)
+	at com.wide.baseproject.exam.service.ExamService$$EnhancerByCGLIB$$e989aa4c.CGLIB$getPageExam$0(<generated>)
+	at com.wide.baseproject.exam.service.ExamService$$EnhancerByCGLIB$$e989aa4c$$FastClassByCGLIB$$a0e5c8.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:82)
+	at com.jfinal.aop.Callback.intercept(Callback.java:96)
+	at com.wide.baseproject.exam.service.ExamService$$EnhancerByCGLIB$$e989aa4c.getPageExam(<generated>)
+	at com.wide.baseproject.exam.controller.ExamController.getExamlist(ExamController.java:34)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:73)
+	at com.jfinal.ext.plugin.shiro.ShiroInterceptor.intercept(ShiroInterceptor.java:59)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.wide.interceptor.LoginInterceptor.intercept(LoginInterceptor.java:17)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.ext.interceptor.SessionInViewInterceptor.intercept(SessionInViewInterceptor.java:44)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:74)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2016-10-25 19:17:56
+[ERROR]-[Thread: http-bio-8089-exec-6]-[com.jfinal.core.ActionHandler.handle()]: /exam/getExamlist
+java.lang.NumberFormatException: For input string: "赵毅"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:580)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at com.wide.baseproject.exam.service.ExamService.getPageExam(ExamService.java:22)
+	at com.wide.baseproject.exam.service.ExamService$$EnhancerByCGLIB$$5ff88645.CGLIB$getPageExam$0(<generated>)
+	at com.wide.baseproject.exam.service.ExamService$$EnhancerByCGLIB$$5ff88645$$FastClassByCGLIB$$213e76a6.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:82)
+	at com.jfinal.aop.Callback.intercept(Callback.java:96)
+	at com.wide.baseproject.exam.service.ExamService$$EnhancerByCGLIB$$5ff88645.getPageExam(<generated>)
+	at com.wide.baseproject.exam.controller.ExamController.getExamlist(ExamController.java:34)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:73)
+	at com.jfinal.ext.plugin.shiro.ShiroInterceptor.intercept(ShiroInterceptor.java:59)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.wide.interceptor.LoginInterceptor.intercept(LoginInterceptor.java:17)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.ext.interceptor.SessionInViewInterceptor.intercept(SessionInViewInterceptor.java:44)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:74)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+
+2016-10-25 19:24:26
+[ERROR]-[Thread: http-bio-8089-exec-7]-[com.jfinal.core.ActionHandler.handle()]: /exampapers/addinfo?id=a7ab3064-c63a-4bcc-901f-4a702311d4c3
+com.jfinal.render.RenderException: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/exampapersInfo.jsp at line 111
+
+108: 				'<div class="span11" id="options${status.index}" style="margin-top:1%;">'+
+109: 				'<div class="span8">'+
+110: 				'类型选择：<select class="m-wrap" id="questiontype_${status.index}" name="questiontype${status.index}" placeholder="请选择试题类型！"><option value="">请选择试题类型</option>'+
+111: 				'<c:forEach var="dict" items="${dictlist}"><option value="${dict.dictkey}" <c:if test="${questiontype.type_id==dict.dictkey}">selected</c:if>>${dict.dictvalue}</option></c:forEach></select>&nbsp;&nbsp;'+
+112: 				'类型试题总数：<input class="input-mini focused" id="sumquestion_${status.index}" name="sumquestion${status.index}" type="text" value="${questiontype.sumquestion}">&nbsp;&nbsp;'+
+113: 				'类型试题总分数：<input class="input-mini focused" id="sumscore_${status.index}" name="sumscore${status.index}" type="text" value="${questiontype.sumscore}"></div>'+
+114: 				'<div class="span3 text-left">&nbsp;&nbsp;'+
+
+
+Stacktrace:
+	at com.jfinal.render.JspRender.render(JspRender.java:69)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:97)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/exampapersInfo.jsp at line 111
+
+108: 				'<div class="span11" id="options${status.index}" style="margin-top:1%;">'+
+109: 				'<div class="span8">'+
+110: 				'类型选择：<select class="m-wrap" id="questiontype_${status.index}" name="questiontype${status.index}" placeholder="请选择试题类型！"><option value="">请选择试题类型</option>'+
+111: 				'<c:forEach var="dict" items="${dictlist}"><option value="${dict.dictkey}" <c:if test="${questiontype.type_id==dict.dictkey}">selected</c:if>>${dict.dictvalue}</option></c:forEach></select>&nbsp;&nbsp;'+
+112: 				'类型试题总数：<input class="input-mini focused" id="sumquestion_${status.index}" name="sumquestion${status.index}" type="text" value="${questiontype.sumquestion}">&nbsp;&nbsp;'+
+113: 				'类型试题总分数：<input class="input-mini focused" id="sumscore_${status.index}" name="sumscore${status.index}" type="text" value="${questiontype.sumscore}"></div>'+
+114: 				'<div class="span3 text-left">&nbsp;&nbsp;'+
+
+
+Stacktrace:
+	at org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:568)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:470)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:487)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:412)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:339)
+	at com.jfinal.render.JspRender.render(JspRender.java:67)
+	... 30 more
+Caused by: javax.el.PropertyNotFoundException: Property 'type_id' not found on type com.wide.common.model.ExampapersQtypes
+	at javax.el.BeanELResolver$BeanProperties.get(BeanELResolver.java:237)
+	at javax.el.BeanELResolver$BeanProperties.access$400(BeanELResolver.java:214)
+	at javax.el.BeanELResolver.property(BeanELResolver.java:325)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:85)
+	at org.apache.jasper.el.JasperELResolver.getValue(JasperELResolver.java:104)
+	at org.apache.el.parser.AstValue.getValue(AstValue.java:183)
+	at org.apache.el.parser.AstEqual.getValue(AstEqual.java:38)
+	at org.apache.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:185)
+	at org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate(PageContextImpl.java:1026)
+	at org.apache.jsp.pages.exam.exampapersInfo_jsp._jspx_meth_c_005fif_005f6(exampapersInfo_jsp.java:638)
+	at org.apache.jsp.pages.exam.exampapersInfo_jsp._jspx_meth_c_005fforEach_005f1(exampapersInfo_jsp.java:605)
+	at org.apache.jsp.pages.exam.exampapersInfo_jsp._jspx_meth_c_005fforEach_005f0(exampapersInfo_jsp.java:539)
+	at org.apache.jsp.pages.exam.exampapersInfo_jsp._jspService(exampapersInfo_jsp.java:227)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	... 40 more
+
+2016-10-25 19:26:34
+[ERROR]-[Thread: http-bio-8089-exec-7]-[com.jfinal.core.ActionHandler.handle()]: /exampapers/addinfo?id=a7ab3064-c63a-4bcc-901f-4a702311d4c3
+com.jfinal.render.RenderException: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/exampapersInfo.jsp at line 112
+
+109: 				'<div class="span8">'+
+110: 				'类型选择：<select class="m-wrap" id="questiontype_${status.index}" name="questiontype${status.index}" placeholder="请选择试题类型！"><option value="">请选择试题类型</option>'+
+111: 				'<c:forEach var="dict" items="${dictlist}"><option value="${dict.dictkey}" <c:if test="${questiontype.typeId==dict.dictkey}">selected</c:if>>${dict.dictvalue}</option></c:forEach></select>&nbsp;&nbsp;'+
+112: 				'类型试题总数：<input class="input-mini focused" id="sumquestion_${status.index}" name="sumquestion${status.index}" type="text" value="${questiontype.sumquestion}">&nbsp;&nbsp;'+
+113: 				'类型试题总分数：<input class="input-mini focused" id="sumscore_${status.index}" name="sumscore${status.index}" type="text" value="${questiontype.sumscore}"></div>'+
+114: 				'<div class="span3 text-left">&nbsp;&nbsp;'+
+115: 				'<button class="btn btn-danger" onclick="deloption(${status.index})" type="button"><i class="icon-remove icon-white"></i> 删除</button><input type="hidden" id="indexcount${status.count}" value="${status.count}">'+
+
+
+Stacktrace:
+	at com.jfinal.render.JspRender.render(JspRender.java:69)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:97)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/exampapersInfo.jsp at line 112
+
+109: 				'<div class="span8">'+
+110: 				'类型选择：<select class="m-wrap" id="questiontype_${status.index}" name="questiontype${status.index}" placeholder="请选择试题类型！"><option value="">请选择试题类型</option>'+
+111: 				'<c:forEach var="dict" items="${dictlist}"><option value="${dict.dictkey}" <c:if test="${questiontype.typeId==dict.dictkey}">selected</c:if>>${dict.dictvalue}</option></c:forEach></select>&nbsp;&nbsp;'+
+112: 				'类型试题总数：<input class="input-mini focused" id="sumquestion_${status.index}" name="sumquestion${status.index}" type="text" value="${questiontype.sumquestion}">&nbsp;&nbsp;'+
+113: 				'类型试题总分数：<input class="input-mini focused" id="sumscore_${status.index}" name="sumscore${status.index}" type="text" value="${questiontype.sumscore}"></div>'+
+114: 				'<div class="span3 text-left">&nbsp;&nbsp;'+
+115: 				'<button class="btn btn-danger" onclick="deloption(${status.index})" type="button"><i class="icon-remove icon-white"></i> 删除</button><input type="hidden" id="indexcount${status.count}" value="${status.count}">'+
+
+
+Stacktrace:
+	at org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:568)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:470)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:487)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:412)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:339)
+	at com.jfinal.render.JspRender.render(JspRender.java:67)
+	... 30 more
+Caused by: javax.el.PropertyNotFoundException: Property 'sumquestion' not found on type com.wide.common.model.ExampapersQtypes
+	at javax.el.BeanELResolver$BeanProperties.get(BeanELResolver.java:237)
+	at javax.el.BeanELResolver$BeanProperties.access$400(BeanELResolver.java:214)
+	at javax.el.BeanELResolver.property(BeanELResolver.java:325)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:85)
+	at org.apache.jasper.el.JasperELResolver.getValue(JasperELResolver.java:104)
+	at org.apache.el.parser.AstValue.getValue(AstValue.java:183)
+	at org.apache.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:185)
+	at org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate(PageContextImpl.java:1026)
+	at org.apache.jsp.pages.exam.exampapersInfo_jsp._jspx_meth_c_005fforEach_005f0(exampapersInfo_jsp.java:547)
+	at org.apache.jsp.pages.exam.exampapersInfo_jsp._jspService(exampapersInfo_jsp.java:227)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	... 40 more
+
+2016-10-25 19:27:34
+[ERROR]-[Thread: http-bio-8089-exec-10]-[com.jfinal.core.ActionHandler.handle()]: /exampapers/addinfo?id=a7ab3064-c63a-4bcc-901f-4a702311d4c3
+com.jfinal.render.RenderException: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/exampapersInfo.jsp at line 113
+
+110: 				'类型选择：<select class="m-wrap" id="questiontype_${status.index}" name="questiontype${status.index}" placeholder="请选择试题类型！"><option value="">请选择试题类型</option>'+
+111: 				'<c:forEach var="dict" items="${dictlist}"><option value="${dict.dictkey}" <c:if test="${questiontype.typeId==dict.dictkey}">selected</c:if>>${dict.dictvalue}</option></c:forEach></select>&nbsp;&nbsp;'+
+112: 				'类型试题总数：<input class="input-mini focused" id="sumquestion_${status.index}" name="sumquestion${status.index}" type="text" value="${questiontype.sumtotal}">&nbsp;&nbsp;'+
+113: 				'类型试题总分数：<input class="input-mini focused" id="sumscore_${status.index}" name="sumscore${status.index}" type="text" value="${questiontype.sumscore}"></div>'+
+114: 				'<div class="span3 text-left">&nbsp;&nbsp;'+
+115: 				'<button class="btn btn-danger" onclick="deloption(${status.index})" type="button"><i class="icon-remove icon-white"></i> 删除</button><input type="hidden" id="indexcount${status.count}" value="${status.count}">'+
+116: 				'</div></div></c:forEach>';
+
+
+Stacktrace:
+	at com.jfinal.render.JspRender.render(JspRender.java:69)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:97)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/exam/exampapersInfo.jsp at line 113
+
+110: 				'类型选择：<select class="m-wrap" id="questiontype_${status.index}" name="questiontype${status.index}" placeholder="请选择试题类型！"><option value="">请选择试题类型</option>'+
+111: 				'<c:forEach var="dict" items="${dictlist}"><option value="${dict.dictkey}" <c:if test="${questiontype.typeId==dict.dictkey}">selected</c:if>>${dict.dictvalue}</option></c:forEach></select>&nbsp;&nbsp;'+
+112: 				'类型试题总数：<input class="input-mini focused" id="sumquestion_${status.index}" name="sumquestion${status.index}" type="text" value="${questiontype.sumtotal}">&nbsp;&nbsp;'+
+113: 				'类型试题总分数：<input class="input-mini focused" id="sumscore_${status.index}" name="sumscore${status.index}" type="text" value="${questiontype.sumscore}"></div>'+
+114: 				'<div class="span3 text-left">&nbsp;&nbsp;'+
+115: 				'<button class="btn btn-danger" onclick="deloption(${status.index})" type="button"><i class="icon-remove icon-white"></i> 删除</button><input type="hidden" id="indexcount${status.count}" value="${status.count}">'+
+116: 				'</div></div></c:forEach>';
+
+
+Stacktrace:
+	at org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:568)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:470)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:487)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:412)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:339)
+	at com.jfinal.render.JspRender.render(JspRender.java:67)
+	... 30 more
+Caused by: javax.el.PropertyNotFoundException: Property 'sumscore' not found on type com.wide.common.model.ExampapersQtypes
+	at javax.el.BeanELResolver$BeanProperties.get(BeanELResolver.java:237)
+	at javax.el.BeanELResolver$BeanProperties.access$400(BeanELResolver.java:214)
+	at javax.el.BeanELResolver.property(BeanELResolver.java:325)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:85)
+	at org.apache.jasper.el.JasperELResolver.getValue(JasperELResolver.java:104)
+	at org.apache.el.parser.AstValue.getValue(AstValue.java:183)
+	at org.apache.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:185)
+	at org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate(PageContextImpl.java:1026)
+	at org.apache.jsp.pages.exam.exampapersInfo_jsp._jspx_meth_c_005fforEach_005f0(exampapersInfo_jsp.java:554)
+	at org.apache.jsp.pages.exam.exampapersInfo_jsp._jspService(exampapersInfo_jsp.java:227)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	... 40 more
+
+2016-10-25 21:32:39
+[ERROR]-[Thread: http-bio-8089-exec-8]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 验证码错误!
+
+2016-10-25 21:48:26
+[ERROR]-[Thread: http-bio-8089-exec-4]-[com.jfinal.core.ActionHandler.handle()]: /exam/getExamlist
+java.lang.NumberFormatException: For input string: "赵毅"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:580)
+	at java.lang.Integer.parseInt(Integer.java:615)
+	at com.wide.baseproject.exam.service.ExamService.getPageExam(ExamService.java:22)
+	at com.wide.baseproject.exam.service.ExamService$$EnhancerByCGLIB$$b5f21205.CGLIB$getPageExam$0(<generated>)
+	at com.wide.baseproject.exam.service.ExamService$$EnhancerByCGLIB$$b5f21205$$FastClassByCGLIB$$436a3749.invoke(<generated>)
+	at net.sf.cglib.proxy.MethodProxy.invokeSuper(MethodProxy.java:228)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:82)
+	at com.jfinal.aop.Callback.intercept(Callback.java:96)
+	at com.wide.baseproject.exam.service.ExamService$$EnhancerByCGLIB$$b5f21205.getPageExam(<generated>)
+	at com.wide.baseproject.exam.controller.ExamController.getExamlist(ExamController.java:34)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:73)
+	at com.jfinal.ext.plugin.shiro.ShiroInterceptor.intercept(ShiroInterceptor.java:59)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.wide.interceptor.LoginInterceptor.intercept(LoginInterceptor.java:17)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.ext.interceptor.SessionInViewInterceptor.intercept(SessionInViewInterceptor.java:44)
+	at com.jfinal.aop.Invocation.invoke(Invocation.java:67)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:74)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)

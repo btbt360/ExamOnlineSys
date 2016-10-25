@@ -168,5 +168,13 @@ public abstract class BaseExam<M extends BaseExam<M>> extends DbModel<M> impleme
 	public java.lang.Integer getIsdel() {
 		return get("isdel");
 	}
+	
+	public void setExampapersId(java.lang.String exampapersId) {
+		set("exampapers_id", exampapersId);
+	}
 
+	public java.lang.String getExampapersId() {
+		return get("exampapers_id");
+	}
+	
 }
