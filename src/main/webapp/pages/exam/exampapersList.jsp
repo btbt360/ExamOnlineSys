@@ -23,7 +23,7 @@
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="${basepath}/exampapers/add">试卷列表</a></li>
 						<li><a href="${basepath}/exampapers/addinfo">试卷添加</a></li>
-						<li><a href="${basepath}/exampapers/add">试卷选题</a></li>
+						<li><a href="${basepath}/exampapers/addExampapersChoose">试卷选题</a></li>
 					</ul>
 					
 					<!-- 删除用户提示 -->

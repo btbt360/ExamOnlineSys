@@ -27,8 +27,6 @@ import com.wide.viewmodel.ViewOperation;
 
 public class QuestionsController extends BaseController{
 	
-	private static final SubjectService subjectService = Enhancer.enhance(SubjectService.class);
-	private static final CaseService caseService = Enhancer.enhance(CaseService.class);
 	private static final QuestionsService questionsService = Enhancer.enhance(QuestionsService.class);
 	private static final ItemBankService itembankService = Enhancer.enhance(ItemBankService.class);
 
@@ -57,8 +55,9 @@ public class QuestionsController extends BaseController{
 		question.setItembankid(getPara("itembankid"));
 		question.setQuestionstype(getPara("questionstype"));
 		question.setSubjectid(getPara("subjectid"));
+		question.setExampapersid("22");
 		DataTablesModel questiontpage = questionsService.getPageQuestion(getParaToInt("page")
-				.intValue(), getParaToInt("rp").intValue(), question);
+				.intValue(), getParaToInt("rp").intValue(), question,0);
 		this.renderJson(questiontpage);
 		
 	}

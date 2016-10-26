@@ -2,6 +2,7 @@ package com.wide.common.model;
 
 import com.wide.common.model.base.BaseQuestions;
 import com.wide.common.model.query.QueryQuestion;
+import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
 
 /**
@@ -35,17 +36,30 @@ public class Questions extends BaseQuestions<Questions> {
 	 * */
 	private String whereQuery(QueryQuestion question){
 		String where=" where 1=1  and isdel = 0 and isenable = 1 ";
-		if(question.getCode()!=null&&!question.getCode().equals("")){
+		if(!TypeChecker.isEmpty(question.getCode())){
 			where += " and code like '%"+question.getCode()+"%'";
 		}
-		if(question.getItembankid()!=null&&!question.getItembankid().equals("")){
+		if(!TypeChecker.isEmpty(question.getItembankid())){
 			where += " and itembank_id = '"+question.getItembankid()+"'";
 		}
-		if(question.getQuestionstype()!=null&&!question.getQuestionstype().equals("0")){
+		if(!TypeChecker.isEmpty(question.getQuestionstype())){
 			where += " and questiontype = '"+question.getQuestionstype()+"'";
 		}
-		if(question.getSubjectid()!=null&&!question.getSubjectid().equals("")){
+		if(!TypeChecker.isEmpty(question.getSubjectid())){
 			where += " and subject_id = '"+question.getSubjectid()+"'";
+		}
+		if(TypeChecker.isEmpty(question.getExampapersid())){
+			where += " and 1 <> 1 ";
+		}
+		if(!TypeChecker.isEmpty(question.getItembankids())){
+			String[] accstr= question.getItembankids().split(",");
+			String strbuf="";
+			if(accstr.length>0){
+				for(int i =0;i<accstr.length;i++){
+					strbuf="'"+accstr[i]+"',"+strbuf;
+				}
+			}
+			where += " and subject_id in ('"+strbuf+"')";
 		}
 		return where;
 		
@@ -58,5 +72,21 @@ public class Questions extends BaseQuestions<Questions> {
 		String orderby = " order by create_date desc ";
 		return orderby;
 		
+	}
+	public DataTablesModel pageDataTablesChoose(int pageNum, int pageSize, QueryQuestion question) {
+		// TODO Auto-generated method stub
+		String select = "select id , code, title ";
+	    StringBuilder sqlExceptSelect = new StringBuilder(" from sys_questions ");
+	    /**
+	    if (search!=null&&!search.equals("")) {
+	        sqlExceptSelect.append(" AND (b.title like ? or b.content like ? )");
+	        parameters.add("%" + search + "%");
+	        parameters.add("%" + search + "%");
+	    } 
+	     **/
+	    sqlExceptSelect.append(whereQuery(question));
+	    sqlExceptSelect.append(orderbyQuery(question));
+	    
+	    return this.paginateDataTables(pageNum, pageSize, select, sqlExceptSelect.toString());
 	}
 }

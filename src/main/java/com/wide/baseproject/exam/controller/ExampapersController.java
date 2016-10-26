@@ -11,16 +11,23 @@ import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wide.base.BaseController;
 import com.wide.base.RenturnInfo;
 import com.wide.baseproject.exam.service.ExampapersService;
+import com.wide.baseproject.resource.service.QuestionsService;
+import com.wide.baseproject.resource.service.SubjectService;
 import com.wide.common.model.Dict;
 import com.wide.common.model.Exampapers;
 import com.wide.common.model.ExampapersQtypes;
+import com.wide.common.model.Itembank;
 import com.wide.common.model.Questionoptions;
+import com.wide.common.model.Subject;
 import com.wide.common.model.query.QueryExampapers;
+import com.wide.common.model.query.QueryQuestion;
+import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
 
 public class ExampapersController extends BaseController {
-	
+	private static final QuestionsService questionsService = Enhancer.enhance(QuestionsService.class);
 	private static final ExampapersService exampapersService = Enhancer.enhance(ExampapersService.class);
+	private static final SubjectService subjectService = Enhancer.enhance(SubjectService.class);
 	
 	
 	/**
@@ -140,6 +147,48 @@ public class ExampapersController extends BaseController {
 		renderJson();
 	}
 	
+	/**
+	 * @author cg
+	 * 进入选择试题
+	 * 
+	 * */
+	public void addExampapersChoose(){
+		List<Exampapers> exampaperslist = new ArrayList<Exampapers>();
+		exampaperslist = Exampapers.dao.getExampapersAll();
+		List<Subject> subjectlist = subjectService.getSubjecyListAll();
+		List<Dict> dictlist = Dict.dao.getDictByType("1002");
+		setAttr("subjectlist", subjectlist);
+		setAttr("dictlist", dictlist);
+		setAttr("exampaperslist", exampaperslist);
+		render("exampapersChoose.jsp");
+	}
+	/**
+	 * @author cg
+	 *  查询试题
+	 * 
+	 * */
+	public void finaQuestionsChoose(){
+		QueryQuestion question = new QueryQuestion();
+		question.setItembankids(getPara("itembankid"));
+		question.setQuestionstype(getPara("questiontypeid"));
+		question.setSubjectid(getPara("subjectid"));
+		question.setExampapersid(getPara("exampapersid"));
+		DataTablesModel questiontpage = questionsService.getPageQuestion(getParaToInt("page")
+				.intValue(), getParaToInt("rp").intValue(), question,1);
+		this.renderJson(questiontpage);
+	}
+	/**
+	 * @author cg
+	 * 根据科目编码和试题类型查询题库
+	 * */
+	public void getItembankBySubQtid(){
+		String questiontypeid = getPara("questiontypeid");
+		String subjectid = getPara("subjectid");
+		List<Itembank> list = new ArrayList<Itembank>();
+		if(!TypeChecker.isEmpty(questiontypeid)&&!TypeChecker.isEmpty(subjectid)){
+			list = Itembank.dao.find("select * from sys_itembank t where t.isenable = 1 and t.isdel = 0 and questiontype = ? and subject_id = ?",questiontypeid,subjectid);
+		}
+		renderJson(list);
+	}
 	
-
 }

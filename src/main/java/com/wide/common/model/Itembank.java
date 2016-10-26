@@ -1,5 +1,7 @@
 package com.wide.common.model;
 
+import java.util.List;
+
 import com.wide.common.model.base.BaseItembank;
 import com.wide.common.model.query.QueryCase;
 import com.wide.common.model.query.QueryItemBank;
@@ -58,4 +60,6 @@ public class Itembank extends BaseItembank<Itembank> {
 		return orderby;
 		
 	}
+
+	
 }

@@ -1,5 +1,7 @@
 package com.wide.common.model;
 
+import java.util.List;
+
 import com.wide.common.model.base.BaseExampapers;
 import com.wide.common.model.query.QueryExaminee;
 import com.wide.common.model.query.QueryExampapers;
@@ -58,5 +60,11 @@ public class Exampapers extends BaseExampapers<Exampapers> {
 			String orderby = " order by create_date desc ";
 			return orderby;
 			
+		}
+		
+		public List<Exampapers> getExampapersAll(){
+			String sql = "select * from sys_exampapers where isdel = 0 and isenable = 1";
+			List<Exampapers> list = find(sql);
+			return list;
 		}
 	}
