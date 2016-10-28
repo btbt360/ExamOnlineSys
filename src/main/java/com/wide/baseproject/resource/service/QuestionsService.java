@@ -65,14 +65,17 @@ public class QuestionsService {
 							}
 						}
 						row.set(2,row.get(2)+option);
-						row.add(3,"");
+						row.add(3,"<input class='input-mini' name='score_"+num+"' type='number' id='score_"+num+"' value='0'>");
+						row.add(4,"");
 						if(!TypeChecker.isEmpty(question.getExampapersid())){
 							List<ExampapersQuestion> eqlist = new ArrayList<ExampapersQuestion>();
-							eqlist = ExampapersQuestion.dao.find("select * from sys_exampapers_question where exampapers_id = ? and question_id = ? ",id,question.getExampapersid());
+							eqlist = ExampapersQuestion.dao.find("select * from sys_exampapers_question where exampapers_id = ? and question_id = ? ",question.getExampapersid(),id);
 							if(eqlist.size()>0){
-								row.set(3, "<button class='btn btn-danger' type='button' onclick=removebut('"+id+"')  ><i class='icon-remove icon-white'></i> 移除试题</button>");
+								row.add(3,"<input class='input-mini' name='score_"+num+"' id='score_"+num+"' type='number' value='"+eqlist.get(0).getScores()+"'>");
+								row.set(4, "<button class='btn btn-danger' type='button' onclick=removebut('"+id+"','score_"+num+"')  ><i class='icon-remove icon-white'></i> 移除试题</button>");
 							}else{
-								row.set(3, "<button class='btn btn-success'type='button' onclick=addbut('"+id+"')><i class='icon-plus-sign icon-white'></i> 添加试题</button>");
+								row.add(3,"<input class='input-mini' name='score_"+num+"' id='score_"+num+"' type='number' value='0'>");
+								row.set(4, "<button class='btn btn-success'type='button' onclick=addbut('"+id+"','score_"+num+"')><i class='icon-plus-sign icon-white'></i> 添加试题</button>");
 							}
 						}
 					}

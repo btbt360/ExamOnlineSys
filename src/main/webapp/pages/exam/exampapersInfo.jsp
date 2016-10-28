@@ -18,6 +18,7 @@
 			<li><a href="${basepath}/exampapers/add">试卷列表</a></li>
 			<li class="active"><a href="${basepath}/exampapers/addinfo">试卷添加</a></li>
 			<li><a href="${basepath}/exampapers/addExampapersChoose">试卷选题</a></li>
+			<li><a href="${basepath}/exampapers/showinfo">试卷预览</a></li>
 		</ul>
 			<div class="span12">
 				<div <c:if test="${flagcg==1}">class="alert alert-success"</c:if>

@@ -2,13 +2,18 @@ package com.wide.baseproject.exam.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.wide.common.model.Exam;
 import com.wide.common.model.Exampapers;
 import com.wide.common.model.ExampapersQtypes;
+import com.wide.common.model.ExampapersQuestion;
 import com.wide.common.model.Questionoptions;
+import com.wide.common.model.Questions;
 import com.wide.common.model.query.QueryExampapers;
 import com.wide.constant.EnumExamineeType;
+import com.wide.util.CGUtil;
+import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
 
 public class ExampapersService {
@@ -57,6 +62,84 @@ public class ExampapersService {
 		if(eqlist.size()>0){
 			for(ExampapersQtypes eqn:eqlist){
 				eqn.save();
+			}
+		}
+	}
+
+	public int getIsScoreAndIsTotal(String exampapersid, String questiontypeid,int score) {
+		// TODO Auto-generated method stub
+		List<ExampapersQtypes> listtype = new ArrayList<ExampapersQtypes>();
+		List<ExampapersQuestion> listequestion = new ArrayList<ExampapersQuestion>();
+		ExampapersQtypes eqt= new ExampapersQtypes();
+		int scores = 0 ;
+		if(!TypeChecker.isEmpty(exampapersid)&&!TypeChecker.isEmpty(questiontypeid)){
+			listtype = ExampapersQtypes.dao.find("select * from sys_exampapers_qtypes where exampapers_id = ? and type_id =? ",exampapersid,questiontypeid);
+			listequestion = ExampapersQuestion.dao.find("select t.* from sys_exampapers_question t,sys_questions t1 where t.exampapers_id = ? and t1.id= t.question_id and t1.questiontype = ? ", exampapersid,questiontypeid);
+			if(listtype.size()>0){
+				eqt = listtype.get(0);
+			}
+			if(eqt.getSumtotal()<listequestion.size()+1){
+				return 2;
+			}
+			if(listequestion.size()>0){
+				for(ExampapersQuestion eq :listequestion){
+					scores = scores+eq.getScores();
+				}
+			}
+			if(scores+score>eqt.getSumscores()){
+				return 1;
+			}
+		}
+		return 0;
+	}
+
+	public void goAutochoose(String exampapersid, String subjectid, String questiontypeid) {
+		List<Questions> listquestion = new ArrayList<Questions>();
+		//1.根据科目查询题库，根据题库查询所有试题
+		listquestion = Questions.dao.find("select * from sys_questions where subject_id = ? and questiontype = ? and isdel = 0 and isenable = 1 ",subjectid,questiontypeid);
+		//2.根据试卷id和试题类型id到试卷试题类型对照表中查询总题数和总分数
+		List<ExampapersQtypes> listeqt = ExampapersQtypes.dao.find("select * from sys_exampapers_qtypes where exampapers_id = ? and type_id =? ",exampapersid,questiontypeid);
+		ExampapersQtypes eqt = new ExampapersQtypes();
+		if(listeqt.size()>0){
+			eqt = listeqt.get(0);
+		}
+		int score = 0;
+		//3.对比题目个数，如果题目数小于总题数，择全部抽取，否则择随机抽取
+		if(eqt.getSumtotal()>listquestion.size()){
+			//4.设置分数：如果总分数整除抽取的总题数。
+			score = eqt.getSumscores()/listquestion.size();
+			//5.保存每道题和试卷的对应关系和分数存储到试题试卷对照表中。
+			saveExampapersQuestions(listquestion,exampapersid,score);
+		}else{
+			//4.设置分数：如果总分数整除抽取的总题数。
+			List<Questions> listccc= new ArrayList<Questions>();
+			for(int i = 0;i<eqt.getSumtotal();i++){
+				Random rand = new Random();
+				int icc = rand.nextInt(listquestion.size()); //生成0-100以内的随机数
+				listccc.add(listquestion.get(icc));
+				listquestion.remove(icc);
+			}
+			score = eqt.getSumscores()/eqt.getSumtotal();
+			//5.保存每道题和试卷的对应关系和分数存储到试题试卷对照表中。
+			saveExampapersQuestions(listccc,exampapersid,score);
+		}
+		//6.抽取完成
+	}
+	public void saveExampapersQuestions(List<Questions> list,String exampapersid,int score){
+		if(list.size()>0){
+			for(Questions q:list){
+				ExampapersQuestion eq = new ExampapersQuestion();
+				List<ExampapersQuestion> listeq = new ArrayList<ExampapersQuestion>();
+				listeq= ExampapersQuestion.dao.find("select * from sys_exampapers_question where exampapers_id = ? and question_id = ? ",exampapersid,q.getId());
+				if(listeq.size()>0){
+					continue;
+				}else{
+					eq.setId(CGUtil.createUUid());
+					eq.setQuestionId(q.getId());
+					eq.setExampapersId(exampapersid);
+					eq.setScores(score);
+					eq.save();
+				}
 			}
 		}
 	}

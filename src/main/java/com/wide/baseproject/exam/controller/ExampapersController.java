@@ -156,9 +156,7 @@ public class ExampapersController extends BaseController {
 		List<Exampapers> exampaperslist = new ArrayList<Exampapers>();
 		exampaperslist = Exampapers.dao.getExampapersAll();
 		List<Subject> subjectlist = subjectService.getSubjecyListAll();
-		List<Dict> dictlist = Dict.dao.getDictByType("1002");
 		setAttr("subjectlist", subjectlist);
-		setAttr("dictlist", dictlist);
 		setAttr("exampaperslist", exampaperslist);
 		render("exampapersChoose.jsp");
 	}
@@ -169,7 +167,7 @@ public class ExampapersController extends BaseController {
 	 * */
 	public void finaQuestionsChoose(){
 		QueryQuestion question = new QueryQuestion();
-		question.setItembankids(getPara("itembankid"));
+		question.setItembankids(getPara("itembankids"));
 		question.setQuestionstype(getPara("questiontypeid"));
 		question.setSubjectid(getPara("subjectid"));
 		question.setExampapersid(getPara("exampapersid"));
@@ -189,6 +187,127 @@ public class ExampapersController extends BaseController {
 			list = Itembank.dao.find("select * from sys_itembank t where t.isenable = 1 and t.isdel = 0 and questiontype = ? and subject_id = ?",questiontypeid,subjectid);
 		}
 		renderJson(list);
+	}
+	/**
+	 * @author cg
+	 * 试卷中添加考试题
+	 * 
+	 * **/
+	public void getRemoveQuestions(){
+		String exampapersid=getPara("exampapersid");
+		String questionid=getPara("questionid");
+		if(!TypeChecker.isEmpty(exampapersid)&&!TypeChecker.isEmpty(questionid)){
+			Db.update("delete from sys_exampapers_question where exampapers_id = '"+exampapersid+"' and question_id = '"+questionid+"'");
+		}
+		setAttr("message", "试题移除成功！");
+		renderJson();
+		
+	}
+	/**
+	 * @author cg
+	 * 试卷中添加考试题
+	 * 
+	 * **/
+	public void getAddQuestions(){
+		String exampapersid=getPara("exampapersid");
+		String questionid=getPara("questionid");
+		int score=getParaToInt("score");
+		String questiontypeid = getPara("questiontypeid");
+		String questionname = Dict.dao.getDictByKeyType(questiontypeid,"1002");
+		int flag = exampapersService.getIsScoreAndIsTotal(exampapersid,questiontypeid,score);//判断试卷总题数和总分数
+		if(flag==0){
+			if(!TypeChecker.isEmpty(exampapersid)&&!TypeChecker.isEmpty(questionid)){
+				Db.update("insert into sys_exampapers_question VALUES ('"+createUUid()+"','"+exampapersid+"','"+questionid+"',"+score+")");
+			}
+			setAttr("message", "试题添加成功！");
+		}else if(flag==1){
+			
+			setAttr("message", "添加试题总分数大于试卷"+questionname+"设定总分数！请查正后再添加！");
+		}else if(flag==2){
+			
+			setAttr("message", "添加试题总数大于试卷"+questionname+"设定总数！请查正后再添加！");
+		}
+		
+		renderJson();
+		
+	}
+	/**
+	 * @author cg
+	 * 根据试卷获取试题类型
+	 * 
+	 * **/
+	public void getQuestionstypesByExampapers(){
+		String exampapersid=getPara("exampapersid");
+		List<ExampapersQtypes> list = new ArrayList<ExampapersQtypes>();
+		if(!TypeChecker.isEmpty(exampapersid)){
+			list = ExampapersQtypes.dao.find("select * from sys_exampapers_qtypes where exampapers_id = ?",exampapersid);
+		}
+		renderJson(list);
+		
+	}
+	/**
+	 * @author cg
+	 * 试题预览
+	 * */
+	public void showinfo(){
+		List<Exampapers> exampaperslist = new ArrayList<Exampapers>();
+		exampaperslist = Exampapers.dao.getExampapersAll();
+		setAttr("exampaperslist", exampaperslist);
+		render("exmapapersShowInfo.jsp");
+	}
+	/**
+	 * @author cg
+	 * 获取试卷
+	 * */
+	public void getExampapersByid(){
+		String exampapersid=getPara("exampapersid");
+		Exampapers exampapers = new Exampapers();
+		exampapers = Exampapers.dao.findById(exampapersid);
+		setAttr("exampapers", exampapers);
+		renderJson();
+	} 
+	/**
+	 * @author cg
+	 * 获取试题根据试卷id
+	 * */
+	public void getQuestionsByExampaperid(){
+		String exampapersid=getPara("exampapersid");
+		List<Object[]> questionslist = new ArrayList<Object[]>();
+		List<Object[]> listq= new ArrayList<Object[]>();
+		questionslist = Db.query("select t.code,t.title,t1.scores,t.questiontype,t.id from sys_questions t,sys_exampapers_question t1 where t.id = t1.question_id and t1.exampapers_id = ? ",exampapersid);
+		if(questionslist.size()>0){
+			for(Object[] o:questionslist){
+				List<Questionoptions> list =Questionoptions.dao.findByQuestionId(o[4]+"");
+				String option = "";
+				if(list.size()>0){
+					for(Questionoptions q:list){
+						option = option + "</br>"+q.getCode()+"、"+q.getContant()+"。";
+					}
+				}
+				o[1]=o[1]+option;
+				listq.add(o);
+			}
+		}
+		
+		renderJson(listq);
+	}
+	/**
+	 * @author cg
+	 * 自动抽题方法
+	 * */
+	public void getAutochoose(){
+		String exampapersid=getPara("exampapersid");
+		String subjectid=getPara("subjectid");
+		String questiontypeid = getPara("questiontypeid");
+		String questionname = Dict.dao.getDictByKeyType(questiontypeid,"1002");
+		try{
+			exampapersService.goAutochoose(exampapersid,subjectid,questiontypeid);
+			setAttr("message", questionname+"抽题完成！");
+		}catch(Exception ex){
+			ex.printStackTrace();
+			setAttr("message", questionname+"抽题出错，请联系管理员！");
+		}
+		renderJson();
 	}
 	
 }

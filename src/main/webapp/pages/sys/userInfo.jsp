@@ -201,7 +201,7 @@
 	var settingoffice = {
 		check : {
 			enable : true,
-			chkStyle : "checkbox"
+			chkStyle : "radio",radioType: "level"
 		},
 		async : {
 			enable : true,

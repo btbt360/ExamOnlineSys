@@ -58,8 +58,9 @@ public class Questions extends BaseQuestions<Questions> {
 				for(int i =0;i<accstr.length;i++){
 					strbuf="'"+accstr[i]+"',"+strbuf;
 				}
+				strbuf= strbuf.substring(0, strbuf.length()-1);
 			}
-			where += " and subject_id in ('"+strbuf+"')";
+			where += " and itembank_id in ("+strbuf+")";
 		}
 		return where;
 		
