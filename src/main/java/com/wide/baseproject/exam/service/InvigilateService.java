@@ -1,6 +1,7 @@
 package com.wide.baseproject.exam.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.jfinal.plugin.activerecord.Db;
@@ -10,11 +11,12 @@ import com.wide.common.model.User;
 import com.wide.common.model.query.QueryExam;
 import com.wide.common.model.query.QueryExaminee;
 import com.wide.constant.EnumExamineeType;
+import com.wide.util.DateUtil;
 import com.wide.viewmodel.DataTablesModel;
 
 public class InvigilateService{
 
-	public DataTablesModel getPageInvigilate(int pageNum, int pageSize, QueryExam queryExam) {
+	public DataTablesModel getPageInvigilate(int pageNum, int pageSize, QueryExam queryExam, int flag) {
 		// TODO Auto-generated method stub
 		DataTablesModel invigilatepage = Exam.dao.pageDataTables(pageNum, pageSize, queryExam,1);
 		if (invigilatepage != null && !invigilatepage.equals("")) {
@@ -30,11 +32,21 @@ public class InvigilateService{
 					row.set(4, row.get(5)+" 小时");
 					row.set(5, row.get(6));
 					row.set(6, row.get(7)+(row.get(8)!=null&&!row.get(8).equals("")?"、"+row.get(8):""));
-					row.set(7, EnumExamineeType.getFromKey(Integer.parseInt(row.get(9))));
-					if(Integer.parseInt(row.get(9))<2){
-						row.set(8, "<a href ='#' onclick=alink('"+id+"') >开始监考</a>");						
-					}else{
-						row.set(8, "");						
+					row.set(7, "");
+					row.set(8, "");
+					if((DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(3)))>0){
+						row.set(7, "<span class='label'>考试结束</span>");
+						row.set(8, "");
+					}else if((DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(3)))<0 && (DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(2)))>=0){
+						row.set(7, "<span class='label label-success'>正在考试</span>");
+						if(flag==0){
+							row.set(8, "<a href ='#' onclick=startExam('"+id+"') >开始考试</a>");
+						}else{
+							row.set(8, "<a href ='#' onclick=startInvigilate('"+id+"') >开始监考</a>");
+						}
+					}else if((DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(2)))<0){
+						row.set(7, "<span class='label label-info'>未开始考试</span>");
+						row.set(8, "");
 					}
 					row.remove(9);
 				}

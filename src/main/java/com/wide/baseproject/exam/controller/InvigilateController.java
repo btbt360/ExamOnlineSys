@@ -54,7 +54,7 @@ public class InvigilateController  extends BaseController {
 		queryExam.setStarttimes(getParaToDate("starttimes"));
 		queryExam.setEndtimes(getParaToDate("endtimes"));
 		DataTablesModel invigilatepage = invigilateService.getPageInvigilate(getParaToInt("page")
-				.intValue(), getParaToInt("rp").intValue(), queryExam);
+				.intValue(), getParaToInt("rp").intValue(), queryExam,1);
 		this.renderJson(invigilatepage);
 		
 	}

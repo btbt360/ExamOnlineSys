@@ -12,15 +12,14 @@
 					<i class="icon-chevron-right show-sidebar" style="display: none;">
 						<a href='#' title="Show Sidebar" rel='tooltip'>&nbsp;</a>
 					</i>
-					<li><a href="#">监控管理</a> <span class="divider">/</span></li>
-					<li class="active">在线考试监控</li>
+					<li><a href="#">我的考试</a> <span class="divider">/</span></li>
+					<li class="active">参加考试</li>
 				</ul>
 			</div>
 		</div>
 		<div class="row-fluid">
 			<div class="block" style="border: 0px;">
 				<div class="block-content collapse in">
-					
 						<div class="span12">
 							<div class="span3">
 								<label class="control-label" for="name">考试名称：<input
@@ -69,7 +68,7 @@
 	</div>
 </body>
 <script type="text/javascript">
-function startInvigilate(ids) {
+function startExam(ids) {
 	location.href = "${basepath}/invigilate/addmonitoringonline?id=" + ids;
 }
 
@@ -90,7 +89,7 @@ function startInvigilate(ids) {
 		
 		oTable = $('#userList').initDT({
 			serverSide : true,
-			"sAjaxSource" : "${basepath}/invigilate/getTable"
+			"sAjaxSource" : "${basepath}/examinee/getJoinExamlist"
 		});
 
 		$("#query").click(function() {
