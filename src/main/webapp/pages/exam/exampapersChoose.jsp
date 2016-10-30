@@ -37,7 +37,7 @@
 								<select class="m-wrap" id="exampapersid" name="exampapersid" placeholder="请选择试卷！">
 										<option value=''>请选择试卷</option>
 										<c:forEach var="exampapers" items="${exampaperslist}">
-											<option value='${exampapers.id}'>${exampapers.name} | ${exampapers.code}</option>
+											<option value='${exampapers.id}' <c:if test="${exampapers.id==exampaperid}">selected</c:if>>${exampapers.name} | ${exampapers.code}</option>
 										</c:forEach>
 								</select>&nbsp;&nbsp;&nbsp;&nbsp;<font color="red">*</font>
 							</div>

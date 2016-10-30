@@ -68,10 +68,22 @@
 	</div>
 </body>
 <script type="text/javascript">
-function startExam(ids) {
-	location.href = "${basepath}/invigilate/addmonitoringonline?id=" + ids;
-}
-
+	function startExam(ids) {
+		$.ajax({
+			type : 'post',
+			url : '${basepath}/invigilate/getExaminee?id='+$("#examId").val(),
+			cache : false,
+			dataType : 'json',
+			success : function(data) {
+				//更新剩余时间
+				if(data.flag==0){
+					alert("您未参加此次考试！");
+				}else{
+					location.href = "${basepath}/examinee/addStartExam?id=" + ids;				
+				}
+			}
+		});
+	}
 	$(document).ready(function() {
 		$('.datetimepicker').datetimepicker({  
             language:  'zh-CN',

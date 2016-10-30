@@ -41,4 +41,12 @@ public abstract class BaseExampapersQuestion<M extends BaseExampapersQuestion<M>
 		return get("scores");
 	}
 
+	public void setSort(java.lang.Integer sort) {
+		set("sort", sort);
+	}
+
+	public java.lang.Integer getSort() {
+		return get("sort");
+	}
+	
 }

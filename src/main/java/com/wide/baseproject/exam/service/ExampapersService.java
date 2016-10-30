@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.jfinal.plugin.activerecord.Db;
 import com.wide.common.model.Exam;
 import com.wide.common.model.Exampapers;
 import com.wide.common.model.ExampapersQtypes;
@@ -26,6 +27,8 @@ public class ExampapersService {
 			if (rows.size() > 0) {
 				for (int i = 0; i < rows.size(); i++) {
 					List<String> row = rows.get(i);
+					List<ExampapersQuestion> eqlist = new ArrayList<ExampapersQuestion>();
+					String ischouqu ="";
 					String id = row.get(0).trim();
 					row.set(0, row.get(1));
 					row.set(1, row.get(2));
@@ -33,7 +36,22 @@ public class ExampapersService {
 					row.set(3, row.get(4)+" 次");
 					row.set(4, row.get(5)+" 题");
 					row.set(5, Integer.parseInt((row.get(6) + "")) == 1 ? "<font color='#00ff66'>启用</font>" : "<font color='#C9C9C9'>禁用</font>");
-					row.set(6, "<a href ='#' onclick=edit('"+id+"') >修改</a> | <a href='#' onclick=del('"+id+"') >删除</a>");
+					eqlist = ExampapersQuestion.dao.find("select * from sys_exampapers_question where exampapers_id = '"+id+"'");
+					if(eqlist.size()>0&&Integer.parseInt(row.get(7))==0){
+						int iio=0;//分数
+						for(ExampapersQuestion e:eqlist){
+							iio =iio+e.getScores();
+						}
+						if(Integer.parseInt(row.get(3))==iio&&Integer.parseInt(row.get(4))==eqlist.size()){
+							ischouqu ="<a href ='#' onclick=queren('"+id+"') > 完成抽取</a> | ";
+						}else{
+							ischouqu ="<a href ='#' onclick=chouqu('"+id+"') > 开始抽取</a> | ";
+						}
+					}else{
+						ischouqu ="<a href ='#' onclick=chouqu('"+id+"') > 开始抽取</a> | ";
+					}
+					row.set(6, ischouqu+"<a href ='#' onclick=edit('"+id+"') >修改</a> | <a href='#' onclick=del('"+id+"') >删除</a>");
+					row.remove(7);
 				}
 			}
 		}
@@ -142,6 +160,49 @@ public class ExampapersService {
 				}
 			}
 		}
+	}
+/**
+ * List<Object[]> list = new ArrayList<Object[]>();
+		list = Db.query("select t1.id,t2.questiontype from sys_exampapers_question t1,sys_questions t2 where t1.exampapers_id=? and t2.id = t1.question_id ",exampapersid);
+		if(list.size()>0){
+			for(Object[] occ:list){
+				int oint = 0;
+				oint=Integer.parseInt(occ[1]+"");
+				switch (oint)
+				{
+				   case 1://单选题
+				    	  分支一;
+				    	  break;
+				   case 2: //多选题
+					      分支二;
+					      break;
+				   case 3: //判断题
+					      分支三;
+					      break;
+				   case 4: //问答题
+					      分支三;
+					      break;
+				   default ://填空题
+					   ;
+				}
+			}
+		}
+ * 
+ * */
+	public void toFinishChoose(String exampapersid) {
+		// TODO Auto-generated method stub
+		int inum = 0;
+		for(int i = 1;i<6;i++){
+			List<ExampapersQuestion> list = new ArrayList<ExampapersQuestion>();
+			list=ExampapersQuestion.dao.find("select t1.* from sys_exampapers_question t1,sys_questions t2 where t1.exampapers_id = ? and t2.questiontype = ? "
+					+ " and t2.id = t1.question_id ",exampapersid,i);
+			for(ExampapersQuestion eq:list){
+				inum = inum+1;
+				eq.setSort(inum);
+				eq.update();
+			}
+		}
+		
 	}
 
 }

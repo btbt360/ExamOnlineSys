@@ -153,11 +153,13 @@ public class ExampapersController extends BaseController {
 	 * 
 	 * */
 	public void addExampapersChoose(){
+		String exampaperid= getPara("id");
 		List<Exampapers> exampaperslist = new ArrayList<Exampapers>();
 		exampaperslist = Exampapers.dao.getExampapersAll();
 		List<Subject> subjectlist = subjectService.getSubjecyListAll();
 		setAttr("subjectlist", subjectlist);
 		setAttr("exampaperslist", exampaperslist);
+		setAttr("exampaperid", exampaperid);
 		render("exampapersChoose.jsp");
 	}
 	/**
@@ -306,6 +308,25 @@ public class ExampapersController extends BaseController {
 		}catch(Exception ex){
 			ex.printStackTrace();
 			setAttr("message", questionname+"抽题出错，请联系管理员！");
+		}
+		renderJson();
+	}
+	/**
+	 * @author cg
+	 * 结束选题和抽题
+	 * */
+	public void toFinishChoose(){
+		String exampapersid=getPara("id");
+		try{
+			if(!TypeChecker.isEmpty(exampapersid)){
+				Db.update("update sys_exampapers set selectedfinish = 1 where id = '"+exampapersid+"'");
+			}
+			//写更新试题sort方法调用service
+			exampapersService.toFinishChoose(exampapersid);
+			setAttr("message", "结束选题和抽题完成！");
+		}catch(Exception ex){
+			ex.printStackTrace();
+			setAttr("message", "出错，请联系管理员！");
 		}
 		renderJson();
 	}

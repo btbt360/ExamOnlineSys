@@ -83,7 +83,7 @@
 		</div>
 </body>
 <script type="text/javascript">
-	var intDiff = parseInt(3600);//倒计时总秒数量
+	var intDiffs = parseInt(3600);//倒计时总秒数量
 	var timerss;
 	var examineeitemid='';
 	function timer(intDiff){
@@ -97,6 +97,15 @@
 			hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
 			minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
 			second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+			$.ajax({
+				type : 'post',
+				url : '${basepath}/invigilate/getRemainingTime?id='+$("#examId").val()+'&enddistancetime='+intDiff,
+				cache : false,
+				dataType : 'json',
+				success : function(data) {
+					//更新剩余时间
+				}
+			});
 		}else{
 			$.ajax({
 				type : 'post',
@@ -189,11 +198,12 @@
 				cache : false,
 				dataType : 'json',
 				success : function(data) {
-					alert(data.message);
+					alert("开始考试！");
+					timer(Nomber(data.message)*3600);
 					reshcg();
 				}
 			});
-			timer(intDiff);
+			
 			$("#startexam").hide();
 			$("#endexam").show();
 		});

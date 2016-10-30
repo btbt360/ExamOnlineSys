@@ -120,6 +120,23 @@ function del(ids) {
 		});
 	}
 }
+function chouqu(ids){
+	location.href = "${basepath}/exampapers/addExampapersChoose?id=" + ids;
+}
+function queren(ids){
+	if (confirm("确定抽题和选题完成？")) {
+		$.ajax({
+			type : 'post',
+			url : '${basepath}/exampapers/toFinishChoose?id=' + ids,
+			cache : false,
+			dataType : 'json',
+			success : function(data) {
+				alert(data.message);
+				reshcg();
+			}
+		});
+	}
+}
 	$(document).ready(function() {
 		$('.datetimepicker').datetimepicker({  
             language:  'zh-CN',

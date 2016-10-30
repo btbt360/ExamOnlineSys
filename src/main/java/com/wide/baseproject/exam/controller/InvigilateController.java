@@ -11,6 +11,7 @@ import com.wide.base.BaseController;
 import com.wide.baseproject.exam.service.InvigilateService;
 import com.wide.common.model.Exam;
 import com.wide.common.model.Examinee;
+import com.wide.common.model.User;
 import com.wide.common.model.query.QueryExam;
 import com.wide.common.model.query.QueryExaminee;
 import com.wide.viewmodel.DataTablesModel;
@@ -83,7 +84,10 @@ public class InvigilateController  extends BaseController {
 		if(id!=null&&!id.equals("")){
 			Db.update("update sys_examinee set status = 1 where exam_id = '"+id+"'");
 		}
-		setAttr("message", "考试开始");
+		Exam exam = Exam.dao.findById(id);
+		exam.setEnddistancetime(Integer.parseInt((exam.getDuration()*3600+"").split(".")[0]));
+		exam.update();
+		setAttr("message", exam.getDuration());
 		renderJson();
 	}
 	
@@ -140,7 +144,21 @@ public class InvigilateController  extends BaseController {
 		if(id!=null&&!id.equals("")){
 			Db.update("update sys_examinee set sculpturepath ='"+sculpturepath+"' where id ='"+id+"'");
 		}
-		setAttr("message", "该考生头像上传成功");
+		setAttr("message", "该考生头像上传成功！");
+		renderJson();
+	}
+	
+	/**
+	 * @author cg
+	 * 考试剩余时间更新
+	 * */
+	public void getRemainingTime(){
+		String id = getPara("id");
+		int enddistancetime = getParaToInt("enddistancetime");
+		if(id!=null&&!id.equals("")){
+			Db.update("update sys_exam set enddistancetime ="+enddistancetime+" where id ='"+id+"'");
+		}
+		setAttr("message", "更新成功！");
 		renderJson();
 	}
 	
@@ -159,7 +177,7 @@ public class InvigilateController  extends BaseController {
 	
 	/**
 	 * @author cg
-	 * 查询考生
+	 * 查询考生列表
 	 * */
 	public void getExamineeList(){
 		String name=getPara("name");
@@ -169,5 +187,17 @@ public class InvigilateController  extends BaseController {
 		renderJson(elist);
 	}	
 
+	/**
+	 * @author cg
+	 * 查询考生资格
+	 * */
+	public void getExaminee(){
+		String examId=getPara("id");
+		User user =getUser();
+		List<Examinee> elist = new ArrayList<Examinee>();
+		elist=Examinee.dao.find("select * from sys_examinee where user_id = '"+user.getId()+"' and exam_id ='"+examId+"'");
+		setAttr("flag", elist.size());
+		renderJson();
+	}	
 	
 }

@@ -17,7 +17,7 @@ public class Exampapers extends BaseExampapers<Exampapers> {
 
 	public DataTablesModel pageDataTables(int pageNum, int pageSize, QueryExampapers queryExampapers) {
 		// TODO Auto-generated method stub
-		 String select = "select id,code,name,sumscore,usecount,sumquestion,isenable";
+		 String select = "select id,code,name,sumscore,usecount,sumquestion,isenable,selectedfinish";
 		    StringBuilder sqlExceptSelect = new StringBuilder(" from sys_exampapers ");
 		    /**
 		    if (search!=null&&!search.equals("")) {
