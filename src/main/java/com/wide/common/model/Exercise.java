@@ -15,7 +15,7 @@ public class Exercise extends BaseExercise<Exercise> {
 	@SuppressWarnings("rawtypes")
 	public DataTablesModel pageDataTables(int pageNum, int pageSize, QueryExercise queryExercise) {
 		// TODO Auto-generated method stub
-	    String select = "select id,name,subject_id,itembank_id,sumtotal,alreadynum,isenable";
+	    String select = "select id,name,subject_id,itembank_id,sumcount,alreadycount,isenable";
 	    StringBuilder sqlExceptSelect = new StringBuilder(" from sys_exercise ");
 	    /**
 	    if (search!=null&&!search.equals("")) {

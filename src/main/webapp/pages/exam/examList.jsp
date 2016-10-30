@@ -53,8 +53,8 @@
 							<div class="span4 text-right" >
 						<button class="btn btn-medium btn-primary" type="button"
 							id="query">查询</button>
-<!-- 						<button class="btn btn-medium btn-primary" type="button" -->
-<!-- 							id="export">导出</button> -->
+ 						<button class="btn btn-medium btn-primary" type="button" 
+							id="export">计算分数</button> 
 					</div>
 						</div>
 						<input type="hidden" id="subpages" name="subpages" /><input
@@ -64,13 +64,14 @@
 					<table id="userList" class="table table-striped table-bordered">
 						<thead>
 							<tr>
-								<th>试卷名称</th>
+								<th>考试名称</th>
+								<th>考试编号</th>
 								<th>考试开始时间</th>
+								<th>考试结束时间</th>
 								<th>考试时长</th>
-								<th>考试地点</th>
 								<th>考试人数</th>
+								<th>监考人</th>
 								<th>考试状态</th>
-								<th>是否启用</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -120,9 +121,11 @@ function del(ids) {
 			reshcg();
 		});
 		$("#export").click(function() {
-			$("#subpages").val(oTable.getCurrentPage());
+			alert(1111);
+			/* $("#subpages").val(oTable.getCurrentPage());
 			$("#subrp").val(oTable.getPageSize());
-			$("#subform").submit();
+			$("#subform").submit(); */
+			location.href = "${basepath}/exam/countScore";
 		});
 
 	});

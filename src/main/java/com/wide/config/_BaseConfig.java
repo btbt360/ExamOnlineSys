@@ -53,7 +53,7 @@ public class _BaseConfig extends JFinalConfig {
 	public void configRoute(Routes me) {
 		this.routes = me;
 		me.add(new SysRoutes());
-		me.add(new ExamRoutes());
+		me.add(new ExamRoutes()); 
 		me.add(new ResourceRoutes());
 		me.add(new ExerciseRoutes());
 	}

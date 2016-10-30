@@ -1,5 +1,7 @@
 package com.wide.common.model;
 
+import java.util.List;
+
 import com.wide.common.model.base.BaseExampapersQuestion;
 
 /**
@@ -8,4 +10,14 @@ import com.wide.common.model.base.BaseExampapersQuestion;
 @SuppressWarnings("serial")
 public class ExampapersQuestion extends BaseExampapersQuestion<ExampapersQuestion> {
 	public static final ExampapersQuestion dao = new ExampapersQuestion();
+	
+	/**
+	 * 通过exam_id查询考生列表
+	 * @param examId
+	 * @return
+	 */
+	public ExampapersQuestion getExampapersQuestion(String questionId){
+		ExampapersQuestion exampapersQuestion = findFirst("select t.* from sys_exampapers_question t where t.question_id = ?",questionId);
+		return exampapersQuestion;
+	}
 }

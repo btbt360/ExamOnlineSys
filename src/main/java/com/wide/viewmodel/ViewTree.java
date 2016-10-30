@@ -10,6 +10,7 @@ public class ViewTree {
 	private Boolean isHidden;// 是否隐藏
 	private Boolean checked;
 	private Boolean open;
+	private String type;
 	
 
 	public String getId() {
@@ -76,8 +77,12 @@ public class ViewTree {
 		this.resid = resid;
 	}
 
-	
+	public String getType() {
+		return type;
+	}
 
-
+	public void setType(String type) {
+		this.type = type;
+	}
 
 }

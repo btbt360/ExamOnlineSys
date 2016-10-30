@@ -14,6 +14,15 @@ import com.wide.viewmodel.DataTablesModel;
 public class Itembank extends BaseItembank<Itembank> {
 	public static final Itembank dao = new Itembank();
 
+	
+	/**
+	 * 通过id查询名称
+	 * @return
+	 */
+	public Itembank getItemBankNameById(String id){
+		Itembank list =findById(id);
+		return list;
+	}
 
 	@SuppressWarnings("rawtypes")
 	public DataTablesModel pageDataTables(int pageNum, int pageSize, QueryItemBank queryitembank) {

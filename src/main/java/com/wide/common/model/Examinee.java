@@ -1,5 +1,7 @@
 package com.wide.common.model;
 
+import java.util.List;
+
 import com.wide.common.model.base.BaseExaminee;
 import com.wide.common.model.query.QueryExam;
 import com.wide.common.model.query.QueryExaminee;
@@ -58,5 +60,15 @@ public class Examinee extends BaseExaminee<Examinee> {
 			String orderby = " order by t.seatno, t.create_date desc ";
 			return orderby;
 			
+		}
+		
+		/**
+		 * 通过exam_id查询考生列表
+		 * @param examId
+		 * @return
+		 */
+		public List<Examinee> getExamineeByExamId(String examId){
+			List<Examinee> list = find("select t.* from sys_examinee t where t.isenable = 1 and t.exam_id = ?",examId);
+			return list;
 		}
 	}

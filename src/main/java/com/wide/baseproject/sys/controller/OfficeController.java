@@ -239,6 +239,24 @@ public class OfficeController extends Controller {
 		}
 		renderJson(list);
 	}
+	
+	
+	/**
+	 * @author lubin
+	 *  查询菜单树
+	 * */
+	public void getUserTree() {
+		String id = getPara("id");
+		String roleid = getPara("roleid");
+		String userid = getPara("userid");
+		String allids = getPara("userids");
+		List<ViewTree> list = new ArrayList<ViewTree>();
+		id = id == null ? "" : id;
+	
+		list = officeService.getUserTreeByPid(id, roleid, allids);
+
+		renderJson(list);
+	}
 
 	/**
 	 * @author phm 查询菜单树
