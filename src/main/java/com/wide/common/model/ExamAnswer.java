@@ -1,5 +1,7 @@
 package com.wide.common.model;
 
+import java.util.List;
+
 import com.wide.common.model.base.BaseExamAnswer;
 
 /**
@@ -8,4 +10,14 @@ import com.wide.common.model.base.BaseExamAnswer;
 @SuppressWarnings("serial")
 public class ExamAnswer extends BaseExamAnswer<ExamAnswer> {
 	public static final ExamAnswer dao = new ExamAnswer();
+	
+	/**
+	 * 通过exam_id查询考生列表
+	 * @param examId
+	 * @return
+	 */
+	public List<ExamAnswer> getExamAnswerList(String examId,String examineeId){
+		List<ExamAnswer> list = find("select t.* from sys_exam_answer t where t.exam_id = ? and t.examinee_id = ?",examId,examineeId);
+		return list;
+	}
 }

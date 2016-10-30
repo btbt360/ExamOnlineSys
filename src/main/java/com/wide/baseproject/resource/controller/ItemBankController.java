@@ -1,18 +1,30 @@
 package com.wide.baseproject.resource.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
+import com.alibaba.fastjson.JSONObject;
 import com.jfinal.aop.Enhancer;
+import com.jfinal.kit.PathKit;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.upload.UploadFile;
 import com.wide.base.BaseController;
 import com.wide.base.RenturnInfo;
 import com.wide.baseproject.resource.service.ItemBankService;
+import com.wide.baseproject.resource.service.QuestionsService;
 import com.wide.baseproject.resource.service.SubjectService;
 import com.wide.baseproject.sys.service.DictService;
 import com.wide.common.model.Dict;
 import com.wide.common.model.Itembank;
+import com.wide.common.model.Questionoptions;
 import com.wide.common.model.Subject;
 import com.wide.common.model.query.QueryItemBank;
 import com.wide.viewmodel.DataTablesModel;
@@ -20,6 +32,7 @@ import com.wide.viewmodel.DataTablesModel;
 public class ItemBankController extends BaseController{
 	private static final ItemBankService itembankService = Enhancer.enhance(ItemBankService.class);
 	private static final SubjectService subjectService = Enhancer.enhance(SubjectService.class);
+	private static final QuestionsService questionsService = Enhancer.enhance(QuestionsService.class);
 	private static final DictService dictService = Enhancer.enhance(DictService.class);
 	/**
 	 * @author cg
@@ -128,9 +141,83 @@ public class ItemBankController extends BaseController{
 	 * */
 	public void importExcel(){
 		returninfo = new RenturnInfo();
+		List<Subject> subjectlist = new ArrayList<Subject>();
+		subjectlist = Subject.dao.getAllSubject();
+		String questiontypename= "";
+		List<Questionoptions> questionoptionslist  =null;
+		Itembank itembank =null;
 		
-		renderJson();
+		setAttr("questiontypename",questiontypename);
+		setAttr("itembank",itembank);
+		setAttr("subjectlist",subjectlist);
+		setAttr("numcount",questionoptionslist!=null&&!questionoptionslist.equals("")?questionoptionslist.size():0);
+		setAttr("questionoptionslist",questionoptionslist);
+		setAttr("flagcg", getPara("flagcg"));
+
+		render("itembankImport.jsp");
+		//renderJson();
 	}
+	
+	/**
+	 * 下载模板
+	 * @param response
+	 */
+	public void downloadExcel(){
+		String path = "/Users/lubin/Documents/workspace/ExamOnlineSys/用户管理.xls";
+		 File file = new File(path);
+		    if (file.isFile()) {
+		        renderFile(file);
+		        return;
+		    }
+		     
+	    // return;
+	    renderNull();
+		
+	}
+	
+	
+	 public void uploadExcel() {
+	        String path = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+	        UploadFile file = this.getFile();
+	        File source = file.getFile();
+	        String fileName = file.getFileName();
+	        String prefix = "file";
+	        JSONObject json = new JSONObject();
+	        
+	        try {
+	            FileInputStream fis = new FileInputStream(source);
+	            File targetDir = new File(PathKit.getWebRootPath() + "/" + prefix + "/u/"
+	                    + path);
+	            if (!targetDir.exists()) {
+	                targetDir.mkdirs();
+	            }
+	            File target = new File(targetDir, fileName);
+	            if (!target.exists()) {
+	                target.createNewFile();
+	            }
+	            FileOutputStream fos = new FileOutputStream(target);
+	            byte[] bts = new byte[300];
+	            while (fis.read(bts, 0, 300) != -1) {
+	                fos.write(bts, 0, 300);
+	            }
+	            fos.close();
+	            fis.close();
+//	            json.put("error", 0);
+//	            json.put("url", "/" + prefix + "/u/" + path + "/" + fileName);
+	            setAttr("flagcg", "1");
+	            source.delete();
+	        } catch (FileNotFoundException e) {
+	        	setAttr("flagcg", "0");
+	            json.put("message", "上传出现错误，请稍后再上传");
+	        } catch (IOException e) {
+	        	setAttr("flagcg", "-1");
+	            json.put("message", "文件写入服务器出现错误，请稍后再上传");
+	        }
+	       
+			render("itembankImport.jsp");
+	    }
+
+	
 	/**
 	 * @author cg
 	 * 二级联动查询题库

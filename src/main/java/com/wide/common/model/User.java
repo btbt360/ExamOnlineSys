@@ -115,5 +115,15 @@ public class User extends BaseUser<User> {
 		return user;
 	}
 	
+	/**
+	 * 通过机构id获取用户信息
+	 * @param officeId
+	 * @return
+	 */
+	public  List<User> getUserByOfficeId(String officeId){
+		List<User> lists = find("select * from sys_user t1 where t1.id in (select t.user_id from sys_office_user t where 1=1 and t.office_id = ?)",officeId);
+		return lists;
+	}
+	
 	
 }

@@ -67,4 +67,6 @@ public class Exampapers extends BaseExampapers<Exampapers> {
 			List<Exampapers> list = find(sql);
 			return list;
 		}
+		
+		
 	}

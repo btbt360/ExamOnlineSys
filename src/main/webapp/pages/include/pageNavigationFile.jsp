@@ -74,7 +74,7 @@
                      <span class="icon-bar"></span>
                      <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="#" style="margin-top: 0.5%;margin-bottom: 0.5%;">在线考试系统</a>
+                    <a class="brand" href="#" style="margin-top: 0.5%;margin-bottom: 0.5%;"></a>
                     
                     <div class="nav-collapse collapse" style="margin-top: 0.5%;margin-bottom: 0.5%;">
                         <ul class="nav pull-right">

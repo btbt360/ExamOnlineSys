@@ -8,6 +8,7 @@ import java.util.Map;
 import com.wide.common.model.Area;
 import com.wide.common.model.Menu;
 import com.wide.common.model.Office;
+import com.wide.common.model.User;
 import com.wide.viewmodel.ViewTree;
 import com.jfinal.plugin.activerecord.Db;
 
@@ -79,6 +80,86 @@ public class OfficeService {
 		}
 		return vtlist;
 	}
+	
+	/**
+	 * 获取组织机构树根据编码
+	 * @author lubin
+	 * @param id树编码
+	 * @param ids上级树编码
+	 * @param i采用哪种查询方式
+	 * @return List<ViewTree>
+	 * */
+	public List<ViewTree> getUserTreeByPid(String id, String ids, String allids) {
+		// TODO Auto-generated method stub
+		List<Office> list = Office.dao.findByPid(id);
+		String strs = "";
+		if(allids != null)
+		   strs = allids;
+		
+		List<User> listUser = new ArrayList<User>();
+		List<ViewTree> vtlist = new ArrayList<ViewTree>();
+		listUser = User.dao.getUserByOfficeId(id);
+		if(listUser.size() >0){
+			for(User u : listUser){
+				ViewTree vt = new ViewTree();
+				vt.setId(u.getId());
+				vt.setIsParent(false);
+				// vt.setIconSkin(listchild.size()>0?"icon01":"icon02");
+				vt.setChecked(strs.indexOf(u.getId()) != -1);
+				vt.setIsHidden(false);
+				vt.setName(u.getName());
+				vt.setParentTId(id);
+				vt.setType("1");
+				vtlist.add(vt);
+			}
+	    }
+		if (list.size() > 0) {
+			for (Office o : list) {
+				ViewTree vt = new ViewTree();
+				List<Office> listchild = new ArrayList<Office>();
+				listchild = Office.dao.findByPid(o.getId());
+				if(listchild.size() > 0){
+					vt.setId(o.getId());
+					vt.setIsParent(true);
+					// vt.setIconSkin(listchild.size()>0?"icon01":"icon02");
+					vt.setChecked(strs.indexOf(o.getId()) != -1);
+					vt.setIsHidden(false);
+					vt.setName(o.getName());
+					vt.setParentTId(vt.getParentTId());
+					vt.setType("0");
+					vtlist.add(vt);
+				}else{
+//					office = Office.dao.getOfficeById(o.getId());
+					listUser = User.dao.getUserByOfficeId(o.getId());
+					if(listUser.size() >0){
+				    	vt.setId(o.getId());
+						vt.setIsParent(true);
+						// vt.setIconSkin(listchild.size()>0?"icon01":"icon02");
+						vt.setChecked(strs.indexOf(o.getId()) != -1);
+						vt.setIsHidden(false);
+						vt.setName(o.getName());
+						vt.setParentTId(vt.getParentTId());
+						vt.setType("0");
+						vtlist.add(vt);
+					}else{
+						vt.setId(o.getId());
+						vt.setIsParent(false);
+						// vt.setIconSkin(listchild.size()>0?"icon01":"icon02");
+						vt.setChecked(strs.indexOf(o.getId()) != -1);
+						vt.setIsHidden(false);
+						vt.setName(o.getName());
+						vt.setParentTId(vt.getParentTId());
+						vt.setType("0");
+						vtlist.add(vt);
+					}
+				}
+			}
+		}
+		return vtlist;
+	}
+	
+	
+	
 	/**
 	 * 根据角色列表返回角色ID串
 	 * @author cg

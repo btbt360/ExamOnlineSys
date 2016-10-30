@@ -7,7 +7,7 @@
 			<div class="muted pull-left">
 				<ul class="breadcrumb">
 					<i class='icon-chevron-left hide-sidebar'><a href='#' title="Hide Sidebar" rel='tooltip'>&nbsp;</a></i>
-					<i class='icon-chevron-right show-sidebar" style="display: none;'><a href='#' title="Show Sidebar" rel='tooltip'>&nbsp;</a></i>
+				<!-- 	<i class='icon-chevron-right show-sidebar" style="display: none;'><a href='#' title="Show Sidebar" rel='tooltip'>&nbsp;</a></i> -->
 					<li><a href="#">考试管理</a> <span class="divider">/</span></li>
 					<li class="active">考试安排</li>
 				</ul>
@@ -16,7 +16,7 @@
 		<div class="block-content collapse in">
 		<ul class="nav nav-tabs">
 			<li><a href="${basepath}/exam/addExam">考试安排列表</a></li>
-			<li class="active"><a href="${basepath}/exam/addExaminfo">考试安排添加</a></li>
+			<li class="active"><a href="${basepath}/exam/addExaminfo">添加考试安排</a></li>
 		</ul>
 			<div class="span12">
 				<div <c:if test="${flagcg==1}">class="alert alert-success"</c:if>
@@ -28,13 +28,21 @@
 				</div>
 				<form id="subinfoform" class="form-horizontal" action="${basepath}/exam/saveExam" method="post">
 					<fieldset>
-						<legend>试卷管理</legend>
+						<legend>添加考试安排</legend>
 						<div class="control-group">
 							<label class="control-label">试卷名称：</label>
 							<div class="controls">
 							<input name="exam.id" type="hidden" value="${exam.id}" >
 								<input class="input-xlarge focused" id="name" name="exam.name"
 									type="text" placeholder="请输入试卷名称!" value="${exam.name}" >
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">考试编号：</label>
+							<div class="controls">
+							<input name="exam.id" type="hidden" value="${exam.code}" >
+								<input class="input-xlarge focused" id="name" name="exam.code"
+									type="text" placeholder="请输入考试编号!" value="${exam.code}" >
 							</div>
 						</div>
 						<div class="control-group">
@@ -66,10 +74,44 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label">考试人数：</label>
+							<label class="control-label" >选择试卷：</label>												    
+						  <div class="controls">  <select class="span3 m-wrap" id="exampapersid" name="exam.exampapersId"  placeholder="请选择科目！" >
+								<option value=''>请选择试卷</option>
+								<c:forEach var="exampapers" items="${exampaperslist}">
+								<option
+									<c:if test="${exampapers.id==exam.exampapersId}">selected</c:if>
+									value='${exampapers.id}'>${exampapers.name}</option>
+							</c:forEach>
+							</select> 
+							<input name="exercise.id" type="hidden" value="${exercise.id}" >
+						</div>	
+						</div>
+						<div class="control-group">
+							<label class="control-label">考试人员：</label>
 							<div class="controls">
-								<input class="input-xlarge focused" id="number" name="exam.number"
-									type="text" placeholder="请输入考试人数!" value="${exam.number}" >
+								<!-- 弹出层 start -->
+								<div class="modal hide fade" id="oModal" tabindex="-1"
+									role="dialog">
+									<div class="modal-header">
+										<button class="close" type="button" data-dismiss="modal">×</button>
+										<h3 id="myModalLabel">考生列表</h3>
+									</div>
+									<div class="modal-body">
+										<div id="otree" class="ztree"></div>
+									</div>
+									<div class="modal-footer">
+										<a href="#" class="btn" id="oclosed">关闭</a> <a href="#"
+											class="btn btn-primary" id="saveoffice">保存</a>
+									</div>
+								</div>
+								<!-- 弹出层 end -->
+								<button type="button" id="editoff" class="btn btn-primary">选择考生</button>
+								<span id="usernamesview">${usernamesview}</span> <input
+									type="hidden" name="userids" id="userids" value="${userids}" />
+									<input
+									type="hidden" name="usernames" id="usernames" value="${usernames}" />
+									<input
+									type="hidden" name="allids" id="allids" value="${allids}" />
 							</div>
 						</div>
 						<div class="control-group">
@@ -89,13 +131,13 @@
 						<div class="control-group">
 							<label class="control-label">考试要求：</label>
 							<div class="controls">
-								<textarea id="demand" name="exam.demand" placeholder="请输入考试要求!" rows="10" style="width: 50%;	" >${exam.demand}</textarea>
+								<textarea id="demand" name="exam.demand" placeholder="请输入考试要求!" rows="7" style="width: 50%;	" >${exam.demand}</textarea>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label">考试制度：</label>
 							<div class="controls">
-								<textarea id="institution" name="exam.institution" placeholder="请输入考试制度!" rows="15" style="width: 50%;	" >${exam.institution}</textarea>
+								<textarea id="institution" name="exam.institution" placeholder="请输入考试制度!" rows="10" style="width: 50%;	" >${exam.institution}</textarea>
 							</div>
 						</div>
 						<div class="control-group">
@@ -123,7 +165,119 @@
 		</div>
 	</div>
 <script type="text/javascript">
+
+    var roleid = '';
+    var userids = $("#userids").val();
+	var settingoffice = {
+		check : {
+			enable : true,
+			chkStyle : "checkbox"
+		},
+		async : {
+			enable : true,
+			url : "${basepath}/office/getUserTree",
+			autoParam : [ "id", "name" ],
+			otherParam : {
+				"otherParam" : "zTreeAsyncTest",
+				"roleid" : roleid,
+				"userids": userids
+			},
+			dataFilter : filter
+		},
+		callback : {
+			onClick : zTreeOnClick,
+			onAsyncSuccess : onAsyncSuccesso
+		}
+	};
+
+	function filter(treeId, parentNode, childNodes) {
+		if (!childNodes)
+			return null;
+		for (var i = 0, l = childNodes.length; i < l; i++) {
+			childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
+		}
+		return childNodes;
+	}
+	function onAsyncSuccess(event, treeId, treeNode, msg) {
+		var treeObj = $.fn.zTree.getZTreeObj("ztree");
+		var nodes = treeObj.getNodesByParam("parentId", 0, null);
+		if (nodes.length > 0) {
+			treeObj.expandNode(nodes[0], true, false, false);
+		}
+	}
+
+	function onAsyncSuccesso(event, treeId, treeNode, msg) {
+		var treeObj = $.fn.zTree.getZTreeObj("ztree");
+		var nodes = treeObj.getNodesByParam("parentId", 0, null);
+		if (nodes.length > 0) {
+			treeObj.expandNode(nodes[0], true, false, false);
+		}
+	}
+
+//机构树单击事件
+
+function zTreeOnClick(event, treeId, treeNode) {
+	if (treeNode.nodetype == 1) {
+		treeNodez = treeNode.nodetype;
+
+	} else {
+		treeNodez = treeNode.nodetype;
+
+	}
+}
+function getAllCheckedNode() {
+	var treeObj = $.fn.zTree.getZTreeObj("ztree");
+	var nodes = treeObj.getCheckedNodes(true);
+	var str = "";
+	var ids = "";
+	var rightids = "";
+	for (var i = 0; i < nodes.length; i++) {
+		str = str + nodes[i].name + "|";
+		ids = ids + nodes[i].id + "|";
+		rightids = rightids + nodes[i].resid + "|";
+	}
+	$("#resids").val(ids);
+	$("#rightids").val(rightids);
+	$("#rolerightnames").text(str);
+}
+
+function getAllCheckedNodeo() {
+	var treeObj = $.fn.zTree.getZTreeObj("otree");
+	var nodes = treeObj.getCheckedNodes(true);
+	var str = "";
+	var ids = "";
+	var allids = "";
+	alert(1111);
+	for (var i = 0; i < nodes.length; i++) {
+		allids = ids + nodes[i].id + "|";
+		if(nodes[i].type == "1"){
+			str = str + nodes[i].name + "|";
+			ids = ids + nodes[i].id + "|";
+		}
+		alert(str);
+	}
+	$("#userids").val(ids);
+	$("#allids").val(allids);
+	$("#usernamesview").text(str);
+	$("#usernames").val(str);
+}
 $(document).ready(function() {
+
+	$.fn.zTree.init($("#otree"), settingoffice);
+		$("#editoff").click(function() {
+			$('#oModal').modal('show');
+		});
+		$("#oclosed").click(function() {
+			$('#oModal').modal('hide');
+		});
+		$("#saveoffice").click(function() {
+			$("#usernames").val("");
+			$("#userids").val("");
+			$("#usernamesview").text("");
+			getAllCheckedNodeo();
+			$('#oModal').modal('hide');
+		});
+	
 		
 		$('.datepicker').datetimepicker({  
 	        language:  'zh-CN',
@@ -143,6 +297,7 @@ $(document).ready(function() {
  	    var subform ="subinfoform"; 
      	jqObj.setform(subform);
  	    jqObj.set("exam.name", "required",  "请输入试卷名称!"); 
+ 	    jqObj.set("exam.code", "required",  "请输入考试编号!"); 
  	    jqObj.set("exam.starttime", "required",  "请输入开始时间!");
  	    jqObj.set("exam.endtime", "required",  "请输入结束时间!");
  	    jqObj.set("exam.address", "required",  "请输入考试地点!");

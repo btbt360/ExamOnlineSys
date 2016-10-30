@@ -34,4 +34,11 @@ public class Office extends BaseOffice<Office> {
 		return list;
 	}
 	
+	
+	public Office getOfficeById(String id) {
+		// TODO Auto-generated method stub
+		Office office = findFirst(" select t1.* from sys_office t1 where 1=1 and t1.del_flag = 0 and t1.id = ? ", id);
+		return office;
+	}
+	
 }

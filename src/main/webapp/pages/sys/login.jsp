@@ -9,16 +9,77 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>登录</title>
-<c:import url="/pages/include/pageHead.jsp" />
+
+<!-- JS -->
+<script src="${basepath}/static/frame/theme/vendors/jquery-validation/lib/jquery.js"></script>
+<script src="${basepath}/static/frame/theme/vendors/jquery-1.9.1.min.js"></script>	
 <style>
 body{
 	background:url(static/img/login_bg.jpg) no-repeat;
 	 background-size:100%;
-	 background-color:#037192}
+	 background-color:#104a9c;
+}
+input:-webkit-autofill {  
+        -webkit-box-shadow: 0 0 0px 1000px white inset !important;  
+}  
 .logo{
-		text-align:center;
-		padding-top:6%; 
-		padding-bottom:4%;}
+	text-align:center;
+	padding-top:90px; 
+	padding-bottom:30px;
+}	
+.inputbg{
+	background:url(static/img/input_bg.png) no-repeat center;
+	height:401px;
+	position:relative; 
+}
+.inputdiv{
+ 	position: absolute; left: 50%; top: 70px;  margin:0px 0 0 -151px;}
+.input01{
+	border:1px solid #CCC;
+	border-radius:8px;
+	height:35px;
+	width:310px;
+	line-height:35px;
+	background-color:#fff !important;
+	padding-left:40px;
+	margin-top:30px;
+	position:relative 
+}
+.icon01{
+	position:absolute; top:30px; left:3px; z-index:100
+}
+.icon02{
+	position:absolute; top:86px; left:3px; z-index:100
+}
+.input02{
+	border:1px solid #CCC;
+	border-radius:8px;
+	height:35px;
+	width:310px;
+	line-height:35px;
+	background-color:#fff;
+	padding-left:40px;
+}
+.input03{
+	border:1px solid #CCC;
+	border-radius:8px;
+	height:35px;
+	width:250px;
+	line-height:35px;
+	background-color:#fff;
+	padding-left:10px;
+	margin－top:5px;
+}
+.btn{
+	background:url(static/img/login_btn.png);
+	border:0;
+	width:350px;
+	height:40px;}
+			
+.alert-error{
+  color: #b94a48;
+}
+		 
 	
 </style>
 <script type="text/javascript">
@@ -64,21 +125,25 @@ function verification(){
 </script>
 </head>
 <body id="login" >
-<div class="logo"><div style="font-size: 40px;">JfinalYBaseV1.0</div></div>
+<div class="logo"><img src="static/img/login_logo.png" /></div>
 
 
-<div class="container">
-<form class="form-signin" id="loginform" method="post" action="${basepath}/doLogin">
- <input type="text" class="input-block-level" placeholder="用户名" name="username" id="userloginName" /><br>
+<div class="inputbg">
+<form id="loginform" method="post" action="${basepath}/doLogin">
+<div class="inputdiv">
+ <input type="text" class="input01" placeholder="用户名" name="username" id="userloginName" /><br><br/>
   
-       <input type="password" class="input-block-level" placeholder="密码" name="password" id="userpassword" /><br>
-       <img src="${basepath}/img"/><br/>
-      <input type="text" class="input-block-level" placeholder="验证码" name="captcha" id="captcha" /><br>
-	  	<div class="alert alert-error" id="error">
-				<button id="closealerterror" class="close" >&times;</button>
-				<strong><span id="msg" ></span></strong>
+       <img src="static/img/user.png" class="icon01" /><input type="password" class="input02" placeholder="密码" name="password" id="userpassword" /><br><br/>
+      
+     <img src="static/img/password.png" class="icon02" /> <input type="text" class="input03"  placeholder="验证码" name="captcha" id="captcha" /><img src="${basepath}/img" style="vertical-align:middle;padding-left:10px;"/> 
+      <br><br/>
+	  	<div class="alert alert-error" style="margin-bottom:10px;" id="error">
+				<!-- <button id="closealerterror" class="close" >&times;</button> -->
+				<strong><span id="msg" ></span></strong> <br>
 		</div>
-        <button class="btn btn-large btn-block btn-info" type="submit"  id="loginbutton" >登录</button>
+		 <button class="btn" type="submit"  id="loginbutton" >&nbsp;</button>
+        </div>
+       
 </form>
 </div>
 
