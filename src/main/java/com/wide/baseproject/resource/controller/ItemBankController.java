@@ -163,7 +163,7 @@ public class ItemBankController extends BaseController{
 	 * @param response
 	 */
 	public void downloadExcel(){
-		String path = "/Users/lubin/Documents/workspace/ExamOnlineSys/结婚电话表.xlsx";
+		String path = "/Users/lubin/Documents/workspace/ExamOnlineSys/用户管理.xls";
 		 File file = new File(path);
 		    if (file.isFile()) {
 		        renderFile(file);
