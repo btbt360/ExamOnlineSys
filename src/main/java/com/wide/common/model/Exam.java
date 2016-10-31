@@ -1,5 +1,8 @@
 package com.wide.common.model;
 
+import java.util.Date;
+import java.util.List;
+
 import com.wide.common.model.base.BaseExam;
 import com.wide.common.model.query.QueryExam;
 import com.wide.util.DateUtil;
@@ -49,6 +52,25 @@ public class Exam extends BaseExam<Exam> {
 		}
 	
 	
+	public DataTablesModel pageDataTables() {
+		 QueryExam queryExam = new QueryExam();
+		// TODO Auto-generated method stub
+		 String select = "select id,name,code,starttime,endtime,duration,number,invigilatenameone,invigilatenametwo,status";
+		    StringBuilder sqlExceptSelect = new StringBuilder(" from sys_exam ");
+		    /**
+		    if (search!=null&&!search.equals("")) {
+		        sqlExceptSelect.append(" AND (b.title like ? or b.content like ? )");
+		        parameters.add("%" + search + "%");
+		        parameters.add("%" + search + "%");
+		    } 
+		     **/
+		    sqlExceptSelect.append(whereQuery(queryExam));
+		    
+		    return this.paginateDataTables(1, 1, select, sqlExceptSelect.toString());
+		}
+	
+	
+	
 	
 	/**
 	 * query where查询
@@ -79,6 +101,16 @@ public class Exam extends BaseExam<Exam> {
 		String orderby = " order by create_date desc ";
 		return orderby;
 		
+	}
+	
+	/**
+	 * 查询正在考试的信息
+	 * @param officeId
+	 * @return
+	 */
+	public  List<Exam> getExamList(){
+		List<Exam> lists = find("select t.* from sys_exam t where 1=1 and t.isdel = 0 and t.starttime <'"+DateUtil.toDateTimeStr(new Date())+"' and t.endtime >= '"+DateUtil.toDateTimeStr(new Date())+"'");
+		return lists;
 	}
 }
 

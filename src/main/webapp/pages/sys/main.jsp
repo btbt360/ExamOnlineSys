@@ -8,15 +8,14 @@
 			<div class="block">
 				<div class="navbar navbar-inner block-header">
 					<div class="muted pull-left">
-					占位统计 <small>统计图</small>
+					考生考试成绩 <small>统计图</small>
 					</div>
-					<div class="pull-right">
-						<span class="badge badge-warning">更多数据</span>
-
-					</div>
+					
 				</div>
 				<div class="block-content collapse in">
-					首页要加载图表
+					 <div class="span12">
+                              <div id="hero-graph" style="height: 230px;"></div>
+                      </div>
 				</div>
 			</div>
 			<!-- /block -->
@@ -76,18 +75,16 @@
 				<!-- block -->
 				<div class="block">
 					<div class="navbar navbar-inner block-header">
-						<div class="muted pull-left">内容列表</div>
-						<div class="muted pull-right"><a href="${basepath }/bbs/getPostingAll">更多..</a></div>
+						<div class="muted pull-left">正在考试中</div>
+						<div class="muted pull-right"><a href="${basepath }/exam/addExam">更多..</a></div>
 					</div>
 					<div class="block-content collapse in">
 							<table class="table table-bordered">
-								<c:forEach items="${postlist }" var="postmodel">
+								<c:forEach items="${examList}" var="exam">
 									<tr style="height:42px !important;">
-										<td width="50%">${postmodel.title }</td>
-										<td  width="30%">${postmodel.create_date }</td>
-										<td  width="20%">
-										<c:if test="${postmodel.is_check==0 }"><button class="flagbtn" id="${postmodel.id}">审核</button>
-										</c:if></td>
+										<td width="50%">${exam.name }</td>
+										<td  width="30%">${exam.duration }分钟</td>
+										<td  width="20%"><a 　href="#">开始考试</a></td>
 									</tr>
 								</c:forEach>
 							</table>
@@ -126,47 +123,65 @@
 			$(".img-rounded").mouseout(function(){
 				$(this).removeClass("hoverimg");
 			});
+			
+			
 			// Morris Line Chart
 			var tax_data = [ {
 				"period" : "2016-01",
-				"visits" : 2407,
-				"signups" : 660
+				"qualified" : 15,
+				"noqualified" : 5,
+				"excellent" : 20
+				
 			}, {
 				"period" : "2016-02",
-				"visits" : 3351,
-				"signups" : 729
+				"qualified" : 10,
+				"noqualified" : 5,
+				"excellent" : 25
+				
 			}, {
 				"period" : "2016-03",
-				"visits" : 2469,
-				"signups" : 1318
+				"qualified" :10,
+				"noqualified" :0,
+				"excellent" : 30
+				
 			}, {
 				"period" : "2016-04",
-				"visits" : 2246,
-				"signups" : 461
+				"qualified" : 15,
+				"noqualified" : 0,
+				"excellent" : 25
+				
 			}, {
 				"period" : "2016-05",
-				"visits" : 3171,
-				"signups" : 1676
+				"qualified" : 5,
+				"noqualified" : 0,
+				"excellent" : 35
+				
 			}, {
 				"period" : "2016-06",
-				"visits" : 2155,
-				"signups" : 681
+				"qualified" : 7,
+				"noqualified" : 3,
+				"excellent" : 30
+				
 			}, {
 				"period" : "2016-07",
-				"visits" : 1226,
-				"signups" : 620
+				"qualified" : 9,
+				"noqualified" : 2,
+				"excellent" : 29
+				
 			}, {
 				"period" : "2016-08",
-				"visits" : 2245,
-				"signups" : 500
+				"qualified" : 2,
+				"noqualified" : 18,
+				"excellent" : 20
+				
 			} ];
 			Morris.Line({
 				element : 'hero-graph',
 				data : tax_data,
 				xkey : 'period',
 				xLabels : "month",
-				ykeys : [ 'visits', 'signups' ],
-				labels : [ '新闻量', '发帖量' ]
+				ykeys : [ 'noqualified','qualified','excellent'],
+				labels : [ '不及格','及格','优秀']
 			});
 		});
 	</script>

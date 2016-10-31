@@ -19,6 +19,8 @@ public class DateUtil {
 	private final static String DATEFORMATTWO = "yyyy/MM/dd";
 
 	private final static String DATETIMEFORMAT = "yyyy-MM-dd HH:mm:ss";
+	
+	private final static String DATETIMEFORMATNOT = "yyyy-MM-dd HH:mm";
 
 	/**
 	 * 按指定格式计算日期
@@ -168,6 +170,16 @@ public class DateUtil {
 	 */
 	public static Date toDateTime(String dateStr) {
 		return toFormatDate(dateStr, DATETIMEFORMAT);
+	}
+	
+	/**
+	 * 格式化字符串为日期时间：yyyy-MM-dd HH:mm
+	 * 
+	 * @param date
+	 * @return
+	 */
+	public static Date toDateTimeNot(String dateStr) {
+		return toFormatDate(dateStr, DATETIMEFORMATNOT);
 	}
 
 	/**
