@@ -199,7 +199,8 @@
 				dataType : 'json',
 				success : function(data) {
 					alert("开始考试！");
-					timer(Nomber(data.message)*3600);
+					alert(data.message);
+					timer(Number(data.message)*3600);
 					reshcg();
 				}
 			});

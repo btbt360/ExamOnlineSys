@@ -71,15 +71,20 @@
 	function startExam(ids) {
 		$.ajax({
 			type : 'post',
-			url : '${basepath}/invigilate/getExaminee?id='+$("#examId").val(),
+			url : '${basepath}/invigilate/getExaminee?id='+ ids,
 			cache : false,
 			dataType : 'json',
 			success : function(data) {
 				//更新剩余时间
 				if(data.flag==0){
 					alert("您未参加此次考试！");
-				}else{
-					location.href = "${basepath}/examinee/addStartExam?id=" + ids;				
+				}else if(data.flag==1){	
+					var tempwindow = window.open ('_blank', 'newwindow','width='+(window.screen.availWidth-10)+',height='+(window.screen.availHeight-30)+ ',top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
+					tempwindow.location="${basepath}/examinee/addStartExam?id=" + ids;
+				}else if(data.flag>1&&data.flag<5){	
+					alert("您已经参加完此次考试或考试已经结束！");
+				}else if(data.flag==5){	
+					alert("考试还未开始，请联系监考员开始考试！");
 				}
 			}
 		});

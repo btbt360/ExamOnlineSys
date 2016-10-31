@@ -30,6 +30,8 @@ public class ExampapersService {
 					List<ExampapersQuestion> eqlist = new ArrayList<ExampapersQuestion>();
 					String ischouqu ="";
 					String id = row.get(0).trim();
+					String sumtotal = row.get(5);
+					String sumscore = row.get(3);
 					row.set(0, row.get(1));
 					row.set(1, row.get(2));
 					row.set(2, row.get(3)+" 分");
@@ -37,12 +39,16 @@ public class ExampapersService {
 					row.set(4, row.get(5)+" 题");
 					row.set(5, Integer.parseInt((row.get(6) + "")) == 1 ? "<font color='#00ff66'>启用</font>" : "<font color='#C9C9C9'>禁用</font>");
 					eqlist = ExampapersQuestion.dao.find("select * from sys_exampapers_question where exampapers_id = '"+id+"'");
-					if(eqlist.size()>0&&Integer.parseInt(row.get(7))==0){
+					int endfinish = 0;
+					if(!TypeChecker.isEmpty(row.get(7))){
+						endfinish =Integer.parseInt(row.get(7));
+					}
+					if(eqlist.size()>0&&endfinish==0){
 						int iio=0;//分数
 						for(ExampapersQuestion e:eqlist){
 							iio =iio+e.getScores();
 						}
-						if(Integer.parseInt(row.get(3))==iio&&Integer.parseInt(row.get(4))==eqlist.size()){
+						if(Integer.parseInt(sumscore)==iio&&Integer.parseInt(sumtotal)==eqlist.size()){
 							ischouqu ="<a href ='#' onclick=queren('"+id+"') > 完成抽取</a> | ";
 						}else{
 							ischouqu ="<a href ='#' onclick=chouqu('"+id+"') > 开始抽取</a> | ";

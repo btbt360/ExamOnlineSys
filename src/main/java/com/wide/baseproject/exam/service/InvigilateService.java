@@ -94,6 +94,7 @@ public class InvigilateService{
 			Db.update("update sys_examinee set status = 2 where exam_id = '"+id+"' and status not in (3,4)");
 			Exam ex = new Exam();
 			ex=Exam.dao.findById(id);
+			ex.setStatus(2);
 			ex.setEnddistancetime(0);
 			ex.update();
 		}

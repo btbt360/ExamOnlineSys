@@ -185,12 +185,4 @@ public abstract class BaseExam<M extends BaseExam<M>> extends DbModel<M> impleme
 		return get("enddistancetime");
 	}
 	
-	public void setSelectedfinish(java.lang.Integer selectedfinish) {
-		set("selectedfinish", selectedfinish);
-	}
-
-	public java.lang.Integer getSelectedfinish() {
-		return get("selectedfinish");
-	}
-	
 }

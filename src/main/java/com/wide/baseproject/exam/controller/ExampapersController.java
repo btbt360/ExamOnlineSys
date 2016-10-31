@@ -319,7 +319,7 @@ public class ExampapersController extends BaseController {
 		String exampapersid=getPara("id");
 		try{
 			if(!TypeChecker.isEmpty(exampapersid)){
-				Db.update("update sys_exampapers set selectedfinish = 1 where id = '"+exampapersid+"'");
+				Db.update("update sys_exampapers set endfinish = 1 where id = '"+exampapersid+"'");
 			}
 			//写更新试题sort方法调用service
 			exampapersService.toFinishChoose(exampapersid);

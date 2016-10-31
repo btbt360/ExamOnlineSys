@@ -85,7 +85,8 @@ public class InvigilateController  extends BaseController {
 			Db.update("update sys_examinee set status = 1 where exam_id = '"+id+"'");
 		}
 		Exam exam = Exam.dao.findById(id);
-		exam.setEnddistancetime(Integer.parseInt((exam.getDuration()*3600+"").split(".")[0]));
+		exam.setEnddistancetime(Integer.parseInt((exam.getDuration()*3600+"").split("[.]")[0]));
+		exam.setStatus(1);
 		exam.update();
 		setAttr("message", exam.getDuration());
 		renderJson();
@@ -114,7 +115,7 @@ public class InvigilateController  extends BaseController {
 	public void getgoDown(){
 		String id = getPara("id");
 		if(id!=null&&!id.equals("")){
-			Db.update("update sys_examinee set status = 3 where id = '"+id+"'");
+			Db.update("update sys_examinee set status = 4 where id = '"+id+"'");
 		}
 		setAttr("message", "该考生已经下机");
 		renderJson();
@@ -169,7 +170,7 @@ public class InvigilateController  extends BaseController {
 	public void gettoAbsent(){
 		String id = getPara("id");
 		if(id!=null&&!id.equals("")){
-			Db.update("update sys_examinee set status = 4 where id = '"+id+"'");
+			Db.update("update sys_examinee set status = 3 where id = '"+id+"'");
 		}
 		setAttr("message", "该考生已经视为缺考");
 		renderJson();
@@ -195,8 +196,19 @@ public class InvigilateController  extends BaseController {
 		String examId=getPara("id");
 		User user =getUser();
 		List<Examinee> elist = new ArrayList<Examinee>();
+		Examinee ee = new Examinee();
+		Exam em = new Exam();
+		em = Exam.dao.findById(examId);
+		int flag = 0;
 		elist=Examinee.dao.find("select * from sys_examinee where user_id = '"+user.getId()+"' and exam_id ='"+examId+"'");
-		setAttr("flag", elist.size());
+		if(elist.size()>0){
+			ee = elist.get(0);
+			flag = ee.getStatus();
+		}
+		if(em.getStatus()<1){
+			flag = 5;
+		}
+		setAttr("flag", flag);
 		renderJson();
 	}	
 	

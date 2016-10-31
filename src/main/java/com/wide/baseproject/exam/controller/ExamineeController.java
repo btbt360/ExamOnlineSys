@@ -86,16 +86,14 @@ public class ExamineeController extends BaseController {
 		String exampapersid = getPara("exampapersid");
 		String examid = getPara("examid");
 		String examineeid = getPara("examineeid");
-		String questionid = getPara("questionid");
 		int sorts = getParaToInt("sorts");
 		String qustrhead = "";
 		String qustrbody = "";
 		String qustrfoot = "";
 		try{
-			 qustrhead = "<div class='row-fluid'><div class='block'><div class='navbar navbar-inner block-header'><div class='muted pull-left'>试题</div></div><div class='block-content collapse in'><div class='span12'><fieldset>";
-			 qustrbody = examineeService.getQuestions(exampapersid,examid,examineeid,questionid,sorts);
-			 qustrfoot = "</fieldset></div></div></div></div>";
-			
+			 qustrhead = "<div class='block' style='width:95%;margin-left: 2.5%;'><div class='navbar navbar-inner block-header'><div class='muted pull-left'>试题</div></div><div class='block-content collapse in'><div class='span12'><fieldset>";
+			 qustrbody = examineeService.getQuestions(exampapersid,examid,examineeid,sorts);
+			 qustrfoot = "</fieldset></div></div></div>";
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
@@ -111,24 +109,25 @@ public class ExamineeController extends BaseController {
 		String exampapersid = getPara("exampapersid");
 		String examid = getPara("examid");
 		String examineeid = getPara("examineeid");
-		String eqstr="";
+		String eqstr="<div class='block' style='width:95%;margin-left: 2.5%;'><div class='navbar navbar-inner block-header'><div class='muted pull-left'>选题</div></div><div class='block-content collapse in'><div class='span12'>";
 		try{
 			List<ExampapersQuestion>  listeq = new ArrayList<ExampapersQuestion>();
-			listeq = ExampapersQuestion.dao.find("select * from sys_exampapers_question where exampapers_id = ? ",exampapersid);
+			listeq = ExampapersQuestion.dao.find("select * from sys_exampapers_question where exampapers_id = ? order by sort asc ",exampapersid);
 			if(listeq.size()>0){
 				for(int i=0;i<listeq.size();i++){
 					List<ExamAnswer> listea = new ArrayList<ExamAnswer>();
 					listea = ExamAnswer.dao.find("select * from sys_exam_answer where examinee_id = ? and exam_id = ? and question_id = ? ",examineeid,examid,listeq.get(i).getQuestionId());
 					if(listea.size()>0){
-						eqstr=eqstr+"<button type='button' class='btn btn-info' onclick=updateanswer('"+listeq.get(i).getQuestionId()+"')>"+listeq.get(i).getSort()+"</button>";
+						eqstr=eqstr+"<button type='button' class='btn btn-info' style='margin:3px;' onclick=updateanswer('"+listeq.get(i).getQuestionId()+"','"+listeq.get(i).getSort()+"')>"+listeq.get(i).getSort()+"</button>";
 					}else{
-						eqstr=eqstr+"<button type='button' class='btn btn-defaul' onclick=updateanswer('"+listeq.get(i).getQuestionId()+"')>"+listeq.get(i).getSort()+"</button>";
+						eqstr=eqstr+"<button type='button' class='btn btn-defaul' style='margin:3px;' onclick=updateanswer('"+listeq.get(i).getQuestionId()+"','"+listeq.get(i).getSort()+"')>"+listeq.get(i).getSort()+"</button>";
 					}
-					if(i/15==0){
+					if(i>0&&i%15==0){
 						eqstr = eqstr+"<br />";
 					}
 				}
 			}
+			eqstr = eqstr+"</div></div></div>";
 			setAttr("eqstr", eqstr);
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -141,12 +140,89 @@ public class ExamineeController extends BaseController {
 	 * 新建答案
 	 * */
 	public void getUpdateQuestionAnswer(){
+		String exampapersid = getPara("exampapersid");
+		String examid = getPara("examid");
+		String examineeid = getPara("examineeid");
+		String sort = getPara("sort");
+		String answer = getPara("answer");
+		String questionid = getPara("questionid");
+		List<ExamAnswer> ealist = new ArrayList<ExamAnswer>();
+		ExamAnswer ea = new ExamAnswer();
 		try{
+			//下机
+			Examinee examinee = new Examinee();
+			if(!TypeChecker.isEmpty(examineeid)){
+				examinee = Examinee.dao.findById(examineeid);
+				if(examinee.getStatus()==4){
+					setAttr("flag", 1);
+					renderJson();
+					return ;
+				}
+			}
 			
+			//1.添加答案
+			if(!TypeChecker.isEmpty(questionid)&&!TypeChecker.isEmpty(examineeid)&&!TypeChecker.isEmpty(examid)){
+				ealist = ExamAnswer.dao.find("select * from sys_exam_answer where examinee_id = ? and exam_id = ? and question_id = ? ",examineeid,examid,questionid);
+				if(ealist.size()>0){
+					ea = ealist.get(0);
+					ea.setAnswerinfo(answer);
+					ea.setUpdateBy(getUser().getId());
+					ea.setUpdateDate(new Date());
+					ea.update();
+				}else{
+					ea.setId(createUUid());
+					ea.setExamineeId(examineeid);
+					ea.setExamId(examid);
+					ea.setQuestionId(questionid);
+					ea.setAnswerinfo(answer);
+					ea.setCreatorId(getUser().getId());
+					ea.setCreateDate(new Date());
+					ea.setUpdateBy(getUser().getId());
+					ea.setUpdateDate(new Date());
+					ea.setIsenable(1);
+					ea.setJudgetime(new Date());
+					ea.save();
+				}
+			}
+			//2.查询问题
+			String qustrhead = "";
+			String qustrbody = "";
+			String qustrfoot = "";
+			try{
+				 qustrhead = "<div class='block' style='width:95%;margin-left: 2.5%;'><div class='navbar navbar-inner block-header'><div class='muted pull-left'>试题</div></div><div class='block-content collapse in'><div class='span12'><fieldset>";
+				 qustrbody = examineeService.getQuestions(exampapersid,examid,examineeid,Integer.parseInt(sort));
+				 if(TypeChecker.isEmpty(qustrbody)){
+					 qustrbody = "<span class='label label-success'><h1>恭喜您，试题已经答完！</h1></span>";
+				 }
+				 qustrfoot = "</fieldset></div></div></div>";
+			}catch(Exception ex){
+				ex.printStackTrace();
+			}
+			setAttr("questionstr", qustrhead+qustrbody+qustrfoot);
+			//3.查询答案
+			String eqstr="<div class='block' style='width:95%;margin-left: 2.5%;'><div class='navbar navbar-inner block-header'><div class='muted pull-left'>选题</div></div><div class='block-content collapse in'><div class='span12'>";
+			List<ExampapersQuestion>  listeq = new ArrayList<ExampapersQuestion>();
+			listeq = ExampapersQuestion.dao.find("select * from sys_exampapers_question where exampapers_id = ? order by sort asc ",exampapersid);
+			if(listeq.size()>0){
+				for(int i=0;i<listeq.size();i++){
+					List<ExamAnswer> listea = new ArrayList<ExamAnswer>();
+					listea = ExamAnswer.dao.find("select * from sys_exam_answer where examinee_id = ? and exam_id = ? and question_id = ? ",examineeid,examid,listeq.get(i).getQuestionId());
+					if(listea.size()>0){
+						eqstr=eqstr+"<button type='button' class='btn btn-info' style='margin:3px;' onclick=updateanswer('"+listeq.get(i).getQuestionId()+"','"+listeq.get(i).getSort()+"')>"+listeq.get(i).getSort()+"</button>";
+					}else{
+						eqstr=eqstr+"<button type='button' class='btn btn-defaul' style='margin:3px;' onclick=updateanswer('"+listeq.get(i).getQuestionId()+"','"+listeq.get(i).getSort()+"')>"+listeq.get(i).getSort()+"</button>";
+					}
+					if(i>0&&i%15==0){
+						eqstr = eqstr+"<br />";
+					}
+				}
+			}
+			eqstr = eqstr+"</div></div></div>";
+			setAttr("eqstr", eqstr);
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
-		
+		renderJson();
 	}
 	/**
 	 * @author cg
@@ -154,11 +230,18 @@ public class ExamineeController extends BaseController {
 	 * */
 	public void getHandExam(){
 		try{
-			
+			String examineeid = getPara("examineeid");
+			Examinee examinee =new Examinee();
+			if(!TypeChecker.isEmpty(examineeid)){
+				examinee = Examinee.dao.findById(examineeid);
+				examinee.setStatus(2);
+				examinee.update();
+			}
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
-		
+		setAttr("message", "交卷成功！");
+		renderJson();
 	}
 	/**
 	 * @author cg

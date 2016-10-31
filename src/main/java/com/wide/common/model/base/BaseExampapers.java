@@ -113,5 +113,12 @@ public abstract class BaseExampapers<M extends BaseExampapers<M>> extends DbMode
 	public java.lang.Integer getIsdel() {
 		return get("isdel");
 	}
+	public void setEndfinish(java.lang.Integer endfinish) {
+		set("endfinish", endfinish);
+	}
 
+	public java.lang.Integer getEndfinish() {
+		return get("endfinish");
+	}
+	
 }
