@@ -1,4 +1,4 @@
-package com.wide.baseproject.exam.controller;
+package com.wide.baseproject.statistics.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,7 +24,7 @@ import com.wide.common.model.query.QueryExam;
 import com.wide.util.DateUtil;
 import com.wide.viewmodel.DataTablesModel;
 
-public class ExamController extends BaseController{
+public class StatisticsController extends BaseController{
 	private static final ExamService examService = Enhancer.enhance(ExamService.class);
 	
 	/**

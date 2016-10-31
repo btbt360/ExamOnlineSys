@@ -49,14 +49,18 @@
 							<label class="control-label">开始时间：</label>
 							<div class="controls">
 								<input class="input-medium datepicker" id="starttimes" name="exam.starttime"
-									type="text" placeholder="请输入开始时间!" value="${exam.starttime}" onchange="compare()" readonly="readonly">
+									type="text" placeholder="请输入开始时间!" value="${starttimestr}" onchange="compare()" readonly="readonly">
+									<input  id="starttimestr" name="starttimestr"
+									type="hidden" value="${starttimestr}" >
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label">结束时间：</label>
 							<div class="controls">
 								<input class="input-medium datepicker" id="endtimes" name="exam.endtime"
-									type="text" placeholder="请输入结束时间!" value="${exam.endtime}" onchange="compare()" readonly="readonly">
+									type="text" placeholder="请输入结束时间!" value="${endtimestr}" onchange="compare()" readonly="readonly">
+								<input  id="endtimestr" name="endtimestr"
+									type="hidden" value="${endtimestr}" >
 							</div>
 						</div>
 						<div class="control-group">
@@ -247,14 +251,12 @@ function getAllCheckedNodeo() {
 	var str = "";
 	var ids = "";
 	var allids = "";
-	alert(1111);
 	for (var i = 0; i < nodes.length; i++) {
 		allids = ids + nodes[i].id + "|";
 		if(nodes[i].type == "1"){
 			str = str + nodes[i].name + "|";
 			ids = ids + nodes[i].id + "|";
 		}
-		alert(str);
 	}
 	$("#userids").val(ids);
 	$("#allids").val(allids);
@@ -290,7 +292,7 @@ $(document).ready(function() {
 	        forceParse: 0,  
 	        showMeridian: 1  
 	    }).on('changeDate', function (ev) {   
-	        $(this).datetimepicker('hide');  
+	        $(this).datetimepicker('hide'); 
 	    });
 		
 		var jqObj = new JQvalidate();
@@ -310,6 +312,12 @@ $(document).ready(function() {
 	function compare(){
 		var startTime=$('#starttimes').val();
 		var endTime=$('#endtimes').val();
+		if(startTime != ""){
+			$('#starttimestr').val(startTime);
+		}
+		if(endTime != ""){
+			$('#endtimestr').val(endTime);
+		}
 		if(startTime != "" && endTime != ""){
 			var beginTimes = startTime.substring(0, 10).split('-');
 			var endTimes = endTime.substring(0, 10).split('-');

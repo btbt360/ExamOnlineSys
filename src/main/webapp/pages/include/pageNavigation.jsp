@@ -26,9 +26,13 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
+                                        <a tabindex="-1" href="${basepath}/user/addInfo">个人基本信息</a>
+                                    </li>
+                                   
+                                    <li>
                                         <a tabindex="-1" href="${basepath}/user/addpass">修改密码</a>
                                     </li>
-                                    <li class="divider"></li>
+                                   
                                     <li>
                                         <a tabindex="-1" href="${basepath}/logout">注销</a>
                                     </li>

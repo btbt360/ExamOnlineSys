@@ -15,15 +15,18 @@ import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.plugin.activerecord.tx.Tx;
+import com.wide.baseproject.exam.service.ExamService;
 import com.wide.baseproject.sys.service.DictService;
 import com.wide.baseproject.sys.service.LogService;
 import com.wide.baseproject.sys.service.OfficeService;
 import com.wide.baseproject.sys.service.RoleService;
 import com.wide.baseproject.sys.service.UserService;
 import com.wide.common.model.Dict;
+import com.wide.common.model.Exam;
 import com.wide.common.model.Office;
 import com.wide.common.model.Role;
 import com.wide.common.model.User;
+import com.wide.common.model.query.QueryExam;
 import com.wide.common.model.query.QueryUser;
 import com.wide.config.UserToken;
 import com.wide.constant.EnumFuncType;
@@ -44,6 +47,7 @@ public class UserController extends Controller {
 			.enhance(OfficeService.class);
 	private static final LogService logService = Enhancer
 			.enhance(LogService.class);	
+	private static final ExamService examService = Enhancer.enhance(ExamService.class);
 
 	
 	/**
@@ -130,12 +134,14 @@ public class UserController extends Controller {
 	 * @author ycl 默认首页
 	 */
 
-	public void mainindex() {			
+	public void mainindex() {	
+		List<Exam> examList = Exam.dao.getExamList();
 		UserToken ut = getCurrentUserToken();
 		ut.getVuser().setUser(userService.getUser(ut.getVuser().getUser()));
 		setAttr("userToken", ut);
 		String mark = getPara("message");
 		setAttr("message", mark);
+		setAttr("examList", examList);
 		render("main.jsp");
 	}
 
