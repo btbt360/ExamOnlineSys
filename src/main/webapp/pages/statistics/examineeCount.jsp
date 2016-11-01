@@ -12,8 +12,8 @@
 					<i class="icon-chevron-right show-sidebar" style="display: none;">
 						<a href='#' title="Show Sidebar" rel='tooltip'>&nbsp;</a>
 					</i>
-					<li><a href="#">考试管理</a> <span class="divider">/</span></li>
-					<li class="active">考试安排</li>
+					<li><a href="#">统计分析</a> <span class="divider">/</span></li>
+					<li class="active">考试成绩统计</li>
 				</ul>
 			</div>
 		</div>
@@ -21,125 +21,64 @@
 			<div class="block" style="border: 0px;">
 				<div class="block-content collapse in">
 					<ul class="nav nav-tabs">
-						<li class="active"><a href="${basepath}/exam/addExam">考试安排列表</a></li>
-						<li><a href="${basepath}/exam/addExamInfo">添加考试安排</a></li>
+						<li class="active"><a href="＃">考试成绩统计</a></li>
 					</ul>
+					<div class="block-content collapse in">
+					 <div class="span12">
+                              <div id="hero-graph" style="height: 230px;"></div>
+                      </div>
+				    </div>
 					
-					<!-- 删除用户提示 -->
-					<div class="span12">
-						<div class="alert alert-success"
-							style="margin-right: 8%;display: none; text-align: center;" id="successmessage">
-							<button class="close" onclick="$('#successmessage').hide();">&times;</button>
-							<strong><span id="messagess"></span></strong>
-						</div>
-						<div class="alert alert-error"
-							style="margin-right: 8%;display: none; text-align: center;" id="errormessage">
-							<button class="close" onclick="$('#errormessage').hide();">&times;</button>
-							<strong><span id="messageee"></span></strong>
-						</div>
-					</div>
-					<form action="${basepath}/exam/exportSubject" method="post" id="subform">
-						<div class="span12">
-							<div class="span4">
-								<label class="control-label" for="name">试卷名称：<input
-									class="input-medium focused" id="name" name="name"
-									type="text" /></label> 
-							</div>
-							<div class="span4">
-								<label class="control-label" for="code">试卷编码：<input
-									class="input-medium focused" id="code" name="code"
-									type="text" /></label> 
-							</div>
-							<div class="span4 text-right" >
-						<button class="btn btn-medium btn-primary" type="button"
-							id="query">查询</button>
- 						<!-- <button class="btn btn-medium btn-primary" type="button" 
-							id="export">计算分数</button> --> 
-					</div>
-						</div>
-						<input type="hidden" id="subpages" name="subpages" /><input
-							type="hidden" id="subrp" name="subrp" />
-					</form>
-					
-					<table id="userList" class="table table-striped table-bordered">
-						<thead>
-							<tr>
-								<th>考试名称</th>
-								<th>考试编号</th>
-								<th>考试开始时间</th>
-								<th>考试结束时间</th>
-								<th>考试时长</th>
-								<th>考试人数</th>
-								<th>监考人</th>
-								<th>考试状态</th>
-								<th>操作</th>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-						<!-- tbody是必须的 -->
-					</table>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
-function edit(ids) {
-	location.href = "${basepath}/exam/addExamInfo?id=" + ids;
-}
 
-function del(ids) {
-	if (confirm("确定要删除该科目？")) {
-		$.ajax({
-			type : 'post',
-			url : '${basepath}/exam/delExam?id=' + ids,
-			cache : false,
-			dataType : 'json',
-			success : function(data) {
-				if (data.result == 1) {
-					$("#successmessage").hide();
-					$("#errormessage").show();
-					$("#messageee").text("删除失败，请联系管理员！");
-				} else {
-					$("#errormessage").hide();
-					$("#successmessage").show();
-					$("#messagess").text("删除成功！");
-				}
-				reshcg();
-			}
-		});
-	}
-}
 	$(document).ready(function() {
-		oTable = $('#userList').initDT({
-			serverSide : true,
-			"sAjaxSource" : "${basepath}/exam/getExamlist"
-		});
-
-		$("#query").click(function() {
-			reshcg();
-		});
-		$("#export").click(function() {
-			alert(1111);
-			/* $("#subpages").val(oTable.getCurrentPage());
-			$("#subrp").val(oTable.getPageSize());
-			$("#subform").submit(); */
-			location.href = "${basepath}/exam/countScore";
+		// Morris Line Chart
+		var tax_data = [ {
+			"period" : "2016-01",
+			"scroes" : 68
+		}, {
+			"period" : "2016-02",
+			"scroes" : 73
+			
+		}, {
+			"period" : "2016-03",
+			"scroes" : 86
+			
+		}, {
+			"period" : "2016-04",
+			"scroes" : 90
+			
+		}, {
+			"period" : "2016-05",
+			"scroes" : 62
+			
+		}, {
+			"period" : "2016-06",
+			"scroes" : 89
+			
+		}, {
+			"period" : "2016-07",
+			"scroes" : 96
+			
+		}, {
+			"period" : "2016-08",
+			"scroes" : 87
+			
+		} ];
+		Morris.Line({
+			element : 'hero-graph',
+			data : tax_data,
+			xkey : 'period',
+			xLabels : "month",
+			ykeys : [ 'scroes'],
+			labels : [ '分数']
 		});
 
 	});
-	function reshcg() {
-		var name = $('#name').val();
-		var code = $('#code').val();
-		var oSettings = [ {
-			"name" : "name",
-			"value" : name
-		}, {
-			"name" : "code",
-			"value" : code
-		} ];
-		oTable.gridSearch(this, oSettings);
-	}
 </script>
 <c:import url="/pages/include/pageFoot.jsp" />
