@@ -36,7 +36,7 @@
 		                                <select  id="name" name="name" class="chzn-select">
 		                                <option value=''></option>
 		                                	<c:forEach var="examinee" items="${elist}">
-												<option value='${examinee.id}'>${examinee.name}</option>
+												<option value='${examinee.id}'>${examinee.examineename}</option>
 											</c:forEach>
 		                                </select></h4>
 		                        </label>

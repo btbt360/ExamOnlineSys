@@ -171,11 +171,19 @@ public abstract class BaseExaminee<M extends BaseExaminee<M>> extends DbModel<M>
 		return get("sculpturepath");
 	}
 
-	public void setName(java.lang.String name) {
-		set("name", name);
+	public void setExamineename(java.lang.String examineename) {
+		set("examineename", examineename);
 	}
 
-	public java.lang.String getName() {
-		return get("name");
+	public java.lang.String getExamineename() {
+		return get("examineename");
+	}
+	
+	public void setIsfinishjudge(java.lang.Integer isfinishjudge) {
+		set("isfinishjudge", isfinishjudge);
+	}
+
+	public java.lang.Integer getIsfinishjudge() {
+		return get("isfinishjudge");
 	}
 }

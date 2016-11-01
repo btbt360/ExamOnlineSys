@@ -1,11 +1,11 @@
 package com.wide.route;
 
 import com.jfinal.config.Routes;
+import com.wide.baseproject.exam.controller.AchievementController;
 import com.wide.baseproject.exam.controller.ExamController;
 import com.wide.baseproject.exam.controller.ExamineeController;
 import com.wide.baseproject.exam.controller.ExampapersController;
 import com.wide.baseproject.exam.controller.InvigilateController;
-import com.wide.baseproject.sys.controller.LogController;
 
 public class ExamRoutes extends Routes{
 
@@ -16,6 +16,8 @@ public class ExamRoutes extends Routes{
 		add("/exam",ExamController.class,"/pages/exam/");
 		add("/exampapers",ExampapersController.class,"/pages/exam/");
 		add("/examinee",ExamineeController.class,"/pages/exam/");
+		add("/achievement",AchievementController.class,"/pages/exam/");
+		
 	}
 
 }

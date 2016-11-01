@@ -16,8 +16,8 @@ public class ExampapersQuestion extends BaseExampapersQuestion<ExampapersQuestio
 	 * @param examId
 	 * @return
 	 */
-	public ExampapersQuestion getExampapersQuestion(String questionId){
-		ExampapersQuestion exampapersQuestion = findFirst("select t.* from sys_exampapers_question t where t.question_id = ?",questionId);
+	public ExampapersQuestion getExampapersQuestion(String questionId,String exampapersid){
+		ExampapersQuestion exampapersQuestion = findFirst("select t.* from sys_exampapers_question t where t.question_id = ? and t.exampapers_id = ? ",questionId,exampapersid);
 		return exampapersQuestion;
 	}
 }

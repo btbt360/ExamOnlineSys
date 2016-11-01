@@ -14,6 +14,7 @@ import com.wide.common.model.Exam;
 import com.wide.common.model.ExamAnswer;
 import com.wide.common.model.Examinee;
 import com.wide.common.model.ExampapersQuestion;
+import com.wide.common.model.Questions;
 import com.wide.common.model.User;
 import com.wide.common.model.query.QueryExam;
 import com.wide.util.TypeChecker;
@@ -231,10 +232,39 @@ public class ExamineeController extends BaseController {
 	public void getHandExam(){
 		try{
 			String examineeid = getPara("examineeid");
+			String examid = getPara("examid");
+			String exampapersid=getPara("exampapersid");
 			Examinee examinee =new Examinee();
 			if(!TypeChecker.isEmpty(examineeid)){
+				List<ExamAnswer> answerList = new ArrayList<ExamAnswer>();
+				answerList = ExamAnswer.dao.find("select * from sys_exam_answer where examinee_id = ? and exam_id = ? ",examineeid,examid);
+				int sumsocres=0;
+				if(answerList.size() >0){
+					for(ExamAnswer examAnswer:answerList){
+						Questions questions = Questions.dao.findById(examAnswer.getQuestionId());
+						if(!TypeChecker.isEmpty(questions)){
+							if(examAnswer.getAnswerinfo().equals(questions.getQuestionanswer())){
+								ExampapersQuestion exampapersQuestion  = ExampapersQuestion.dao.getExampapersQuestion(examAnswer.getQuestionId(),exampapersid);
+								try{
+									if(!TypeChecker.isEmpty(exampapersQuestion)){
+										sumsocres = sumsocres + exampapersQuestion.getScores();
+										examAnswer.setAnswerscores(exampapersQuestion.getScores());
+										examAnswer.setUpdateBy(getUser().getId());
+										examAnswer.setUpdateDate(new Date());
+										examAnswer.update();
+									}
+									System.out.println("自动判卷成功！");
+								}catch(Exception ex){
+									ex.printStackTrace();
+								}
+							}
+						}
+					}
+					
+				}
 				examinee = Examinee.dao.findById(examineeid);
 				examinee.setStatus(2);
+				examinee.setTotalscore(sumsocres);
 				examinee.update();
 			}
 		}catch(Exception ex){
@@ -243,16 +273,5 @@ public class ExamineeController extends BaseController {
 		setAttr("message", "交卷成功！");
 		renderJson();
 	}
-	/**
-	 * @author cg
-	 * 强行下机
-	 * */
-	public void getDownMachine(){
-		try{
-			
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
-		
-	}
+	
 }

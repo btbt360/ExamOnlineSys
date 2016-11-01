@@ -63,7 +63,7 @@ public class ExamController extends BaseController{
 		String userids = "";
 		if (examineeList.size() > 0) {
 			for (Examinee o : examineeList) {
-				usernames = usernames + "|" + o.getName();
+				usernames = usernames + "|" + o.getExamineename();
 				userids = userids + o.getUserId() + "|";
 			}
 		}
@@ -120,7 +120,7 @@ public class ExamController extends BaseController{
 					examinee.setUserId(str[i]);
 					examinee.setExamId(exam.getId());
 					examinee.setExampapersId(exam.getExampapersId());
-					examinee.setName(strName[i]);
+					examinee.setExamineename(strName[i]);
 					examinee.setCreatorId(getUser().getId());
 					examinee.setCreateDate(new Date());
 					examinee.setUpdateBy(getUser().getId());
@@ -158,7 +158,7 @@ public class ExamController extends BaseController{
 					examinee.setUserId(str[i]);
 					examinee.setExamId(exam.getId());
 					examinee.setExampapersId(exam.getExampapersId());
-					examinee.setName(strName[i]);
+					examinee.setExamineename(strName[i]);
 					examinee.setCreatorId(getUser().getId());
 					examinee.setCreateDate(new Date());
 					examinee.setUpdateBy(getUser().getId());
@@ -196,58 +196,5 @@ public class ExamController extends BaseController{
 		setAttr("returninfo", returninfo);
 		renderJson();
 	}
-	
-	public void countScore(){
-		returninfo = new RenturnInfo();
-		List<ExamAnswer> answerList = new ArrayList<ExamAnswer>();
-		answerList = ExamAnswer.dao.getExamAnswerList("28fafb16-382a-4ec3-98bd-0140cdf7cecb", "ff8c748b-c5ac-47d3-807f-58ef75552255");
-		if(answerList.size() >0){
-			for(ExamAnswer examAnswer:answerList){
-				Questions questions = Questions.dao.findById(examAnswer.getQuestionId());
-				if(questions != null){
-					if(examAnswer.getAnswerinfo().equals(questions.getQuestionanswer())){
-						ExampapersQuestion exampapersQuestion  = ExampapersQuestion.dao.getExampapersQuestion(examAnswer.getQuestionId());
-						try{
-							Db.update("update sys_exam_answer t set t.scores=?,t.update_date=?,t.update_by=? where id=?",exampapersQuestion.getScores(),new Date(),getUser().getId(),examAnswer.getId());
-							System.out.println("成功");
-							returninfo.setResult(0);
-							returninfo.setResultInfo("更新成功！");
-						}catch(Exception ex){
-							ex.printStackTrace();
-							returninfo.setResult(1);
-							returninfo.setResultInfo("更新失败！");
-						}
-					}
-				}
-			}
-		}
-		setAttr("returninfo", returninfo);
-		renderJson();
-	}
-	
-	 public static void main(String args[]) { 
-	       String id = createUUid();
-	       System.out.println("id:"+id+"</br>");
-	       List<ExamAnswer> answerList = new ArrayList<ExamAnswer>();
-			answerList = ExamAnswer.dao.getExamAnswerList("28fafb16-382a-4ec3-98bd-0140cdf7cecb", "ff8c748b-c5ac-47d3-807f-58ef75552255");
-			if(answerList.size() >0){
-				for(ExamAnswer examAnswer:answerList){
-					Questions questions = Questions.dao.findById(examAnswer.getQuestionId());
-					if(questions != null){
-						if(examAnswer.getAnswerinfo().equals(questions.getQuestionanswer())){
-							ExampapersQuestion exampapersQuestion  = ExampapersQuestion.dao.findById(examAnswer.getQuestionId());
-							try{
-								Db.update("update sys_exam_answer t set t.scroes = ? where id = ?",exampapersQuestion.getScores(),examAnswer.getId());
-								System.out.println("成功");
-							}catch(Exception ex){
-								ex.printStackTrace();
-								System.out.println("失败");
-							}
-						}
-					}
-				}
-			}
-	  } 
-	
 	
 }

@@ -22,7 +22,7 @@
 								<label class="control-label" ><h4><span class="label label-info"><h4>考试编号：</h4></span>&nbsp;&nbsp;${exam.code}</h4></label> 
 							</div>
 							<div class="span4 text-center">
-								<label class="control-label"><h4><span class="label label-info"><h4>考生名称：</h4></span>&nbsp;&nbsp;${examinee.name}</h4></label> 
+								<label class="control-label"><h4><span class="label label-info"><h4>考生名称：</h4></span>&nbsp;&nbsp;${examinee.examineename}</h4></label> 
 							</div>
 					</div>
 					<div class="span11 text-center" style="margin-top:2%">
@@ -182,7 +182,7 @@ function jiaojuan(){
 	if (confirm("确定交卷？")) {
 		$.ajax({
 			type : 'post',
-			url : '${basepath}/examinee/getHandExam?examineeid='+examineeid,
+			url : '${basepath}/examinee/getHandExam?examineeid='+examineeid+'&examid='+examid+'&exampapersid='+exampapersid,
 			cache : false,
 			dataType : 'json',
 			success : function(data) {
