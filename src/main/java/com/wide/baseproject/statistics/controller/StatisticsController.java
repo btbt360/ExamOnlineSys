@@ -29,225 +29,68 @@ public class StatisticsController extends BaseController{
 	
 	/**
 	 * @author lubin
-	 *  考试添加
+	 *  考生成绩统计
 	 * 
 	 * */
-	public void addExam(){
-		render("examList.jsp");
+	public void examineeCount(){
+		render("examineeCount.jsp");
 	}
 	
+
 	/**
 	 * @author lubin
-	 * 考试列表
-	 * */
-	public void getExamlist(){
-		QueryExam queryExam = new QueryExam();
-		queryExam.setCode(getPara("code"));
-		queryExam.setName(getPara("name"));
-		DataTablesModel subjectpage = examService.getPageExam(getParaToInt("page")
-				.intValue(), getParaToInt("rp").intValue(), queryExam,0);
-		this.renderJson(subjectpage);
-	}
-	/**
-	 * @author lubin
-	 * 考试添加详细
+	 *  考试按部门统计
 	 * 
 	 * */
-	public void addExamInfo(){
-		String id = getPara("id");
+	public void dapartmentCount(){
 		List<Exampapers> exampaperslist = new ArrayList<Exampapers>();
 		exampaperslist = Exampapers.dao.getExampapersAll();
 		
-		List<Examinee> examineeList = Examinee.dao.getExamineeByExamId(id);
-		String usernames = "";
-		String userids = "";
-		if (examineeList.size() > 0) {
-			for (Examinee o : examineeList) {
-				usernames = usernames + "|" + o.getName();
-				userids = userids + o.getUserId() + "|";
-			}
-		}
-		String starttimestr = "";
-		String endtimestr = "";
-		Exam exam = null;
-		if(id!=null&&!id.equals("")){
-			exam = Exam.dao.findById(id);
-			
-			starttimestr = DateUtil.toDateTimeStr(exam.getStarttime());
-			endtimestr = DateUtil.toDateTimeStr(exam.getEndtime());
-			
-		}else{
-			exam = new Exam();
-		}
-		setAttr("flagcg", getPara("flagcg"));
 		setAttr("exampaperslist", exampaperslist);
-		setAttr("exam", exam);
-		setAttr("usernames", usernames);
-		setAttr("usernamesview", usernames);
-		setAttr("starttimestr", starttimestr);
-		setAttr("endtimestr", endtimestr);
-		setAttr("userids", userids);
-		render("examInfo.jsp");
+		render("dapartmentCount.jsp");
 	}
+	
 	/**
 	 * @author lubin
-	 * 考试保存
+	 *  考试按岗位统计
 	 * 
 	 * */
-	@Before(Tx.class)
-	public void saveExam(){
-		int flagcg=0;
-		String starttimestr = getPara("starttimestr");
-		String endtimestr = getPara("endtimestr");
-		String userids = getPara("userids");
-		String usernames = getPara("usernames");
-		String[] str = userids.split("[|]");
-		String[] strName = usernames.split("[|]");
-		try{
-			Exam exam = getModel(Exam.class)==null||getModel(Exam.class).equals("")?new Exam():getModel(Exam.class);
-			if(exam.getId()!=null&&!exam.getId().equals("")){
-				try{
-					Db.query("set foreign_key_checks=0;");
-					Db.update(" delete from sys_examinee where exam_id = ? ", exam.getId());
-					Db.query("set foreign_key_checks=1;");
-				}catch(Exception ex){
-					ex.printStackTrace();
-				}
-
-				for(int i=0;i<str.length;i++){
-					Examinee examinee = new Examinee();
-					examinee.setId(createUUid());
-					examinee.setUserId(str[i]);
-					examinee.setExamId(exam.getId());
-					examinee.setExampapersId(exam.getExampapersId());
-					examinee.setName(strName[i]);
-					examinee.setCreatorId(getUser().getId());
-					examinee.setCreateDate(new Date());
-					examinee.setUpdateBy(getUser().getId());
-					examinee.setUpdateDate(new Date());
-					examinee.setIsdel(0);
-					examinee.setIsenable(1); //启用
-					examinee.save();
-				}
-				Date starttime = DateUtil.toDateTimeNot(starttimestr);
-				Date endtime = DateUtil.toDateTimeNot(endtimestr);
-				exam.setStarttime(starttime);
-				exam.setEndtime(endtime);
-				exam.setNumber(str.length);
-				exam.setUpdateBy(getUser().getId());
-				exam.setUpdateDate(new Date());
-				exam.update();
-			}else{
-				String id = createUUid();
-				Date starttime = DateUtil.toDateTimeNot(starttimestr);
-				Date endtime = DateUtil.toDateTimeNot(endtimestr);
-				exam.setId(id);
-				exam.setStarttime(starttime);
-				exam.setEndtime(endtime);
-				exam.setNumber(str.length);
-				exam.setCreatorId(getUser().getId());
-				exam.setCreateDate(new Date());
-				exam.setUpdateBy(getUser().getId());
-				exam.setUpdateDate(new Date());
-				exam.setIsdel(0);
-				exam.save();
-				
-				for(int i=0;i<str.length;i++){
-					Examinee examinee = new Examinee();
-					examinee.setId(createUUid());
-					examinee.setUserId(str[i]);
-					examinee.setExamId(exam.getId());
-					examinee.setExampapersId(exam.getExampapersId());
-					examinee.setName(strName[i]);
-					examinee.setCreatorId(getUser().getId());
-					examinee.setCreateDate(new Date());
-					examinee.setUpdateBy(getUser().getId());
-					examinee.setUpdateDate(new Date());
-					examinee.setIsdel(0);
-					examinee.setIsenable(1); //启用
-					examinee.save();
-				}
-			}
-			flagcg = 1;
-		}catch(Exception ex){
-			ex.printStackTrace();
-			
-		}
-		redirect("/exam/addExamInfo?flagcg="+flagcg, true);
+	public void postCount(){
+		List<Exampapers> exampaperslist = new ArrayList<Exampapers>();
+		exampaperslist = Exampapers.dao.getExampapersAll();
+		
+		setAttr("exampaperslist", exampaperslist);
+		render("postCount.jsp");
 	}
+	
+	
 	/**
 	 * @author lubin
-	 * 考试删除
+	 *  按错误率统计
+	 * 
 	 * */
-	public void delExam(){
-		returninfo = new RenturnInfo();
-		String id = getPara("id");
-		try{
-			if(id!=null&&!id.equals("")){
-				Db.update("update sys_exam set isdel = 1 where id = ? ",id);
-			}
-			returninfo.setResult(0);
-			returninfo.setResultInfo("删除成功！");
-		}catch(Exception ex){
-			ex.printStackTrace();
-			returninfo.setResult(1);
-			returninfo.setResultInfo("删除失败！");
-		}
-		setAttr("returninfo", returninfo);
-		renderJson();
+	public void errorrateCount(){
+		List<Exampapers> exampaperslist = new ArrayList<Exampapers>();
+		exampaperslist = Exampapers.dao.getExampapersAll();
+		
+		setAttr("exampaperslist", exampaperslist);
+		render("errorrateCount.jsp");
 	}
 	
-	public void countScore(){
-		returninfo = new RenturnInfo();
-		List<ExamAnswer> answerList = new ArrayList<ExamAnswer>();
-		answerList = ExamAnswer.dao.getExamAnswerList("28fafb16-382a-4ec3-98bd-0140cdf7cecb", "ff8c748b-c5ac-47d3-807f-58ef75552255");
-		if(answerList.size() >0){
-			for(ExamAnswer examAnswer:answerList){
-				Questions questions = Questions.dao.findById(examAnswer.getQuestionId());
-				if(questions != null){
-					if(examAnswer.getAnswerinfo().equals(questions.getQuestionanswer())){
-						ExampapersQuestion exampapersQuestion  = ExampapersQuestion.dao.getExampapersQuestion(examAnswer.getQuestionId());
-						try{
-							Db.update("update sys_exam_answer t set t.scores=?,t.update_date=?,t.update_by=? where id=?",exampapersQuestion.getScores(),new Date(),getUser().getId(),examAnswer.getId());
-							System.out.println("成功");
-							returninfo.setResult(0);
-							returninfo.setResultInfo("更新成功！");
-						}catch(Exception ex){
-							ex.printStackTrace();
-							returninfo.setResult(1);
-							returninfo.setResultInfo("更新失败！");
-						}
-					}
-				}
-			}
-		}
-		setAttr("returninfo", returninfo);
-		renderJson();
-	}
 	
-	 public static void main(String args[]) { 
-	       String id = createUUid();
-	       System.out.println("id:"+id+"</br>");
-	       List<ExamAnswer> answerList = new ArrayList<ExamAnswer>();
-			answerList = ExamAnswer.dao.getExamAnswerList("28fafb16-382a-4ec3-98bd-0140cdf7cecb", "ff8c748b-c5ac-47d3-807f-58ef75552255");
-			if(answerList.size() >0){
-				for(ExamAnswer examAnswer:answerList){
-					Questions questions = Questions.dao.findById(examAnswer.getQuestionId());
-					if(questions != null){
-						if(examAnswer.getAnswerinfo().equals(questions.getQuestionanswer())){
-							ExampapersQuestion exampapersQuestion  = ExampapersQuestion.dao.findById(examAnswer.getQuestionId());
-							try{
-								Db.update("update sys_exam_answer t set t.scroes = ? where id = ?",exampapersQuestion.getScores(),examAnswer.getId());
-								System.out.println("成功");
-							}catch(Exception ex){
-								ex.printStackTrace();
-								System.out.println("失败");
-							}
-						}
-					}
-				}
-			}
-	  } 
+
+	/**
+	 * @author lubin
+	 *  考试统计
+	 * 
+	 * */
+	public void examCount(){
+		List<Exampapers> exampaperslist = new ArrayList<Exampapers>();
+		exampaperslist = Exampapers.dao.getExampapersAll();
+		
+		setAttr("exampaperslist", exampaperslist);
+		render("examCount.jsp");
+	}
 	
 	
 }
