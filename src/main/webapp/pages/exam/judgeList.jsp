@@ -36,7 +36,7 @@
 								</label> 
 							</div>
 							<div class="span4">
-								<label class="control-label" for="name">考生名称：
+								<label class="control-label" for="name">考生姓名：
 		                                <select  id="examineeid" name="examineeid" class="chzn-select">
 		                                <option value=''></option>
 		                                </select>
@@ -69,7 +69,7 @@
 								<th width="10%">考试名称</th>
 								<th width="20%">考试开始时间</th>
 								<th width="20%">考试结束时间</th>
-								<th width="10%">考生名称</th>
+								<th width="10%">考生姓名</th>
 								<th width="10%">考生总分数</th>
 								<th width="10%">考生状态</th>
 								<th width="10%">操作</th>
@@ -153,8 +153,14 @@
 	}
 	function addJudgeList(id){
 		var examid = $("#examid").val();
-		alert(examid);
-		location.href = '${basepath}/achievement/addJudge?examineeid='+id+'&examid='+examid;
+		if(examid!=null&&examid!=''){
+			location.href = '${basepath}/achievement/addJudge?examineeid='+id+'&examid='+examid;
+		}else{
+			alert("请选择考试！");
+			$("#examid").force();
+		}
+		
+		
 	}
 </script>
 <c:import url="/pages/include/pageFoot.jsp" />

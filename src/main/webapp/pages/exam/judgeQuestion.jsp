@@ -36,7 +36,7 @@
 								</label> 
 							</div>
 							<div class="span4">
-								<label class="control-label" for="name">考生名称：
+								<label class="control-label" for="name">考生姓名：
 		                                <select  id="examineeid" name="examineeid" class="chzn-select">
 		                                <c:if test='${examinee!=null}'>
 		                                	<option value='${examinee.id}'>${examinee.examineename}</option>
@@ -68,9 +68,9 @@
 						<!-- tbody是必须的 -->
 					</table>
 					<div class="span12 text-center">
-						<button class="btn btn-info btn-large" onclick="onekeypass();">一键通过</button>
+						<button class="btn btn-info btn-large" onclick="onekeypass();">一键复评</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-						<button class="btn btn-success btn-large" onclick="">复评完成</button>
+						<button class="btn btn-success btn-large" onclick="passAlreadyJudge()">复评完成</button>
 					</div>
 				</div>
 			</div>

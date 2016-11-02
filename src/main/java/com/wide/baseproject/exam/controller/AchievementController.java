@@ -14,6 +14,7 @@ import com.wide.common.model.ExamAnswer;
 import com.wide.common.model.Examinee;
 import com.wide.common.model.ExampapersQtypes;
 import com.wide.common.model.query.QueryExaminee;
+import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
 
 public class AchievementController extends BaseController {
@@ -137,7 +138,7 @@ public class AchievementController extends BaseController {
 			examinee.setUpdateBy(getUser().getId());
 			examinee.setUpdateDate(new Date());
 			examinee.update();
-			setAttr("message", "考生试题判卷通过！");
+			setAttr("message", "考生试题复评通过！");
 			renderJson();
 		}catch(Exception ex){
 			ex.printStackTrace();
@@ -187,9 +188,6 @@ public class AchievementController extends BaseController {
 			examinee.update();
 			setAttr("message", "判卷完成！");
 			renderJson();
-			
-			
-			
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
@@ -230,13 +228,28 @@ public class AchievementController extends BaseController {
 		}
 	}	
 	
+	public void addExamRecordList(){
+		List<Exam> examlist= new ArrayList<Exam>();
+		examlist = Exam.dao.find("select * from sys_exam where isdel = 0 and isenable = 1 ");
+		setAttr("examlist", examlist);
+		render("examineeResult.jsp");
+	}
 	/**
 	 * @author cg
 	 * 考生查看试卷和成绩
 	 * */
 	public void getExamRecordList(){
+		Examinee e = new Examinee();
+		e = Examinee.dao.findFirst("select * from sys_examinee where user_id = ? and exam_id = ? ",getUser().getId(),getPara("examid"));
+		QueryExaminee queryExaminee = new QueryExaminee();
+		queryExaminee.setExamId(getPara("examid"));
+		if(!TypeChecker.isEmpty(e)){
+			queryExaminee.setExamineeId((!TypeChecker.isEmpty(e.getId()))?e.getId():"");			
+		}
 		try{
-			
+			DataTablesModel judgepage = achievementService.getPageExamRecord(getParaToInt("page")
+					.intValue(), getParaToInt("rp").intValue(), queryExaminee);
+			this.renderJson(judgepage);
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}

@@ -5,7 +5,9 @@ import java.util.List;
 
 import com.wide.common.model.base.BaseExam;
 import com.wide.common.model.query.QueryExam;
+import com.wide.common.model.query.QueryExaminee;
 import com.wide.util.DateUtil;
+import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
 
 /**
@@ -112,6 +114,41 @@ public class Exam extends BaseExam<Exam> {
 		List<Exam> lists = find("select t.* from sys_exam t where 1=1 and t.isdel = 0 and t.starttime <'"+DateUtil.toDateTimeStr(new Date())+"' and t.endtime >= '"+DateUtil.toDateTimeStr(new Date())+"'");
 		return lists;
 	}
+	
+	public DataTablesModel pageExamRecord(int pageNum, int pageSize, QueryExaminee queryExaminee) {
+		// TODO Auto-generated method stub
+		String select = "select t.id,t.code,t.name,t.starttime, t.endtime,t1.examineename ,t1.totalscore ,t1.status,t1.isfinishjudge ";
+	    StringBuilder sqlExceptSelect = new StringBuilder(" from sys_exam t ,sys_examinee t1 ");
+	    sqlExceptSelect.append(whereQueryExamRecord(queryExaminee));
+	    sqlExceptSelect.append(orderbyQueryExamRecord(queryExaminee));
+	    return this.paginateDataTables(pageNum, pageSize, select.toString(), sqlExceptSelect.toString());
+	}
+	
+	/**
+	 * query where查询
+	 * 
+	 * */
+	private String whereQueryExamRecord(QueryExaminee queryExaminee){
+		String where=" where t.id = t1.exam_id ";
+		if(!TypeChecker.isEmpty(queryExaminee.getExamId())){
+			where += " and t.id = '"+queryExaminee.getExamId()+"'";
+		}
+		if(!TypeChecker.isEmpty(queryExaminee.getExamineeId())){
+			where  +=" and t1.examinee_id = '"+queryExaminee.getExamineeId()+"'";
+		}
+		return where;
+		
+	}
+	/**
+	 * query order by 
+	 * 
+	 * */
+	private String orderbyQueryExamRecord(QueryExaminee queryExaminee){
+		String orderby = " order by t.starttime desc ";
+		return orderby;
+		
+	}
+	
 }
 
 

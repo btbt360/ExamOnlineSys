@@ -21,7 +21,7 @@ public class Examinee extends BaseExaminee<Examinee> {
 		 String select = "";
 		 StringBuilder sqlExceptSelect = new StringBuilder("");
 		 if(flag==2){
-			 select = "select t1.id,t.code,t.name,t.starttime,t.endtime,t1.examineename,t1.totalscore,t1.status ";
+			 select = "select t1.id,t.code,t.name,t.starttime,t.endtime,t1.examineename,t1.totalscore,t1.status,t1.isfinishjudge,t1.exam_id ";
 			 sqlExceptSelect.append((" from sys_exam t, sys_examinee t1 "));
 			 sqlExceptSelect.append(whereQuery(queryExaminee,flag));
 			 sqlExceptSelect.append(orderbyQuery(queryExaminee,flag));

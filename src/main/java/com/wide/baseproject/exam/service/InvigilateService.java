@@ -64,7 +64,7 @@ public class InvigilateService{
 				for (int i = 0; i < rows.size(); i++) {
 					List<String> row = rows.get(i);
 					String path="xFilePath_"+i;
-					String id = examineepage.getIds().get(0)+"";
+					String id = examineepage.getIds().get(i)+"";
 					String type = row.get(5);
 					row.set(3, row.get(3)!=null&&!row.get(3).equals("")?"指纹匹配成功":"<input type='button' class='btn btn-primary' value='请匹配指纹' onclick=fingerprint('"+id+"') />");
 					row.set(4, row.get(4)!=null&&!row.get(4).equals("")?"<img src='"+row.get(4)+"' class='img-rounded' style ='width:120px;height:120px;' />":"<input id='"+path+"' type='text' style='display: table-cell;vertical-align: middle;margin-top:3%;' />&nbsp;&nbsp;<input type='button' class='btn btn-primary' value='选择附件' onclick=BrowseServer('"+path+"','"+id+"') />");					
