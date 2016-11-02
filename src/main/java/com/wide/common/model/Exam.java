@@ -134,7 +134,10 @@ public class Exam extends BaseExam<Exam> {
 			where += " and t.id = '"+queryExaminee.getExamId()+"'";
 		}
 		if(!TypeChecker.isEmpty(queryExaminee.getExamineeId())){
-			where  +=" and t1.examinee_id = '"+queryExaminee.getExamineeId()+"'";
+			where  +=" and t1.id = '"+queryExaminee.getExamineeId()+"'";
+		}
+		if(!TypeChecker.isEmpty(queryExaminee.getUserid())){
+			where  +=" and t1.user_id = '"+queryExaminee.getUserid()+"'";
 		}
 		return where;
 		

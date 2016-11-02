@@ -41,6 +41,7 @@ public class InvigilateController  extends BaseController {
 		List<Examinee> elist = new ArrayList<Examinee>();
 		elist=Examinee.dao.find("select * from sys_examinee where isdel = 0 and isenable = 1 and exam_id = '"+examId+"'");
 		setAttr("elist",elist);
+		setAttr("examId",examId);
 		setAttr("exam", ex);
 		render("monitoringonline.jsp");
 	}

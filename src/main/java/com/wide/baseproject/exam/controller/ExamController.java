@@ -113,7 +113,6 @@ public class ExamController extends BaseController{
 				}catch(Exception ex){
 					ex.printStackTrace();
 				}
-
 				for(int i=0;i<str.length;i++){
 					Examinee examinee = new Examinee();
 					examinee.setId(createUUid());
@@ -125,6 +124,13 @@ public class ExamController extends BaseController{
 					examinee.setCreateDate(new Date());
 					examinee.setUpdateBy(getUser().getId());
 					examinee.setUpdateDate(new Date());
+					examinee.setFingerprint("");
+					examinee.setTicketcode("");
+					examinee.setSeatno(i);
+					examinee.setMacaddress("");
+					examinee.setIpaddress("");
+					examinee.setTotalscore(0);
+					examinee.setScoreslevel(0);
 					examinee.setIsdel(0);
 					examinee.setIsenable(1); //启用
 					examinee.save();
@@ -151,7 +157,6 @@ public class ExamController extends BaseController{
 				exam.setUpdateDate(new Date());
 				exam.setIsdel(0);
 				exam.save();
-				
 				for(int i=0;i<str.length;i++){
 					Examinee examinee = new Examinee();
 					examinee.setId(createUUid());
@@ -163,6 +168,13 @@ public class ExamController extends BaseController{
 					examinee.setCreateDate(new Date());
 					examinee.setUpdateBy(getUser().getId());
 					examinee.setUpdateDate(new Date());
+					examinee.setFingerprint("");
+					examinee.setTicketcode("");
+					examinee.setSeatno(i);
+					examinee.setMacaddress("");
+					examinee.setIpaddress("");
+					examinee.setTotalscore(0);
+					examinee.setScoreslevel(0);
 					examinee.setIsdel(0);
 					examinee.setIsenable(1); //启用
 					examinee.save();

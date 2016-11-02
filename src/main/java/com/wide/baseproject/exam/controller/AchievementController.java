@@ -243,6 +243,7 @@ public class AchievementController extends BaseController {
 		e = Examinee.dao.findFirst("select * from sys_examinee where user_id = ? and exam_id = ? ",getUser().getId(),getPara("examid"));
 		QueryExaminee queryExaminee = new QueryExaminee();
 		queryExaminee.setExamId(getPara("examid"));
+		queryExaminee.setUserid(getUser().getId());
 		if(!TypeChecker.isEmpty(e)){
 			queryExaminee.setExamineeId((!TypeChecker.isEmpty(e.getId()))?e.getId():"");			
 		}

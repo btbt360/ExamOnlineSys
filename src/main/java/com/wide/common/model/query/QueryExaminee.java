@@ -7,6 +7,7 @@ public class QueryExaminee {
 	private String examineeId;//考生id
 	private String starttime;//考试开始时间
 	private String endtime;//考试结束时间
+	private String userid;//用户编码
 	
 	public String getName() {
 		return name;
@@ -34,6 +35,14 @@ public class QueryExaminee {
 
 	public String getExamineeId() {
 		return examineeId;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
 	public void setExamineeId(String examineeId) {

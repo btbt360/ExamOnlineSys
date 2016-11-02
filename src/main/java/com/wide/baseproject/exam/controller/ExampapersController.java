@@ -219,7 +219,7 @@ public class ExampapersController extends BaseController {
 		int flag = exampapersService.getIsScoreAndIsTotal(exampapersid,questiontypeid,score);//判断试卷总题数和总分数
 		if(flag==0){
 			if(!TypeChecker.isEmpty(exampapersid)&&!TypeChecker.isEmpty(questionid)){
-				Db.update("insert into sys_exampapers_question VALUES ('"+createUUid()+"','"+exampapersid+"','"+questionid+"',"+score+")");
+				Db.update("insert into sys_exampapers_question VALUES ('"+createUUid()+"','"+exampapersid+"','"+questionid+"',"+score+",0)");
 			}
 			setAttr("message", "试题添加成功！");
 		}else if(flag==1){
