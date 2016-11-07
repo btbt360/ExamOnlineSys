@@ -1,5 +1,27 @@
+# ************************************************************
+# Sequel Pro SQL dump
+# Version 4541
+#
+# http://www.sequelpro.com/
+# https://github.com/sequelpro/sequelpro
+#
+# Host: 127.0.0.1 (MySQL 5.5.5-10.1.16-MariaDB)
+# Database: jfinalbasedb
+# Generation Time: 2016-11-07 11:00:51 +0000
+# ************************************************************
 
-set foreign_key_checks=0; 
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table sys_area
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_area`;
 
@@ -21,6 +43,7 @@ CREATE TABLE `sys_area` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='区域表';
 
 LOCK TABLES `sys_area` WRITE;
+/*!40000 ALTER TABLE `sys_area` DISABLE KEYS */;
 
 INSERT INTO `sys_area` (`id`, `parent_id`, `parent_ids`, `name`, `sort`, `code`, `type`, `create_by`, `create_date`, `update_by`, `update_date`, `remarks`, `del_flag`)
 VALUES
@@ -37,9 +60,12 @@ VALUES
 	('d04cad96-216f-4592-990c-eef64725a939','a326f968-1277-41b8-9c6d-0a4e89723bda','a326f968-1277-41b8-9c6d-0a4e89723bda|d04cad96-216f-4592-990c-eef64725a939','回民区',1.13,'102314','4','9b70e448-58e7-4a46-ac83-c408d835643d','2016-07-06 15:11:27','9b70e448-58e7-4a46-ac83-c408d835643d','2016-07-06 17:25:04','斤斤计较123122312313111','0'),
 	('d6982d40-65a9-4e77-869f-66fe5a73ef90','a326f968-1277-41b8-9c6d-0a4e89723bda','a326f968-1277-41b8-9c6d-0a4e89723bda|d6982d40-65a9-4e77-869f-66fe5a73ef90','新城区',1.17,'23132131','4','9b70e448-58e7-4a46-ac83-c408d835643d','2016-08-09 08:48:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-08-09 08:48:48',NULL,'0');
 
+/*!40000 ALTER TABLE `sys_area` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
+# Dump of table sys_cases
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_cases`;
 
@@ -63,14 +89,18 @@ CREATE TABLE `sys_cases` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='案例表';
 
 LOCK TABLES `sys_cases` WRITE;
+/*!40000 ALTER TABLE `sys_cases` DISABLE KEYS */;
 
 INSERT INTO `sys_cases` (`id`, `subject_id`, `casetitle`, `caseanswer`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`, `name`)
 VALUES
 	('79e9d5a7-12e9-444a-87b5-73c2c21da577','cd84d06e-5b8c-47e9-8b44-c9c63e77e896','22223','222222223','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-20 17:49:03','2016-10-20 18:12:40','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0,'22223');
 
+/*!40000 ALTER TABLE `sys_cases` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
+# Dump of table sys_dict
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_dict`;
 
@@ -91,30 +121,88 @@ CREATE TABLE `sys_dict` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='多级字典表';
 
 LOCK TABLES `sys_dict` WRITE;
+/*!40000 ALTER TABLE `sys_dict` DISABLE KEYS */;
 
 INSERT INTO `sys_dict` (`id`, `dictkey`, `dictvalue`, `description`, `type`, `create_by`, `create_date`, `update_by`, `update_date`, `remarks`, `del_flag`, `typeinfo`)
 VALUES
+	('015a5700-0b56-45e3-9cf5-e5165a5e7fa5','35','撒拉族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('021a73a8-a5b8-43c3-9058-52df2c1d8e4e','4','藏族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('0c24756d-f50a-42f6-b5b5-9fa4c8436c8e','49','京族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','','0','民族'),
+	('0cf29506-858d-4f12-8c76-e2334e456f4e','40','普米族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
 	('0ed39298-604e-469a-9d65-d66703d05941','3','一般权限',NULL,'1001','','2016-06-30 18:00:29','9b70e448-58e7-4a46-ac83-c408d835643d','2016-06-30 18:00:29','1','0','角色'),
+	('0f064fc6-cbe7-42e1-ac7e-6bb896f02898','9','布依族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('119e70b3-9b30-458d-9ee7-67ac9c9aad77','55','珞巴族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','','0','民族'),
+	('11c654db-9b2c-4948-b14e-42677332dad9','14','白族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('13f00e5e-d9d5-402e-b358-593e48fc20a6','41','塔吉克族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
 	('16a66fc3-9d26-4db9-bef2-bc846b6df248','3','地级市',NULL,'1010','','2016-07-01 17:10:09','9b70e448-58e7-4a46-ac83-c408d835643d','2016-07-01 17:10:09',NULL,'0','区域类型'),
+	('21301bc6-a9bb-4268-bbf9-6502ada75858','7','彝族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('221f0ae6-3766-444d-9ae3-f95d7b83874f','48','裕固族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','','0','民族'),
+	('22959681-fd54-425f-ac85-1bc2d1cb95de','34','布朗族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('2652a6b4-36e8-4d05-9cdb-e3b151d230bb','2','蒙古族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('2f803431-5d26-48c0-a90a-a147a3c853f3','46','德昂族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','','0','民族'),
+	('32a8388b-4764-43e3-9460-f885e58cdbfb','5','维吾尔族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
 	('34cebb87-bff8-40a8-a81a-8d229adeff28','2','多选题',NULL,'1002','','2016-10-19 16:50:36','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-19 16:50:36','多选题','0','试题类型'),
+	('355e913d-425f-4e55-bff5-c3b72ed6d6ac','6','苗族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('3a6463a9-2302-4509-9007-c8e257526d79','8','壮族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('3e2c2cf8-bcd6-414d-8982-9c3883e8b621','50','塔塔尔族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','','0','民族'),
+	('3ea36bce-1160-4366-af79-3996444a57c5','11','满族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('3f45c915-f6c6-46a6-b2b5-03b32aab311b','32','仫佬族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
 	('41b4d0fd-26d2-404b-9fb7-ea93938e611c','4','区县',NULL,'1010','','2016-07-01 17:10:23','9b70e448-58e7-4a46-ac83-c408d835643d','2016-07-01 17:10:23',NULL,'0','区域类型'),
-	('491387a3-5bd9-4549-8341-fbeb5e230f0e','2','管理员',NULL,'1003','','2016-08-09 09:18:32','9b70e448-58e7-4a46-ac83-c408d835643d','2016-08-09 09:18:32',NULL,'0','人员类型'),
+	('42b7d564-33f3-463d-a0fc-0f9b69bd5cad','30','土族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('48e0d602-eb93-4e3c-8464-4a5356e9bbc9','3','回族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('4c820d8f-487e-4541-924e-660656ee3593','19','黎族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
 	('4d45b231-ee7b-44be-99d9-64642b2a5e28','11','管理员',NULL,'1001','','2016-06-29 17:32:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-06-29 17:32:33','11','0','角色'),
-	('593fa3ba-210b-4847-b34f-05ff87439b57','1','考生',NULL,'1003','','2016-06-30 11:22:39','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-19 16:48:51','考生','0','人员类型'),
+	('4f5943f4-fd3b-4003-9615-d86f9ce17b4c','44','俄罗斯族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','','0','民族'),
 	('5ace504a-6c2f-4d52-91ee-b7f5c8d9081e','2','虚拟组',NULL,'1000','','2016-06-24 15:01:59','9b70e448-58e7-4a46-ac83-c408d835643d','2016-06-24 15:01:59','虚拟组','0','机构'),
 	('5f0df8a7-d629-4194-94f0-2e34f0a2de96','2','省市/自治区',NULL,'1010','','2016-07-01 17:08:46','9b70e448-58e7-4a46-ac83-c408d835643d','2016-07-01 17:09:43',NULL,'0','区域类型'),
+	('6562c5ab-a7e7-4000-b999-8b4201737862','42','怒族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('6d7f6a47-f9c9-49b5-ad6a-1417fbf84d5b','10','朝鲜族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
 	('79438dc5-6cc0-44ab-9ce6-ffbd4ac443f5','1','日志',NULL,'1008','','2016-07-30 17:10:14','9b70e448-58e7-4a46-ac83-c408d835643d','2016-07-30 17:10:14','222','1','学位'),
+	('839178d7-27a2-460b-b9a4-e35e3fc30b05','25','水族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('87d41656-feff-415d-b66c-f609c244c996','33','羌族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('88798a4a-89c2-4277-a006-36cefa25d784','20','傈僳族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
 	('8d36236f-a4f6-4325-ab45-4cb3d523ddf3','4','问答题',NULL,'1002','','2016-10-19 16:51:28','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-19 16:51:28','问答题','0','试题类型'),
+	('91478bb7-d8a3-4faa-b68e-0e0fbc0361ee','39','阿昌族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('924b8432-dcd8-45db-9ce0-8ef0337d4b69','21','佤族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
 	('92ad731e-bbea-413f-8af7-817d7ae8406a','3','判断题',NULL,'1002','','2016-10-19 16:51:14','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-19 16:51:14','判断题','0','试题类型'),
+	('96189bdb-0a4d-4f00-83d4-27dea221f708','45','鄂温克族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','','0','民族'),
+	('9a4bc063-e47d-4017-989e-47bd062e6e12','23','高山族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
 	('ad91383b-ed5a-4eb3-8e43-aedf0f2af63d','3','岗位',NULL,'1000','','2016-06-24 15:02:20','9b70e448-58e7-4a46-ac83-c408d835643d','2016-06-24 15:02:20','岗位','0','机构'),
+	('afaeb003-e97c-4c7a-9f90-9c5627303a67','36','毛南族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
 	('b30bcc07-196b-4d2c-acdd-8d1a8784568e','1','单选题',NULL,'1002','','2016-10-18 16:54:19','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:54:19','单选题','0','试题类型'),
+	('b3267a2a-9690-4bba-9bbe-6fe5bf0b0762','18','傣族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('b3406b8d-f279-4e86-8b61-fea3c07a59e5','53','赫哲族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','','0','民族'),
+	('b6887852-6be1-44ef-b2d9-cccff7d970cb','12','侗族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('b9a8a5f1-1435-483c-a140-ea2bc2f917a1','38','锡伯族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('c2acf377-5c68-4dca-a2e5-17588ef8bb59','51','独龙族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','','0','民族'),
+	('c86667e0-d337-4c5d-a269-053ac14dc776','47','保安族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','','0','民族'),
+	('c9f71108-6aa0-475d-83ef-b1a413931998','26','东乡族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('d0410680-bf3b-4d99-8601-7193037a7614','52','鄂伦春族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','','0','民族'),
+	('d0b5f294-06d0-4aa9-beaa-1bc7012180fc','1','汉族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
 	('d16a60a5-2856-458e-91b0-71e60efdf772','1','机构',NULL,'1000','','2016-06-24 15:00:30','9b70e448-58e7-4a46-ac83-c408d835643d','2016-06-24 15:00:30','机构','0','机构'),
 	('d359a003-f07b-4a51-a6a1-c253c0933af4','5','填空题',NULL,'1002','','2016-10-19 16:51:59','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-19 16:51:59','填空题','0','试题类型'),
-	('e01ef285-5161-4bf5-b34b-15adcfedc4e1','1','国家',NULL,'1010','','2016-07-01 17:08:27','9b70e448-58e7-4a46-ac83-c408d835643d','2016-07-01 17:08:27',NULL,'0','区域类型');
+	('d8324b3b-901c-4ae8-b6a8-c4b6143f2402','27','纳西族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('db067371-3757-4154-b20d-26920a5b0614','29','柯尔克孜','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('ddaa5b5b-880d-4e4d-885a-079419585380','17','哈萨克族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('ded875c5-0feb-44bc-9216-131d5889b4cd','37','仡佬族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('e01ef285-5161-4bf5-b34b-15adcfedc4e1','1','国家',NULL,'1010','','2016-07-01 17:08:27','9b70e448-58e7-4a46-ac83-c408d835643d','2016-07-01 17:08:27',NULL,'0','区域类型'),
+	('e1c0d624-8b97-4d2e-834c-e339f41263df','28','景颇族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('e1e6c92b-0d95-40ea-9056-7b9541106598','16','哈尼族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('e227ca29-159a-4f16-bc75-d469f21dbb94','31','达斡尔族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('e3145fe4-9b7e-48cb-8af4-75d8d50570b2','56','基诺族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','','0','民族'),
+	('e40e2249-0c78-4c22-b8dc-52979047c08b','15','土家族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('f2a43c1c-f145-43c2-8fee-a2f5d631b7d0','43','乌孜别克','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:10:43','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:10:43','','0','民族'),
+	('f3bdccce-faa4-4e93-9c2e-8ca5843720ef','24','拉祜族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('f4cd4c59-e33a-4dd9-adb0-48d393fb4d80','13','瑶族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族'),
+	('f52f7e83-9c06-456d-a25d-6853ee3b1384','54','门巴族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:09:53','','0','民族'),
+	('fa1e3312-e45b-4e17-bdf2-1596bc0a4e5c','22','畲族','','1005','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-07 17:07:48','','0','民族');
 
+/*!40000 ALTER TABLE `sys_dict` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
+# Dump of table sys_error
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_error`;
 
@@ -137,8 +225,19 @@ CREATE TABLE `sys_error` (
   CONSTRAINT `sys_error_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `sys_user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='错题表';
 
+LOCK TABLES `sys_error` WRITE;
+/*!40000 ALTER TABLE `sys_error` DISABLE KEYS */;
+
+INSERT INTO `sys_error` (`id`, `question_id`, `user_id`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`)
+VALUES
+	('592e4ddb-9834-4548-ae45-a8db0467ebc9','fc45c3c1-8ea0-4ff2-b8fd-d96477761af2','8ff16130-6c01-425d-96ac-bf7e895f83f5','8ff16130-6c01-425d-96ac-bf7e895f83f5','2016-11-03 21:44:09','2016-11-03 21:44:09','8ff16130-6c01-425d-96ac-bf7e895f83f5',NULL,1,0);
+
+/*!40000 ALTER TABLE `sys_error` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
+# Dump of table sys_exam
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_exam`;
 
@@ -170,6 +269,7 @@ CREATE TABLE `sys_exam` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='考试表';
 
 LOCK TABLES `sys_exam` WRITE;
+/*!40000 ALTER TABLE `sys_exam` DISABLE KEYS */;
 
 INSERT INTO `sys_exam` (`id`, `code`, `name`, `starttime`, `endtime`, `duration`, `address`, `number`, `invigilatenameone`, `invigilatenametwo`, `demand`, `institution`, `status`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`, `exampapers_id`, `enddistancetime`)
 VALUES
@@ -180,9 +280,12 @@ VALUES
 	('80571a3a-9fd9-427d-97b0-bdbc07bf7e86','1031','期末考试20161031','2016-10-31 22:15:00','2016-10-31 22:55:00',40,'万德',2,'监考1','监考2','请问请问请问去','请问请问请问请问武器',0,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-31 22:13:54','2016-10-31 22:24:51','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0,'a7ab3064-c63a-4bcc-901f-4a702311d4c3',0),
 	('98a8b0bb-13e5-483f-b8a3-cdd67509c7f5','KS2','考试2','2016-11-02 23:30:00','2016-11-03 23:30:00',1440,'二楼会议室',2,'监考员一','监考员二','监考员一','监考员一',0,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-02 23:31:39','2016-11-02 23:31:39','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,1,'a7ab3064-c63a-4bcc-901f-4a702311d4c3',0);
 
+/*!40000 ALTER TABLE `sys_exam` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
+# Dump of table sys_exam_answer
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_exam_answer`;
 
@@ -215,6 +318,7 @@ CREATE TABLE `sys_exam_answer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='考生试卷答案表';
 
 LOCK TABLES `sys_exam_answer` WRITE;
+/*!40000 ALTER TABLE `sys_exam_answer` DISABLE KEYS */;
 
 INSERT INTO `sys_exam_answer` (`id`, `examinee_id`, `exam_id`, `question_id`, `answerinfo`, `answerscores`, `judgetype`, `judgepeopleid`, `judgepeoplename`, `judgetime`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`)
 VALUES
@@ -222,9 +326,12 @@ VALUES
 	('7ef1fe30-a039-4ea5-b190-fd526afaaa37','a3416194-d3c0-4d05-a9cf-b1b920fd5208','34d44059-2280-48cb-98dd-0d00cbb583b3','d56a3744-02c2-4426-95c6-4bdefdb3f095','0',2,1,'9b70e448-58e7-4a46-ac83-c408d835643d','陈钢','2016-11-02 16:38:49','8ff16130-6c01-425d-96ac-bf7e895f83f5','2016-11-02 16:31:16','2016-11-02 16:38:49','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0),
 	('bcebcfd4-5a47-4dd6-a216-2d051a15afd6','a3416194-d3c0-4d05-a9cf-b1b920fd5208','34d44059-2280-48cb-98dd-0d00cbb583b3','fc45c3c1-8ea0-4ff2-b8fd-d96477761af2','A',0,1,'9b70e448-58e7-4a46-ac83-c408d835643d','陈钢','2016-11-02 16:38:49','8ff16130-6c01-425d-96ac-bf7e895f83f5','2016-11-02 16:31:23','2016-11-02 16:38:49','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0);
 
+/*!40000 ALTER TABLE `sys_exam_answer` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
+# Dump of table sys_examinee
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_examinee`;
 
@@ -260,6 +367,7 @@ CREATE TABLE `sys_examinee` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='考生表';
 
 LOCK TABLES `sys_examinee` WRITE;
+/*!40000 ALTER TABLE `sys_examinee` DISABLE KEYS */;
 
 INSERT INTO `sys_examinee` (`id`, `exampapers_id`, `exam_id`, `user_id`, `status`, `fingerprint`, `ticketcode`, `seatno`, `macaddress`, `ipaddress`, `totalscore`, `scoreslevel`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`, `sculpturepath`, `examineename`, `isfinishjudge`)
 VALUES
@@ -267,9 +375,12 @@ VALUES
 	('a3416194-d3c0-4d05-a9cf-b1b920fd5208','daae9711-b52a-4711-865f-1293219217b5','34d44059-2280-48cb-98dd-0d00cbb583b3','8ff16130-6c01-425d-96ac-bf7e895f83f5',2,'','Ek9029',1,'','',2,0,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','2016-11-02 16:38:49','9b70e448-58e7-4a46-ac83-c408d835643d','',1,0,'/ExamOnlineSys/userfiles/images/c05f42f9jw1eglmwqjwgjj2074074glo.jpg','王世伦',1),
 	('e7bcdd59-e3eb-42ff-8f86-dc3dbf13a675','a7ab3064-c63a-4bcc-901f-4a702311d4c3','5ecf4a4d-c606-4451-8003-c412e7e0a5c8','8ff16130-6c01-425d-96ac-bf7e895f83f5',0,'','',2,'','',0,0,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-02 23:42:19','2016-11-02 23:42:19','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0,'','王世伦',0);
 
+/*!40000 ALTER TABLE `sys_examinee` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
+# Dump of table sys_exampapers
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_exampapers`;
 
@@ -293,14 +404,19 @@ CREATE TABLE `sys_exampapers` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='试卷表';
 
 LOCK TABLES `sys_exampapers` WRITE;
+/*!40000 ALTER TABLE `sys_exampapers` DISABLE KEYS */;
 
 INSERT INTO `sys_exampapers` (`id`, `code`, `name`, `sumscore`, `usecount`, `sumquestion`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`, `endfinish`)
 VALUES
 	('a7ab3064-c63a-4bcc-901f-4a702311d4c3','AQPX001','考试1',100,0,3,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-25 19:21:57','2016-11-02 23:15:59','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0,1),
 	('daae9711-b52a-4711-865f-1293219217b5','sj0001','技术考试',100,1,20,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','2016-10-28 11:03:07','9b70e448-58e7-4a46-ac83-c408d835643d','',1,0,1);
 
+/*!40000 ALTER TABLE `sys_exampapers` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+# Dump of table sys_exampapers_qtypes
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_exampapers_qtypes`;
 
@@ -318,6 +434,8 @@ CREATE TABLE `sys_exampapers_qtypes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='试卷题型表';
 
 LOCK TABLES `sys_exampapers_qtypes` WRITE;
+/*!40000 ALTER TABLE `sys_exampapers_qtypes` DISABLE KEYS */;
+
 INSERT INTO `sys_exampapers_qtypes` (`id`, `typename`, `sumtotal`, `sumscores`, `exampapers_id`, `type_id`)
 VALUES
 	('0c62cf53-296d-4d4e-8eac-4070709dba37','判断题',1,20,'a7ab3064-c63a-4bcc-901f-4a702311d4c3',3),
@@ -326,9 +444,12 @@ VALUES
 	('ca12bcc1-e779-491a-861c-cdd3752a1ac4','问答题',1,20,'daae9711-b52a-4711-865f-1293219217b5',4),
 	('eb4fef72-7422-4906-a2d3-9aa148f9c5fd','判断题',1,20,'daae9711-b52a-4711-865f-1293219217b5',3);
 
+/*!40000 ALTER TABLE `sys_exampapers_qtypes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
+# Dump of table sys_exampapers_question
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_exampapers_question`;
 
@@ -347,6 +468,7 @@ CREATE TABLE `sys_exampapers_question` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='试卷试题对照表';
 
 LOCK TABLES `sys_exampapers_question` WRITE;
+/*!40000 ALTER TABLE `sys_exampapers_question` DISABLE KEYS */;
 
 INSERT INTO `sys_exampapers_question` (`id`, `exampapers_id`, `question_id`, `scores`, `sort`)
 VALUES
@@ -358,9 +480,12 @@ VALUES
 	('a0cafa5c-b931-44f2-9e4d-7178cc178f2d','a7ab3064-c63a-4bcc-901f-4a702311d4c3','d56a3744-02c2-4426-95c6-4bdefdb3f095',20,3),
 	('dedcfdf1-a644-4fac-b5fb-bcbbf9ab6685','daae9711-b52a-4711-865f-1293219217b5','fc45c3c1-8ea0-4ff2-b8fd-d96477761af2',10,3);
 
+/*!40000 ALTER TABLE `sys_exampapers_question` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
+# Dump of table sys_exercise
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_exercise`;
 
@@ -386,14 +511,18 @@ CREATE TABLE `sys_exercise` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='练习表 : 练习表';
 
 LOCK TABLES `sys_exercise` WRITE;
+/*!40000 ALTER TABLE `sys_exercise` DISABLE KEYS */;
 
 INSERT INTO `sys_exercise` (`id`, `user_id`, `subject_id`, `itembank_id`, `sumcount`, `alreadycount`, `name`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`)
 VALUES
 	('cdf4898f-0078-4929-bd8a-7916388072e8','8ff16130-6c01-425d-96ac-bf7e895f83f5','cd84d06e-5b8c-47e9-8b44-c9c63e77e896','1cb3b61d-9851-40e9-8c88-799735c59dae',3,0,'练习1','8ff16130-6c01-425d-96ac-bf7e895f83f5','2016-11-02 15:12:58','2016-11-02 15:12:58','8ff16130-6c01-425d-96ac-bf7e895f83f5','11111',1,0);
 
+/*!40000 ALTER TABLE `sys_exercise` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
+# Dump of table sys_exercise_question
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_exercise_question`;
 
@@ -411,6 +540,8 @@ CREATE TABLE `sys_exercise_question` (
 
 
 
+# Dump of table sys_folder
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_folder`;
 
@@ -429,6 +560,8 @@ CREATE TABLE `sys_folder` (
 
 
 
+# Dump of table sys_itembank
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_itembank`;
 
@@ -453,6 +586,7 @@ CREATE TABLE `sys_itembank` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='题库表';
 
 LOCK TABLES `sys_itembank` WRITE;
+/*!40000 ALTER TABLE `sys_itembank` DISABLE KEYS */;
 
 INSERT INTO `sys_itembank` (`id`, `subject_id`, `sumtotal`, `checknum`, `questiontype`, `name`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`)
 VALUES
@@ -463,9 +597,12 @@ VALUES
 	('afae0945-4b7d-42ad-aca8-34cfba41c9a4','cd84d06e-5b8c-47e9-8b44-c9c63e77e896',0,0,1,'题库7','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-27 09:29:55','2016-10-27 09:29:55','9b70e448-58e7-4a46-ac83-c408d835643d','题库7',1,0),
 	('c5e83e76-08a8-427b-b2c7-85ef3ccf5d47','cd84d06e-5b8c-47e9-8b44-c9c63e77e896',1,0,3,'题库3','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-19 16:52:59','2016-10-19 16:52:59','9b70e448-58e7-4a46-ac83-c408d835643d','题库3',1,0);
 
+/*!40000 ALTER TABLE `sys_itembank` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
+# Dump of table sys_log
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_log`;
 
@@ -481,6 +618,7 @@ CREATE TABLE `sys_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='日志表';
 
 LOCK TABLES `sys_log` WRITE;
+/*!40000 ALTER TABLE `sys_log` DISABLE KEYS */;
 
 INSERT INTO `sys_log` (`id`, `type`, `title`, `content`, `create_by`, `operatorname`, `create_date`)
 VALUES
@@ -570,9 +708,12 @@ VALUES
 	('f4229dd0-ad83-4452-9410-37b16209ee76','6','用户修改','陈钢在2016-10-09 17:50:38操作了用户修改功能','9b70e448-58e7-4a46-ac83-c408d835643d','陈钢','2016-10-09 17:50:38'),
 	('f835fbd4-75cb-4d89-b56d-874a8c5deef1','5','用户添加','陈钢在2016-10-12 16:17:44操作了用户添加功能','9b70e448-58e7-4a46-ac83-c408d835643d','陈钢','2016-10-12 16:17:44');
 
+/*!40000 ALTER TABLE `sys_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
+# Dump of table sys_menu
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_menu`;
 
@@ -597,6 +738,7 @@ CREATE TABLE `sys_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单表';
 
 LOCK TABLES `sys_menu` WRITE;
+/*!40000 ALTER TABLE `sys_menu` DISABLE KEYS */;
 
 INSERT INTO `sys_menu` (`id`, `parent_id`, `parent_ids`, `name`, `sort`, `href`, `target`, `icon`, `is_show`, `permission`, `create_by`, `create_date`, `update_by`, `update_date`, `remarks`, `del_flag`)
 VALUES
@@ -640,9 +782,12 @@ VALUES
 	('f9ce3125-1bf0-4dbb-9305-ea829ddf5a01','cbc3dd45-a212-4b74-af69-e1d157e6eb1d','cbc3dd45-a212-4b74-af69-e1d157e6eb1d|f9ce3125-1bf0-4dbb-9305-ea829ddf5a01','我的成绩',3.02,'/achievement/addExamRecordList',NULL,NULL,'1','myachievement','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:03:55','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-02 14:48:18',NULL,'0'),
 	('fe2aa5d7-8563-4b28-8422-7b48050b558f','be58f3a0-6065-4086-8b5e-abf41a7151cd','be58f3a0-6065-4086-8b5e-abf41a7151cd|','个人基本信息',1.1,'/user/addInfo',NULL,NULL,'1','user:adding','9b70e448-58e7-4a46-ac83-c408d835643d','2016-07-11 09:28:39','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 08:59:47',NULL,'0');
 
+/*!40000 ALTER TABLE `sys_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
+# Dump of table sys_office
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_office`;
 
@@ -677,6 +822,7 @@ CREATE TABLE `sys_office` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='部门表';
 
 LOCK TABLES `sys_office` WRITE;
+/*!40000 ALTER TABLE `sys_office` DISABLE KEYS */;
 
 INSERT INTO `sys_office` (`id`, `parent_id`, `parent_ids`, `name`, `sort`, `area_id`, `code`, `type`, `grade`, `address`, `zip_code`, `master`, `phone`, `fax`, `email`, `USEABLE`, `PRIMARY_PERSON`, `DEPUTY_PERSON`, `create_by`, `create_date`, `update_by`, `update_date`, `remarks`, `del_flag`)
 VALUES
@@ -696,9 +842,12 @@ VALUES
 	('dc71dd6e-1d51-40ff-8f49-cf12dec92304','2867b872-5cb6-49f7-9873-72f029674152','2867b872-5cb6-49f7-9873-72f029674152|dc71dd6e-1d51-40ff-8f49-cf12dec92304','产品部门',1.131,'a326f968-1277-41b8-9c6d-0a4e89723bda','9088','1','0',NULL,NULL,'产品部门',NULL,NULL,NULL,NULL,NULL,NULL,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-07-06 11:14:04','9b70e448-58e7-4a46-ac83-c408d835643d','2016-07-06 11:14:04',NULL,'1'),
 	('f43ae468-a3a5-4850-ab9c-f0d024a23996','9324dac8-a51b-4f35-8d7c-4b7787db3d89','9324dac8-a51b-4f35-8d7c-4b7787db3d89','玉泉区',1.2,'a326f968-1277-41b8-9c6d-0a4e89723bda','12000','1','2','玉泉区',NULL,NULL,NULL,NULL,NULL,'1',NULL,NULL,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-06-01 23:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-06-01 23:00:00',NULL,'1');
 
+/*!40000 ALTER TABLE `sys_office` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
+# Dump of table sys_office_user
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_office_user`;
 
@@ -712,6 +861,8 @@ CREATE TABLE `sys_office_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `sys_office_user` WRITE;
+/*!40000 ALTER TABLE `sys_office_user` DISABLE KEYS */;
+
 INSERT INTO `sys_office_user` (`user_id`, `office_id`)
 VALUES
 	('8ff16130-6c01-425d-96ac-bf7e895f83f5','017fe8f5-97ec-40e3-ad75-6829336ad71a'),
@@ -720,8 +871,12 @@ VALUES
 	('f56dac65-7d42-444e-97b6-4c4d7fefa295','017fe8f5-97ec-40e3-ad75-6829336ad71a'),
 	('f56dac65-7d42-444e-97b6-4c4d7fefa295','03ea5abf-3a1e-45db-af00-216a07e6404c');
 
+/*!40000 ALTER TABLE `sys_office_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+# Dump of table sys_questionoptions
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_questionoptions`;
 
@@ -744,6 +899,7 @@ CREATE TABLE `sys_questionoptions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='试题选项表';
 
 LOCK TABLES `sys_questionoptions` WRITE;
+/*!40000 ALTER TABLE `sys_questionoptions` DISABLE KEYS */;
 
 INSERT INTO `sys_questionoptions` (`id`, `questions_id`, `code`, `contant`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`)
 VALUES
@@ -756,8 +912,12 @@ VALUES
 	('c35bce4b-a835-4055-99cb-30d49249a10a','d3d674d9-dd49-4664-9d50-6e38e867dec0','B','bbbbbbbbbb','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-20 18:13:02','2016-10-20 18:13:02','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0),
 	('c767deb9-5249-430a-a9ff-f85512674759','fc45c3c1-8ea0-4ff2-b8fd-d96477761af2','C','过失行为','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:51:37','2016-10-18 16:51:37','9b70e448-58e7-4a46-ac83-c408d835643d','',1,0);
 
+/*!40000 ALTER TABLE `sys_questionoptions` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+# Dump of table sys_questions
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_questions`;
 
@@ -766,7 +926,7 @@ CREATE TABLE `sys_questions` (
   `subject_id` varchar(64) NOT NULL DEFAULT '' COMMENT '科目编码',
   `itembank_id` varchar(64) NOT NULL COMMENT '题库编码 : 唯一编码',
   `code` varchar(64) NOT NULL COMMENT '试题编码',
-  `name` varchar(256) NOT NULL COMMENT '名称',
+  `name` varchar(256) DEFAULT '' COMMENT '名称',
   `title` varchar(4000) NOT NULL COMMENT '试题标题 : 试题标题',
   `info` varchar(2000) DEFAULT NULL COMMENT '试题描述',
   `questiontype` int(11) NOT NULL DEFAULT '0' COMMENT '试题类型 : 0单选、1多选、2判断、3问答、4填空、5阅读理解、6打字题、7组合\n',
@@ -786,17 +946,23 @@ CREATE TABLE `sys_questions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='试题表题头表';
 
 LOCK TABLES `sys_questions` WRITE;
+/*!40000 ALTER TABLE `sys_questions` DISABLE KEYS */;
+
 INSERT INTO `sys_questions` (`id`, `subject_id`, `itembank_id`, `code`, `name`, `title`, `info`, `questiontype`, `questionanswer`, `questionanswerinfo`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`)
 VALUES
 	('0632db29-9c93-4019-992e-a014c774fcc1','cd84d06e-5b8c-47e9-8b44-c9c63e77e896','424705a8-0db5-4d7e-a505-7a654eabe9c5','填空题','填空题','<p>填空题填空题填空题填空题填空题填空题________填空题填空题填空题填空题________填空题填空题填空题_______填空题填空题填空题填空题</p>\r\n','填空题填空题填空题填空题填空题',5,'1. 填空题填空题填空题填空题\r\n2. 填空题填空题填空题填空题\r\n3. 填空题填空题填空题填空题填空题','填空题填空题填空题填空题填空题填空题','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-21 09:38:05','2016-10-21 09:38:05','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0),
 	('168f489a-4f6c-4bd2-a7b6-f3207d8ed111','cd84d06e-5b8c-47e9-8b44-c9c63e77e896','aae282ba-eafe-45b0-a2c6-ee321ef965f5','问答题','问答题','<p>问答题问答题问答题问答题问答题问答题</p>','问答题问答题问答题问答题',4,'问答题问答题问答题问答题','问答题问答题问答题问答题','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-21 09:37:03','2016-10-21 09:37:03','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0),
-	('36cccfe4-2fcc-495e-a631-0a828e386e97','cd84d06e-5b8c-47e9-8b44-c9c63e77e896','1cb3b61d-9851-40e9-8c88-799735c59dae','6666666666','6666666666','<p>6666666666</p><p><img alt=\"\" src=\"/ExamOnlineSys/userfiles/images/c05f42f9jw1eglmwqjwgjj2074074glo.jpg\" style=\"height:256px; width:256px\" /></p>','6666666666',1,'A','6666666666','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-20 17:04:13','2016-10-20 17:18:59','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,1),
+	('36cccfe4-2fcc-495e-a631-0a828e386e97','cd84d06e-5b8c-47e9-8b44-c9c63e77e896','1cb3b61d-9851-40e9-8c88-799735c59dae','6666666666','6666666666','<p>6666666666</p><p><img alt=\"\" src=\"/ExamOnlineSys/userfiles/images/c05f42f9jw1eglmwqjwgjj2074074glo.jpg\" style=\"height:256px; width:256px\" /></p>','6666666666',1,'A','6666666666','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-20 17:04:13','2016-10-20 17:18:59','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0),
 	('d3d674d9-dd49-4664-9d50-6e38e867dec0','cd84d06e-5b8c-47e9-8b44-c9c63e77e896','1cb3b61d-9851-40e9-8c88-799735c59dae','222222','222222','<p><img alt=\"\" src=\"/ExamOnlineSys/userfiles/images/c05f42f9jw1eglmwqjwgjj2074074glo.jpg\" style=\"height:256px; width:256px\" />我是谁</p>\r\n','c',1,'C','C','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-20 17:22:49','2016-10-20 18:13:02','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0),
 	('d56a3744-02c2-4426-95c6-4bdefdb3f095','cd84d06e-5b8c-47e9-8b44-c9c63e77e896','c5e83e76-08a8-427b-b2c7-85ef3ccf5d47','判断题','判断题','<p>判断题判断题判断题判断题判断题</p>','判断题判断题判断题判断题',3,'0','判断题判断题判断题判断题判断题','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-21 09:32:41','2016-10-21 09:32:41','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0),
 	('fc45c3c1-8ea0-4ff2-b8fd-d96477761af2','cd84d06e-5b8c-47e9-8b44-c9c63e77e896','1cb3b61d-9851-40e9-8c88-799735c59dae','dx0001','','驾驶机动车在道路上违反道路交通安全法的行为，属于什么行为？','驾驶机动车在道路上违反道路交通安全法的行为，属于什么行为？',1,'B','“违反道路交通安全法”，违反法律法规即为违法行为。官方已无违章/违规的说法。','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:54:48','2016-10-18 16:54:48','9b70e448-58e7-4a46-ac83-c408d835643d','',1,0);
 
+/*!40000 ALTER TABLE `sys_questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+# Dump of table sys_right
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_right`;
 
@@ -816,6 +982,8 @@ CREATE TABLE `sys_right` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色-菜单 sys_role_menu_file';
 
 LOCK TABLES `sys_right` WRITE;
+/*!40000 ALTER TABLE `sys_right` DISABLE KEYS */;
+
 INSERT INTO `sys_right` (`id`, `resourcesid`, `resourcestype`, `create_by`, `create_date`, `update_by`, `update_date`, `remarks`, `del_flag`, `resourcesname`, `permission`)
 VALUES
 	('0175a43c-9e91-4cd8-83cc-d1d0200f317b','caa32364-c4fd-4b5a-9d46-4ee6dd28a66e',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-02 23:02:22','','0','角色添加','role:addroleinfo'),
@@ -857,8 +1025,12 @@ VALUES
 	('fb5c7d66-6284-489a-b631-1312d39273a1','aa3a660e-91df-446d-9d28-0a088072427a',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-13 17:16:05','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-02 23:02:22',NULL,'0','考试成绩统计','examscorestotal'),
 	('feb0893f-d2e3-4e65-b976-c3a402ac5988','ad052487-d282-4c33-8fc4-783a86a1de46',1,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 09:29:33','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-02 23:02:22',NULL,'0','我的错题','myerrorq');
 
+/*!40000 ALTER TABLE `sys_right` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+# Dump of table sys_role
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_role`;
 
@@ -881,13 +1053,18 @@ CREATE TABLE `sys_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色表';
 
 LOCK TABLES `sys_role` WRITE;
+/*!40000 ALTER TABLE `sys_role` DISABLE KEYS */;
 
 INSERT INTO `sys_role` (`id`, `office_id`, `name`, `enname`, `role_type`, `data_scope`, `is_sys`, `useable`, `create_by`, `create_date`, `update_by`, `update_date`, `remarks`, `del_flag`)
 VALUES
 	('017fe8f5-97ec-40e3-ad75-6829336ad71a',NULL,'管理员','','11','1','0','1','9b70e448-58e7-4a46-ac83-c408d835643d','2016-06-20 18:14:04','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 17:35:17','管理员','0');
 
+/*!40000 ALTER TABLE `sys_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+# Dump of table sys_role_office
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_role_office`;
 
@@ -902,6 +1079,9 @@ CREATE TABLE `sys_role_office` (
 
 
 
+# Dump of table sys_role_right
+# ------------------------------------------------------------
+
 DROP TABLE IF EXISTS `sys_role_right`;
 
 CREATE TABLE `sys_role_right` (
@@ -914,6 +1094,7 @@ CREATE TABLE `sys_role_right` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 LOCK TABLES `sys_role_right` WRITE;
+/*!40000 ALTER TABLE `sys_role_right` DISABLE KEYS */;
 
 INSERT INTO `sys_role_right` (`role_id`, `right_id`)
 VALUES
@@ -951,9 +1132,12 @@ VALUES
 	('017fe8f5-97ec-40e3-ad75-6829336ad71a','fb5c7d66-6284-489a-b631-1312d39273a1'),
 	('017fe8f5-97ec-40e3-ad75-6829336ad71a','feb0893f-d2e3-4e65-b976-c3a402ac5988');
 
+/*!40000 ALTER TABLE `sys_role_right` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
+# Dump of table sys_subject
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_subject`;
 
@@ -977,13 +1161,18 @@ CREATE TABLE `sys_subject` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='科目表';
 
 LOCK TABLES `sys_subject` WRITE;
+/*!40000 ALTER TABLE `sys_subject` DISABLE KEYS */;
 
 INSERT INTO `sys_subject` (`id`, `info`, `code`, `name`, `parentid`, `parentpath`, `sort`, `creator_id`, `create_date`, `update_date`, `update_by`, `remark`, `isenable`, `isdel`)
 VALUES
 	('cd84d06e-5b8c-47e9-8b44-c9c63e77e896','语文22','yw001','语文',NULL,NULL,0,'9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-18 16:51:37','2016-10-20 18:13:30','9b70e448-58e7-4a46-ac83-c408d835643d',NULL,1,0);
 
+/*!40000 ALTER TABLE `sys_subject` ENABLE KEYS */;
 UNLOCK TABLES;
 
+
+# Dump of table sys_textbook
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_textbook`;
 
@@ -1008,6 +1197,8 @@ CREATE TABLE `sys_textbook` (
 
 
 
+# Dump of table sys_user
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_user`;
 
@@ -1035,20 +1226,29 @@ CREATE TABLE `sys_user` (
   `fingerprintone` varchar(2000) DEFAULT NULL,
   `fingerprinttwo` varchar(2000) DEFAULT NULL,
   `isonline` int(2) NOT NULL DEFAULT '0',
+  `login_type` int(2) NOT NULL DEFAULT '0' COMMENT '登录类型',
+  `sex` int(2) NOT NULL DEFAULT '0' COMMENT '性别',
+  `nation` int(2) NOT NULL DEFAULT '1' COMMENT '民族',
+  `birthdate` date DEFAULT NULL COMMENT '出生日期',
+  `yearling` int(3) NOT NULL DEFAULT '0' COMMENT '周岁',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 LOCK TABLES `sys_user` WRITE;
+/*!40000 ALTER TABLE `sys_user` DISABLE KEYS */;
 
-INSERT INTO `sys_user` (`id`, `login_name`, `password`, `no`, `name`, `email`, `phone`, `mobile`, `user_type`, `photo`, `login_ip`, `login_date`, `login_flag`, `create_by`, `create_date`, `update_by`, `update_date`, `remarks`, `del_flag`, `cardno`, `fingerprintone`, `fingerprinttwo`, `isonline`)
+INSERT INTO `sys_user` (`id`, `login_name`, `password`, `no`, `name`, `email`, `phone`, `mobile`, `user_type`, `photo`, `login_ip`, `login_date`, `login_flag`, `create_by`, `create_date`, `update_by`, `update_date`, `remarks`, `del_flag`, `cardno`, `fingerprintone`, `fingerprinttwo`, `isonline`, `login_type`, `sex`, `nation`, `birthdate`, `yearling`)
 VALUES
-	('8ff16130-6c01-425d-96ac-bf7e895f83f5','wsl','JipBPiOSVW7laA5qEXEtxT921olQBkpRS0YDKpNjWiU=','000000','王世伦','wsl@126.com','3811630','15034942952','2',NULL,NULL,NULL,'1','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 16:17:44','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-02 23:14:22',NULL,'0','150102198512197892',NULL,NULL,0),
-	('9b70e448-58e7-4a46-ac83-c408d835643d','admin','4yl9RZ6rTkywSVtu2b2jkPl5XuCY8xUScfYzDSTaplc=','01','陈钢','chengang1986_2006@126.com','15034942952','15034942952','1',NULL,NULL,'2016-01-01 00:00:00','1','','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-09 17:50:38','备注123222','0','',NULL,NULL,0),
-	('f56dac65-7d42-444e-97b6-4c4d7fefa295','lisi','r6doJUmWLBwZvthUe+XcE2GuDKbjk1q24iQakQymDI8=','000000','李四','lisi@126.com','13190541111','13190541111','1',NULL,NULL,NULL,'1','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-02 23:14:08','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-02 23:14:08','1','0','131905411111111',NULL,NULL,1);
+	('8ff16130-6c01-425d-96ac-bf7e895f83f5','wsl','JipBPiOSVW7laA5qEXEtxT921olQBkpRS0YDKpNjWiU=','000000','王世伦','wsl@126.com','3811630','15034942952','2',NULL,NULL,NULL,'1','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-12 16:17:44','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-02 23:14:22',NULL,'0','150102198512197892',NULL,NULL,1,0,0,0,'0000-00-00',0),
+	('9b70e448-58e7-4a46-ac83-c408d835643d','admin','4yl9RZ6rTkywSVtu2b2jkPl5XuCY8xUScfYzDSTaplc=','01','管理员','chengang1986_2006@126.com','15034942952','15034942952','1',NULL,NULL,'2016-01-01 00:00:00','1','','2016-01-01 00:00:00','9b70e448-58e7-4a46-ac83-c408d835643d','2016-10-09 17:50:38','备注123222','0','',NULL,NULL,0,1,0,0,'0000-00-00',0),
+	('f56dac65-7d42-444e-97b6-4c4d7fefa295','lisi','r6doJUmWLBwZvthUe+XcE2GuDKbjk1q24iQakQymDI8=','000000','李四','lisi@126.com','13190541111','13190541111','1',NULL,NULL,NULL,'1','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-02 23:14:08','9b70e448-58e7-4a46-ac83-c408d835643d','2016-11-02 23:14:08','1','0','131905411111111',NULL,NULL,0,0,0,0,'0000-00-00',0);
 
+/*!40000 ALTER TABLE `sys_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
+# Dump of table sys_user_role
+# ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `sys_user_role`;
 
@@ -1062,6 +1262,7 @@ CREATE TABLE `sys_user_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户-角色';
 
 LOCK TABLES `sys_user_role` WRITE;
+/*!40000 ALTER TABLE `sys_user_role` DISABLE KEYS */;
 
 INSERT INTO `sys_user_role` (`user_id`, `role_id`)
 VALUES
@@ -1069,4 +1270,14 @@ VALUES
 	('9b70e448-58e7-4a46-ac83-c408d835643d','017fe8f5-97ec-40e3-ad75-6829336ad71a'),
 	('f56dac65-7d42-444e-97b6-4c4d7fefa295','017fe8f5-97ec-40e3-ad75-6829336ad71a');
 
+/*!40000 ALTER TABLE `sys_user_role` ENABLE KEYS */;
 UNLOCK TABLES;
+
+
+
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
