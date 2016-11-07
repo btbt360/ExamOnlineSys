@@ -40,12 +40,29 @@
 					</div>
 					<form action="${basepath}/exercise/exportSubject" method="post" id="subform">
 						<div class="span12 text-center">
-							<div class="span6">
+							<div class="span3">
 								<label class="control-label" for="name">练习名称：<input
 									class="input-medium focused" id="name" name="name"
 									type="text" /></label> 
 							</div>
-							<div class="span6 text-center" >
+							<div class="span4">
+								<label class="control-label" for="subjectid">科目名称：
+									<select class="m-wrap" id="subjectid" name="subjectid" placeholder="请选择科目！">
+										<option value=''>请选择科目</option>
+										<c:forEach var="subject" items="${subjectlist}">
+											<option value='${subject.id}'>${subject.name}</option>
+										</c:forEach>
+									</select>
+								</label> 
+							</div>
+							<div class="span4">
+								<label class="control-label" for="itembankid">题库名称：
+									<select class="m-wrap" id="itembankid" name="itembankid" placeholder="请选择题库！">
+										<option value=''>请选择科目</option>
+									</select>
+								</label> 
+							</div>
+							<div class="span1 text-center" >
 								<button class="btn btn-medium btn-primary" type="button"
 								id="query">查询</button>
 							</div>
@@ -115,19 +132,42 @@ function del(ids) {
 			$("#subrp").val(oTable.getPageSize());
 			$("#subform").submit();
 		});
-
+		$("#subjectid").change(function(){
+			$("#itembankid").empty();
+			$("#itembankid").append("<option value=''>请选择题库</option>");
+			var ids = $("#subjectid").val();
+			$.ajax({
+				type : 'post',
+				url : '${basepath}/item/getSelectSubject?id=' + ids,
+				cache : false,
+				dataType : 'json',
+				success : function(data) {
+					jQuery.each(data, function(i,item){
+		                $("#itembankid").append("<option value='"+item.ID+"'>"+item.NAME+"</option>");
+		            });
+				}
+			});
+		});
 	});
 	function reshcg() {
 		var name = $('#name').val();
-		var code = $('#code').val();
+		var subjectid = $('#subjectid').val();
+		var itembankid = $('#itembankid').val();
 		var oSettings = [ {
 			"name" : "name",
 			"value" : name
 		}, {
-			"name" : "code",
-			"value" : code
-		} ];
+			"name" : "subjectid",
+			"value" : subjectid
+		}, {
+			"name" : "itembankid",
+			"value" : itembankid
+		}  ];
 		oTable.gridSearch(this, oSettings);
+	}
+	function startExercise(exerciseid){
+		var tempwindow = window.open ('_blank', 'newwindow','width='+(window.screen.availWidth-10)+',height='+(window.screen.availHeight-30)+ ',top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
+		tempwindow.location="${basepath}/exercise/startExercise?exerciseid=" + exerciseid;
 	}
 </script>
 <c:import url="/pages/include/pageFoot.jsp" />

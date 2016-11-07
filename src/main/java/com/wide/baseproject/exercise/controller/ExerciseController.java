@@ -13,8 +13,10 @@ import com.wide.baseproject.resource.service.QuestionsService;
 import com.wide.baseproject.resource.service.SubjectService;
 import com.wide.common.model.Dict;
 import com.wide.common.model.Exercise;
+import com.wide.common.model.Questions;
 import com.wide.common.model.Subject;
 import com.wide.common.model.query.QueryExercise;
+import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
 
 public class ExerciseController extends BaseController{
@@ -33,7 +35,6 @@ public class ExerciseController extends BaseController{
 		subjectlist = Subject.dao.getAllSubject();
 		setAttr("dictlist", dictlist);
 		setAttr("subjectlist",subjectlist);
-		
 		render("exerciseList.jsp");
 		
 	}
@@ -45,6 +46,9 @@ public class ExerciseController extends BaseController{
 	public void getExerciselist(){
 		QueryExercise queryExercise = new QueryExercise();
 		queryExercise.setName(getPara("name"));
+		queryExercise.setItembankid(getPara("itembankid"));
+		queryExercise.setSubjectid(getPara("subjectid"));
+		queryExercise.setUserid(getUser().getId());
 		DataTablesModel exercisepage = exerciseService.getPageExercise(getParaToInt("page")
 				.intValue(), getParaToInt("rp").intValue(), queryExercise);
 		this.renderJson(exercisepage);
@@ -120,5 +124,48 @@ public class ExerciseController extends BaseController{
 		}
 		setAttr("returninfo", returninfo);
 		renderJson();
+	}
+	/**
+	 * @author cg
+	 * 开始练习
+	 * */
+	public void startExercise(){
+		String exerciseid = getPara("exerciseid");
+		int sort=!TypeChecker.isEmpty(getPara("sort"))?getParaToInt("sort"):0;
+		int flag = !TypeChecker.isEmpty(getPara("flag"))?getParaToInt("flag"):0;
+		String username = getUser().getName();
+		List<Questions> questionslist = new ArrayList<Questions>();
+		Exercise exercise = new Exercise();
+		Questions questions= new Questions();
+		try{
+			if(!TypeChecker.isEmpty(exerciseid)){
+				exercise = Exercise.dao.findById(exerciseid);
+				if(!TypeChecker.isEmpty(exercise)){
+					questionslist= exerciseService.findQuestionsByItSu(exercise,sort,flag);
+					if(questionslist.size()>0){
+						questions=questionslist.get(0);
+					}
+				}
+				if(flag==0){
+					exercise.setAlreadycount(sort==0?exercise.getAlreadycount():sort);
+					exercise.update();
+				}else if(flag==1){
+					exercise.setAlreadycount(0);
+					exercise.update();
+				}
+				
+			}
+			if(TypeChecker.isEmpty(questions.getId())){
+				questions.setTitle("<h1>练习已经结束!</h1>");
+				setAttr("flag", 1);
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		setAttr("username", username);
+		setAttr("questions", questions);
+		setAttr("exerciseid", getPara("exerciseid"));
+		setAttr("sort",exercise.getAlreadycount()+1);
+		render("startExercise.jsp");
 	}
 }

@@ -163,13 +163,12 @@ public class ItemBankController extends BaseController{
 	 * @param response
 	 */
 	public void downloadExcel(){
-		String path = "/Users/lubin/Documents/workspace/ExamOnlineSys/用户管理.xls";
+		String path = getRequest().getServletPath()+"/用户管理.xls";getRequest().getContextPath();
 		 File file = new File(path);
 		    if (file.isFile()) {
 		        renderFile(file);
 		        return;
 		    }
-		     
 	    // return;
 	    renderNull();
 		

@@ -11,7 +11,7 @@
 <body style="padding-top: 0px;">
 	<div class="block" id="info" style="width: 95%; margin-left: 2.5%;">
 		<div class="navbar navbar-inner block-header">
-			<div class="muted pull-left">开始错题练习</div>
+			<div class="muted pull-left">开始练习</div>
 		</div>
 		<div class="block-content collapse in">
 			<div class="span11">
@@ -27,7 +27,7 @@
 		<div class="navbar navbar-inner block-header">
 			<div class="muted pull-left">试题编码：${questions.code}</div>
 		</div>
-		<form action="${basepath}/errorsubject/errorStart">
+		<form action="${basepath}/exercise/startExercise">
 			<div class="block-content collapse in">
 				<div class="span12">
 					<div class="span2"></div>
@@ -45,6 +45,7 @@
 							id="reloadquestion">重新答题</button>
 						<input type="hidden" id="sort" name="sort" value="${sort}" />
 						<input type="hidden" id="anstr" value="${questions.questionanswer}" />
+						<input type="hidden" id="exerciseid" name="exerciseid" value="${exerciseid}" />
 						<input type="hidden" id="flag" name="flag" value="${flag}" />
 					</div>
 					<div class="span2"></div>
@@ -144,6 +145,7 @@
 		self.close();
 	}
 	function closewindows() {
+		window.opener.reshcg();
 		clockclosewindle(3);
 	}
 </script>

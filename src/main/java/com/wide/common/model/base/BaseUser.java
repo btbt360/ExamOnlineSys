@@ -185,11 +185,52 @@ public abstract class BaseUser<M extends BaseUser<M>> extends DbModel<M> impleme
 		return get("fingerprinttwo");
 	}
 	
+	public void setLoginType(java.lang.Integer loginType) {
+		set("login_type", loginType);
+	}
+
+	public java.lang.Integer getLoginType() {
+		return get("login_type");
+	}
+	
 	public void setIsonline(java.lang.Integer isonline) {
 		set("isonline", isonline);
 	}
 
 	public java.lang.Integer getIsonline() {
 		return get("isonline");
+	}
+	
+	public void setSex(java.lang.Integer sex) {
+		set("sex", sex);
+	}
+
+	public java.lang.Integer getSex() {
+		return get("sex");
+	}
+	
+	
+	public void setNation(java.lang.Integer nation) {
+		set("nation", nation);
+	}
+
+	public java.lang.Integer getNation() {
+		return get("nation");
+	}
+	
+	public void setYearling(java.lang.Integer yearling) {
+		set("yearling", yearling);
+	}
+
+	public java.lang.Integer getYearling() {
+		return get("yearling");
+	}
+	
+	public void setBirthdate(java.util.Date birthdate) {
+		set("birthdate", birthdate);
+	}
+
+	public java.util.Date getBirthdate() {
+		return get("birthdate");
 	}
 }

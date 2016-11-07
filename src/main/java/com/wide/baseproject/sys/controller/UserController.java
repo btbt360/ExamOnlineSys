@@ -142,7 +142,12 @@ public class UserController extends Controller {
 		String mark = getPara("message");
 		setAttr("message", mark);
 		setAttr("examList", examList);
-		render("main.jsp");
+		if(ut.getVuser().getUser().getLoginType()==0){
+			render("mainexaminee.jsp");
+		}else{
+			render("adminmain.jsp");
+		}
+		
 	}
 
 	/**

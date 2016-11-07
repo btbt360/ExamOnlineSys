@@ -30,8 +30,7 @@
 					<table id="userList" class="table table-striped table-bordered">
 						<thead>
 							<tr>
-								<th width="5%">错题内容</th>
-								<th width="25%">错题内容</th>
+								<th width="30%">错题内容</th>
 								<th width="5%">属于题库</th>
 								<th width="25%">错题答案</th>
 								<th width="20%">错题描述</th>
@@ -61,7 +60,8 @@ function reshcg() {
 function alink(){
 	var count = '${count}';
 	if(Number(count)>0){
-		location.href = "${basepath}/errorsubject/errorStart";
+		var tempwindow = window.open ('_blank', 'newwindow','width='+(window.screen.availWidth-10)+',height='+(window.screen.availHeight-30)+ ',top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
+		tempwindow.location="${basepath}/errorsubject/errorStart";
 	}else{
 		alert("当前没有错题！");
 	}

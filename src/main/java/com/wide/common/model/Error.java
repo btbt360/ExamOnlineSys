@@ -47,7 +47,7 @@ public class Error extends BaseError<Error> {
 	 * 
 	 * */
 	private String orderbyQuery(QueryError qe){
-		String orderby = " order by create_date desc ";
+		String orderby = " order by t.create_date desc ";
 		return orderby;
 		
 	}

@@ -39,8 +39,7 @@
 					<table id="userList" class="table table-striped table-bordered">
 						<thead>
 							<tr>
-								<th width="5%">错题内容</th>
-								<th width="25%">错题内容</th>
+								<th width="30%">错题内容</th>
 								<th width="5%">属于题库</th>
 								<th width="25%">错题答案</th>
 								<th width="10%">错题描述</th>

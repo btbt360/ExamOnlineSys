@@ -51,7 +51,6 @@
 								</select>
 								</label> 
 							</div>
-							
 							<div class="span4">
 								<label class="control-label" for="subjectid">科目名称：
 									<select class="m-wrap" id="subjectid" name="subjectid" placeholder="请选择科目！">
@@ -63,7 +62,7 @@
 								</label> 
 							</div>
 							<div class="span4">
-								<label class="control-label" for="subjectid">题库名称：
+								<label class="control-label" for="itembankid">题库名称：
 									<select class="m-wrap" id="itembankid" name="itembankid" placeholder="请选择题库！">
 										<option value=''>请选择科目</option>
 									</select>

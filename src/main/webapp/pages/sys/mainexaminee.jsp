@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:import url="/pages/include/pageNavigation.jsp" />
-	<div style="margin-top: 3%; margin-left: 10%; margin-right: 10%" class="row">
+	<div style="margin-left: 10%; margin-right: 10%" class="row">
 		<div class=".col-xs-12 .col-sm-12 .col-md-12 .col-lg-12">
 			<!-- block -->
 			<div class="block">
@@ -23,7 +23,6 @@
 	</div>
 	<div class="row" style="margin-left: 10%; margin-right: 10%">
 		<div class="pull-left" style="width: 30%">
-
 			<div class="col-md-4">
 				<!-- block -->
 				<div class="block">
@@ -33,33 +32,35 @@
 					<div class="block-content collapse in">
 						<table width="100%" border="0">
 							<tr height="100px">
-								<td><div align="center">
-										<a href="../user/addInfo"><img alt=""
-											src="../static/img/1.png" width="80px" class="img-rounded"></a>
+								<td width="33%"><div align="center">
+										<a href="../examinee/addJoinExam"><img alt=""
+											src="../static/img/cjks.png" width="40px" style="margin-bottom: 4px;" class="img-rounded"></a>
+										<br/>参加考试
 									</div></td>
-								<td><div align="center">
-										<a href="../exercise/addExercise"><img alt="" src="../static/img/2.png"
-											width="80px"  class="img-rounded"></a>
+								<td width="33%"><div align="center">
+										<a href="../achievement/addExamRecordList">
+										<img alt="" src="../static/img/wdcj.png" width="40px" style="margin-bottom: 4px;" class="img-rounded"></a>
+										<br/>我的成绩
+									</div></td>
+								<td width="33%"><div align="center">
+										<a href="../exercise/addExercise"><img alt="" style="margin-bottom: 4px;"  src="../static/img/lxgl.png"
+											width="40px" class="img-rounded"></a>
+										<br/>练习管理
 									</div></td>
 							</tr>
 							<tr height="100px">
-								<td><div align="center">
-										<a href="../exampapers/add"><img alt="" src="../static/img/3.png"
-											width="80px" class="img-rounded"></a>
+								<td width="33%"><div align="center">
+										<a href="../errorsubject/errorpritics"><img alt=""
+											src="../static/img/ctlx.png" width="40px" style="margin-bottom: 4px;" class="img-rounded"></a>
+										<br/>错题练习
 									</div></td>
-								<td><div align="center">
-										<a href="../user/add"><img alt=""
-											src="../static/img/4.png" width="80px" class="img-rounded"></a>
+								<td width="33%"><div align="center">
+										<a href="../user/addInfo">
+										<img alt="" src="../static/img/grxx.png" width="40px" style="margin-bottom: 4px;" class="img-rounded"></a>
+										<br/>个人信息
 									</div></td>
-							</tr>
-							<tr height="110px">
-								<td><div align="center">
-										<a href="../invigilate/add"><img alt="" src="../static/img/5.png"
-											width="80px" class="img-rounded"></a>
-									</div></td>
-								<td><div align="center">
-										<a href="../questions/add"><img alt="" src="../static/img/6.png"
-											width="80px" class="img-rounded"></a>
+								<td width="33%"><div align="center">
+										
 									</div></td>
 							</tr>
 						</table>
@@ -76,7 +77,7 @@
 				<div class="block">
 					<div class="navbar navbar-inner block-header">
 						<div class="muted pull-left">正在考试中</div>
-						<div class="muted pull-right"><a href="${basepath}/exam/addExam">更多..</a></div>
+						<div class="muted pull-right"><a href="${basepath}/examinee/addJoinExam">更多..</a></div>
 					</div>
 					<div class="block-content collapse in">
 							<table class="table table-bordered">
@@ -84,7 +85,7 @@
 									<tr style="height:42px !important;">
 										<td width="50%">${exam.name }</td>
 										<td  width="30%">${exam.duration }分钟</td>
-										<td  width="20%"><a 　href="#">开始考试</a></td>
+										<td  width="20%"><a href="${basepath}/examinee/addJoinExam">开始考试</a></td>
 									</tr>
 								</c:forEach>
 							</table>

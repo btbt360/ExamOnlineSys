@@ -3,6 +3,7 @@ package com.wide.common.model;
 import com.wide.common.model.base.BaseExercise;
 import com.wide.common.model.query.QueryExam;
 import com.wide.common.model.query.QueryExercise;
+import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
 
 /**
@@ -35,11 +36,18 @@ public class Exercise extends BaseExercise<Exercise> {
 	 * */
 	private String whereQuery(QueryExercise query){
 		String where=" where 1=1  and isdel = 0 ";
-		if(query.getName()!=null&&!query.getName().equals("")){
+		if(!TypeChecker.isEmpty(query.getName())){
 			where += " and name like '%"+query.getName()+"%'";
 		}
-		
-		
+		if(!TypeChecker.isEmpty(query.getItembankid())){
+			where += " and itembank_id = '"+query.getItembankid()+"'";
+		}
+		if(!TypeChecker.isEmpty(query.getSubjectid())){
+			where += " and subject_id = '"+query.getSubjectid()+"'";
+		}
+		if(!TypeChecker.isEmpty(query.getUserid())){
+			where += " and user_id = '"+query.getUserid()+"'";
+		}
 		return where;
 		
 	}

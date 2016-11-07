@@ -1,6 +1,7 @@
 package com.wide.baseproject.exam.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.jfinal.aop.Enhancer;
@@ -12,6 +13,8 @@ import com.wide.common.model.query.QueryQuestion;
 import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
 import com.wide.common.model.Error;
+import com.wide.common.model.Exercise;
+import com.wide.common.model.Questions;
 
 public class ErrorSubjectController extends BaseController {
 	private static final ErrorSubjectService errorSubjectService = Enhancer.enhance(ErrorSubjectService.class);
@@ -69,14 +72,65 @@ public class ErrorSubjectController extends BaseController {
 		setAttr("count", listerror.size());
 		render("myErrorMain.jsp");
 	}
-	
+	/**
+	 * @author cg
+	 * 错题更新
+	 * */
+	public void getErrorUpdate(){
+		String questionsid = getPara("questionsid");
+		String userid = getUser().getId();
+		List<Error> listerror = new ArrayList<Error>();
+		try{
+			if(!TypeChecker.isEmpty(questionsid)){
+				listerror = Error.dao.find("select * from sys_error where user_id = ? and question_id = ? ",userid,questionsid);
+				if(listerror.size()<=0){
+					Error error = new Error();
+					error.setId(createUUid());
+					error.setQuestionId(questionsid);
+					error.setUserId(userid);
+					error.setCreatorId(userid);
+					error.setCreateDate(new Date());
+					error.setUpdateBy(userid);
+					error.setUpdateDate(new Date());
+					error.setIsdel(0);
+					error.setIsenable(1);
+					error.save();
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		renderJson();
+	}
 	/**
 	 * @author cg
 	 * 错题开始练习
 	 * 
 	 * */
 	public void errorStart(){
-		
+		int sort=!TypeChecker.isEmpty(getPara("sort"))?getParaToInt("sort"):0;
+		int flag = !TypeChecker.isEmpty(getPara("flag"))?getParaToInt("flag"):0;
+		String username = getUser().getName();
+		String userid =  getUser().getId();
+		List<Questions> questionslist = new ArrayList<Questions>();
+		Questions questions= new Questions();
+		try{
+			if(!TypeChecker.isEmpty(userid)){
+					questionslist= errorSubjectService.findQuestionsByItSu(userid,sort,flag);
+					if(questionslist.size()>0){
+						questions=questionslist.get(0);
+				}
+			}
+			if(TypeChecker.isEmpty(questions.getId())){
+				questions.setTitle("<h1>错题练习已经结束!</h1>");
+				setAttr("flag", 1);
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		setAttr("username", username);
+		setAttr("questions", questions);
+		setAttr("sort",sort+1);
 		render("myErrorStart.jsp");
 	}
 }
