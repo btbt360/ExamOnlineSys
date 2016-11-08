@@ -1,6 +1,8 @@
 package com.wide.baseproject.resource.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.jfinal.aop.Enhancer;
 import com.jfinal.core.Controller;
@@ -8,10 +10,13 @@ import com.jfinal.plugin.activerecord.Db;
 import com.wide.base.BaseController;
 import com.wide.base.RenturnInfo;
 import com.wide.baseproject.resource.service.SubjectService;
+import com.wide.common.model.Menu;
 import com.wide.common.model.Subject;
 import com.wide.common.model.query.QuerySubject;
 import com.wide.common.model.query.QueryUser;
+import com.wide.util.CGUtil;
 import com.wide.viewmodel.DataTablesModel;
+import com.wide.viewmodel.ViewTree;
 
 public class SubjectController extends BaseController{
 	private static final SubjectService subjectService = Enhancer.enhance(SubjectService.class);
@@ -22,6 +27,12 @@ public class SubjectController extends BaseController{
 	 * 
 	 * */
 	public void addsub(){
+		List<Subject> subjectlist = new ArrayList<Subject>();
+		QuerySubject querySubject = new QuerySubject();
+		querySubject.setCode(getPara("code"));
+		querySubject.setName(getPara("name"));
+		subjectlist = subjectService.getSubjecyListAll(querySubject);
+		setAttr("subjectlist", subjectlist);
 		render("subjectList.jsp");
 	}
 	
@@ -44,14 +55,14 @@ public class SubjectController extends BaseController{
 	 * */
 	public void addsubinfo(){
 		String id = getPara("id");
-		Subject subject = null;
-		if(id!=null&&!id.equals("")){
-			subject = Subject.dao.findById(id);
-		}else{
-			subject = new Subject();
-		}
-		setAttr("subject", subject);
+		Subject subject,psubject = new Subject();
+		subject = Subject.dao.findById(id == null ? "" : id);
+		subject = subject == null || subject.equals("") ? new Subject() : subject;
+		psubject = Subject.dao.findById(subject.getParentid() == null ? "" : subject.getParentid());
 		setAttr("flagcg", getPara("flagcg"));
+		setAttr("subject", subject);
+		setAttr("psubject", psubject);
+		setAttr("message",getPara("message"));
 		render("subjectInfo.jsp");
 	}
 	/**
@@ -64,23 +75,36 @@ public class SubjectController extends BaseController{
 		int flagcg =0;
 		try{
 			Subject subject = getModel(Subject.class)==null||getModel(Subject.class).equals("")?new Subject():getModel(Subject.class);
+			Subject subjectp = Subject.dao.findById(subject.getParentid());
+			if (subjectp == null || subjectp.getSort().equals(""))
+			{
+				subjectp = new Subject();
+			}
 			if(subject.getId()!=null&&!subject.getId().equals("")){
 				subject.setUpdateBy(getUser().getId());
 				subject.setUpdateDate(new Date());
 				subject.update();
 			}else{
 				subject.setId(createUUid());
+				subject.setParentid(subject.getParentid() == null ? "" : subject.getParentid());
+				subject.setParentpath(subject.getParentid() == "" ? "" : (subject.getParentid() + "|" + subject.getId()));
+				String maxsort = subjectService.findMaxSort(subject.getParentid());
+				subject.setSort(CGUtil.createSort(subjectp.getSort() == null || subjectp.getSort().equals("") ? 0.0 : subjectp.getSort(),
+						Double.parseDouble(maxsort == null || maxsort.equals("") ? "0" : maxsort)));
 				subject.setCreatorId(getUser().getId());
 				subject.setCreateDate(new Date());
 				subject.setUpdateBy(getUser().getId());
 				subject.setUpdateDate(new Date());
 				subject.setIsdel(0);
 				subject.save();
+				flagcg=1;
 			}
-			flagcg =1;
+			setAttr("subject", subject);
+			setAttr("flagcg", "flagcg");
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
+
 		redirect("/subject/addsubinfo?flagcg="+flagcg, true);
 	}
 	/**
@@ -88,20 +112,39 @@ public class SubjectController extends BaseController{
 	 * 科目删除
 	 * */
 	public void delsub(){
-		returninfo = new RenturnInfo();
 		String id = getPara("id");
-		try{
+		List<Subject> subjectlist = new ArrayList<Subject>();
+		String num = subjectService.countChild(id);
+		if (Integer.parseInt(num) == 0)
+		{
+			setAttr("message", "success");
+			render("menuList.jsp");
 			if(id!=null&&!id.equals("")){
 				Db.update("update sys_subject set isdel = 1 where id = ? ",id);
 			}
-			returninfo.setResult(0);
-			returninfo.setResultInfo("删除成功！");
-		}catch(Exception ex){
-			ex.printStackTrace();
-			returninfo.setResult(1);
-			returninfo.setResultInfo("删除失败！");
+		} else
+		{
+			setAttr("message", "error");
+			render("menuList.jsp");
 		}
-		setAttr("returninfo", returninfo);
-		renderJson();
+		QuerySubject querySubject = new QuerySubject();
+		querySubject.setCode(getPara("code"));
+		querySubject.setName(getPara("name"));
+		subjectlist = subjectService.getSubjecyListAll(querySubject);
+		setAttr("subjectlist", subjectlist);
+		render("subjectList.jsp");
+	}
+	
+
+	/**
+	 * @author cg 查询科目树
+	 */
+	public void getSubjectTree()
+	{
+		String id = getPara("id");
+		String subjectid = getPara("subjectid");
+		id = id == null ? "" : id;
+		List<ViewTree> list = subjectService.getSubjectTreeByPid(id, subjectid);
+		renderJson(list);
 	}
 }

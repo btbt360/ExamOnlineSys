@@ -21,6 +21,7 @@ import com.wide.common.model.Questionoptions;
 import com.wide.common.model.Subject;
 import com.wide.common.model.query.QueryExampapers;
 import com.wide.common.model.query.QueryQuestion;
+import com.wide.common.model.query.QuerySubject;
 import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
 
@@ -156,7 +157,8 @@ public class ExampapersController extends BaseController {
 		String exampaperid= getPara("id");
 		List<Exampapers> exampaperslist = new ArrayList<Exampapers>();
 		exampaperslist = Exampapers.dao.getExampapersAll();
-		List<Subject> subjectlist = subjectService.getSubjecyListAll();
+		QuerySubject querySubject = new QuerySubject();
+		List<Subject> subjectlist = subjectService.getSubjecyListAll(querySubject);
 		setAttr("subjectlist", subjectlist);
 		setAttr("exampaperslist", exampaperslist);
 		setAttr("exampaperid", exampaperid);

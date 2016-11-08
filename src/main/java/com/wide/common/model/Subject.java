@@ -69,8 +69,22 @@ public class Subject extends BaseSubject<Subject> {
 	 * 
 	 * */
 	private String orderbyQuery(QuerySubject query){
-		String orderby = " order by create_date desc ";
+		String orderby = " order by sort asc ";
 		return orderby;
 		
+	}
+	public List<Subject> findByPid(String id) {
+		// TODO Auto-generated method stub
+		List<Subject> list =find("select * from sys_subject where isdel = 0 and isenable = 1 and parentid = ? ",id);
+		
+		return list;
+	}
+	public List<Subject> getSubjecyListAll(QuerySubject querySubject) {
+		// TODO Auto-generated method stub
+		String select = "select * from sys_subject";
+		select = select + whereQuery(querySubject);
+		select = select + orderbyQuery(querySubject);
+		List<Subject> list =find(select);
+		return list;
 	}
 }

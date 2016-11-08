@@ -75,10 +75,14 @@ public class QuestionsController extends BaseController{
 		String questiontypename= "";
 		List<Questionoptions> questionoptionslist  =null;
 		Itembank itembank =null;
+		Subject subject = new Subject();
+		String subjectname = "";
 		if(questions!=null&&!questions.equals("")){
 			questiontypename = Dict.dao.getDictByKeyType(questions.getQuestiontype()+"", "1002");
 			questionoptionslist= questionsService.getQuestionoptionsByQuestionId(id);
 			itembank = Itembank.dao.findById(questions.getItembankId());
+			subject = Subject.dao.findById(questions.getSubjectId());
+			subjectname = subject.getName();
 		}
 		setAttr("questiontypename",questiontypename);
 		setAttr("questions",questions);
@@ -87,6 +91,7 @@ public class QuestionsController extends BaseController{
 		setAttr("numcount",questionoptionslist!=null&&!questionoptionslist.equals("")?questionoptionslist.size():0);
 		setAttr("questionoptionslist",questionoptionslist);
 		setAttr("flagcg", getPara("flagcg"));
+		setAttr("subjectname", subjectname);
 		render("questionInfo.jsp");
 	}
 	

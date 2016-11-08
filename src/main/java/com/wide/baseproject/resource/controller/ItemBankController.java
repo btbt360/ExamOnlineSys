@@ -27,6 +27,7 @@ import com.wide.common.model.Itembank;
 import com.wide.common.model.Questionoptions;
 import com.wide.common.model.Subject;
 import com.wide.common.model.query.QueryItemBank;
+import com.wide.common.model.query.QuerySubject;
 import com.wide.viewmodel.DataTablesModel;
 
 public class ItemBankController extends BaseController{
@@ -39,7 +40,8 @@ public class ItemBankController extends BaseController{
 	 * 进入题库
 	 * */
 	public void add(){
-		List<Subject> subjectlist = subjectService.getSubjecyListAll();
+		QuerySubject querySubject = new QuerySubject();
+		List<Subject> subjectlist = subjectService.getSubjecyListAll(querySubject);
 		List<Dict> dictlist = Dict.dao.getDictByType("1002");
 		setAttr("subjectlist", subjectlist);
 		setAttr("dictlist", dictlist);
@@ -69,7 +71,8 @@ public class ItemBankController extends BaseController{
 	public void addinfo(){
 		String id = getPara("id");
 		Itembank itembank = null;
-		List<Subject> subjectlist = subjectService.getSubjecyListAll();
+		QuerySubject querySubject = new QuerySubject();
+		List<Subject> subjectlist = subjectService.getSubjecyListAll(querySubject);
 		if(id!=null&&!id.equals("")){
 			itembank = Itembank.dao.findById(id);
 		}else{

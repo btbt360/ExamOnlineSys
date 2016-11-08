@@ -54,8 +54,7 @@ public class MenuController extends Controller
 		pmenu = menuService.getMenuById(menu.getParentId() == null ? "" : menu.getParentId());
 		setAttr("menu", menu);
 		setAttr("pmenu", pmenu);
-		String mark = getPara("message");
-		setAttr("message", mark);
+		setAttr("message",getPara("message"));
 		render("menuinfo.jsp");
 	}
 

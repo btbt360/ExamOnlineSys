@@ -27,6 +27,22 @@
 					
 					<!-- 删除用户提示 -->
 					<div class="span12">
+					<div id="notice">
+						<c:if test="${message!=null&&message!=''}">
+							<c:if test="${message=='success'}">
+								<div class="alert alert-success" style="text-align: center;">
+									<button class="close" data-dismiss="alert">&times;</button>
+									<strong>删除成功！</strong>
+								</div>
+							</c:if>
+							<c:if test="${message=='error'}">
+								<div class="alert alert-error" style="text-align: center;">
+									<button class="close" data-dismiss="alert">&times;</button>
+									<strong>该菜单含有下级菜单，请清空下级菜单后重试！</strong>
+								</div>
+							</c:if>
+						</c:if>
+					</div>
 						<div class="alert alert-success"
 							style="margin-right: 8%;display: none; text-align: center;" id="successmessage">
 							<button class="close" onclick="$('#successmessage').hide();">&times;</button>
@@ -62,7 +78,7 @@
 							type="hidden" id="subrp" name="subrp" />
 					</form>
 					
-					<table id="userList" class="table table-striped table-bordered">
+					<table id="treeTable" class="table table-striped table-bordered" style="width: 100%">
 						<thead>
 							<tr>
 								<th>科目名称</th>
@@ -73,6 +89,19 @@
 							</tr>
 						</thead>
 						<tbody>
+								<c:forEach items="${subjectlist}" var="subject">
+									<tr id="${subject.id}"
+										pId="${subject.parentid ne '1'?subject.parentid:'0'}">
+										<td nowrap><span>${subject.name}</span>
+											<input type="hidden" name="ids" value="${subject.id}" /></td>
+										<td title="${subject.code}">${subject.code}</td>
+										<td title="${subject.info}">${subject.info}</td>
+										<td>${subject.isenable eq '1'?'显示':'隐藏'}</td>
+										<td nowrap><a href="${basepath}/subject/addsubinfo?id=${subject.id}">修改</a>|
+											<a href="${basepath}/subject/delsub?id=${subject.id}" onclick="return confirm('要删除该菜单项吗？', this.href)">删除</a>
+										</td>
+									</tr>
+								</c:forEach>
 						</tbody>
 						<!-- tbody是必须的 -->
 					</table>
@@ -82,59 +111,13 @@
 	</div>
 </body>
 <script type="text/javascript">
-function edit(ids) {
-	location.href = "${basepath}/subject/addsubinfo?id=" + ids;
-}
-
-function del(ids) {
-	if (confirm("确定要删除该科目？")) {
-		$.ajax({
-			type : 'post',
-			url : '${basepath}/subject/delsub?id=' + ids,
-			cache : false,
-			dataType : 'json',
-			success : function(data) {
-				if (data.result == 1) {
-					$("#successmessage").hide();
-					$("#errormessage").show();
-					$("#messageee").text("删除失败，请联系管理员！");
-				} else {
-					$("#errormessage").hide();
-					$("#successmessage").show();
-					$("#messagess").text("删除成功！");
-				}
-				reshcg();
-			}
-		});
-	}
-}
+	setTimeout(function() {
+		$("#notice").css("display", "none");
+	}, 5000);
 	$(document).ready(function() {
-		oTable = $('#userList').initDT({
-			serverSide : true,
-			"sAjaxSource" : "${basepath}/subject/getsublist"
-		});
-
-		$("#query").click(function() {
-			reshcg();
-		});
-		$("#export").click(function() {
-			$("#subpages").val(oTable.getCurrentPage());
-			$("#subrp").val(oTable.getPageSize());
-			$("#subform").submit();
-		});
-
+		$("#treeTable").treeTable({
+			expandLevel : 3
+		}).show();
 	});
-	function reshcg() {
-		var name = $('#name').val();
-		var code = $('#code').val();
-		var oSettings = [ {
-			"name" : "name",
-			"value" : name
-		}, {
-			"name" : "code",
-			"value" : code
-		} ];
-		oTable.gridSearch(this, oSettings);
-	}
 </script>
 <c:import url="/pages/include/pageFoot.jsp" />

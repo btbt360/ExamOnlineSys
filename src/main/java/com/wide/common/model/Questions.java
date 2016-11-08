@@ -42,7 +42,7 @@ public class Questions extends BaseQuestions<Questions> {
 		if(!TypeChecker.isEmpty(question.getItembankid())){
 			where += " and itembank_id = '"+question.getItembankid()+"'";
 		}
-		if(!TypeChecker.isEmpty(question.getQuestionstype())){
+		if(!TypeChecker.isEmpty(question.getQuestionstype())&&!question.getQuestionstype().equals("0")){
 			where += " and questiontype = '"+question.getQuestionstype()+"'";
 		}
 		if(!TypeChecker.isEmpty(question.getSubjectid())){

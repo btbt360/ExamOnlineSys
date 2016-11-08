@@ -134,7 +134,8 @@
 	var setting = {
 		check : {
 			enable : true,
-			chkStyle : "checkbox"
+			chkStyle : "checkbox",
+			chkboxType: {"Y": "ps", "N": "ps"}
 		},
 		async : {
 			enable : true,

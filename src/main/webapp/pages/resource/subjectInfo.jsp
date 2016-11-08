@@ -37,6 +37,32 @@
 							</div>
 						</div>
 						<div class="control-group">
+							<label class="control-label">上级科目：</label>
+							<div class="controls">
+								<input class="input-xlarge focused" type="text" id="menunames"
+									name="subject.name" value="${psubject.name}" readonly="readonly" />
+								<input class="input-xlarge focused" type="hidden" id="menuids"
+									name="subject.parentid" value="${psubject.id}" readonly="readonly" />
+								<!-- 弹出层 start -->
+								<div class="modal hide fade" id="oModal" tabindex="-1"
+									role="dialog">
+									<div class="modal-header">
+										<button class="close" type="button" data-dismiss="modal">×</button>
+										<h3 id="myModalLabel">上级科目</h3>
+									</div>
+									<div class="modal-body">
+										<div id="otree" class="ztree"></div>
+									</div>
+									<div class="modal-footer">
+										<a href="#" class="btn" id="oclosed">关闭</a> <a href="#"
+											class="btn btn-primary" id="savemenu">保存</a>
+									</div>
+								</div>
+								<!-- 弹出层 end -->
+								<button type="button" id="edithigh" class="btn btn-primary">修改上级菜单</button>
+							</div>
+						</div>
+						<div class="control-group">
 							<label class="control-label" for="phone">科目编码：</label>
 							<div class="controls">
 							<input name="subject.id" type="hidden" value="${subject.id}" >
@@ -74,21 +100,112 @@
 		</div>
 	</div>
 <script type="text/javascript">
+var subjectid = '${subject.parentid}';
+var settingmenu = {
+	check : {
+		enable : true, //设置 zTree 的节点上是否显示 checkbox / radio
+		chkStyle : "radio", //设置为单选框
+		radioType : "all"
+	},
+	async : {
+		enable : true, //设置 zTree 是否开启异步加载模式
+		url : "${basepath}/subject/getSubjectTree", //Ajax 获取数据的 URL 地址。
+		autoParam : [ "id", "name" ], //异步加载时需要自动提交父节点属性的参数。
+		otherParam : { //Ajax 请求提交的静态参数键值对。
+			"otherParam" : "zTreeAsyncTest",
+			"subjectid" : subjectid
+		},
+		dataFilter : filter
+	//用于对 Ajax 返回数据进行预处理的函数。
+	},
+	callback : {
+		onClick : zTreeOnClick, //用于捕获节点被点击的事件回调函数
+		onAsyncSuccess : onAsyncSuccesso
+	//用于捕获异步加载正常结束的事件回调函数
+	}
+};
+
+var treeNodez;
+
+function filter(treeId, parentNode, childNodes) {
+	if (!childNodes)
+		return null;
+	for (var i = 0, l = childNodes.length; i < l; i++) {
+		childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
+	}
+	return childNodes;
+}
+
+function onAsyncSuccesso(event, treeId, treeNode, msg) {
+	var treeObj = $.fn.zTree.getZTreeObj("otree");
+	var nodes = treeObj.getNodesByParam("parentId", 0, null);
+	if (nodes.length > 0) {
+		treeObj.expandNode(nodes[0], true, false, false);
+	}
+}
+
+//机构树单击事件
+
+function zTreeOnClick(event, treeId, treeNode) {
+	if (treeNode.nodetype == 1) {
+		treeNodez = treeNode.nodetype;
+
+	} else {
+		treeNodez = treeNode.nodetype;
+
+	}
+}
+
+function getAllCheckedNodeo() {
+	var treeObj = $.fn.zTree.getZTreeObj("otree");
+	var nodes = treeObj.getCheckedNodes(true);
+	var str = "";
+	var ids = "";
+	for (var i = 0; i < nodes.length; i++) {
+		str = str + nodes[i].name;
+		ids = ids + nodes[i].id;
+	}
+	$("#menuids").val(ids);
+	$("#menunames").val(str);
+}
 $(document).ready(function() {
-		$("#messagealert").hide();
-		var flagcg = '${flagcg}';
-		if(flagcg!=null&&flagcg!=''){
-			$("#messagealert").show();
-		}
-		$("#closebut").click(function(){
-			$("#messagealert").hide();
+	$.fn.zTree.init($("#otree"), settingmenu);
+	$("#edithigh").click(function() {
+		$('#oModal').modal('show');
+	});
+	$("#oclosed").click(function() {
+		$('#oModal').modal('hide');
+	});
+	$("#savemenu").click(function() {
+		$("#menunames").text("");
+		getAllCheckedNodeo();
+		$('#oModal').modal('hide');
+	});
+	$("#savebutton").click(function() {
+		var box = "";
+		$("input[id^='optionsCheckbox_']").each(function(i) {
+			box = box + $(this).val() + "|";
 		});
-		var jqObj = new JQvalidate();
- 	    var subform ="subinfoform"; 
-     	jqObj.setform(subform);
- 	    jqObj.set("subject.name", "required",  "请输入科目名称!");  
- 	    jqObj.set("subject.code", "required",  "请输入科目编码!");	 
- 	    jqObj.Run();
-	})
+		$("#menuids").val(box);
+		$("#menuform").submit();
+	});
+	
+	$("#messagealert").hide();
+	var flagcg = '${flagcg}';
+	if(flagcg!=null&&flagcg!=''){
+		$("#messagealert").show();
+	}
+	$("#closebut").click(function(){
+		$("#messagealert").hide();
+	});
+	var jqObj = new JQvalidate();
+	    var subform ="subinfoform"; 
+ 		jqObj.setform(subform);
+	    jqObj.set("subject.name", "required",  "请输入科目名称!");  
+	    jqObj.set("subject.code", "required",  "请输入科目编码!");	 
+	    jqObj.set("subject.code", "required",  "请输入科目编码!");	 
+	    jqObj.Run();
+	
+});
 </script>
 <c:import url="/pages/include/pageFoot.jsp" />

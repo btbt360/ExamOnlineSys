@@ -26,7 +26,8 @@ public class CaseController extends BaseController{
 	 * 进入试题类型
 	 * */
 	public void add(){
-		List<Subject> subjectlist = subjectService.getSubjecyListAll();
+		QuerySubject querySubject = new QuerySubject();
+		List<Subject> subjectlist = subjectService.getSubjecyListAll(querySubject);
 		setAttr("subjectlist", subjectlist);
 		render("caseList.jsp");
 		
@@ -53,14 +54,20 @@ public class CaseController extends BaseController{
 	public void addinfo(){
 		String id = getPara("id");
 		Cases cases = null;
-		List<Subject> subjectlist = subjectService.getSubjecyListAll();
+		QuerySubject querySubject = new QuerySubject();
+		List<Subject> subjectlist = subjectService.getSubjecyListAll(querySubject);
+		Subject subject = new Subject();
+		String subjectname = "";
 		if(id!=null&&!id.equals("")){
 			cases = Cases.dao.findById(id);
+			subject = Subject.dao.findById(cases.getSubjectId());
+			subjectname = subject.getName();
 		}else{
 			cases = new Cases();
 		}
 		setAttr("flagcg", getPara("flagcg"));
 		setAttr("cases", cases);
+		setAttr("subjectname", subjectname);
 		setAttr("subjectlist", subjectlist);
 		render("caseInfo.jsp");
 		

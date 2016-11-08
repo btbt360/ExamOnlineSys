@@ -63,13 +63,18 @@ public class ExerciseController extends BaseController{
 		subjectlist = Subject.dao.getAllSubject();
 		String id = getPara("id");
 		Exercise exercise = null;
+		String subjectname = "";
+		Subject subject = new Subject();
 		if(id!=null&&!id.equals("")){
 			exercise = Exercise.dao.findById(id);
+			subject = Subject.dao.findById(exercise.getSubjectId());
+			subjectname = subject.getName();
 		}else{
 			exercise = new Exercise();
 		}
 		setAttr("flagcg", getPara("flagcg"));
 		setAttr("exercise", exercise);
+		setAttr("subjectname", subjectname);
 		setAttr("subjectlist",subjectlist);
 		render("exerciseInfo.jsp");
 	}
@@ -100,7 +105,6 @@ public class ExerciseController extends BaseController{
 			flagcg = 1;
 		}catch(Exception ex){
 			ex.printStackTrace();
-			
 		}
 		redirect("/exercise/addExerciseInfo?flagcg="+flagcg, true);
 	}
