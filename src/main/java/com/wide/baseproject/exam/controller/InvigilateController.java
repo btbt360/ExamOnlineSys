@@ -1,5 +1,6 @@
 package com.wide.baseproject.exam.controller;
 
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import com.wide.common.model.Examinee;
 import com.wide.common.model.User;
 import com.wide.common.model.query.QueryExam;
 import com.wide.common.model.query.QueryExaminee;
+import com.wide.util.CGUtil;
 import com.wide.viewmodel.DataTablesModel;
 
 public class InvigilateController  extends BaseController {
@@ -197,6 +199,14 @@ public class InvigilateController  extends BaseController {
 		String examId=getPara("id");
 		User user =getUser();
 		List<Examinee> elist = new ArrayList<Examinee>();
+		String macstr ="";
+		try {
+			 macstr = CGUtil.getLocalMac();
+		} catch (SocketException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//判断mac地址
 		Examinee ee = new Examinee();
 		Exam em = new Exam();
 		em = Exam.dao.findById(examId);
@@ -205,6 +215,9 @@ public class InvigilateController  extends BaseController {
 		if(elist.size()>0){
 			ee = elist.get(0);
 			flag = ee.getStatus();
+		}
+		if(!ee.getMacaddress().equals(macstr)){
+			flag = 6;
 		}
 		if(em.getStatus()<1){
 			flag = 5;

@@ -11,6 +11,7 @@ import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wide.base.BaseController;
 import com.wide.base.RenturnInfo;
 import com.wide.baseproject.exam.service.ExamService;
+import com.wide.common.model.Dict;
 import com.wide.common.model.Exam;
 import com.wide.common.model.ExamAnswer;
 import com.wide.common.model.Examinee;
@@ -21,6 +22,7 @@ import com.wide.common.model.Questions;
 import com.wide.common.model.Subject;
 import com.wide.common.model.User;
 import com.wide.common.model.query.QueryExam;
+import com.wide.util.CGUtil;
 import com.wide.util.DateUtil;
 import com.wide.viewmodel.DataTablesModel;
 
@@ -105,85 +107,10 @@ public class ExamController extends BaseController{
 		String[] strName = usernames.split("[|]");
 		try{
 			Exam exam = getModel(Exam.class)==null||getModel(Exam.class).equals("")?new Exam():getModel(Exam.class);
-			if(exam.getId()!=null&&!exam.getId().equals("")){
-				try{
-					Db.query("set foreign_key_checks=0;");
-					Db.update(" delete from sys_examinee where exam_id = ? ", exam.getId());
-					Db.query("set foreign_key_checks=1;");
-				}catch(Exception ex){
-					ex.printStackTrace();
-				}
-				for(int i=0;i<str.length;i++){
-					Examinee examinee = new Examinee();
-					examinee.setId(createUUid());
-					examinee.setUserId(str[i]);
-					examinee.setExamId(exam.getId());
-					examinee.setExampapersId(exam.getExampapersId());
-					examinee.setExamineename(strName[i]);
-					examinee.setCreatorId(getUser().getId());
-					examinee.setCreateDate(new Date());
-					examinee.setUpdateBy(getUser().getId());
-					examinee.setUpdateDate(new Date());
-					examinee.setFingerprint("");
-					examinee.setTicketcode("");
-					examinee.setSeatno(i);
-					examinee.setMacaddress("");
-					examinee.setIpaddress("");
-					examinee.setTotalscore(0);
-					examinee.setScoreslevel(0);
-					examinee.setIsdel(0);
-					examinee.setIsenable(1); //启用
-					examinee.save();
-				}
-				Date starttime = DateUtil.toDateTimeNot(starttimestr);
-				Date endtime = DateUtil.toDateTimeNot(endtimestr);
-				exam.setStarttime(starttime);
-				exam.setEndtime(endtime);
-				exam.setNumber(str.length);
-				exam.setUpdateBy(getUser().getId());
-				exam.setUpdateDate(new Date());
-				exam.update();
-			}else{
-				String id = createUUid();
-				Date starttime = DateUtil.toDateTimeNot(starttimestr);
-				Date endtime = DateUtil.toDateTimeNot(endtimestr);
-				exam.setId(id);
-				exam.setStarttime(starttime);
-				exam.setEndtime(endtime);
-				exam.setNumber(str.length);
-				exam.setCreatorId(getUser().getId());
-				exam.setCreateDate(new Date());
-				exam.setUpdateBy(getUser().getId());
-				exam.setUpdateDate(new Date());
-				exam.setIsdel(0);
-				exam.save();
-				for(int i=0;i<str.length;i++){
-					Examinee examinee = new Examinee();
-					examinee.setId(createUUid());
-					examinee.setUserId(str[i]);
-					examinee.setExamId(exam.getId());
-					examinee.setExampapersId(exam.getExampapersId());
-					examinee.setExamineename(strName[i]);
-					examinee.setCreatorId(getUser().getId());
-					examinee.setCreateDate(new Date());
-					examinee.setUpdateBy(getUser().getId());
-					examinee.setUpdateDate(new Date());
-					examinee.setFingerprint("");
-					examinee.setTicketcode("");
-					examinee.setSeatno(i);
-					examinee.setMacaddress("");
-					examinee.setIpaddress("");
-					examinee.setTotalscore(0);
-					examinee.setScoreslevel(0);
-					examinee.setIsdel(0);
-					examinee.setIsenable(1); //启用
-					examinee.save();
-				}
-			}
+			examService.saveExam(exam,str,strName,starttimestr,endtimestr,getUser());
 			flagcg = 1;
 		}catch(Exception ex){
 			ex.printStackTrace();
-			
 		}
 		redirect("/exam/addExamInfo?flagcg="+flagcg, true);
 	}

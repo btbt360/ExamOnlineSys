@@ -245,6 +245,13 @@ $(document).ready(
 			$("#subrp").val(oTable.getPageSize());
 			$("#subform").submit();
 		});
+		var itembank = '${itembank}';
+		if(itembank!=null&&itembank!=''){
+			$('#itembankid').empty();
+			alert(itembank);
+			$('#itembankid').append('<option value="'+itembank.id+'">'+itembank.name+'</option>');
+		}
+		
 	});
 	function reshcg() {
 		var name = $('#name').val();

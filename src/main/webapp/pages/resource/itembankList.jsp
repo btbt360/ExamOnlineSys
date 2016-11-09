@@ -204,7 +204,9 @@ function onBodyDown(event) {
 		hideMenu();
 	}
 }
-
+function checkinfo(itembid){
+	location.href = "${basepath}/questions/add?id=" + itembid;
+}
 $(document).ready(
 		function() {
 			$.fn.zTree.init($("#otree"), setting);

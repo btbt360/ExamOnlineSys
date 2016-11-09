@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.InputStream; 
 import java.io.InputStreamReader; 
 import java.net.InetAddress; 
-import java.net.NetworkInterface; 
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.ArrayList; 
 import java.util.Formatter; 
 import java.util.List; 
@@ -115,6 +117,9 @@ public class SystemUtil {
         System.out.println("用户的主目录："+props.getProperty("user.home")); 
         System.out.println("用户的当前工作目录："+props.getProperty("user.dir")); 
     } 
+    
+
+
     public static void main(String[] args) { 
     		//Config();
     	getConfig(); 

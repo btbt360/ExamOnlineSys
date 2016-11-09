@@ -29,7 +29,7 @@ public class InvigilateService{
 					row.set(1, row.get(2));
 					row.set(2, row.get(3));
 					row.set(3, row.get(4));
-					row.set(4, row.get(5)+" 小时");
+					row.set(4, row.get(5)+" 分钟");
 					row.set(5, row.get(6));
 					row.set(6, row.get(7)+(row.get(8)!=null&&!row.get(8).equals("")?"、"+row.get(8):""));
 					row.set(7, "");

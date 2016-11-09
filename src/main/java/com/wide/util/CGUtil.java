@@ -1,5 +1,9 @@
 package com.wide.util;
 
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -19,8 +23,11 @@ public class CGUtil {
 	public static void main(String[] args){
 		//System.out.println(createUUid());
 		
-		for(int i=0;i<56;i++){
-			System.out.println(createUUid());
+		try {
+			System.out.println(getLocalMac());
+		} catch (SocketException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	/**
@@ -87,5 +94,64 @@ public class CGUtil {
 		return list;
 	}
 
+	/**
+     * 对给定数目的自0开始步长为1的数字序列进行乱序
+     * @param no 给定数目
+     * @return 乱序后的数组
+     */
+    public static int[] getSequence(int no) {
+        int[] sequence = new int[no];
+        for(int i = 1; i < no+1; i++){
+        	sequence[i-1] = i;
+        }
+        Random random = new Random();
+        for(int i = 1; i < no+1; i++){
+            int p = random.nextInt(no);
+            while(p<0){
+            	p = random.nextInt(no);
+            }
+            int tmp = sequence[i-1];
+            sequence[i-1] = sequence[p];
+            sequence[p] = tmp;
+        }
+        random = null;
+        return sequence;
+    }
+    /**
+     * 获取本地mac地址
+     * @author cg
+     * 
+     * */
+    public static String getLocalMac() throws SocketException {
+		// TODO Auto-generated method stub
+		//获取网卡，获取地址
+    	String macstring = "";
+		try {
+			InetAddress ia = InetAddress.getLocalHost();
+			byte[] mac = NetworkInterface.getByInetAddress(ia).getHardwareAddress();
+			System.out.println("mac数组长度："+mac.length);
+			StringBuffer sb = new StringBuffer("");
+			for(int i=0; i<mac.length; i++) {
+				if(i!=0) {
+					sb.append("-");
+				}
+				//字节转换为整数
+				int temp = mac[i]&0xff;
+				String str = Integer.toHexString(temp);
+				System.out.println("每8位:"+str);
+				if(str.length()==1) {
+					sb.append("0"+str);
+				}else {
+					sb.append(str);
+				}
+			}
+			System.out.println("本机MAC地址:"+sb.toString().toUpperCase());
+			macstring = sb.toString().toUpperCase();
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return macstring;
+	}
 	
 }

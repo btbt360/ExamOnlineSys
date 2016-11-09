@@ -22,6 +22,7 @@ import com.wide.common.model.Subject;
 import com.wide.common.model.query.QueryQuestion;
 import com.wide.common.model.query.QuerySubject;
 import com.wide.util.CGUtil;
+import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
 import com.wide.viewmodel.ViewOperation;
 
@@ -35,11 +36,17 @@ public class QuestionsController extends BaseController{
 	 * 进入试题管理
 	 * */
 	public void add(){
+		String itembid = getPara("itembid");
+		Itembank itembank = new Itembank();
+		if(!TypeChecker.isEmpty(itembid)){
+			itembank = Itembank.dao.findById(itembid);
+		}
 		List<Dict> dictlist = new ArrayList<Dict>();
 		dictlist = Dict.dao.getDictByType("1002");
 		List<Subject> subjectlist = new ArrayList<Subject>();
 		subjectlist = Subject.dao.getAllSubject();
 		setAttr("dictlist", dictlist);
+		setAttr("itembank", itembank);
 		setAttr("subjectlist",subjectlist);
 		render("questionList.jsp");
 		
