@@ -54,7 +54,7 @@ public class ExcelUtil<T> {
 			if (rows > 0) {// 有数据时才处理
 				// Field[] allFields = clazz.getDeclaredFields();// 得到类的所有field.
 				List<Field> allFields = getMappedFiled(clazz, null);
-
+				
 				Map<Integer, Field> fieldsMap = new HashMap<Integer, Field>();// 定义一个map用于存放列的序号和field.
 				for (Field field : allFields) {
 					// 将有注解的field存放到map中.
@@ -68,7 +68,7 @@ public class ExcelUtil<T> {
 						fieldsMap.put(col, field);
 					}
 				}
-				for (int i = 1; i < rows; i++) {// 从第2行开始取数据,默认第一行是表头.
+				for (int i = 2; i < rows; i++) {// 从第2行开始取数据,默认第一行是表头.
 					HSSFRow row = sheet.getRow(i);
 					// int cellNum = row.getPhysicalNumberOfCells();
 					// int cellNum = row.getLastCellNum();

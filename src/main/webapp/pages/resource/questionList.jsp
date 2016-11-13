@@ -248,7 +248,6 @@ $(document).ready(
 		var itembank = '${itembank}';
 		if(itembank!=null&&itembank!=''){
 			$('#itembankid').empty();
-			alert(itembank);
 			$('#itembankid').append('<option value="'+itembank.id+'">'+itembank.name+'</option>');
 		}
 		

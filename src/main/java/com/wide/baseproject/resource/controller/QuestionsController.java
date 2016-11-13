@@ -37,7 +37,7 @@ public class QuestionsController extends BaseController{
 	 * */
 	public void add(){
 		String itembid = getPara("itembid");
-		Itembank itembank = new Itembank();
+		Itembank itembank = null;
 		if(!TypeChecker.isEmpty(itembid)){
 			itembank = Itembank.dao.findById(itembid);
 		}

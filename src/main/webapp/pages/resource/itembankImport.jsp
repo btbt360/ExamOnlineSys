@@ -72,12 +72,154 @@
 							<input type="button" value="取消" class="btn"
 								onclick="javascript:window.location.href='${basepath}/item/add'">
 						</div>
-						
 					</fieldset>
 				</form>
 			</div>
 		</div>
 	</div>
+	<div class="block" id="error">
+               <div class="navbar navbar-inner block-header">
+                   <div class="muted pull-left">错误的导入数据</div>
+               </div>
+               <div class="block-content collapse in">
+                   <div class="span12">
+  					<table class="table table-bordered">
+  						<c:if test="${listdax!=null&&listdax!=''}">
+  						 <thead>
+						     <tr>
+						       <td ><strong>试题内容</strong></td>
+						       <td ><strong>试题描述</strong></td>
+						       <td ><strong>试题选项A</strong></td>
+						       <td ><strong>试题选项B</strong></td>
+						       <td ><strong>试题选项C</strong></td>
+						       <td ><strong>试题选项D</strong></td>
+						       <td ><strong>试题答案</strong></td>
+						       <td ><strong>试题答案解答</strong></td>
+						       <td ><strong>备注信息</strong></td>
+						     </tr>
+						 </thead>
+						 <tbody>
+						 <c:forEach var="dax" items="${listdax}">
+						 	<tr>
+						 		<td>${dax.qtitle}</td>
+						 		<td>${dax.qinfo}</td>
+						 		<td>${dax.optionA}</td>
+						 		<td>${dax.optionB}</td>
+						 		<td>${dax.optionC}</td>
+						 		<td>${dax.optionD}</td>
+						 		<td>${dax.answer}</td>
+						 		<td>${dax.answerinfo}</td>
+						 		<td>${dax.remark}</td>
+						 	</tr>
+						 </c:forEach>
+						 </tbody>
+						 </c:if>
+						 <c:if test="${listdox!=null&&listdox!=''}">
+						 <thead>
+						     <tr>
+						       <td ><strong>试题内容</strong></td>
+						       <td ><strong>试题描述</strong></td>
+						       <td ><strong>试题选项A</strong></td>
+						       <td ><strong>试题选项B</strong></td>
+						       <td ><strong>试题选项C</strong></td>
+						       <td ><strong>试题选项D</strong></td>
+						       <td ><strong>试题选项E</strong></td>
+						       <td ><strong>试题选项F</strong></td>
+						       <td ><strong>试题选项G</strong></td>
+						       <td ><strong>试题答案</strong></td>
+						       <td ><strong>试题答案解答</strong></td>
+						       <td ><strong>备注信息</strong></td>
+						     </tr>
+						 </thead>
+						 <tbody>
+						 <c:forEach var="dox" items="${listdox}">
+						 	<tr>
+						 		<td>${dax.qtitle}</td>
+						 		<td>${dax.qinfo}</td>
+						 		<td>${dax.optionA}</td>
+						 		<td>${dax.optionB}</td>
+						 		<td>${dax.optionC}</td>
+						 		<td>${dax.optionD}</td>
+						 		<td>${dax.optionE}</td>
+						 		<td>${dax.optionF}</td>
+						 		<td>${dax.optionG}</td>
+						 		<td>${dax.answer}</td>
+						 		<td>${dax.answerinfo}</td>
+						 		<td>${dax.remark}</td>
+						 	</tr>
+						 </c:forEach>
+						 </tbody>
+						 </c:if>
+						 <c:if test="${listpd!=null&&listpd!=''}">
+						 <thead>
+						     <tr>
+						       <td ><strong>试题内容</strong></td>
+						       <td ><strong>试题描述</strong></td>
+						       <td ><strong>试题答案</strong></td>
+						       <td ><strong>试题答案解答</strong></td>
+						       <td ><strong>备注信息</strong></td>
+						     </tr>
+						 </thead>
+						 <tbody>
+						 <c:forEach var="pd" items="${listpd}">
+						 	<tr>
+						 		<td>${pd.qtitle}</td>
+						 		<td>${pd.qinfo}</td>
+						 		<td>${pd.answer}</td>
+						 		<td>${pd.answerinfo}</td>
+						 		<td>${pd.remark}</td>
+						 	</tr>
+						 </c:forEach>
+						 </tbody>
+						 </c:if>
+						 <c:if test="${listtk!=null&&listtk!=''}">
+						 <thead>
+						     <tr>
+						       <td ><strong>试题内容</strong></td>
+						       <td ><strong>试题描述</strong></td>
+						       <td ><strong>试题答案</strong></td>
+						       <td ><strong>试题答案解答</strong></td>
+						       <td ><strong>备注信息</strong></td>
+						     </tr>
+						 </thead>
+						 <tbody>
+						 <c:forEach var="tk" items="${listtk}">
+						 	<tr>
+						 		<td>${tk.qtitle}</td>
+						 		<td>${tk.qinfo}</td>
+						 		<td>${tk.answer}</td>
+						 		<td>${tk.answerinfo}</td>
+						 		<td>${tk.remark}</td>
+						 	</tr>
+						 </c:forEach>
+						 </tbody>
+						 </c:if>
+						 <c:if test="${listwd!=null&&listwd!=''}">
+						<thead>
+						     <tr>
+						       <td ><strong>试题内容</strong></td>
+						       <td ><strong>试题描述</strong></td>
+						       <td ><strong>试题答案</strong></td>
+						       <td ><strong>试题答案解答</strong></td>
+						       <td ><strong>备注信息</strong></td>
+						     </tr>
+						 </thead>
+						 <tbody>
+						 <c:forEach var="wd" items="${listwd}">
+						 	<tr>
+						 		<td>${wd.qtitle}</td>
+						 		<td>${wd.qinfo}</td>
+						 		<td>${wd.answer}</td>
+						 		<td>${wd.answerinfo}</td>
+						 		<td>${wd.remark}</td>
+						 	</tr>
+						 </c:forEach>
+						 </tbody>
+						 </c:if>
+					</table>
+                   </div>
+               </div>
+             </div>
 	<div id="menuContent" class="menuContent" style="display:none; position: absolute;background-color: #f5f5f5;border: 1px solid #ccc;">
 		<ul id="otree" class="ztree" style="margin-top:0; width:160px;"></ul>
 	</div>
@@ -210,6 +352,7 @@ $(document).ready(function() {
 				success : function(data) {
 					$("#questiontypename").val(data.questiontype.DICTVALUE);
 					$("#questiontype").val(data.questiontype.DICTKEY);
+					alert($("#questiontype").val());
 				}
 			});
 		});
@@ -228,18 +371,26 @@ $(document).ready(function() {
 	       	    jqObj.Run();
 	         }
 		});
-		
-		
- 	    
 	})
-	
-	
 	function downFile(){
-	    window.location.href="${basepath}/item/downloadExcel";
+		var subjectid=$("#subjectid").val();
+		var itembank=$("#itembank").val();
+		var questiontype = $("#questiontype").val();
+		if(subjectid==null||subjectid==''){
+			alert("请选择科目");
+			$("#subjectid").focus();
+			return false;
+		}
+		if(itembank==null||itembank==''){
+			alert("请选择题库");
+			$("#itembank").focus();
+			return false;
+		}
+	    window.location.href="${basepath}/item/downloadExcel?questiontype="+questiontype;
     }
 
-function deloption(numcgg){
-	$("#options"+numcgg).remove();
-}
+	function deloption(numcgg){
+		$("#options"+numcgg).remove();
+	}
 </script>
 <c:import url="/pages/include/pageFoot.jsp" />

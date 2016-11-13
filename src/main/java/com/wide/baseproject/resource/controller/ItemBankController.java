@@ -5,11 +5,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
 import com.jfinal.aop.Enhancer;
@@ -28,6 +30,13 @@ import com.wide.common.model.Questionoptions;
 import com.wide.common.model.Subject;
 import com.wide.common.model.query.QueryItemBank;
 import com.wide.common.model.query.QuerySubject;
+import com.wide.common.model.simple.ImportDAX;
+import com.wide.common.model.simple.ImportDOX;
+import com.wide.common.model.simple.ImportPD;
+import com.wide.common.model.simple.ImportTK;
+import com.wide.common.model.simple.ImportWD;
+import com.wide.util.ExcelUtil;
+import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
 
 public class ItemBankController extends BaseController{
@@ -166,7 +175,20 @@ public class ItemBankController extends BaseController{
 	 * @param response
 	 */
 	public void downloadExcel(){
-		String path = getRequest().getServletPath()+"/用户管理.xls";getRequest().getContextPath();
+		String questiontypestr = getPara("questiontype");
+		int questiontype =!TypeChecker.isEmpty(questiontypestr)?Integer.parseInt(questiontypestr):0;
+		String path ="";
+			if(questiontype==1){
+				path = ItemBankController.class.getResource("").getPath()+"ImportDAXTemplate.xls";
+			}else if(questiontype==2){
+				path = ItemBankController.class.getResource("").getPath()+"ImportDOXTemplate.xls";
+			}else if(questiontype==3){
+				path = ItemBankController.class.getResource("").getPath()+"ImportPDTemplate.xls";
+			}else if(questiontype==4){
+				path = ItemBankController.class.getResource("").getPath()+"ImportTKTemplate.xls";
+			}else if(questiontype==5){
+				path = ItemBankController.class.getResource("").getPath()+"ImportWDTemplate.xls";
+			}
 		 File file = new File(path);
 		    if (file.isFile()) {
 		        renderFile(file);
@@ -177,45 +199,49 @@ public class ItemBankController extends BaseController{
 		
 	}
 	
-	
+	/**
+	 * 上传Excel
+	 * 
+	 * */
 	 public void uploadExcel() {
-	        String path = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+		 	int flagcg=0;
 	        UploadFile file = this.getFile();
 	        File source = file.getFile();
-	        String fileName = file.getFileName();
-	        String prefix = "file";
-	        JSONObject json = new JSONObject();
-	        
-	        try {
-	            FileInputStream fis = new FileInputStream(source);
-	            File targetDir = new File(PathKit.getWebRootPath() + "/" + prefix + "/u/"
-	                    + path);
-	            if (!targetDir.exists()) {
-	                targetDir.mkdirs();
-	            }
-	            File target = new File(targetDir, fileName);
-	            if (!target.exists()) {
-	                target.createNewFile();
-	            }
-	            FileOutputStream fos = new FileOutputStream(target);
-	            byte[] bts = new byte[300];
-	            while (fis.read(bts, 0, 300) != -1) {
-	                fos.write(bts, 0, 300);
-	            }
-	            fos.close();
-	            fis.close();
-//	            json.put("error", 0);
-//	            json.put("url", "/" + prefix + "/u/" + path + "/" + fileName);
-	            setAttr("flagcg", "1");
-	            source.delete();
-	        } catch (FileNotFoundException e) {
-	        	setAttr("flagcg", "0");
-	            json.put("message", "上传出现错误，请稍后再上传");
-	        } catch (IOException e) {
-	        	setAttr("flagcg", "-1");
-	            json.put("message", "文件写入服务器出现错误，请稍后再上传");
+	     // String fileName = file.getFileName();
+	        String subjectid = getPara("subjectid");
+		 	String itembankId = getPara("itembankId");
+		 	String questiontype = getPara("questiontype");
+	        int questiontypeint = !TypeChecker.isEmpty(questiontype)?Integer.parseInt(questiontype):0;
+	        if(questiontypeint>0){
+	        	if(questiontypeint ==1){
+	        		List<ImportDAX> listdax=itembankService.checkExcelDax(source,subjectid,itembankId,questiontypeint,getUser());
+	        		if(listdax.size()>0){
+	        			setAttr("listdax", listdax);
+	        		}
+	        	}else if(questiontypeint == 2){
+	        		List<ImportDOX> listdox=itembankService.checkExcelDox(source,subjectid,itembankId,questiontypeint,getUser());
+	        		if(listdox.size()>0){
+	        			setAttr("listdox", listdox);
+	        		}
+	        	}else if(questiontypeint == 3){
+	        		List<ImportPD> listpd=itembankService.checkExcelPd(source,subjectid,itembankId,questiontypeint,getUser());
+	        		if(listpd.size()>0){
+	        			setAttr("listpd", listpd);
+	        		}
+	        	}else if(questiontypeint == 4){
+	        		List<ImportTK> listtk=itembankService.checkExcelTk(source,subjectid,itembankId,questiontypeint,getUser());
+	        		if(listtk.size()>0){
+	        			setAttr("listtk", listtk);
+	        		}
+	        	}else if(questiontypeint == 5){
+	        		List<ImportWD> listwd=itembankService.checkExcelWd(source,subjectid,itembankId,questiontypeint,getUser());
+	        		if(listwd.size()>0){
+	        			setAttr("listwd", listwd);
+	        		}
+	        	}
+	        	flagcg =1;
 	        }
-	       
+	        setAttr("flagcg", flagcg);
 			render("itembankImport.jsp");
 	    }
 
