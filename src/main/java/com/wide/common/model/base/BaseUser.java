@@ -1,5 +1,6 @@
 package com.wide.common.model.base;
 
+import com.jfinal.plugin.activerecord.Model;
 import com.wide.config.DbModel;
 import com.jfinal.plugin.activerecord.IBean;
 
@@ -65,6 +66,14 @@ public abstract class BaseUser<M extends BaseUser<M>> extends DbModel<M> impleme
 		return get("phone");
 	}
 
+	public void setCardno(java.lang.String cardno) {
+		set("cardno", cardno);
+	}
+
+	public java.lang.String getCardno() {
+		return get("cardno");
+	}
+
 	public void setMobile(java.lang.String mobile) {
 		set("mobile", mobile);
 	}
@@ -73,12 +82,20 @@ public abstract class BaseUser<M extends BaseUser<M>> extends DbModel<M> impleme
 		return get("mobile");
 	}
 
-	public void setUserType(java.lang.String userType) {
+	public void setUserType(java.lang.Integer userType) {
 		set("user_type", userType);
 	}
 
-	public java.lang.String getUserType() {
+	public java.lang.Integer getUserType() {
 		return get("user_type");
+	}
+
+	public void setLoginType(java.lang.Integer loginType) {
+		set("login_type", loginType);
+	}
+
+	public java.lang.Integer getLoginType() {
+		return get("login_type");
 	}
 
 	public void setPhoto(java.lang.String photo) {
@@ -111,6 +128,62 @@ public abstract class BaseUser<M extends BaseUser<M>> extends DbModel<M> impleme
 
 	public java.lang.String getLoginFlag() {
 		return get("login_flag");
+	}
+
+	public void setFingerprintone(java.lang.String fingerprintone) {
+		set("fingerprintone", fingerprintone);
+	}
+
+	public java.lang.String getFingerprintone() {
+		return get("fingerprintone");
+	}
+
+	public void setFingerprinttwo(java.lang.String fingerprinttwo) {
+		set("fingerprinttwo", fingerprinttwo);
+	}
+
+	public java.lang.String getFingerprinttwo() {
+		return get("fingerprinttwo");
+	}
+
+	public void setIsonline(java.lang.Integer isonline) {
+		set("isonline", isonline);
+	}
+
+	public java.lang.Integer getIsonline() {
+		return get("isonline");
+	}
+
+	public void setSex(java.lang.Integer sex) {
+		set("sex", sex);
+	}
+
+	public java.lang.Integer getSex() {
+		return get("sex");
+	}
+
+	public void setNation(java.lang.Integer nation) {
+		set("nation", nation);
+	}
+
+	public java.lang.Integer getNation() {
+		return get("nation");
+	}
+
+	public void setBirthdate(java.util.Date birthdate) {
+		set("birthdate", birthdate);
+	}
+
+	public java.util.Date getBirthdate() {
+		return get("birthdate");
+	}
+
+	public void setYearling(java.lang.Integer yearling) {
+		set("yearling", yearling);
+	}
+
+	public java.lang.Integer getYearling() {
+		return get("yearling");
 	}
 
 	public void setCreateBy(java.lang.String createBy) {
@@ -160,77 +233,229 @@ public abstract class BaseUser<M extends BaseUser<M>> extends DbModel<M> impleme
 	public java.lang.String getDelFlag() {
 		return get("del_flag");
 	}
-	
-	public void setCardno(java.lang.String cardno) {
-		set("cardno", cardno);
+
+	public void setDuty(java.lang.String duty) {
+		set("duty", duty);
 	}
 
-	public java.lang.String getCardno() {
-		return get("cardno");
+	public java.lang.String getDuty() {
+		return get("duty");
 	}
 
-	public void setFingerprintone(java.lang.String fingerprintone) {
-		set("fingerprintone", fingerprintone);
+	public void setRankcadre(java.lang.String rankcadre) {
+		set("rankcadre", rankcadre);
 	}
 
-	public java.lang.String getFingerprintone() {
-		return get("fingerprintone");
-	}
-	
-	public void setFingerprinttwo(java.lang.String fingerprinttwo) {
-		set("fingerprinttwo", fingerprinttwo);
+	public java.lang.String getRankcadre() {
+		return get("rankcadre");
 	}
 
-	public java.lang.String getFingerprinttwo() {
-		return get("fingerprinttwo");
-	}
-	
-	public void setLoginType(java.lang.Integer loginType) {
-		set("login_type", loginType);
+	public void setCraftsmansys(java.lang.String craftsmansys) {
+		set("craftsmansys", craftsmansys);
 	}
 
-	public java.lang.Integer getLoginType() {
-		return get("login_type");
-	}
-	
-	public void setIsonline(java.lang.Integer isonline) {
-		set("isonline", isonline);
+	public java.lang.String getCraftsmansys() {
+		return get("craftsmansys");
 	}
 
-	public java.lang.Integer getIsonline() {
-		return get("isonline");
-	}
-	
-	public void setSex(java.lang.Integer sex) {
-		set("sex", sex);
+	public void setResearchsys(java.lang.String researchsys) {
+		set("researchsys", researchsys);
 	}
 
-	public java.lang.Integer getSex() {
-		return get("sex");
-	}
-	
-	
-	public void setNation(java.lang.Integer nation) {
-		set("nation", nation);
+	public java.lang.String getResearchsys() {
+		return get("researchsys");
 	}
 
-	public java.lang.Integer getNation() {
-		return get("nation");
-	}
-	
-	public void setYearling(java.lang.Integer yearling) {
-		set("yearling", yearling);
+	public void setPoisonousgz(java.lang.String poisonousgz) {
+		set("poisonousgz", poisonousgz);
 	}
 
-	public java.lang.Integer getYearling() {
-		return get("yearling");
-	}
-	
-	public void setBirthdate(java.util.Date birthdate) {
-		set("birthdate", birthdate);
+	public java.lang.String getPoisonousgz() {
+		return get("poisonousgz");
 	}
 
-	public java.util.Date getBirthdate() {
-		return get("birthdate");
+	public void setOthermonthly(java.lang.Integer othermonthly) {
+		set("othermonthly", othermonthly);
 	}
+
+	public java.lang.Integer getOthermonthly() {
+		return get("othermonthly");
+	}
+
+	public void setRestpost(java.util.Date restpost) {
+		set("restpost", restpost);
+	}
+
+	public java.util.Date getRestpost() {
+		return get("restpost");
+	}
+
+	public void setRetiredate(java.util.Date retiredate) {
+		set("retiredate", retiredate);
+	}
+
+	public java.util.Date getRetiredate() {
+		return get("retiredate");
+	}
+
+	public void setNativeplace(java.lang.String nativeplace) {
+		set("nativeplace", nativeplace);
+	}
+
+	public java.lang.String getNativeplace() {
+		return get("nativeplace");
+	}
+
+	public void setWorktime(java.util.Date worktime) {
+		set("worktime", worktime);
+	}
+
+	public java.util.Date getWorktime() {
+		return get("worktime");
+	}
+
+	public void setRuspaceflight(java.util.Date ruspaceflight) {
+		set("ruspaceflight", ruspaceflight);
+	}
+
+	public java.util.Date getRuspaceflight() {
+		return get("ruspaceflight");
+	}
+
+	public void setRucampaing(java.util.Date rucampaing) {
+		set("rucampaing", rucampaing);
+	}
+
+	public java.util.Date getRucampaing() {
+		return get("rucampaing");
+	}
+
+	public void setSeniority(java.lang.String seniority) {
+		set("seniority", seniority);
+	}
+
+	public java.lang.String getSeniority() {
+		return get("seniority");
+	}
+
+	public void setLaterdegree(java.lang.String laterdegree) {
+		set("laterdegree", laterdegree);
+	}
+
+	public java.lang.String getLaterdegree() {
+		return get("laterdegree");
+	}
+
+	public void setGraduate(java.lang.String graduate) {
+		set("graduate", graduate);
+	}
+
+	public java.lang.String getGraduate() {
+		return get("graduate");
+	}
+
+	public void setGraduatelater(java.lang.String graduatelater) {
+		set("graduatelater", graduatelater);
+	}
+
+	public java.lang.String getGraduatelater() {
+		return get("graduatelater");
+	}
+
+	public void setLatereducation(java.lang.String latereducation) {
+		set("latereducation", latereducation);
+	}
+
+	public java.lang.String getLatereducation() {
+		return get("latereducation");
+	}
+
+	public void setLatergraduationdate(java.util.Date latergraduationdate) {
+		set("latergraduationdate", latergraduationdate);
+	}
+
+	public java.util.Date getLatergraduationdate() {
+		return get("latergraduationdate");
+	}
+
+	public void setGraduatedate(java.util.Date graduatedate) {
+		set("graduatedate", graduatedate);
+	}
+
+	public java.util.Date getGraduatedate() {
+		return get("graduatedate");
+	}
+
+	public void setMajor(java.lang.String major) {
+		set("major", major);
+	}
+
+	public java.lang.String getMajor() {
+		return get("major");
+	}
+
+	public void setDegree(java.lang.String degree) {
+		set("degree", degree);
+	}
+
+	public java.lang.String getDegree() {
+		return get("degree");
+	}
+
+	public void setPoliticsstatus(java.lang.Integer politicsstatus) {
+		set("politicsstatus", politicsstatus);
+	}
+
+	public java.lang.Integer getPoliticsstatus() {
+		return get("politicsstatus");
+	}
+
+	public void setRupartydate(java.util.Date rupartydate) {
+		set("rupartydate", rupartydate);
+	}
+
+	public java.util.Date getRupartydate() {
+		return get("rupartydate");
+	}
+
+	public void setTechnicalleave(java.lang.String technicalleave) {
+		set("technicalleave", technicalleave);
+	}
+
+	public java.lang.String getTechnicalleave() {
+		return get("technicalleave");
+	}
+
+	public void setEvaluatedate(java.util.Date evaluatedate) {
+		set("evaluatedate", evaluatedate);
+	}
+
+	public java.util.Date getEvaluatedate() {
+		return get("evaluatedate");
+	}
+
+	public void setEmploydate(java.util.Date employdate) {
+		set("employdate", employdate);
+	}
+
+	public java.util.Date getEmploydate() {
+		return get("employdate");
+	}
+
+	public void setSpecialty(java.lang.String specialty) {
+		set("specialty", specialty);
+	}
+
+	public java.lang.String getSpecialty() {
+		return get("specialty");
+	}
+
+	public void setAuthenticatework(java.lang.String authenticatework) {
+		set("authenticatework", authenticatework);
+	}
+
+	public java.lang.String getAuthenticatework() {
+		return get("authenticatework");
+	}
+
 }

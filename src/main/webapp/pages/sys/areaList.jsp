@@ -95,18 +95,6 @@
 		$("#treeTable").treeTable({
 			expandLevel : 4
 		}).show();
-		$(".datepicker").datepicker({
-			dateFormat : 'yyyy-mm-dd',
-			showButtonPanel : true,
-			changeMonth : true,
-			changeYear : true
-		});
-		$('#ceatetimes').click(function() {
-			$('#starttime').val('');
-		});
-		$('#ceatetimee').click(function() {
-			$('#endtime').val('');
-		});
 	});
 
 </script>

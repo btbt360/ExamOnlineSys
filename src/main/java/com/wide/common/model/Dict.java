@@ -99,7 +99,7 @@ public class Dict extends BaseDict<Dict> {
 	 * @return
 	 */
 	public List<Dict> getDictByType(String type) {
-		List<Dict> lists = find("select * from sys_dict where type = ? and del_flag=0  order by create_date asc ",type);
+		List<Dict> lists = find("select * from sys_dict where type = ? and del_flag=0  order by dictkey asc ",type);
 		return 	 lists ;
 	}
 	/**

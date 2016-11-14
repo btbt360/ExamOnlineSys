@@ -14,7 +14,8 @@ public enum EnumDictType {
 	dict_areatype(1010,"区域类型"),
 	dict_logoptype(1011,"日志操作类型"),
 	dict_logfntype(1012,"日志功能类型"),
-	dict_mactype(1013,"mac地址");
+	dict_mactype(1013,"mac地址"),
+	dict_logintype(1014,"登录类型");
 	
 	private int enumKey;
 	private String enumText;

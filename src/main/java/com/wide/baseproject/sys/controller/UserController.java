@@ -15,6 +15,7 @@ import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.plugin.activerecord.tx.Tx;
+import com.wide.base.BaseController;
 import com.wide.baseproject.exam.service.ExamService;
 import com.wide.baseproject.sys.service.DictService;
 import com.wide.baseproject.sys.service.LogService;
@@ -36,7 +37,7 @@ import com.wide.validator.UserValidator;
 import com.wide.viewmodel.DataTablesModel;
 import com.wide.viewmodel.ViewUser;
 
-public class UserController extends Controller {
+public class UserController extends BaseController {
 	private static final UserService userService = Enhancer
 			.enhance(UserService.class);
 	private static final RoleService roleService = Enhancer
@@ -197,7 +198,10 @@ public class UserController extends Controller {
 	public void adduserinfo() {
 		String id = getPara("id");
 		User user = userService.getUserById(id);
-		List<Dict> listd = dictService.getDictByType("1003");
+		List<Dict> usertypelist = dictService.getDictByType("1003");
+		List<Dict> logintypelist = dictService.getDictByType("1014");
+		List<Dict> nationlist = dictService.getDictByType("1005");
+		List<Dict> politicsstatuslist = dictService.getDictByType("1004");
 		List<Role> rolelist = roleService.getRoleAll();
 		List<Role> rulist = Role.dao.getRoleByuserID(id);
 		List<Office> officelist = officeService.getOfficeListByuserID(id);
@@ -216,7 +220,10 @@ public class UserController extends Controller {
 			}
 		}
 		String mark = getPara("message");
-		setAttr("listdict", listd);
+		setAttr("usertypelist", usertypelist);
+		setAttr("nationlist", nationlist);
+		setAttr("politicsstatuslist", politicsstatuslist);
+		setAttr("logintypelist", logintypelist);
 		setAttr("message", mark);
 		setAttr("user", user);
 		if(user!=null){
@@ -224,7 +231,6 @@ public class UserController extends Controller {
 		}else{
 			setAttr("utype", "0");
 		}
-		
 		setAttr("rolelist", rolelist);
 		setAttr("offids", officeids);
 		setAttr("roleids", roleids);
@@ -240,20 +246,18 @@ public class UserController extends Controller {
 		ViewUser vu = new ViewUser();	
 		String roleids = getPara("roleids");
 		String offids = getPara("offids");
-		String userType = getPara("usertype");
 		User user = getModel(User.class);
-		user.setUserType(userType);
-		user.setUpdateBy(userService.getUser(getCurrentUserToken().getVuser().getUser()).getId());
+		user.setUpdateBy(getUser().getId());
 		user.setUpdateDate(new Date());
 		vu.setOfficeids(offids);
 		vu.setRoleids(roleids);
 		vu.setUser(user);
 		if(vu.getUser().getId() != null && !vu.getUser().getId().equals("")){
-			logService.saveLog(EnumOptType.edit.getEnumKey(), EnumFuncType.user.getEnumKey(), userService.getUser(getCurrentUserToken().getVuser().getUser())); //用户修改日志保存
+			logService.saveLog(EnumOptType.edit.getEnumKey(), EnumFuncType.user.getEnumKey(), getUser()); //用户修改日志保存
 		}else {
-			logService.saveLog(EnumOptType.add.getEnumKey(), EnumFuncType.user.getEnumKey(), userService.getUser(getCurrentUserToken().getVuser().getUser())); //用户添加日志保存
+			logService.saveLog(EnumOptType.add.getEnumKey(), EnumFuncType.user.getEnumKey(), getUser()); //用户添加日志保存
 		}
-		userService.saveuserinfo(vu, userService.getUser(getCurrentUserToken().getVuser().getUser()));
+		userService.saveuserinfo(vu, getUser());
 		
 		
 		redirect("/user/adduserinfo?message=success", true);

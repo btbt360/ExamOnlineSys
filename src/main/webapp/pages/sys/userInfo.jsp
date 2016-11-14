@@ -19,6 +19,8 @@
 				</ul>
 			</div>
 		</div>
+		<form id="userform" class="form-horizontal"
+					action="${basepath}/user/saveuserinfo" id="userform" method="post">
 		<div class="block-content collapse in">
 			<ul class="nav nav-tabs">
 				<li><a href="${basepath}/user/add">用户列表</a></li>
@@ -33,10 +35,9 @@
 						<strong>保存成功！</strong>
 					</div>
 				</c:if>
-				<form id="userform" class="form-horizontal"
-					action="${basepath}/user/saveuserinfo" id="userform" method="post">
 					<fieldset>
-						<legend>用户信息维护</legend>
+						<legend>用户信息维护<button type="button" class="btn btn-primary" style="float:right;margin-right:8%;" onclick="checkhide()">隐藏详细信息</button>
+							<button type="button" class="btn btn-primary" style="margin-right:3%;float:right;" onclick="checkshow()">展开详细信息</button></legend>
 						<div class="control-group">
 							<label class="control-label">用户姓名：</label>
 							<div class="controls">
@@ -90,19 +91,54 @@
 							</div>
 						</div>
 						<div class="control-group">
+							<label class="control-label">民族：</label>
+							<div class="controls">
+							<select class="span6 m-wrap" id="nation" name="user.nation">
+											<option value=''>请选择</option>
+											<c:forEach items="${nationlist}" var="nation">
+												<option value="${nation.dictkey}"
+													<c:if test="${nation.dictkey==user.nation}">selected</c:if>>${nation.dictvalue}</option>
+											</c:forEach>
+										</select>
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">政治面貌：</label>
+							<div class="controls">
+							<select class="span6 m-wrap" id="politicsstatus" name="user.politicsstatus">
+											<option value=''>请选择</option>
+											<c:forEach items="${politicsstatuslist}" var="politicsstatus">
+												<option value="${politicsstatus.dictkey}"
+													<c:if test="${politicsstatus.dictkey==user.politicsstatus}">selected</c:if>>${politicsstatus.dictvalue}</option>
+											</c:forEach>
+										</select>
+							</div>
+						</div>
+						<div class="control-group">
 							<label class="control-label" for="userType">用户类型： </label>
 							<div class="controls">
-								<select class="span6 m-wrap" id="usertype" name="usertype">
+								<select class="span6 m-wrap" id="usertype" name="user.userType">
 									<option value=''>请选择</option>
-									<c:forEach items="${listdict}" var="dict">
-										<option value="${dict.dictkey}"
-											<c:if test="${dict.dictkey==utype}">selected</c:if>>${dict.dictvalue}</option>
+									<c:forEach items="${usertypelist}" var="usertype">
+										<option value="${usertype.dictkey}"
+											<c:if test="${usertype.dictkey==user.userType}">selected</c:if>>${usertype.dictvalue}</option>
 									</c:forEach>
 								</select>
 								<div style="color: red; margin-top: 5px;">${userTypeMsg}</div>
 							</div>
 						</div>
-
+						<div class="control-group">
+							<label class="control-label" for="userType">登录类型： </label>
+							<div class="controls">
+								<select class="span6 m-wrap" id="logintype" name="user.loginType">
+									<option value=''>请选择</option>
+									<c:forEach items="${logintypelist}" var="logintype">
+										<option value="${logintype.dictkey}"
+											<c:if test="${logintype.dictkey==user.loginType}">selected</c:if>>${logintype.dictvalue}</option>
+									</c:forEach>
+								</select>
+							</div>
+						</div>
 						<div class="control-group">
 							<label class="control-label" for="isenable">是否启用：</label>
 							<div class="controls">
@@ -119,7 +155,6 @@
 						<div class="control-group">
 							<label class="control-label">用户角色：</label>
 							<div class="controls">
-
 								<c:forEach items="${rolelist}" var="role" varStatus="status">
 									<label class="uniform" for="optionsCheckbox_${status.index+1}">
 										<input class="uniform_on" type="checkbox"
@@ -130,7 +165,6 @@
 								</c:forEach>
 								<input class="input-xlarge focused" id="roleids" name="roleids"
 									type="hidden" value="${roleids}">
-
 							</div>
 						</div>
 						<div class="control-group">
@@ -190,13 +224,261 @@
 								onclick="javascript:window.location.href='${basepath}/user/add'">
 						</div>
 					</fieldset>
-				</form>
-
+				</div>
+			</div>
+			<div class="block-content collapse in" id="xiangxi">
+			<div class="span12" style="padding-left:3%;">
+			<fieldset>
+			<legend>详细信息</legend>
+				<div class="control-group">
+					<label class="control-label">性别：</label>
+							<div class="controls">
+								<label for="sex0"> 男&nbsp;&nbsp; <input
+									type="radio" id="sex0" value="0" name="user.sex"
+									checked <c:if test="${user.sex==0}">checked</c:if> />
+								</label> &nbsp;&nbsp;&nbsp;&nbsp; <label for="sex1">
+									女&nbsp;&nbsp; <input type="radio" id="sex1" value="1"
+									name="user.sex"
+									<c:if test="${user.sex==1}">checked</c:if> />
+								</label>
+						</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label">出生日期：</label>
+					<div class="controls">
+						<input type="text" class="input-medium datetimepicker" id="birthdate"
+							value="${user.birthdate}" name="user.birthdate">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">周岁：</label>
+					<div class="controls">
+					<input class="input-xlarge focused" id="yearling"
+									name="user.yearling" type="number" placeholder="请输入周岁！"
+									value="${user.yearling}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">职务：</label>
+					<div class="controls">
+					<input class="input-xlarge focused" id="duty"
+									name="user.duty" type="text" placeholder="请输入职务！"
+									value="${user.duty}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">籍贯：</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="nativeplace"
+									name="user.nativeplace" type="text" placeholder="请输入籍贯！"
+									value="${user.nativeplace}"/>
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label">入团党时间：</label>
+					<div class="controls">
+						<input type="text" class="input-medium datetimepicker" id="rupartydate"
+							value="${user.rupartydate}" name="user.rupartydate">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">职称级别：</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="technicalleave"
+									name="user.technicalleave" type="text" placeholder="请输入职称级别！"
+									value="${user.technicalleave}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">评定时间：</label>
+					<div class="controls">
+						<input type="text" class="input-medium datetimepicker" id="evaluatedate"
+							value="${user.evaluatedate}" name="user.evaluatedate">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">聘用日期：</label>
+					<div class="controls">
+						<input type="text" class="input-medium datetimepicker" id="employdate"
+							value="${user.employdate}" name="user.employdate">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">专业：</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="specialty"
+									name="user.specialty" type="text" placeholder="请输入专业！"
+									value="${user.specialty}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">鉴定工种：</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="authenticatework"
+									name="user.authenticatework" type="text" placeholder="请输入鉴定工种！"
+									value="${user.authenticatework}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">干部级别：</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="rankcadre"
+									name="user.rankcadre" type="text" placeholder="请输入干部级别！"
+									value="${user.rankcadre}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">工艺师系统：</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="craftsmansys"
+									name="user.craftsmansys" type="text" placeholder="请输入工艺师系统！"
+									value="${user.craftsmansys}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">研究师系统：</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="researchsys"
+									name="user.researchsys" type="text" placeholder="请输入研究师系统！"
+									value="${user.researchsys}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">有毒有害工种：</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="poisonousgz"
+									name="user.poisonousgz" type="text" placeholder="请输入有毒有害工种！"
+									value="${user.poisonousgz}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">周岁之外的月数：</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="othermonthly"
+									name="user.othermonthly" type="number" placeholder="请输入周岁之外的月数！"
+									value="${user.othermonthly}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">歇岗时间：</label>
+					<div class="controls">
+						<input type="text" class="input-medium datetimepicker" id="restpost"
+							value="${user.restpost}" name="user.restpost">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">退休日期：</label>
+					<div class="controls">
+						<input type="text" class="input-medium datetimepicker" id="retiredate"
+							value="${user.retiredate}" name="user.retiredate">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">工作时间：</label>
+					<div class="controls">
+						<input type="text" class="input-medium datetimepicker" id="worktime"
+							value="${user.worktime}" name="user.worktime">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">入航天时间：</label>
+					<div class="controls">
+						<input type="text" class="input-medium datetimepicker" id="ruspaceflight"
+							value="${user.ruspaceflight}" name="user.ruspaceflight">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">入本厂时间：</label>
+					<div class="controls">
+						<input type="text" class="input-medium datetimepicker" id="rucampaing"
+							value="${user.rucampaing}" name="user.rucampaing">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">学历：</label>
+					<div class="controls">
+					<input class="input-xlarge focused" id="seniority"
+									name="user.seniority" type="text" placeholder="请输入学历！"
+									value="${user.seniority}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">学位：</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="degree"
+									name="user.degree" type="text" placeholder="请输入学位！"
+									value="${user.degree}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">毕业院校：</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="graduate"
+									name="user.graduate" type="text" placeholder="请输入学位！"
+									value="${user.graduate}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">毕业时间：</label>
+					<div class="controls">
+						<input type="text" class="input-medium datetimepicker" id="graduatedate"
+							value="${user.graduatedate}" name="user.graduatedate">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">所学专业：</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="major"
+									name="user.major" type="text" placeholder="请输入所学专业！"
+									value="${user.major}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">后取学位：</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="laterdegree"
+									name="user.laterdegree" type="text" placeholder="请输入后取学位！"
+									value="${user.laterdegree}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">后取学历：</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="latereducation"
+									name="user.latereducation" type="text" placeholder="请输入后取学历！"
+									value="${user.latereducation}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">后取学位毕业院校：</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="graduatelater"
+									name="user.graduatelater" type="text" placeholder="请输入后取学位毕业院校！"
+									value="${user.graduatelater}"/>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label">后取学历时间：</label>
+					<div class="controls">
+						<input type="text" class="input-medium datetimepicker" id="latergraduationdate"
+							value="${user.latergraduationdate}" name="user.latergraduationdate">
+					</div>
+				</div>
+				</fieldset>
 			</div>
 		</div>
+		</form>
 	</div>
 <script type="text/javascript">
-	
+$("#xiangxi").hide();
+function checkshow(){
+	$("#xiangxi").show();
+}
+function checkhide(){
+	$("#xiangxi").hide();
+}
 	var userid = '${user.id}';
 	var settingoffice = {
 		check : {
@@ -263,6 +545,20 @@
 		$("#offnames").text(str);
 	}
 	$(document).ready(function() {
+		$('.datetimepicker').datetimepicker({  
+            language:  'zh-CN',
+            format: 'yyyy-mm-dd',
+            weekStart: 1,  
+            todayBtn:  1,  
+            autoclose: true,  
+            todayHighlight: 1,  
+            startView: 2,  
+            forceParse: true,  
+            minView:2,//只到天
+            showMeridian: 1  
+        }).on('changeDate', function (ev) {  
+            $(this).datetimepicker('hide');  
+        });
 		$("#fingerprintonefull").hide();
 		$("#fingerprinttwofull").hide();
 		$.fn.zTree.init($("#otree"), settingoffice);
@@ -298,13 +594,15 @@
  	    if(id!=null&&id==0){
  	    	  jqObj.set("user.loginName", "remote",  "登录名重复!");
  	    }
- 	 
+ 	  	jqObj.set("user.nation", "required",  "请输入民族!"); 
+ 	    jqObj.set("user.politicsstatus", "required",  "请输入政治面貌!");
  	    jqObj.set("user.email", "required",  "请输入用户邮箱!");  
  	    jqObj.set("user.email", "email",  "请输入正确的用户邮箱!");	   
  	    jqObj.set("user.mobile", "required",  "请输入用户手机!");
  	    jqObj.set("user.mobile", "number",  "请输入正确的手机号!");
  	    jqObj.set("user.mobile", "isMobile",  "请输入正确格式的手机号!");
- 	    jqObj.set("usertype", "required",  "请选择用户类型!");
+ 	    jqObj.set("user.userType", "required",  "请选择用户类型!");
+ 	    jqObj.set("user.loginType", "required",  "请选择用户登录类型!");
  	    jqObj.Run();
 
 	})

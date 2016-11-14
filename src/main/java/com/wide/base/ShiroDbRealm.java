@@ -82,7 +82,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
         //User user = (User) principals.fromRealm(getName()).iterator().next();
     	String loginname =principals.fromRealm(getName()).iterator().next()+"";
     	User user = User.dao.findByUsername(loginname);
-    	SimpleUser simpleUser = new SimpleUser(user.getId(),user.getLoginName(),user.getRemarks(),user.getUserType());
+    	SimpleUser simpleUser = new SimpleUser(user.getId(),user.getLoginName(),user.getRemarks(),user.getUserType()+"");
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         List<Role> roles = Role.dao.getRoleByuserID(simpleUser.getId());
         if(roles!=null&&roles.size()>0){

@@ -18,7 +18,7 @@
 	<div class="block-content collapse in">
 	<ul class="nav nav-tabs">
 		<li ><a href="${basepath}/dict/add">数据字典列表</a></li>
-		<li class="active"><a href="${basepath}/dict/addnewdict">添加数据字典</a></li>
+		<li class="active"><a href="${basepath}/dict/adddictinfo">添加数据字典</a></li>
 	</ul>	
 			<div class="span12">	  
 				<c:if test="${message!=null&&message!=''}">
