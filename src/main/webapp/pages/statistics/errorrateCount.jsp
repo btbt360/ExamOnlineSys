@@ -20,136 +20,60 @@
 		<div class="row-fluid">
 			<div class="block" style="border: 0px;">
 				<div class="block-content collapse in">
-					<ul class="nav nav-tabs">
-						<li class="active"><a href="＃">试题错误率统计</a></li>
-					</ul>
-					
-					<form action="${basepath}/exam/exportSubject" method="post" id="subform">
 						<div class="span12">
-							<div class="span4">
-								<label class="control-label" for="subjectid">试卷名称：
-									<select class="m-wrap" id="exampapersid" name="exampapersid" placeholder="请选择试卷！">
-										<option value='0'>请选择试卷</option>
-										<c:forEach var="exampapers" items="${exampaperslist}">
-									<option
-										<c:if test="${exampapers.id==exam.exampapersId}">selected</c:if>
-										value='${exampapers.id}'>${exampapers.name}</option>
+							<div class="span4 text-center">
+								<label class="control-label" for="name">考试名称：
+								<select class="m-wrap" id="examid" name="examid" placeholder="请选择考试！">
+									<option value=''>请选择考试</option>
+								<c:forEach var="exam" items="${examlist}">
+									<option value='${exam.id}'>${exam.code} | ${exam.name}</option>
 								</c:forEach>
-									</select>
+								</select>
 								</label> 
-							</div>
-							<div class="span4 text-right" >
-						    <button class="btn btn-medium btn-primary" type="button"
-							id="query">查询</button>
- 						<!-- <button class="btn btn-medium btn-primary" type="button" 
-							id="export">计算分数</button> --> 
+						</div>
+						<div class="span4"></div>
+						<div class="span4 text-center" >
+						    	<button class="btn btn-medium btn-primary" type="button" id="query">查询</button>
+ 								<input type="hidden" id="subpages" name="subpages" /><input type="hidden" id="subrp" name="subrp" />
 						</div>
 						</div>
-						
-					</form>
-					<div style="border-bottom: 1px solid #ececec;">&nbsp;</div>
-					<div class="block-content collapse in">
-					 <div class="span12">
-                             <div id="hero-bar" style="height: 250px;"></div>
-                      </div>
-				    </div>
-					
+						<table id="userList" class="table table-striped table-bordered">
+							<thead>
+								<tr>
+									<th width="10%">考试名称</th>
+									<th width="10%">试题编码</th>
+									<th width="30%">试题内容</th>
+									<th width="10%">正确答案</th>
+									<th width="10%">出错次数</th>
+									<th width="30%">试题解析</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+							<!-- tbody是必须的 -->
+						</table>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
-
 	$(document).ready(function() {
-		
-		
-		// Morris Bar Chart
-        Morris.Bar({
-            element: 'hero-bar',
-            data: [
-                {department: '选择题(题号：3)', errornum: 7},
-                {department: '选择题(题号：5)', errornum: 4},
-                {department: '选择题(题号：9)', errornum: 5},
-                {department: '选择题(题号：10)', errornum: 12},
-                {department: '判断题(题号：2)', errornum: 6},
-                {department: '判断题(题号：5)', errornum: 9},
-                {department: '判断题(题号：7)', errornum: 15},
-                {department: '填空题(题号：3)', errornum: 12},
-                {department: '填空题(题号：6)', errornum: 13},
-                {department: '填空题(题号：7)', errornum: 15},
-                {department: '简单题(题号：1)', errornum: 24}
-            ],
-            xkey: 'department',
-            ykeys: ['errornum'],
-            labels: ['错误次数'],
-            barRatio: 0.4,
-            xLabelMargin: 10,
-            hideHover: 'auto',
-            barColors: ['#f56954']
-        });
-
-
-		
-		var tax_data = [ {
-			"period" : "2016-01",
-			"qualified" : 15,
-			"noqualified" : 5,
-			"excellent" : 20
-			
-		}, {
-			"period" : "2016-02",
-			"qualified" : 10,
-			"noqualified" : 5,
-			"excellent" : 25
-			
-		}, {
-			"period" : "2016-03",
-			"qualified" :10,
-			"noqualified" :0,
-			"excellent" : 30
-			
-		}, {
-			"period" : "2016-04",
-			"qualified" : 15,
-			"noqualified" : 0,
-			"excellent" : 25
-			
-		}, {
-			"period" : "2016-05",
-			"qualified" : 5,
-			"noqualified" : 0,
-			"excellent" : 35
-			
-		}, {
-			"period" : "2016-06",
-			"qualified" : 7,
-			"noqualified" : 3,
-			"excellent" : 30
-			
-		}, {
-			"period" : "2016-07",
-			"qualified" : 9,
-			"noqualified" : 2,
-			"excellent" : 29
-			
-		}, {
-			"period" : "2016-08",
-			"qualified" : 2,
-			"noqualified" : 18,
-			"excellent" : 20
-			
-		} ];
-		Morris.Line({
-			element : 'hero-graph',
-			data : tax_data,
-			xkey : 'period',
-			xLabels : "month",
-			ykeys : [ 'noqualified','qualified','excellent'],
-			labels : [ '不及格','及格','优秀']
+		oTable = $('#userList').initDT({
+			serverSide : true,
+			"sAjaxSource" : "${basepath}/statistics/errorrateCountfind"
 		});
-
+		$("#query").click(function() {
+			reshcg();
+		});
 	});
-	
+	function reshcg() {
+		var examid = $('#examid').val();
+		var oSettings = [{
+			"name" : "examid",
+			"value" : examid
+		}];
+		oTable.gridSearch(this, oSettings);
+	}
 </script>
 <c:import url="/pages/include/pageFoot.jsp" />

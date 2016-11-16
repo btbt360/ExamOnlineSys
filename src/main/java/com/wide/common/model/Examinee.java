@@ -95,4 +95,21 @@ public class Examinee extends BaseExaminee<Examinee> {
 			List<Examinee> list = find("select t.* from sys_examinee t where t.isenable = 1 and t.exam_id = ?",examId);
 			return list;
 		}
+		
+		/**
+		 * 通过exam_id查询考生列表
+		 * @param examId
+		 * @return
+		 */
+		public List<Examinee> getExamineeByExamIdType(String examId,int type){
+			List<Examinee> list = find("select t.* from sys_examinee t where t.isenable = 1 and t.exam_id = ? and t.scoreslevel = ?",examId,type);
+			return list;
+		}
+		public List<Examinee> getDapartmentExamineeByType(String officeid,int type,String whereStr) {
+			// TODO Auto-generated method stub
+			List<Examinee> list = find("select DISTINCT t.* from  sys_examinee t ,sys_user t1, sys_office_user t2 , sys_exam t3 where t.user_id = t1.id "
+					+ "and t1.id =t2.user_id and t.exam_id = t3.id and t.scoreslevel=? and t2.office_id = ? "+whereStr,type,officeid);
+			return list;
+		}
+		
 	}

@@ -11,6 +11,7 @@ import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wide.base.BaseController;
 import com.wide.base.RenturnInfo;
 import com.wide.baseproject.exam.service.ExamService;
+import com.wide.baseproject.statistics.service.StatisticsService;
 import com.wide.common.model.Exam;
 import com.wide.common.model.ExamAnswer;
 import com.wide.common.model.Examinee;
@@ -20,12 +21,17 @@ import com.wide.common.model.Office;
 import com.wide.common.model.Questions;
 import com.wide.common.model.Subject;
 import com.wide.common.model.User;
+import com.wide.common.model.query.QueryCase;
 import com.wide.common.model.query.QueryExam;
+import com.wide.common.model.query.QueryStatistics;
 import com.wide.util.DateUtil;
 import com.wide.viewmodel.DataTablesModel;
+import com.wide.viewmodel.ViewChartData;
 
 public class StatisticsController extends BaseController{
 	private static final ExamService examService = Enhancer.enhance(ExamService.class);
+	private static final StatisticsService statisticsService = Enhancer.enhance(StatisticsService.class);
+
 	
 	/**
 	 * @author lubin
@@ -33,9 +39,22 @@ public class StatisticsController extends BaseController{
 	 * 
 	 * */
 	public void examineeCount(){
+		List<Exam> examlist =  Exam.dao.find("select * from sys_exam ");
+		setAttr("examlist", examlist);
 		render("examineeCount.jsp");
 	}
-	
+	/**
+	 * @author cg
+	 * 考生成绩统计图表数据
+	 * */
+	public void examineeChartDatas(){
+		String starttimes = getPara("starttimes");
+		String endtimes = getPara("endtimes");
+		String examid = getPara("examid");
+		List<ViewChartData> list = new ArrayList<ViewChartData>();
+		list = statisticsService.examineeChartDatas(starttimes,endtimes,examid);
+		renderJson(list);
+	}
 
 	/**
 	 * @author lubin
@@ -43,11 +62,22 @@ public class StatisticsController extends BaseController{
 	 * 
 	 * */
 	public void dapartmentCount(){
-		List<Exampapers> exampaperslist = new ArrayList<Exampapers>();
-		exampaperslist = Exampapers.dao.getExampapersAll();
-		
-		setAttr("exampaperslist", exampaperslist);
+		List<Exam> examlist =  Exam.dao.find("select * from sys_exam ");
+		setAttr("examlist", examlist);
 		render("dapartmentCount.jsp");
+	}
+	
+	/**
+	 * @author cg
+	 * 考试按部门图表数据
+	 * */
+	public void dapartmentChartDatas(){
+		String starttimes = getPara("starttimes");
+		String endtimes = getPara("endtimes");
+		String examid = getPara("examid");
+		List<ViewChartData> list = new ArrayList<ViewChartData>();
+		list = statisticsService.dapartmentChartDatas(starttimes,endtimes,examid);
+		renderJson(list);
 	}
 	
 	/**
@@ -56,13 +86,23 @@ public class StatisticsController extends BaseController{
 	 * 
 	 * */
 	public void postCount(){
-		List<Exampapers> exampaperslist = new ArrayList<Exampapers>();
-		exampaperslist = Exampapers.dao.getExampapersAll();
-		
-		setAttr("exampaperslist", exampaperslist);
+		List<Exam> examlist =  Exam.dao.find("select * from sys_exam ");
+		setAttr("examlist", examlist);
 		render("postCount.jsp");
 	}
 	
+	/**
+	 * @author cg
+	 * 考试按岗位图表数据
+	 * */
+	public void postChartDatas(){
+		String starttimes = getPara("starttimes");
+		String endtimes = getPara("endtimes");
+		String examid = getPara("examid");
+		List<ViewChartData> list = new ArrayList<ViewChartData>();
+		list = statisticsService.postChartDatas(starttimes,endtimes,examid);
+		renderJson(list);
+	}
 	
 	/**
 	 * @author lubin
@@ -70,13 +110,19 @@ public class StatisticsController extends BaseController{
 	 * 
 	 * */
 	public void errorrateCount(){
-		List<Exampapers> exampaperslist = new ArrayList<Exampapers>();
-		exampaperslist = Exampapers.dao.getExampapersAll();
-		
-		setAttr("exampaperslist", exampaperslist);
+		List<Exam> examlist =  Exam.dao.find("select * from sys_exam ");
+		setAttr("examlist", examlist);
 		render("errorrateCount.jsp");
 	}
 	
+	public void errorrateCountfind(){
+		QueryStatistics queryStatistics = new QueryStatistics();
+		String examid = getPara("examid");
+		queryStatistics.setExamid(examid);
+		DataTablesModel casepage = statisticsService.getPageErrorCountfind(getParaToInt("page")
+				.intValue(), getParaToInt("rp").intValue(), queryStatistics);
+		this.renderJson(casepage);
+	}
 	
 
 	/**

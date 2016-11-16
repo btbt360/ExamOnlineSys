@@ -27,7 +27,7 @@
 						<div class="span12">
 							<div class="span4">
 								<label class="control-label" for="name">考试名称：
-								<select class="m-wrap" id="examid" name="examid" placeholder="请选择试卷！">
+								<select class="m-wrap" id="examid" name="examid" placeholder="请选择考试！">
 									<option value=''>请选择考试</option>
 								<c:forEach var="exam" items="${examlist}">
 									<option value='${exam.id}' <c:if test='${exam.id==examid}'>selected</c:if>>${exam.code} | ${exam.name}</option>

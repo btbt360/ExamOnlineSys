@@ -3,9 +3,11 @@ package com.wide.common.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jfinal.kit.StrKit;
 import com.wide.common.model.base.BaseExamAnswer;
 import com.wide.common.model.query.QueryDict;
 import com.wide.common.model.query.QueryExaminee;
+import com.wide.common.model.query.QueryStatistics;
 import com.wide.util.DateUtil;
 import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
@@ -78,6 +80,42 @@ public class ExamAnswer extends BaseExamAnswer<ExamAnswer> {
 		
 	}
 
-	
+	@SuppressWarnings("rawtypes")
+	public DataTablesModel getPageErrorCountfind(int pageNum, int pageSize, QueryStatistics queryStatistics) {
+		// TODO Auto-generated method stub
+	    String select = "select t2.id,t.name,t2.code,t2.title,t2.questionanswer,count(*),t2.questionanswerinfo ";
+	    StringBuilder sqlExceptSelect = new StringBuilder(" from sys_exam t ,sys_exam_answer t1,sys_questions t2 ");
+	    /**
+	    if (search!=null&&!search.equals("")) {
+	        sqlExceptSelect.append(" AND (b.title like ? or b.content like ? )");
+	        parameters.add("%" + search + "%");
+	        parameters.add("%" + search + "%");
+	    } 
+	     **/
+	    sqlExceptSelect.append(whereQuery(queryStatistics));
+	    sqlExceptSelect.append(orderbyQuery(queryStatistics));
+	    return this.paginateDataTables(pageNum, pageSize, select, sqlExceptSelect.toString());
+	}
+	/**
+	 * query where查询
+	 * 
+	 * */
+	private String whereQuery(QueryStatistics queryStatistics){
+		String where=" where t.id = t1.exam_id and t1.question_id = t2.id and t2.isdel = 0 and t2.isenable = 1 and t1.answerscores = 0 ";
+		if(!StrKit.isBlank(queryStatistics.getExamid())){
+			where  +=" and t.id ='"+queryStatistics.getExamid()+"'";
+		}
+		return where;
+		
+	}
+	/**
+	 * query order by 
+	 * 
+	 * */
+	private String orderbyQuery(QueryStatistics queryStatistics){
+		String orderby = " group by t.name,t2.title,t2.questionanswer,t2.questionanswerinfo order by t2.create_date desc ";
+		return orderby;
+		
+	}
 	
 }

@@ -9,6 +9,7 @@ import com.jfinal.aop.Enhancer;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wide.base.BaseController;
 import com.wide.baseproject.exam.service.AchievementService;
+import com.wide.common.model.Dict;
 import com.wide.common.model.Exam;
 import com.wide.common.model.ExamAnswer;
 import com.wide.common.model.Examinee;
@@ -135,6 +136,17 @@ public class AchievementController extends BaseController {
 				}
 			}
 			examinee.setTotalscore(sumscores);
+			List<Dict> listdict = new ArrayList<Dict>();
+			listdict = Dict.dao.getDictByType("1015");
+			if(listdict.size()>0){
+					if(Integer.parseInt(listdict.get(0).getDictkey())<sumscores&&sumscores<=Integer.parseInt(listdict.get(1).getDictkey())){
+						examinee.setScoreslevel(0);
+					}else if(Integer.parseInt(listdict.get(1).getDictkey())<sumscores&&sumscores<=Integer.parseInt(listdict.get(2).getDictkey())){
+						examinee.setScoreslevel(1);
+					}else if(Integer.parseInt(listdict.get(2).getDictkey())<sumscores){
+						examinee.setScoreslevel(2);
+					}
+			}
 			examinee.setUpdateBy(getUser().getId());
 			examinee.setUpdateDate(new Date());
 			examinee.update();
@@ -182,6 +194,18 @@ public class AchievementController extends BaseController {
 			
 			Examinee examinee = new Examinee();
 			examinee = Examinee.dao.findById(examineeid);
+			List<Dict> listdict = new ArrayList<Dict>();
+			listdict = Dict.dao.getDictByType("1015");
+			int sumscores = examinee.getTotalscore();
+			if(listdict.size()>0){
+					if(Integer.parseInt(listdict.get(0).getDictkey())<sumscores&&sumscores<=Integer.parseInt(listdict.get(1).getDictkey())){
+						examinee.setScoreslevel(0);
+					}else if(Integer.parseInt(listdict.get(1).getDictkey())<sumscores&&sumscores<=Integer.parseInt(listdict.get(2).getDictkey())){
+						examinee.setScoreslevel(1);
+					}else if(Integer.parseInt(listdict.get(2).getDictkey())<sumscores){
+						examinee.setScoreslevel(2);
+					}
+			}
 			examinee.setIsfinishjudge(1);
 			examinee.setUpdateBy(getUser().getId());
 			examinee.setUpdateDate(new Date());
@@ -217,6 +241,18 @@ public class AchievementController extends BaseController {
 			}
 			Examinee examinee = new Examinee();
 			examinee = Examinee.dao.findById(examineeid);
+			List<Dict> listdict = new ArrayList<Dict>();
+			listdict = Dict.dao.getDictByType("1015");
+			int sumscores = examinee.getTotalscore();
+			if(listdict.size()>0){
+					if(Integer.parseInt(listdict.get(0).getDictkey())<sumscores&&sumscores<=Integer.parseInt(listdict.get(1).getDictkey())){
+						examinee.setScoreslevel(0);
+					}else if(Integer.parseInt(listdict.get(1).getDictkey())<sumscores&&sumscores<=Integer.parseInt(listdict.get(2).getDictkey())){
+						examinee.setScoreslevel(1);
+					}else if(Integer.parseInt(listdict.get(2).getDictkey())<sumscores){
+						examinee.setScoreslevel(2);
+					}
+			}
 			examinee.setIsfinishjudge(1);
 			examinee.setUpdateBy(getUser().getId());
 			examinee.setUpdateDate(new Date());

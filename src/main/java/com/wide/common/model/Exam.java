@@ -151,6 +151,11 @@ public class Exam extends BaseExam<Exam> {
 		return orderby;
 		
 	}
+
+	public List<Exam> getList() {
+		// TODO Auto-generated method stub
+		return find("select * from sys_exam where isdel = 0 and isenable =1 ");
+	}
 	
 }
 

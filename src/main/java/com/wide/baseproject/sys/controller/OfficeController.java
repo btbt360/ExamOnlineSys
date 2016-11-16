@@ -141,7 +141,7 @@ public class OfficeController extends Controller {
 		String areaid = area == null ? "" : area.getId() == null ? "" : area
 				.getId();
 		setAttr("office", office);
-		setAttr("type", type);// 新建下级机构、虚拟组、岗位类型
+		setAttr("type", type);// 新建下级机构、部门、岗位类型
 		setAttr("typename", typename);
 		setAttr("lastpname", lastpname);
 		setAttr("areaname", areaname);
