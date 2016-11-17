@@ -22,8 +22,8 @@
 				<div class="block-content collapse in">
 					<ul class="nav nav-tabs">
 						<li ><a href="${basepath}/statistics/examCountDapartment">部门考试统计</a></li>
-						<li ><a href="${basepath}/statistics/examCountPost">岗位考试统计</a></li>
-						<li class="active"><a href="${basepath}/statistics/examCount">人员考试统计</a></li>
+						<li class="active"><a href="${basepath}/statistics/examCountPost">岗位考试统计</a></li>
+						<li ><a href="${basepath}/statistics/examCount">人员考试统计</a></li>
 					</ul>
 					<div class="span12">
 						<div class="span4 text-center">
@@ -56,7 +56,7 @@
 						<table id="userList" class="table table-striped table-bordered">
 							<thead>
 								<tr>
-									<th >考生姓名</th>
+									<th >岗位名称</th>
 									<th >考试次数</th>
 									<th >考试不合格次数</th>
 									<th >考试合格次数</th>
@@ -97,7 +97,7 @@
 		});
 		oTable = $('#userList').initDT({
 			serverSide : true,
-			"sAjaxSource" : "${basepath}/statistics/examCountfind"
+			"sAjaxSource" : "${basepath}/statistics/examCountPostfind"
 		});
 		$("#query").click(function() {
 			reshcg();

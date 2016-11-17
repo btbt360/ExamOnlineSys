@@ -12,6 +12,7 @@ import com.wide.base.BaseController;
 import com.wide.base.RenturnInfo;
 import com.wide.baseproject.exam.service.ExamService;
 import com.wide.baseproject.statistics.service.StatisticsService;
+import com.wide.common.model.Dict;
 import com.wide.common.model.Exam;
 import com.wide.common.model.ExamAnswer;
 import com.wide.common.model.Examinee;
@@ -125,18 +126,85 @@ public class StatisticsController extends BaseController{
 	}
 	
 
+
+	
 	/**
 	 * @author lubin
-	 *  考试统计
+	 *  部门考试统计
+	 * 
+	 * */
+	public void examCountDapartment(){
+		List<Exam> examlist =  Exam.dao.find("select * from sys_exam ");
+		List<Dict> dictlit = Dict.dao.getDictByType("1015");
+		setAttr("examlist", examlist);
+		setAttr("dictlit", dictlit);
+		render("examCountDapartment.jsp");
+	}
+	/**
+	 * @author lubin
+	 *  部门考试统计
+	 * 
+	 * */
+	public void examCountDapartmentfind(){
+		QueryStatistics queryStatistics = new QueryStatistics();
+		queryStatistics.setExamid(getPara("examid"));
+		queryStatistics.setStarttime(getPara("starttime"));
+		queryStatistics.setEndtime(getPara("endtime"));
+		DataTablesModel casepage = statisticsService.getPageExamCountDapartmentfind(getParaToInt("page")
+				.intValue(), getParaToInt("rp").intValue(), queryStatistics);
+		this.renderJson(casepage);
+	}
+	
+	/**
+	 * @author lubin
+	 *  岗位考试统计
+	 * 
+	 * */
+	public void examCountPost(){
+		List<Exam> examlist =  Exam.dao.find("select * from sys_exam ");
+		List<Dict> dictlit = Dict.dao.getDictByType("1015");
+		setAttr("examlist", examlist);
+		setAttr("dictlit", dictlit);
+		render("examCountPost.jsp");
+	}
+	/**
+	 * @author lubin
+	 *  岗位考试统计
+	 * 
+	 * */
+	public void examCountPostfind(){
+		QueryStatistics queryStatistics = new QueryStatistics();
+		queryStatistics.setExamid(getPara("examid"));
+		queryStatistics.setStarttime(getPara("starttime"));
+		queryStatistics.setEndtime(getPara("endtime"));
+		DataTablesModel casepage = statisticsService.getPageExamCountPostfind(getParaToInt("page")
+				.intValue(), getParaToInt("rp").intValue(), queryStatistics);
+		this.renderJson(casepage);
+	}
+	/**
+	 * @author lubin
+	 *  人员考试统计
 	 * 
 	 * */
 	public void examCount(){
-		List<Exampapers> exampaperslist = new ArrayList<Exampapers>();
-		exampaperslist = Exampapers.dao.getExampapersAll();
-		
-		setAttr("exampaperslist", exampaperslist);
+		List<Exam> examlist =  Exam.dao.find("select * from sys_exam ");
+		List<Dict> dictlit = Dict.dao.getDictByType("1015");
+		setAttr("examlist", examlist);
+		setAttr("dictlit", dictlit);
 		render("examCount.jsp");
 	}
-	
-	
+	/**
+	 * @author lubin
+	 *  岗位考试统计
+	 * 
+	 * */
+	public void examCountfind(){
+		QueryStatistics queryStatistics = new QueryStatistics();
+		queryStatistics.setExamid(getPara("examid"));
+		queryStatistics.setStarttime(getPara("starttime"));
+		queryStatistics.setEndtime(getPara("endtime"));
+		DataTablesModel casepage = statisticsService.getPageExamCountfind(getParaToInt("page")
+				.intValue(), getParaToInt("rp").intValue(), queryStatistics);
+		this.renderJson(casepage);
+	}	
 }

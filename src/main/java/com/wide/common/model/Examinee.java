@@ -1,10 +1,13 @@
 package com.wide.common.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.jfinal.kit.StrKit;
 import com.wide.common.model.base.BaseExaminee;
 import com.wide.common.model.query.QueryExam;
 import com.wide.common.model.query.QueryExaminee;
+import com.wide.common.model.query.QueryStatistics;
 import com.wide.util.DateUtil;
 import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
@@ -110,6 +113,29 @@ public class Examinee extends BaseExaminee<Examinee> {
 			List<Examinee> list = find("select DISTINCT t.* from  sys_examinee t ,sys_user t1, sys_office_user t2 , sys_exam t3 where t.user_id = t1.id "
 					+ "and t1.id =t2.user_id and t.exam_id = t3.id and t.scoreslevel=? and t2.office_id = ? "+whereStr,type,officeid);
 			return list;
+		}
+		
+		public DataTablesModel getPageExamCountfind(int pageNum, int pageSize, QueryStatistics queryStatistics) {
+			// TODO Auto-generated method stub
+			final List<Object> parameters = new ArrayList<Object>();
+			String select = "select DISTINCT t.user_id , t.examineename ";
+			StringBuilder sqlExceptSelect = new StringBuilder("from sys_examinee t ,sys_exam t1 ");
+			sqlExceptSelect.append(whereQueryExamCountfind(queryStatistics));
+			return this.paginateDataTables(pageNum, pageSize, select.toString(), sqlExceptSelect.toString());
+		}
+		private String whereQueryExamCountfind(QueryStatistics queryStatistics) {
+			// TODO Auto-generated method stub
+			String whereStr = " where t1.isdel = 0 and t1.isenable = 1 and t.exam_id = t1.id ";
+			if(!StrKit.isBlank(queryStatistics.getStarttime())){
+				whereStr += " and t1.starttime > '"+queryStatistics.getStarttime()+" 00:00:00'";
+			}
+			if(!StrKit.isBlank(queryStatistics.getEndtime())){
+				whereStr += " and t1.endtime < '"+queryStatistics.getEndtime()+" 23:59:59'";
+			}
+			if(!StrKit.isBlank(queryStatistics.getExamid())){
+				whereStr += " and t1.id = '"+queryStatistics.getExamid()+"'";
+			}
+			return whereStr;
 		}
 		
 	}

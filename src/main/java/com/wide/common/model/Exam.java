@@ -1,5 +1,6 @@
 package com.wide.common.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -155,6 +156,13 @@ public class Exam extends BaseExam<Exam> {
 	public List<Exam> getList() {
 		// TODO Auto-generated method stub
 		return find("select * from sys_exam where isdel = 0 and isenable =1 ");
+	}
+
+	public List<Exam> findExamByOfficeId(String id,String whereStr) {
+		// TODO Auto-generated method stub
+		List<Exam> list = new ArrayList<Exam>();
+		list = find("select DISTINCT t3.* from sys_examinee t,sys_office_user t1,sys_exam t3 where t.exam_id = t3.id and t.user_id = t1.user_id and t1.office_id = ? "+whereStr,id);		
+		return list;
 	}
 	
 }
