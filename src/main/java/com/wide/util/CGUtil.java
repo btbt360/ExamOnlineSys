@@ -50,7 +50,7 @@ public class CGUtil {
 			if(Integer.parseInt(maxs[1])>0){
 				Double dwg=Math.pow(10,Double.parseDouble(maxs[1].length()+"")) * maxnum + 1;//现在最大的排序数
 				dwg = dwg/Math.pow(10,Double.parseDouble(maxs[1].length()+""));
-				sst = String.format("%.2f", dwg)+"";
+				sst = dwg+"";
 			}else{
 				sst = (maxnum+1)+"";
 			}

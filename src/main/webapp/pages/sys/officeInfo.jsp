@@ -35,7 +35,7 @@
 					<fieldset>
 						<legend>机构信息维护</legend>
 						<div class="control-group">
-							<label class="control-label">机构类型：${office.id}</label>
+							<label class="control-label">机构类型：</label>
 							<div class="controls">
 								<c:if test="${typename==''}">
 								   机构
@@ -48,7 +48,7 @@
 							<label class="control-label">上级机构：</label>
 							<div class="controls">
 								${lastpname} <input type="hidden" name="office.parentId"
-									value="${office.parentId}" />
+									value="${parentId}" />
 							</div>
 						</div>
 						<div class="control-group">
