@@ -22,10 +22,10 @@ public class CGUtil {
 
 	public static void main(String[] args){
 		//System.out.println(createUUid());
-		
+		Double lastnum = 0.990;
 		try {
-			System.out.println(getLocalMac());
-		} catch (SocketException e) {
+			System.out.println(Double.parseDouble("002101010101"));
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -39,20 +39,37 @@ public class CGUtil {
 	public static Double createSort(Double lastnum ,Double maxnum ){
 		String sst ="";
 		String maxstr = maxnum+"";
+		String[] lastnums = (lastnum+"").split("[.]");
+		String laststr  ="";
+		if(lastnums.length>1){
+			laststr = lastnums[1].replace("0","");
+			if(laststr.equals("")){
+				laststr = "0";
+			}
+		}
 		if(maxnum<1){
 			if(lastnum>0){
-				sst=lastnum+"1";
+				if(lastnums.length>1){
+					Double kint =Double.parseDouble(laststr);
+					if(kint>0){
+						sst=lastnum+"01";
+					}else{
+						sst=lastnum+"1";
+					}
+				}else{
+					sst=lastnum+"1";
+				}
 			}else{				
 				sst="1";
 			}
 		}else{
 			String[] maxs = maxstr.split("[.]");
-			if(Integer.parseInt(maxs[1])>0){
+			if(Double.parseDouble(maxs[1])>0){
 				Double dwg=Math.pow(10,Double.parseDouble(maxs[1].length()+"")) * maxnum + 1;//现在最大的排序数
 				dwg = dwg/Math.pow(10,Double.parseDouble(maxs[1].length()+""));
 				sst = dwg+"";
 			}else{
-				sst = (maxnum+1)+"";
+				sst = maxstr+"1";
 			}
 		}
  		return Double.parseDouble(sst);

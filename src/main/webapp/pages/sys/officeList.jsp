@@ -63,7 +63,7 @@
 											<i class="icon-th-list"></i>
 										</c:if> <c:if test="${office.type==3}">
 											<i class="icon-user"></i>
-										</c:if> <a href="${basepath}/office/addofficeinfo?id=${office.id}">${office.name}</a></td>
+										</c:if> <a href="${basepath}/office/addofficeinfo?id=${office.id}&pid=${office.parentId}&type=${office.type}">${office.name}</a></td>
 									<td title="${office.code}">${office.code}</td>
 									<td style="text-align: center;">${office.fax}</td>
 									<!-- <td>${office.delFlag eq '0'?'否':'是'}</td> -->
