@@ -47,8 +47,27 @@
 						<div class="control-group">
 							<label class="control-label">上级机构：</label>
 							<div class="controls">
-								${lastpname} <input type="hidden" name="office.parentId"
-									value="${parentId}" />
+								<input class="input-xlarge focused" type="text" id="menunames"
+									 value="${lastpname}" readonly="readonly" />
+								<input class="input-xlarge focused" type="hidden" id="menuids"
+									name="office.parentId" value="${parentId}" readonly="readonly" />
+								<!-- 弹出层 start -->
+								<div class="modal hide fade" id="bModal" tabindex="-1"
+									role="dialog">
+									<div class="modal-header">
+										<button class="close" type="button" data-dismiss="modal">×</button>
+										<h3 id="myModalLabel">上级机构</h3>
+									</div>
+									<div class="modal-body">
+										<div id="btree" class="ztree"></div>
+									</div>
+									<div class="modal-footer">
+										<a href="#" class="btn" id="bclosed">关闭</a> <a href="#"
+											class="btn btn-primary" id="savemenu">保存</a>
+									</div>
+								</div>
+								<!-- 弹出层 end -->
+								<button type="button" id="editlast" class="btn btn-primary">修改上级机构</button>
 							</div>
 						</div>
 						<div class="control-group">
@@ -158,25 +177,7 @@
 		</div>
 	</div>
 <script type="text/javascript">
-	$(document).ready(function() {
-		var officetype = '${type}';
-		if (officetype == '2') {
-			$("span[id^='group_']").each(function(i) {
-				$(this).text("部门");
-			});
-		} else if (officetype == '3') {
-			$("span[id^='group_']").each(function(i) {
-				$(this).text("岗位");
-			});
-		} else {
-			$("span[id^='group_']").each(function(i) {
-				$(this).text("机构");
-			});
-		}
-		$("#savebutton").click(function() {
-			$("#officeform").submit();
-		});
-	})
+	
 
 	var areaid = '${areaid}';
 	var officeid = '${parentId}';
@@ -250,6 +251,25 @@
 	}
 	$(document).ready(function() {
 		$.fn.zTree.init($("#otree"), settingarea);
+		$.fn.zTree.init($("#btree"), settinglastparent);
+		var officetype = '${type}';
+		if (officetype == '2') {
+			$("span[id^='group_']").each(function(i) {
+				$(this).text("部门");
+			});
+		} else if (officetype == '3') {
+			$("span[id^='group_']").each(function(i) {
+				$(this).text("岗位");
+			});
+		} else {
+			$("span[id^='group_']").each(function(i) {
+				$(this).text("机构");
+			});
+		}
+		$("#savebutton").click(function() {
+			$("#officeform").submit();
+		});
+		
 		$("#edithigh").click(function() {
 			$('#oModal').modal('show');
 		});
@@ -261,13 +281,19 @@
 			getAllCheckedNodeo();
 			$('#oModal').modal('hide');
 		});
-		$("#savebutton").click(function() {
-			var box = "";
-			$("input[id^='optionsCheckbox_']").each(function(i) {
-				box = box + $(this).val() + "|";
-			});
-			$("#areaids").val(box);
-			$("#areaform").submit();
+		
+		
+		$("#editlast").click(function() {
+			$('#bModal').modal('show');
+		});
+		$("#bclosed").click(function() {
+			$('#bModal').modal('hide');
+		});
+		$("#savemenu").click(function() {
+			$("#menunames").text("");
+			getAllCheckedNodeb();
+			alert($("#menuids").val());
+			$('#bModal').modal('hide');
 		});
 		
 		var jqObj = new JQvalidate();
@@ -281,6 +307,73 @@
   	    jqObj.set("office.name", "required",  "请填写机构名称!");
   	    jqObj.set("office.master", "required",  "请填写负责人姓名!");       
   	    jqObj.Run();
-	})
+	});
+	
+	var idss = '${parentId}';
+	var settinglastparent = {
+		check : {
+			enable : true, //设置 zTree 的节点上是否显示 checkbox / radio
+			chkStyle : "radio", //设置为单选框
+			radioType : "all"
+		},
+		async : {
+			enable : true, //设置 zTree 是否开启异步加载模式
+			url : "${basepath}/office/getOfficeTree", //Ajax 获取数据的 URL 地址。
+			autoParam : [ "id", "name" ], //异步加载时需要自动提交父节点属性的参数。
+			otherParam : { //Ajax 请求提交的静态参数键值对。
+				"otherParam" : "zTreeAsyncTest",
+				"ids" : idss
+			},
+			dataFilter : filterb
+		//用于对 Ajax 返回数据进行预处理的函数。
+		},
+		callback : {
+			onClick : zTreeOnClickb, //用于捕获节点被点击的事件回调函数
+			onAsyncSuccess : onAsyncSuccessob
+		//用于捕获异步加载正常结束的事件回调函数
+		}
+	};
+
+	var treeNodezb;
+
+	function filterb(treeId, parentNode, childNodes) {
+		if (!childNodes)
+			return null;
+		for (var i = 0, l = childNodes.length; i < l; i++) {
+			childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
+		}
+		return childNodes;
+	}
+
+	function onAsyncSuccessob(event, treeId, treeNode, msg) {
+		var treeObj = $.fn.zTree.getZTreeObj("btree");
+		var nodes = treeObj.getNodesByParam("parentId", 0, null);
+		if (nodes.length > 0) {
+			treeObj.expandNode(nodes[0], true, false, false);
+		}
+	}
+
+	//机构树单击事件
+	function zTreeOnClickb(event, treeId, treeNode) {
+		if (treeNode.nodetype == 1) {
+			treeNodezb = treeNode.nodetype;
+
+		} else {
+			treeNodezb = treeNode.nodetype;
+
+		}
+	}
+	function getAllCheckedNodeb() {
+		var treeObj = $.fn.zTree.getZTreeObj("btree");
+		var nodes = treeObj.getCheckedNodes(true);
+		var str = "";
+		var ids = "";
+		for (var i = 0; i < nodes.length; i++) {
+			str = str + nodes[i].name;
+			ids = ids + nodes[i].id;
+		}
+		$("#menuids").val(ids);
+		$("#menunames").val(str);
+	}
 </script>
 <c:import url="/pages/include/pageFoot.jsp" />

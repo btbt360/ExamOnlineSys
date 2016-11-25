@@ -59,7 +59,7 @@
 									</div>
 								</div>
 								<!-- 弹出层 end -->
-								<button type="button" id="edithigh" class="btn btn-primary">修改上级菜单</button>
+								<button type="button" id="edithigh" class="btn btn-primary">修改上级科目</button>
 							</div>
 						</div>
 						<div class="control-group">

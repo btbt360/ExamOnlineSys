@@ -36,7 +36,11 @@ public class Office extends BaseOffice<Office> {
 		List<Office> list = find(" select t1.* from sys_office t1 where 1=1 and t1.del_flag = 0 order by t1.sort asc");
 		return list;
 	}
-	
+	public List<Office> findOfficeById(String id) {
+		// TODO Auto-generated method stub
+		List<Office> list = find(" select t1.* from sys_office t1 where 1=1 and t1.del_flag = 0 and t1.id = ? order by t1.sort asc", id);
+		return list;
+	}
 	
 	public Office getOfficeById(String id) {
 		// TODO Auto-generated method stub

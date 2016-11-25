@@ -91,6 +91,34 @@
 							</div>
 						</div>
 						<div class="control-group">
+							<label class="control-label">性别：</label>
+									<div class="controls">
+										<label for="sex0"> 男&nbsp;&nbsp; <input
+											type="radio" id="sex0" value="0" name="user.sex"
+											checked <c:if test="${user.sex==0}">checked</c:if> />
+										</label> &nbsp;&nbsp;&nbsp;&nbsp; <label for="sex1">
+											女&nbsp;&nbsp; <input type="radio" id="sex1" value="1"
+											name="user.sex"
+											<c:if test="${user.sex==1}">checked</c:if> />
+										</label>
+								</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">出生日期：</label>
+							<div class="controls">
+								<input type="text" class="input-medium datetimepicker" id="birthdate"
+									value="${user.birthdate}" name="user.birthdate">
+							</div>
+						</div>
+						<div class="control-group">
+							<label class="control-label">周岁：</label>
+							<div class="controls">
+							<input class="input-xlarge focused" id="yearling"
+											name="user.yearling" type="number" placeholder="请输入周岁！"
+											value="${user.yearling}"/>
+							</div>
+						</div>
+						<div class="control-group">
 							<label class="control-label">民族：</label>
 							<div class="controls">
 							<select class="span6 m-wrap" id="nation" name="user.nation">
@@ -230,35 +258,7 @@
 			<div class="span12" style="padding-left:3%;">
 			<fieldset>
 			<legend>详细信息</legend>
-				<div class="control-group">
-					<label class="control-label">性别：</label>
-							<div class="controls">
-								<label for="sex0"> 男&nbsp;&nbsp; <input
-									type="radio" id="sex0" value="0" name="user.sex"
-									checked <c:if test="${user.sex==0}">checked</c:if> />
-								</label> &nbsp;&nbsp;&nbsp;&nbsp; <label for="sex1">
-									女&nbsp;&nbsp; <input type="radio" id="sex1" value="1"
-									name="user.sex"
-									<c:if test="${user.sex==1}">checked</c:if> />
-								</label>
-						</div>
-				</div>
 				
-				<div class="control-group">
-					<label class="control-label">出生日期：</label>
-					<div class="controls">
-						<input type="text" class="input-medium datetimepicker" id="birthdate"
-							value="${user.birthdate}" name="user.birthdate">
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label">周岁：</label>
-					<div class="controls">
-					<input class="input-xlarge focused" id="yearling"
-									name="user.yearling" type="number" placeholder="请输入周岁！"
-									value="${user.yearling}"/>
-					</div>
-				</div>
 				<div class="control-group">
 					<label class="control-label">职务：</label>
 					<div class="controls">
@@ -596,6 +596,8 @@ function checkhide(){
  	    }
  	  	jqObj.set("user.nation", "required",  "请输入民族!"); 
  	    jqObj.set("user.politicsstatus", "required",  "请输入政治面貌!");
+ 	    jqObj.set("user.yearling", "required",  "请输入周岁!");
+ 	    jqObj.set("user.birthdate", "required",  "请输入出生日期!");
  	    jqObj.set("user.email", "required",  "请输入用户邮箱!");  
  	    jqObj.set("user.email", "email",  "请输入正确的用户邮箱!");	   
  	    jqObj.set("user.mobile", "required",  "请输入用户手机!");

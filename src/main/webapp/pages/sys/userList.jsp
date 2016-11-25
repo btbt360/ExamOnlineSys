@@ -55,10 +55,9 @@
 									</c:forEach>
 								</select></label> 
 							</div>
-							<div class="span4 text-right" >
-							<input type="text" class="datetimepicker">
+							<div class="span4 text-center" >
 						<button class="btn btn-medium btn-primary" type="button"
-							id="query">查询</button>
+							id="query">查询</button>&nbsp;&nbsp;&nbsp;&nbsp;
 						<button class="btn btn-medium btn-primary" type="button"
 							id="export">导出</button>
 					</div>

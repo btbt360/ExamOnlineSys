@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.jfinal.aop.Enhancer;
 import com.jfinal.core.Controller;
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.wide.base.BaseController;
 import com.wide.base.RenturnInfo;
@@ -76,11 +77,18 @@ public class SubjectController extends BaseController{
 		try{
 			Subject subject = getModel(Subject.class)==null||getModel(Subject.class).equals("")?new Subject():getModel(Subject.class);
 			Subject subjectp = Subject.dao.findById(subject.getParentid());
+			
 			if (subjectp == null || subjectp.getSort().equals(""))
 			{
 				subjectp = new Subject();
 			}
-			if(subject.getId()!=null&&!subject.getId().equals("")){
+			if(StrKit.notBlank(subject.getId())){
+				Subject subjectlast = Subject.dao.findById(subject.getId());
+				if(!subjectlast.getParentid().equals(subject.getParentid())){
+					String maxsort = subjectService.findMaxSort(subject.getParentid());
+					subject.setSort(CGUtil.createSort(subjectp.getSort() == null || subjectp.getSort().equals("") ? 0.0 : subjectp.getSort(),
+							Double.parseDouble(maxsort == null || maxsort.equals("") ? "0" : maxsort)));
+				}
 				subject.setUpdateBy(getUser().getId());
 				subject.setUpdateDate(new Date());
 				subject.update();
@@ -97,10 +105,11 @@ public class SubjectController extends BaseController{
 				subject.setUpdateDate(new Date());
 				subject.setIsdel(0);
 				subject.save();
-				flagcg=1;
+				
 			}
+			flagcg=1;
 			setAttr("subject", subject);
-			setAttr("flagcg", "flagcg");
+			setAttr("flagcg", flagcg);
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}

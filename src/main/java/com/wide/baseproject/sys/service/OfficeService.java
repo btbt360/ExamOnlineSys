@@ -55,10 +55,12 @@ public class OfficeService {
 		List<Office> list = Office.dao.findByPid(id);
 		List<Office> lists = new ArrayList<Office>();
 		switch (i) {
+		case 0:
+			lists = Office.dao.findOfficeById(ids);break;
 		case 1:
-			lists = Office.dao.findByRoleId(ids);
+			lists = Office.dao.findByRoleId(ids);break;
 		case 2:
-			lists = Office.dao.getOfficeByuserID(ids);
+			lists = Office.dao.getOfficeByuserID(ids);break;
 		}
 		String strs = getSelectIds(lists);
 

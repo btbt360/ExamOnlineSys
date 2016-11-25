@@ -39,18 +39,14 @@ public class CGUtil {
 	public static Double createSort(Double lastnum ,Double maxnum ){
 		String sst ="";
 		String maxstr = maxnum+"";
-		String[] lastnums = (lastnum+"").split("[.]");
-		String laststr  ="";
-		if(lastnums.length>1){
-			laststr = lastnums[1].replace("0","");
-			if(laststr.equals("")){
-				laststr = "0";
-			}
+		String[] lastnums = {};
+		if(lastnum!=0.0){
+			lastnums = (lastnum+"").split("[.]");
 		}
 		if(maxnum<1){
 			if(lastnum>0){
 				if(lastnums.length>1){
-					Double kint =Double.parseDouble(laststr);
+					Double kint =Double.parseDouble(lastnums[1].replace("0","").equals("")?"0":lastnums[1].replace("0",""));
 					if(kint>0){
 						sst=lastnum+"01";
 					}else{
@@ -69,7 +65,7 @@ public class CGUtil {
 				dwg = dwg/Math.pow(10,Double.parseDouble(maxs[1].length()+""));
 				sst = dwg+"";
 			}else{
-				sst = maxstr+"1";
+				sst = (maxnum+1)+"";
 			}
 		}
  		return Double.parseDouble(sst);
