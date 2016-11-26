@@ -60,9 +60,13 @@ public class CGUtil {
 			}
 		}else{
 			String[] maxs = maxstr.split("[.]");
-			if(Double.parseDouble(maxs[1])>0){
-				Double dwg=Math.pow(10,Double.parseDouble(maxs[1].length()+"")) * maxnum + 1;//现在最大的排序数
-				dwg = dwg/Math.pow(10,Double.parseDouble(maxs[1].length()+""));
+			String mmsstr= maxs[1];
+			if(maxs[1].length()%2!=0){
+				mmsstr = maxs[1]+"0";
+			}
+			if(Double.parseDouble(mmsstr)>0){
+				Double dwg=DoubleUtil.mul(Math.pow(10,Double.parseDouble(mmsstr.length()+"")),maxnum)+ 1;//现在最大的排序数
+				dwg = DoubleUtil.div(dwg,Math.pow(10,Double.parseDouble(mmsstr.length()+"")),20);
 				sst = dwg+"";
 			}else{
 				sst = (maxnum+1)+"";

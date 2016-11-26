@@ -292,7 +292,6 @@
 		$("#savemenu").click(function() {
 			$("#menunames").text("");
 			getAllCheckedNodeb();
-			alert($("#menuids").val());
 			$('#bModal').modal('hide');
 		});
 		

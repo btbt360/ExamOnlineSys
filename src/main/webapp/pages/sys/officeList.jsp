@@ -23,14 +23,14 @@
 							<div class="alert alert-success"
 								style="text-align: center;">
 								<button class="close" data-dismiss="alert">&times;</button>
-								<strong>删除成功！</strong>
+								<strong>操作成功！</strong>
 							</div>
 						</c:if>
 						<c:if test="${message=='error'}">
 							<div class="alert alert-error"
 								style="text-align: center;">
 								<button class="close" data-dismiss="alert">&times;</button>
-								<strong>当前机构下存在下级机构，无法删除！</strong>
+								<strong>当前机构下存在下级机构，操作失败！</strong>
 							</div>
 						</c:if>
 					</c:if>

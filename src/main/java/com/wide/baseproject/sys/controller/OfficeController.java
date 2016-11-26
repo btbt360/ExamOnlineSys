@@ -201,7 +201,9 @@ public class OfficeController extends Controller {
 					EnumFuncType.office.getEnumKey(), getCurrentUser()); // 机构添加日志保存
 		}
 		Db.query("set foreign_key_checks=1;");
-		redirect("/office/addofficeinfo?message=success", true);
+		//redirect("/office/addofficeinfo?message=success", true);
+		redirect("/office/add?message=success", true);
+		
 	}
 
 	/**
