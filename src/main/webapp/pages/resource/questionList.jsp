@@ -104,8 +104,8 @@
 		</div>
 	</div>
 	<div id="menuContent" class="menuContent" style="display:none; position: absolute;background-color: #f5f5f5;border: 1px solid #ccc;">
-	<ul id="otree" class="ztree" style="margin-top:0; width:160px;"></ul>
-</div>
+		<ul id="otree" class="ztree"></ul>
+	</div>
 </body>
 <script type="text/javascript">
 function edit(ids) {

@@ -190,15 +190,15 @@
                     var g = $(this).data(dGrid.constants.dataTableObjName);
                     var setting = g.fnSettings();
                     if(setting && setting.queryParams){
-                    	//p = $.extend({}, dGrid.defaults, p);
-                    	//dGrid._setQueryParams(p,setting,otherParam);
+                    	p = $.extend({}, dGrid.defaults, p);
+                    	dGrid._setQueryParams(p,setting,otherParam);
                     	var paramstart =setting.queryParams;
                     	var paramend =setting.queryParams;
                     	if (otherParam) {
                     		paramend=ccat(paramend,otherParam);
                     		setting.queryParams=paramend;
                     	}
-                     //   copyProperties(setting.queryParams, otherParam);
+                        copyProperties(setting.queryParams, otherParam);
                         g.fnDraw(setting);
                         setting.queryParams=paramstart;
                     }
@@ -211,7 +211,7 @@
                     var g = $(this).data(dGrid.constants.dataTableObjName);
                     var setting = g.fnSettings();
                     if(setting && setting.queryParams){
-                        //copyProperties(setting.queryParams, p);
+                        copyProperties(setting.queryParams, p);
                         g.fnDraw();
                     }
                 }
@@ -300,8 +300,8 @@
             		paramend=ccat(paramend,otherParam);
             		setting.queryParams=paramend;
             	}
-             //   copyProperties(setting.queryParams, otherParam);
-                setting.queryParams=paramstart;
+              copyProperties(setting.queryParams, otherParam);
+              //    setting.queryParams=paramstart;
             }
             g.fnPageChange('next');
         },
@@ -318,8 +318,8 @@
             		paramend=ccat(paramend,otherParam);
             		setting.queryParams=paramend;
             	}
-             //   copyProperties(setting.queryParams, otherParam);
-                setting.queryParams=paramstart;
+               copyProperties(setting.queryParams, otherParam);
+            //   setting.queryParams=paramstart;
             }
             g.fnPageChange('previous');
         },

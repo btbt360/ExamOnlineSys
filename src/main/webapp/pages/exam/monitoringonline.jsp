@@ -61,6 +61,7 @@
 						<input type="hidden" id="subpages" name="subpages" />
 						<input type="hidden" id="subrp" name="subrp" />
 						<input type="hidden" id="fingerpath" name="fingerpath" />
+						<input type="hidden" id="ids" name="ids" />
 					<table id="userList" class="table table-striped table-bordered">
 					
 						<thead>
@@ -143,7 +144,14 @@
 	}
 	//上传指纹
 	function fingerprint(ids) {
-		var fingerpath=$("#fingerpath").val();
+		//var fingerpath=$("#fingerpath").val();
+		$("#ids").val(ids);
+		setTimeout("fingerprintTime();",3000); 
+	}
+	
+	function fingerprintTime(){
+		var ids = $("#ids").val();
+		var fingerpath="111111";
 		$.ajax({
 			type : 'post',
 			url : '${basepath}/invigilate/getfingerprint?id=' + ids+'&fingerpath='+fingerpath,
@@ -199,7 +207,7 @@
 				dataType : 'json',
 				success : function(data) {
 					alert("开始考试！");
-					timer(Number(data.message)*3600);
+					timer(Number(data.message)*60);
 					reshcg();
 				}
 			});

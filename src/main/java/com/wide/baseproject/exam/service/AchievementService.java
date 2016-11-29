@@ -33,7 +33,7 @@ public class AchievementService {
 					if (exam.getStatus() == 2) {
 						if (Integer.parseInt(row.get(7)) == 0) {
 							row.set(7, "<button type='button' class='btn btn-primary' onclick=addJudgeList('" + id
-									+ "')>人工复评</button>");
+									+ "','"+exam.getId()+"')>人工复评</button>");
 						} else {
 							row.set(7, "人工复评完成");
 						}

@@ -21,7 +21,7 @@ public class SystemUtil {
         Process p = null; 
         List<String> address  = new ArrayList<String>(); 
         try{ 
-            p = new ProcessBuilder("ipconfig","/all").start(); 
+            p = new ProcessBuilder("ifconfig","/all").start(); 
         }catch(Exception e){ 
             return address; 
         } 

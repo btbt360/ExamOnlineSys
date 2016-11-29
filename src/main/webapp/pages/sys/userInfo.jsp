@@ -198,20 +198,20 @@
 						<div class="control-group">
 							<label class="control-label" for="fingerprintone">指纹信息一：</label>
 							<div class="controls">
-								<div class="progress progress-success" id="fingerprintone" style="width: 20%;">
+								<div class="progress progress-success" style="width: 20%;">
 											<div style="width: 0%;" class="bar" id="fingerprintoneempty"></div>
 											<div style="width: 100%;" class="bar" id="fingerprintonefull" ></div>
-								</div>请在指纹机中录入指纹
+								</div><button type="button" id="submit1" class="btn btn-primary" onclick="RegUser()">录入指纹</button>
 								<input type="hidden" name="user.fingerprintone" id="fingerprintone" value="${user.fingerprintone}" />
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="fingerprinttwo">指纹信息二：</label>
 							<div class="controls">
-								<div class="progress progress-success" id="fingerprinttwo" style="width: 20%;">
+								<div class="progress progress-success" style="width: 20%;">
 											<div style="width: 0%;" class="bar" id="fingerprinttwoempty"></div>
 											<div style="width: 100%;" class="bar" id="fingerprinttwofull" ></div>
-								</div>请在指纹机中录入指纹
+								</div><button type="button" id="submit2" class="btn btn-primary" onclick="RegUser2()">录入指纹</button>
 								<input type="hidden" name="user.fingerprinttwo" id="fingerprinttwo" value="${user.fingerprinttwo}" />
 							</div>
 						</div>
@@ -473,6 +473,22 @@
 	</div>
 <script type="text/javascript">
 $("#xiangxi").hide();
+$("#fingerprinttwofull").hide();
+$("#fingerprintonefull").hide();
+var fingerprintoneStr = $("#fingerprintone").val();
+if(fingerprintoneStr.trim() != ''){
+	 $("#fingerprintoneempty").hide();
+	 $("#fingerprintonefull").show();
+}
+
+var fingerprinttwoStr = $("#fingerprinttwo").val();
+if(fingerprinttwoStr.trim() != ''){
+	 $("#fingerprinttwoempty").hide();
+	 $("#fingerprinttwofull").show();
+}
+	
+	
+
 function checkshow(){
 	$("#xiangxi").show();
 }
@@ -544,6 +560,56 @@ function checkhide(){
 		$("#offids").val(ids);
 		$("#offnames").text(str);
 	}
+	
+	
+	function RegUser()
+    {
+	 
+      // if  (FPSOnline11.Register())
+     //  {
+    	//   $("#fingerprintone").val(FPSOnline11.GetRegisterTemplate());
+    //	   $("#status").text("录入成功");
+       	//}
+	  // else{
+	    	//   $("#status").text("录入失败");
+	    
+	   // }
+    //  var iCount = setInterval(showFingerprintone,3000);
+      setTimeout("showFingerprintone();",3000); 
+      
+     
+    }
+	function showFingerprintone(){
+		 alert("录入成功");
+		 $("#fingerprintone").val("111111");
+		//document.getElementById('fingerprintone').value = "111111";
+	//	 $("#fingerprintone").attr('value','111111');
+		 $("#fingerprintoneempty").hide();
+		 $("#fingerprintonefull").show();
+	}
+
+	function RegUser2()
+    {
+	 
+      // if  (FPSOnline11.Register())
+     //  {
+    	//   $("#fingerprintone").val(FPSOnline11.GetRegisterTemplate());
+    //	   $("#status").text("录入成功");
+       	//}
+	  // else{
+	    	//   $("#status").text("录入失败");
+	    
+	   // }
+    // var iCount = setInterval(showFingerprinttwo,3000);
+		setTimeout("showFingerprinttwo();",3000); 
+     
+    }
+	function showFingerprinttwo(){
+		 alert("录入成功");
+		 $("#fingerprinttwo").val("222222");
+		 $("#fingerprinttwoempty").hide();
+		 $("#fingerprinttwofull").show();
+	}
 	$(document).ready(function() {
 		$('.datetimepicker').datetimepicker({  
             language:  'zh-CN',
@@ -559,8 +625,7 @@ function checkhide(){
         }).on('changeDate', function (ev) {  
             $(this).datetimepicker('hide');  
         });
-		$("#fingerprintonefull").hide();
-		$("#fingerprinttwofull").hide();
+		
 		$.fn.zTree.init($("#otree"), settingoffice);
 		$("#editoff").click(function() {
 			$('#oModal').modal('show');

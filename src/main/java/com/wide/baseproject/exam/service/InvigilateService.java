@@ -100,13 +100,16 @@ public class InvigilateService{
 		}
 	}
 
-	public void getfingerprint(String id, String fingerpath) {
-		// TODO Auto-generated method stub
+	public int getfingerprint(String id, String fingerpath) {
+		// TODO Auto-generated method stu
+		int p = 0;
 		Examinee ee = Examinee.dao.findById(id);
 		User user =User.dao.findById(ee!=null&&!ee.equals("")?ee.getUserId():"");
 		if(fingerpath.equals(user.getFingerprintone())||fingerpath.equals(user.getFingerprinttwo())){
 			Db.update("update sys_examinee set fingerprint ='"+fingerpath+"' where id = '"+id+"'");
+			p=1;
 		}
+		return p;
 	}
 	
 

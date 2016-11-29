@@ -3,6 +3,7 @@ package com.wide.baseproject.exam.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.wide.common.model.Dict;
 import com.wide.common.model.ExamAnswer;
@@ -78,7 +79,8 @@ public class ExamineeService {
 			String str = "";
 			if(listqp.size()>0){
 				for(int i = 0;i<listqp.size();i++){
-					if(ea.getAnswerinfo().indexOf(listqp.get(i).getCode())!=-1){
+					String answerinfo = StrKit.notNull(ea.getAnswerinfo())?ea.getAnswerinfo():"";
+					if(answerinfo.indexOf(listqp.get(i).getCode())!=-1){
 						str = str+"&nbsp;&nbsp;<input type='checkbox' id='answeroption_"+i+"' value='"+listqp.get(i).getCode()+"' name='answeroption_"+i+"' checked  />&nbsp;&nbsp;"+
 								  listqp.get(i).getCode()+"、"+listqp.get(i).getContant()+"<br/>";
 					}else{

@@ -131,10 +131,16 @@ public class InvigilateController  extends BaseController {
 	public void getfingerprint(){
 		String id = getPara("id");
 		String fingerpath =getPara("fingerpath");
+		int p = 0;
 		if(id!=null&&!id.equals("")){
-			invigilateService.getfingerprint(id,fingerpath);
+			p=invigilateService.getfingerprint(id,fingerpath);
 		}
-		setAttr("message", "该考生指纹录入");
+		if(p==0){
+			setAttr("message", "该考生指纹未在系统内录入或录入错误");
+		}else{
+			setAttr("message", "该考生指纹录入正确");
+		}
+		
 		renderJson();
 	}
 	
@@ -200,12 +206,15 @@ public class InvigilateController  extends BaseController {
 		User user =getUser();
 		List<Examinee> elist = new ArrayList<Examinee>();
 		String macstr ="";
-		try {
+		/**
+		 try {
 			 macstr = CGUtil.getLocalMac();
 		} catch (SocketException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
+		 * */
+		
 		//判断mac地址
 		Examinee ee = new Examinee();
 		Exam em = new Exam();
@@ -216,9 +225,9 @@ public class InvigilateController  extends BaseController {
 			ee = elist.get(0);
 			flag = ee.getStatus();
 		}
-		if(!ee.getMacaddress().equals(macstr)){
-			flag = 6;
-		}
+		//if(ee.getMacaddress().equals(macstr)){
+		//	flag = 6;
+		//}
 		if(em.getStatus()<1){
 			flag = 5;
 		}

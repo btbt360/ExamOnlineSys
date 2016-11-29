@@ -151,15 +151,15 @@
 		} ];
 		oTable.gridSearch(this, oSettings);
 	}
-	function addJudgeList(id){
-		var examid = $("#examid").val();
-		if(examid!=null&&examid!=''){
-			location.href = '${basepath}/achievement/addJudge?examineeid='+id+'&examid='+examid;
-		}else{
-			alert("请选择考试！");
-			$("#examid").force();
-		}
-		
+	function addJudgeList(id,examidss){
+// 		var examid = $("#examid").val();
+// 		if(examid!=null&&examid!=''){
+// 			location.href = '${basepath}/achievement/addJudge?examineeid='+id+'&examid='+examidss;
+// 		}else{
+// 			alert("请选择考试！");
+// 			$("#examid").force();
+// 		}
+		location.href = '${basepath}/achievement/addJudge?examineeid='+id+'&examid='+examidss;
 		
 	}
 </script>

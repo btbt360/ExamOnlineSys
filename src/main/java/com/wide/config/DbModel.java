@@ -103,7 +103,8 @@ public abstract class DbModel<T extends DbModel> extends Model<T> {
     	}
     	if(list.size()>0){
     		for(String s:list){
-    			map.put(s, getObjToString(maps.get(s.trim()),attrs.get(s.trim())));
+    			map.put(s, getObjToString(maps.get(s.trim()),attrs.get(s.trim()))==null
+    					||getObjToString(maps.get(s.trim()),attrs.get(s.trim())).equals("null")?"":getObjToString(maps.get(s.trim()),attrs.get(s.trim())));
     		}
     	}
     	return map;

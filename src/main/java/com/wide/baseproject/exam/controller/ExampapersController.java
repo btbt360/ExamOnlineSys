@@ -194,7 +194,7 @@ public class ExampapersController extends BaseController {
 	}
 	/**
 	 * @author cg
-	 * 试卷中添加考试题
+	 * 试卷中删除考试题
 	 * 
 	 * **/
 	public void getRemoveQuestions(){
