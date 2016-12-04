@@ -82,6 +82,23 @@
 	<input type="hidden" id="resultids" />
 
 <script type="text/javascript">
+
+function reshcg() {
+	var logname = $('#logname').val();
+	var starttimes = $('#starttimes').val();
+	var endtimes = $('#endtimes').val();
+	var otherParams = [ {
+		"name" : "logname",
+		"value" : logname
+	}, {
+		"name" : "starttimes",
+		"value" : starttimes
+	}, {
+		"name" : "endtimes",
+		"value" : endtimes
+	} ];
+	oTable.gridSearch(this, otherParams);
+}
 	$(document).ready(function() {
 		$("#successmessage").hide();
 		$("#errormessage").hide();
@@ -99,10 +116,11 @@
         }).on('changeDate', function (ev) {  
             $(this).datetimepicker('hide');  
         });
-
+		
 		oTable = $('#listlog').initDT({
-			serverSide : true,
+			"serverSide" : true,
 			"sAjaxSource" : "${basepath}/log/loglist"
+			
 		});
 
 		$("#query").click(function() {
@@ -122,22 +140,7 @@
 		});
 
 	});
-	function reshcg() {
-		var logname = $('#logname').val();
-		var starttimes = $('#starttimes').val();
-		var endtimes = $('#endtimes').val();
-		var oSettings = [ {
-			"name" : "logname",
-			"value" : logname
-		}, {
-			"name" : "starttimes",
-			"value" : starttimes
-		}, {
-			"name" : "endtimes",
-			"value" : endtimes
-		} ];
-		oTable.gridSearch(this, oSettings);
-	}
+	
 
 	function del(ids) {
 		if (confirm("确定要删除？")) {

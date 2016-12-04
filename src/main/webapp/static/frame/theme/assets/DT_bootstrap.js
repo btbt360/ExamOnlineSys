@@ -1,6 +1,6 @@
+var queryParamscg;
 //单独封装的代码
 (function($) {
- 
     var dGrid = {
         // 默认参数集
         defaults : {
@@ -44,9 +44,9 @@
             selectedTrClass : 'tr.row_selected'
         },
         // 设置后台查询参数
-        _setQueryParams : function(p, oSettings,otherParams) {
+        _setQueryParams : function(p, oSettings) {
             var prefix = '';
- 
+           
             var cPage = Math.ceil(oSettings._iDisplayStart
                     / oSettings._iDisplayLength);
             // Grid查询参数
@@ -63,8 +63,10 @@
                 name : prefix + 'sortorder',
                 value : p.sortOrder
             }];
-            if (otherParams) params=ccat(params,otherParams);
-           
+            
+            if (p.params&&params.indexOf(p.params)==-1) {
+            	params=ccat(params, p.params);
+            }
             return params;
         },
         //更新分页信息
@@ -185,22 +187,34 @@
         },
         //根据表单内容查询表格数据(后台)
         gridSearch : function(p,otherParam){
-            return this.each(function() {
+        	return this.each(function() {
                 if($.fn.DataTable.fnIsDataTable(this)){
                     var g = $(this).data(dGrid.constants.dataTableObjName);
                     var setting = g.fnSettings();
                     if(setting && setting.queryParams){
-                    	p = $.extend({}, dGrid.defaults, p);
-                    	dGrid._setQueryParams(p,setting,otherParam);
-                    	var paramstart =setting.queryParams;
                     	var paramend =setting.queryParams;
+                    	var str ='';
+                    	$.each(paramend, function(idx, obj) {
+                    		 if(idx>3){
+                     	    	return false;
+                     	    }
+                    		var name = obj.name;
+                    		var values = obj.value=='undefined'?'':obj.value;
+                    		if(name=='page'){
+                    			values = '1';
+                    		}
+                    		str = str+',{"name":"'+name+'","value":"'+values+'"}';
+                    	});
+                    	str ="["+str.substring(1,str.length)+"]";
+                    	str=JSON.parse(str);
                     	if (otherParam) {
-                    		paramend=ccat(paramend,otherParam);
+                    		paramend=ccat(str,otherParam);
                     		setting.queryParams=paramend;
                     	}
-                        copyProperties(setting.queryParams, otherParam);
+                    	queryParamscg = setting.queryParams;
+                    	setting._iDisplayStart =0;
+                     //   copyProperties(setting.queryParams, otherParam);
                         g.fnDraw(setting);
-                        setting.queryParams=paramstart;
                     }
                 }
             });
@@ -211,7 +225,7 @@
                     var g = $(this).data(dGrid.constants.dataTableObjName);
                     var setting = g.fnSettings();
                     if(setting && setting.queryParams){
-                        copyProperties(setting.queryParams, p);
+                        //copyProperties(setting.queryParams, p);
                         g.fnDraw();
                     }
                 }
@@ -300,8 +314,8 @@
             		paramend=ccat(paramend,otherParam);
             		setting.queryParams=paramend;
             	}
-              copyProperties(setting.queryParams, otherParam);
-              //    setting.queryParams=paramstart;
+             //   copyProperties(setting.queryParams, otherParam);
+                setting.queryParams=paramstart;
             }
             g.fnPageChange('next');
         },
@@ -318,8 +332,8 @@
             		paramend=ccat(paramend,otherParam);
             		setting.queryParams=paramend;
             	}
-               copyProperties(setting.queryParams, otherParam);
-            //   setting.queryParams=paramstart;
+             //   copyProperties(setting.queryParams, otherParam);
+                setting.queryParams=paramstart;
             }
             g.fnPageChange('previous');
         },
@@ -336,11 +350,6 @@
     });
 })(jQuery);
 
-function copyProperties(myNewObj,myObj){  
-	  var myNewObj = jQuery.extend(true,{}, myObj); 
-	 
-	  return myNewObj;  
-}  
 function ccat(aaary,baary) {
     for (var i = 0; i < baary.length; i++) {
     	aaary = aaary.concat(baary[i])
@@ -365,7 +374,7 @@ $.fn.dataTableExt.oApi.fnPagingInfo = function ( oSettings )
  
 /* Bootstrap style pagination control */
 $.extend( $.fn.dataTableExt.oPagination, {
-    "bootstrap": {
+	"bootstrap": {
         "fnInit": function( oSettings, nPaging, fnDraw ) {
             var oLang = oSettings.oLanguage.oPaginate;
             var fnClickHandler = function ( e ) {
@@ -419,6 +428,7 @@ $.extend( $.fn.dataTableExt.oPagination, {
                         .bind('click', function (e) {
                             e.preventDefault();
                             oSettings._iDisplayStart = (parseInt($('a', this).text(),10)-1) * oPaging.iLength;
+                            oSettings.queryParams =queryParamscg
                             fnDraw( oSettings );
                         } );
                 }

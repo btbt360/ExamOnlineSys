@@ -34,17 +34,22 @@ public class InvigilateService{
 					row.set(6, row.get(7)+(row.get(8)!=null&&!row.get(8).equals("")?"、"+row.get(8):""));
 					row.set(7, "");
 					row.set(8, "");
-					if((DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(3)))>0){
+					if((DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(3)))>0&&row.get(9).equals("2")){
 						row.set(7, "<span class='label'>考试结束</span>");
 						row.set(8, "");
 					}else if((DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(3)))<0 && (DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(2)))>=0){
-						row.set(7, "<span class='label label-success'>正在考试</span>");
-						if(flag==0){
-							row.set(8, "<a href ='#' onclick=startExam('"+id+"') >开始考试</a>");
-						}else{
-							row.set(8, "<a href ='#' onclick=startInvigilate('"+id+"') >开始监考</a>");
+						if(row.get(9).equals("1")){
+							row.set(7, "<span class='label label-success'>正在考试</span>");
+							if(flag==0){
+								row.set(8, "<a href ='#' onclick=startExam('"+id+"') >开始考试</a>");
+							}else{
+								row.set(8, "<a href ='#' onclick=startInvigilate('"+id+"') >开始监考</a>");
+							}
+						}else if(row.get(9).equals("2")){
+							row.set(7, "<span class='label'>考试结束</span>");
+							row.set(8, "");
 						}
-					}else if((DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(2)))<0){
+					}else if((DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(2)))<0&&row.get(9).equals("0")){
 						row.set(7, "<span class='label label-info'>未开始考试</span>");
 						row.set(8, "");
 					}

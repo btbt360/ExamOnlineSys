@@ -3,10 +3,12 @@ package com.wide.baseproject.exam.service;
 import java.util.Date;
 import java.util.List;
 
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.wide.common.model.Dict;
 import com.wide.common.model.Exam;
 import com.wide.common.model.Examinee;
+import com.wide.common.model.Exampapers;
 import com.wide.common.model.Subject;
 import com.wide.common.model.User;
 import com.wide.common.model.query.QueryExam;
@@ -49,9 +51,14 @@ public class ExamService {
 				}else if((DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(2)))<0){
 					row.set(7, "<span class='label label-info'>未开始考试</span>");
 				}
-				row.set(8, "<a href ='#' onclick=edit('" + id
-						+ "') >修改</a> | <a href='#' onclick=del('" + id + "') >删除</a>"  );
-			    row.remove(9);
+				row.set(8, "");
+				if(Integer.parseInt(row.get(9))==0){
+					row.set(8, "<a href ='#' onclick=edit('" + id
+							+ "') >修改</a> | <a href='#' onclick=del('" + id + "') >删除</a>"  );
+				    
+				}
+				
+				row.remove(9);
 			   }
 			}
 		}
@@ -65,6 +72,7 @@ public class ExamService {
 		// TODO Auto-generated method stub
 		if(!TypeChecker.isEmpty(exam.getId())){
 			delExamineeByExamId(exam.getId());
+			Exam oldexam = Exam.dao.findById(exam.getId());
 			Date starttime = DateUtil.toDateTimeNot(starttimestr);
 			Date endtime = DateUtil.toDateTimeNot(endtimestr);
 			exam.setStarttime(starttime);
@@ -73,6 +81,9 @@ public class ExamService {
 			exam.setUpdateBy(user.getId());
 			exam.setUpdateDate(new Date());
 			exam.update();
+			if(!oldexam.getExampapersId().equals(exam.getExampapersId())){
+				savePapers(exam.getExampapersId());
+			}
 		}else{
 			String id = CGUtil.createUUid();
 			Date starttime = DateUtil.toDateTimeNot(starttimestr);
@@ -87,11 +98,24 @@ public class ExamService {
 			exam.setUpdateDate(new Date());
 			exam.setIsdel(0);
 			exam.save();
+			savePapers(exam.getExampapersId());
 			
 		}
 		saveExaminee(str,strName,exam.getId(),exam.getExampapersId(),user.getId());
+		
 	}
-	
+	/**
+	 * 更新试卷使用次数
+	 * 
+	 * */
+	private void savePapers(String exampapersId) {
+		// TODO Auto-generated method stub
+		if(StrKit.notBlank(exampapersId)){
+			Exampapers ex = Exampapers.dao.findById(exampapersId);
+			ex.setUsecount(ex.getUsecount()+1);
+			ex.update();
+		}
+	}
 	/**
 	 * 清除考生
 	 * 

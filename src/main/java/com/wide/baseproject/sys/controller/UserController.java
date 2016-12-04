@@ -309,7 +309,9 @@ public class UserController extends BaseController {
 		 String id = getPara("id");
 		 id = id==null?"":id;
 		 try {
-			 String sql = "update sys_user set password='111111' where id='"+id+"'" ;
+			 User user =User.dao.findById(id);
+			 String password = new Sha256Hash("111111", user.getLoginName(), 1024).toBase64(); 
+			 String sql = "update sys_user set password='"+password+"' where id='"+id+"'" ;
 			 Db.update(sql);
 			 String mark = getPara("message");
 			 setAttr("message", mark);		

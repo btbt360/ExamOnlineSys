@@ -58,8 +58,7 @@ public class ExamController extends BaseController{
 	public void addExamInfo(){
 		String id = getPara("id");
 		List<Exampapers> exampaperslist = new ArrayList<Exampapers>();
-		exampaperslist = Exampapers.dao.getExampapersAll();
-		
+		exampaperslist = Exampapers.dao.getExampapersFinish();
 		List<Examinee> examineeList = Examinee.dao.getExamineeByExamId(id);
 		String usernames = "";
 		String userids = "";

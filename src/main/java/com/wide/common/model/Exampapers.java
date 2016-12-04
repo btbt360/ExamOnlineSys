@@ -63,10 +63,15 @@ public class Exampapers extends BaseExampapers<Exampapers> {
 		}
 		
 		public List<Exampapers> getExampapersAll(){
-			String sql = "select * from sys_exampapers where isdel = 0 and isenable = 1";
+			String sql = "select * from sys_exampapers where isdel = 0 and isenable = 1 ";
 			List<Exampapers> list = find(sql);
 			return list;
 		}
 		
+		public List<Exampapers> getExampapersFinish(){
+			String sql = "select * from sys_exampapers where isdel = 0 and isenable = 1 and endfinish = 1 ";
+			List<Exampapers> list = find(sql);
+			return list;
+		}
 		
 	}

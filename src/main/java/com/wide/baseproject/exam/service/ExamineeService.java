@@ -101,15 +101,15 @@ public class ExamineeService {
 			String str = "";
 			if(!TypeChecker.isEmpty(ea.getId())){
 				if(ea.getAnswerinfo().equals("0")){
-					str = str+"&nbsp;&nbsp;<input type='radio' id='answeroption_0' value='0' name='answeroption' checked /> 是"+
-				          "&nbsp;&nbsp;<input type='radio' id='answeroption_1' value='1' name='answeroption'  /> 否";
+					str = str+"&nbsp;&nbsp;<input type='radio' id='answeroption_0' value='0' name='answeroption' checked /> 否"+
+				          "&nbsp;&nbsp;<input type='radio' id='answeroption_1' value='1' name='answeroption'  /> 是";
 				}else{
-					str = str+"&nbsp;&nbsp;<input type='radio' id='answeroption_0' value='0' name='answeroption'  /> 是"+
-					          "&nbsp;&nbsp;<input type='radio' id='answeroption_1' value='1' name='answeroption' checked /> 否";
+					str = str+"&nbsp;&nbsp;<input type='radio' id='answeroption_0' value='0' name='answeroption'  否/> "+
+					          "&nbsp;&nbsp;<input type='radio' id='answeroption_1' value='1' name='answeroption' checked /> 是";
 				}
 			}else{
-				str = str+"&nbsp;&nbsp;<input type='radio' id='answeroption_0' value='0' name='answeroption' /> 是"+
-				          "&nbsp;&nbsp;<input type='radio' id='answeroption_1' value='1' name='answeroption' /> 否";
+				str = str+"&nbsp;&nbsp;<input type='radio' id='answeroption_0' value='0' name='answeroption' /> 否"+
+				          "&nbsp;&nbsp;<input type='radio' id='answeroption_1' value='1' name='answeroption' /> 是";
 			}
 			String hqid="answeroption_";
 			restrbody = "<div class='control-group'>"

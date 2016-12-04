@@ -43,20 +43,30 @@ public class ExampapersService {
 					if(!TypeChecker.isEmpty(row.get(7))){
 						endfinish =Integer.parseInt(row.get(7));
 					}
-					if(eqlist.size()>0&&endfinish==0){
-						int iio=0;//分数
-						for(ExampapersQuestion e:eqlist){
-							iio =iio+e.getScores();
-						}
-						if(Integer.parseInt(sumscore)==iio&&Integer.parseInt(sumtotal)==eqlist.size()){
-							ischouqu ="<a href ='#' onclick=queren('"+id+"') > 完成抽取</a> | ";
-						}else{
+					List<Exam> examlist = new ArrayList<Exam>();
+					examlist= Exam.dao.find("select * from sys_exam where exampapers_id = ? ",id);
+					if(examlist.size()>0){
+						row.set(6,"<a href='#' onclick=del('"+id+"') >删除</a>");
+						
+					}else{
+						if(eqlist.size()>0&&endfinish==0){
+							int iio=0;//分数
+							for(ExampapersQuestion e:eqlist){
+								iio =iio+e.getScores();
+							}
+							if(Integer.parseInt(sumscore)==iio&&Integer.parseInt(sumtotal)==eqlist.size()){
+								ischouqu ="<a href ='#' onclick=queren('"+id+"') > 完成抽取</a> | ";
+							}else{
+								ischouqu ="<a href ='#' onclick=chouqu('"+id+"') > 继续抽取</a> | ";
+							}
+						}else if(eqlist.size()>0&&endfinish==1){
+							ischouqu ="<a href ='#' onclick=chouqu('"+id+"') > 重新抽取</a> | ";
+						}else if(eqlist.size()<0){
 							ischouqu ="<a href ='#' onclick=chouqu('"+id+"') > 开始抽取</a> | ";
 						}
-					}else{
-						ischouqu ="<a href ='#' onclick=chouqu('"+id+"') > 开始抽取</a> | ";
+						row.set(6, ischouqu+"<a href ='#' onclick=edit('"+id+"') >修改</a> | <a href='#' onclick=del('"+id+"') >删除</a>");
 					}
-					row.set(6, ischouqu+"<a href ='#' onclick=edit('"+id+"') >修改</a> | <a href='#' onclick=del('"+id+"') >删除</a>");
+					
 					row.remove(7);
 				}
 			}
@@ -117,10 +127,14 @@ public class ExampapersService {
 		return 0;
 	}
 
-	public void goAutochoose(String exampapersid, String subjectid, String questiontypeid) {
+	public int goAutochoose(String exampapersid, String subjectid, String questiontypeid) {
 		List<Questions> listquestion = new ArrayList<Questions>();
+		int shnum = 0;
 		//1.根据科目查询题库，根据题库查询所有试题
 		listquestion = Questions.dao.find("select * from sys_questions where subject_id = ? and questiontype = ? and isdel = 0 and isenable = 1 ",subjectid,questiontypeid);
+		List<ExampapersQuestion> listeq = new ArrayList<ExampapersQuestion>();
+		listeq  = ExampapersQuestion.dao.find(" select t.* from sys_exampapers_question t,sys_questions t1 where t.exampapers_id = ? and t.question_id = t1.id and t1.questiontype = ? ",exampapersid,questiontypeid);
+		
 		//2.根据试卷id和试题类型id到试卷试题类型对照表中查询总题数和总分数
 		List<ExampapersQtypes> listeqt = ExampapersQtypes.dao.find("select * from sys_exampapers_qtypes where exampapers_id = ? and type_id =? ",exampapersid,questiontypeid);
 		ExampapersQtypes eqt = new ExampapersQtypes();
@@ -129,25 +143,30 @@ public class ExampapersService {
 		}
 		int score = 0;
 		//3.对比题目个数，如果题目数小于总题数，择全部抽取，否则择随机抽取
-		if(eqt.getSumtotal()>listquestion.size()){
-			//4.设置分数：如果总分数整除抽取的总题数。
-			score = eqt.getSumscores()/listquestion.size();
-			//5.保存每道题和试卷的对应关系和分数存储到试题试卷对照表中。
-			saveExampapersQuestions(listquestion,exampapersid,score);
+		if(listeq.size()==eqt.getSumtotal()){
+			shnum = 1;
 		}else{
-			//4.设置分数：如果总分数整除抽取的总题数。
-			List<Questions> listccc= new ArrayList<Questions>();
-			for(int i = 0;i<eqt.getSumtotal();i++){
-				Random rand = new Random();
-				int icc = rand.nextInt(listquestion.size()); //生成0-100以内的随机数
-				listccc.add(listquestion.get(icc));
-				listquestion.remove(icc);
+			if(eqt.getSumtotal()-listeq.size()>listquestion.size()){
+				//4.设置分数：如果总分数整除抽取的总题数。
+				score = eqt.getSumscores()/listquestion.size();
+				//5.保存每道题和试卷的对应关系和分数存储到试题试卷对照表中。
+				saveExampapersQuestions(listquestion,exampapersid,score);
+			}else{
+				//4.设置分数：如果总分数整除抽取的总题数。
+				List<Questions> listccc= new ArrayList<Questions>();
+				for(int i = 0;i<eqt.getSumtotal()-listeq.size();i++){
+					Random rand = new Random();
+					int icc = rand.nextInt(listquestion.size()); //生成0-100以内的随机数
+					listccc.add(listquestion.get(icc));
+					listquestion.remove(icc);
+				}
+				score = eqt.getSumscores()/eqt.getSumtotal();
+				//5.保存每道题和试卷的对应关系和分数存储到试题试卷对照表中。
+				saveExampapersQuestions(listccc,exampapersid,score);
 			}
-			score = eqt.getSumscores()/eqt.getSumtotal();
-			//5.保存每道题和试卷的对应关系和分数存储到试题试卷对照表中。
-			saveExampapersQuestions(listccc,exampapersid,score);
+			//6.抽取完成
 		}
-		//6.抽取完成
+		return shnum;
 	}
 	public void saveExampapersQuestions(List<Questions> list,String exampapersid,int score){
 		if(list.size()>0){

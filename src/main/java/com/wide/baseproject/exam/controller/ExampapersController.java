@@ -305,8 +305,12 @@ public class ExampapersController extends BaseController {
 		String questiontypeid = getPara("questiontypeid");
 		String questionname = Dict.dao.getDictByKeyType(questiontypeid,"1002");
 		try{
-			exampapersService.goAutochoose(exampapersid,subjectid,questiontypeid);
-			setAttr("message", questionname+"抽题完成！");
+			int kk=exampapersService.goAutochoose(exampapersid,subjectid,questiontypeid);
+			if(kk>0){
+				setAttr("message", questionname+"试题已经选择或抽取完成，请勿重新自动抽取！");
+			}else{
+				setAttr("message", questionname+"抽题完成！");
+			}
 		}catch(Exception ex){
 			ex.printStackTrace();
 			setAttr("message", questionname+"抽题出错，请联系管理员！");

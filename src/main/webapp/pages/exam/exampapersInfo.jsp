@@ -46,17 +46,17 @@
 							</div>
 						</div>
 						<div class="control-group">
+							<label class="control-label" for="mobile">试卷总题数：</label>
+							<div class="controls">
+								<input id="sumquestion" class="input-xlarge focused" name="exampapers.sumquestion" placeholder="请输入试卷总题数!"  type="text" value="${exampapers.sumquestion}" />
+							</div>
+						</div>
+						<div class="control-group">
 							<label class="control-label" for="phone">试卷总分：</label>
 							<div class="controls">
 							<input name="exampapers.id" type="hidden" value="${exampapers.id}" >
 							<input name="numcount" id="numcount" type="hidden" value="${numcount}" >
 								<input class="input-xlarge focused" id="sumscore" name="exampapers.sumscore" type="text" placeholder="请输入试卷总分!" value="${exampapers.sumscore}" >
-							</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="mobile">试卷总题数：</label>
-							<div class="controls">
-								<input id="sumquestion" class="input-xlarge focused" name="exampapers.sumquestion" placeholder="请输入试卷总题数!"  type="text" value="${exampapers.sumquestion}" />
 							</div>
 						</div>
 						<div class="control-group" id="operationadd">
@@ -125,7 +125,27 @@ $(document).ready(function() {
 		}
 		 $("#savebutton").click(function(){
 	 		$("#numcount").val(num);
-	 	   });
+	 		var sumquestioncg = 0;
+	 		var sumcorecg = 0;
+	 		var sumquestion = $("#sumquestion").val()==''?0:$("#sumquestion").val();
+	 		var sumscore = $("#sumscore").val()==''?0:$("#sumscore").val();
+	 		$("input[id^='sumquestion_']").each(function(i){
+	 			sumquestioncg = Number(sumquestioncg)+Number($(this).val());
+	 	    });
+	 		$("input[id^='sumscore_']").each(function(i){
+	 			sumcorecg =  Number(sumcorecg)+Number($(this).val());
+	 	    });
+	 		if(Number(sumquestion)!=sumquestioncg){
+	 			alert("试题总数量出错，请查证！");
+	 			$("#sumquestion").focus();
+	 			return false;
+	 		}
+			if(Number(sumscore)!=sumcorecg){
+				alert("试题总分数出错，请查证！");
+				$("#sumscore").focus();
+				return false;
+	 		}
+	 	 });
 		var jqObj = new JQvalidate();
  	    var subform ="exampapersinfoform"; 
      	jqObj.setform(subform);
@@ -133,40 +153,72 @@ $(document).ready(function() {
  	    jqObj.set("exampapers.name", "required",  "请输入试卷名称!");	 
  	    jqObj.set("exampapers.sumscore", "required",  "请输入试卷总分!");
  	    jqObj.set("exampapers.sumquestion", "required",  "请输入试卷总题数!");
+ 	    
  	    jqObj.Run();
 	});
+
 function addbutton(){
+	var ssr='';
 	var tines= 0;
+	var sumq = 0;
+	var sums = 0;
+	var sumquestion = $("#sumquestion").val()==''?0:$("#sumquestion").val();
+	var sumscore = $("#sumscore").val()==''?0:$("#sumscore").val();
 	$("select[id^='questiontype_']").each(function(i){
 		if($(this).val()==null||$(this).val()==''){
 			alert("请选择试题类型");
 			$(this).focus();
 			tines = -1;
 			return false;
+		}else{
+			ssr=ssr+"|"+ $(this).val();
 		}
-    }); 
+    });
+	if(ssr){
+		for(var i=1;i<6;i++){
+			if((ssr.split(i).length-1)>1){
+				alert("试题选项每种类型只能选择一次!");
+				tines = -1;
+				return false;
+			}
+		}
+	}
 	if(tines<0){
 		return false;
 	}
 	$("input[id^='sumquestion_']").each(function(i){
+		
 		if($(this).val()==null||$(this).val()==''){
 			alert("请输入类型试题总数");
 			$(this).focus();
 			tines = -1;
 			return false;
+		}else{
+			sumq =Number(sumq)+Number($(this).val());
 		}
     });
+	if(sumquestion<sumq){
+		alert("类型试题总数大于试卷总题数");
+		return false;
+	}
 	if(tines<0){
 		return false;
 	}
+	
 	$("input[id^='sumscore_']").each(function(i){
 		if($(this).val()==null||$(this).val()==''){
 			alert("请输入类型试题总分数");
 			$(this).focus();
 			tines = -1;
 			return false;
+		}else{
+			sums =Number(sums)+Number($(this).val());
 		}
     });
+	if(sumscore<sums){
+		alert("类型试题总分数大于试卷总分数");
+		return false;
+	}
 	if(tines<0){
 		return false;
 	}
