@@ -3,13 +3,18 @@ package com.wide.baseproject.exam.controller;
 import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+
+import javax.servlet.http.HttpServletRequest;
 
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Enhancer;
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wide.base.BaseController;
 import com.wide.baseproject.exam.service.InvigilateService;
+import com.wide.common.model.Dict;
 import com.wide.common.model.Exam;
 import com.wide.common.model.Examinee;
 import com.wide.common.model.User;
@@ -88,9 +93,11 @@ public class InvigilateController  extends BaseController {
 			Db.update("update sys_examinee set status = 1 where exam_id = '"+id+"'");
 		}
 		Exam exam = Exam.dao.findById(id);
-		exam.setEnddistancetime(Integer.parseInt((exam.getDuration()*3600+"").split("[.]")[0]));
+		exam.setEnddistancetime(Integer.parseInt((exam.getDuration()*60+"").split("[.]")[0]));
 		exam.setStatus(1);
 		exam.update();
+		MyThread myThread = new MyThread(exam.getId());
+		myThread.start();
 		setAttr("message", exam.getDuration());
 		renderJson();
 	}
@@ -206,15 +213,14 @@ public class InvigilateController  extends BaseController {
 		User user =getUser();
 		List<Examinee> elist = new ArrayList<Examinee>();
 		String macstr ="";
-		/**
-		 try {
-			 macstr = CGUtil.getLocalMac();
-		} catch (SocketException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		 * */
-		
+		String ipaddress = getIpAddr(this.getRequest());
+		List<Dict> dictlist = new ArrayList<Dict>();
+		if(StrKit.notBlank(ipaddress)){
+			dictlist = Dict.dao.find("select * from sys_dict where description = ? and type = ? ",ipaddress,"1013");
+			if(dictlist.size()>0){
+				macstr = dictlist.get(0).getDictvalue();
+			}
+		}
 		//判断mac地址
 		Examinee ee = new Examinee();
 		Exam em = new Exam();
@@ -225,14 +231,69 @@ public class InvigilateController  extends BaseController {
 			ee = elist.get(0);
 			flag = ee.getStatus();
 		}
-		//if(ee.getMacaddress().equals(macstr)){
-		//	flag = 6;
-		//}
+		if(!ee.getMacaddress().equals(macstr)){
+			flag = 6;
+		}
 		if(em.getStatus()<1){
 			flag = 5;
 		}
 		setAttr("flag", flag);
 		renderJson();
-	}	
-	
+	}
+	  //获取ip地址  
+    public String getIpAddr(HttpServletRequest request) {  
+        String ip = request.getHeader("x-forwarded-for");  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("Proxy-Client-IP");  
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getHeader("WL-Proxy-Client-IP");  
+        }  
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {  
+            ip = request.getRemoteAddr();  
+        }  
+        return ip;  
+    }  
+}
+
+class MyThread extends Thread {
+	public String examid;
+	public MyThread(String examid){
+		this.examid = examid;
+	}
+    @Override
+    public void run() {
+    	try{
+    		while (true) {
+            	System.out.println("---开始考试线程---");
+            	//1.开始考试时触发此类
+            	Exam exam = Exam.dao.findById(examid);
+            	int jsnum  = 0;
+            	if(StrKit.notNull(exam)){
+            		jsnum = Integer.parseInt((exam.getDuration()*60+"").replace(".0", ""));
+            	}
+            	if(jsnum>0){
+            		for(int i= jsnum;i>0;i--){
+                    	this.sleep(1000);
+                    	exam.setEnddistancetime(i);
+                    	exam.update();
+            		}
+            	}else{
+            		System.out.println("---考试结束---");
+            		return;
+            	}
+            	//2.设置timer开始计时
+            	//3.timer来源于查询考试表里的剩余时间
+            	//4.每一秒更新一次timer，更新一次剩余时间，直至剩余时间为0。
+                if (this.isInterrupted()) {
+                    System.out.println("---考试线程停止---");
+                    return;
+                }
+            }
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+        
+    }
+  
 }

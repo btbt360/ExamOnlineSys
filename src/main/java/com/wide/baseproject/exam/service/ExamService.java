@@ -33,7 +33,6 @@ public class ExamService {
 	
 				List<String> row = rows.get(i);
 				String id = row.get(0).trim();
-				
 				row.set(0, row.get(1));
 				row.set(1, row.get(2));
 				row.set(2, row.get(3));

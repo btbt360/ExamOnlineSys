@@ -98,15 +98,6 @@
 			hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
 			minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
 			second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
-			$.ajax({
-				type : 'post',
-				url : '${basepath}/invigilate/getRemainingTime?id='+$("#examId").val()+'&enddistancetime='+intDiff,
-				cache : false,
-				dataType : 'json',
-				success : function(data) {
-					//更新剩余时间
-				}
-			});
 		}else{
 			$.ajax({
 				type : 'post',
@@ -179,6 +170,7 @@
 		}
 	}
 	$(document).ready(function() {
+		$("#endexam").hide();
 		$(document).bind("contextmenu",function(e) { 
 			alert("不能进行右键操作！"); 
 			return false; 
@@ -199,6 +191,12 @@
 		});
 		$(".uniform_on").uniform();
 		//开始考试
+		var examEnddistancetime = '${exam.enddistancetime}';
+		if(examEnddistancetime>0){
+			$("#startexam").hide();
+			$("#endexam").show();
+			timer(Number(examEnddistancetime));
+		}
 		$("#startexam").click(function() {
 			$.ajax({
 				type : 'post',
@@ -238,7 +236,7 @@
 		$("#name").change(function(){
 			reshcg();
 		});
-		$("#endexam").hide();
+		
 	});
 	function reshcg() {
 		var examineeId = $('#name').val();

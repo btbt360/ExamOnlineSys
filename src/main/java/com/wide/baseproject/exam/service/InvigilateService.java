@@ -38,7 +38,14 @@ public class InvigilateService{
 						row.set(7, "<span class='label'>考试结束</span>");
 						row.set(8, "");
 					}else if((DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(3)))<0 && (DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(2)))>=0){
-						if(row.get(9).equals("1")){
+						if(row.get(9).equals("0")){
+							row.set(7, "<span class='label label-success'>可以开始考试</span>");
+							if(flag==0){
+								row.set(8, "<a href ='#' onclick=startExam('"+id+"') >开始考试</a>");
+							}else{
+								row.set(8, "<a href ='#' onclick=startInvigilate('"+id+"') >开始监考</a>");
+							}
+						}else if(row.get(9).equals("1")){
 							row.set(7, "<span class='label label-success'>正在考试</span>");
 							if(flag==0){
 								row.set(8, "<a href ='#' onclick=startExam('"+id+"') >开始考试</a>");
@@ -51,6 +58,9 @@ public class InvigilateService{
 						}
 					}else if((DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(2)))<0&&row.get(9).equals("0")){
 						row.set(7, "<span class='label label-info'>未开始考试</span>");
+						row.set(8, "");
+					}else{
+						row.set(7, "<span class='label label-info'>未进行考试</span>");
 						row.set(8, "");
 					}
 					row.remove(9);
