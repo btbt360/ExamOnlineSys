@@ -46,6 +46,7 @@
 var exampapersid ='';
 var examid ='';
 var examineeid ='';
+var answerinfo = '';
 $(document).ready(function() {
 	var intDiff = '${exam.enddistancetime}';
 	timer(intDiff);
@@ -126,7 +127,21 @@ function getAnswers(){
 		}
 	});
 }
-function updateanswer(questionid,sort){
+function updateanswer(questionid,sort,answerTypestr){
+	var strss='';
+	if(hqstr=='answeroption_'){
+		$("input[id^='"+answerTypestr+"']").each(function(i){
+			if($(this).is(':checked')){
+				strss = strss+$(this).val();
+			}
+	    });
+	}else if(answerTypestr='answerwd'){
+		strss=$("#answerwd").val();
+	}
+	if(answerinfo!=strss){
+		alert("请点击 保存并进入下一题 按钮，请保存试题答案。");
+		return false;
+	}
 	$.ajax({
 		type : 'post',
 		url : '${basepath}/examinee/getQuestions?exampapersid='+exampapersid+'&examid='+examid+'&examineeid='+examineeid+'&sorts='+sort,
@@ -138,7 +153,8 @@ function updateanswer(questionid,sort){
 		}
 	});
 }
-function nextQuestion(sort,hqstr,questionid){
+function nextQuestion(sort,hqstr,questionid,answers){
+	answerinfo = answers;
 	var strss='';
 	if(hqstr=='answeroption_'){
 		$("input[id^='"+hqstr+"']").each(function(i){

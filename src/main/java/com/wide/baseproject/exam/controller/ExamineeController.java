@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.jfinal.aop.Enhancer;
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.wide.base.BaseController;
 import com.wide.base.RenturnInfo;
@@ -118,10 +119,17 @@ public class ExamineeController extends BaseController {
 				for(int i=0;i<listeq.size();i++){
 					List<ExamAnswer> listea = new ArrayList<ExamAnswer>();
 					listea = ExamAnswer.dao.find("select * from sys_exam_answer where examinee_id = ? and exam_id = ? and question_id = ? ",examineeid,examid,listeq.get(i).getQuestionId());
+					Questions question = Questions.dao.findById(listeq.get(i).getQuestionId());
+					String answerTypestr= "answeroption_";
+					if(StrKit.notNull(question)){
+						if(question.getQuestiontype()==4||question.getQuestiontype()==5){
+							answerTypestr = "answerwd";
+						}
+					}
 					if(listea.size()>0){
-						eqstr=eqstr+"<button type='button' class='btn btn-info' style='margin:3px;' onclick=updateanswer('"+listeq.get(i).getQuestionId()+"','"+listeq.get(i).getSort()+"')>"+listeq.get(i).getSort()+"</button>";
+						eqstr=eqstr+"<button type='button' class='btn btn-info' style='margin:3px;' onclick=updateanswer('"+listeq.get(i).getQuestionId()+"','"+listeq.get(i).getSort()+"','"+answerTypestr+"')>"+listeq.get(i).getSort()+"</button>";
 					}else{
-						eqstr=eqstr+"<button type='button' class='btn btn-defaul' style='margin:3px;' onclick=updateanswer('"+listeq.get(i).getQuestionId()+"','"+listeq.get(i).getSort()+"')>"+listeq.get(i).getSort()+"</button>";
+						eqstr=eqstr+"<button type='button' class='btn btn-defaul' style='margin:3px;' onclick=updateanswer('"+listeq.get(i).getQuestionId()+"','"+listeq.get(i).getSort()+"','"+answerTypestr+"')>"+listeq.get(i).getSort()+"</button>";
 					}
 					if(i>0&&i%15==0){
 						eqstr = eqstr+"<br />";
