@@ -1,22 +1,36 @@
 package com.wide.baseproject.sys.service;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.shiro.crypto.hash.Sha256Hash;
 
 import com.wide.common.model.Dict;
+import com.wide.common.model.Itembank;
+import com.wide.common.model.Office;
 import com.wide.common.model.OfficeUser;
+import com.wide.common.model.Questionoptions;
+import com.wide.common.model.Questions;
 import com.wide.common.model.Right;
 import com.wide.common.model.Role;
 import com.wide.common.model.User;
 import com.wide.common.model.UserRole;
 import com.wide.common.model.query.QueryUser;
+import com.wide.common.model.simple.ImportDOX;
+import com.wide.common.model.simple.ImportUser;
 import com.wide.util.CGUtil;
+import com.wide.util.ExcelUtil;
+import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
 import com.wide.viewmodel.ViewRole;
 import com.wide.viewmodel.ViewUser;
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 
 public class UserService {
@@ -110,9 +124,13 @@ public class UserService {
 			vu.getUser().setId(ids);
 			vu.getUser().setCreateBy(createuser.getId());
 			vu.getUser().setCreateDate(new Date());
+			vu.getUser().setUpdateBy(createuser.getId());
+			vu.getUser().setUpdateDate(new Date());
 			vu.getUser().setPassword(new Sha256Hash("111111", vu.getUser().getLoginName(), 1024).toBase64());
 			vu.getUser().setNo("000000");
 			vu.getUser().setDelFlag("0");
+			vu.getUser().setLoginFlag("1");
+			vu.getUser().setIsonline(0);
 			vu.getUser().save();
 			saveUserOther(vu.getRoleids(),ids,1);
 			saveUserOther(vu.getOfficeids(),ids,2);
@@ -186,5 +204,78 @@ public class UserService {
 	public Boolean getUserBylogininfo(String loginname, String password) {
 		
 		return User.dao.getUserBylogininfo(loginname,password);
+	}
+	public List<ImportUser> checkExcel(File source, User user) throws Exception {
+		// TODO Auto-generated method stub
+		ExcelUtil excelUtil = new ExcelUtil(ImportUser.class);
+		List<ImportUser> errorlist = new ArrayList<ImportUser>();
+		FileInputStream fis;
+		try {
+			fis = new FileInputStream(source);
+			List<ImportUser> list = new ArrayList<ImportUser>();
+			list = excelUtil.importExcel("", fis);
+			if(list.size()>0){
+				for(ImportUser iuser:list){
+					ViewUser vu = new ViewUser();
+					Map<String,String> mapbox = new HashMap<String,String>();
+					if(TypeChecker.isEmpty(iuser.getName())||TypeChecker.isEmpty(iuser.getOfficestr())){
+						errorlist.add(iuser);
+					}else{
+						List<Office> pofficelist = new ArrayList<Office>();
+						List<Office> officelist = new ArrayList<Office>();
+						pofficelist= Office.dao.find("select * from sys_office where del_flag = 0 and name like ?",iuser.getOfficestr());
+						Office poffice = new Office();
+						if(pofficelist.size()>0){
+							poffice = pofficelist.get(0);
+						}
+						if(StrKit.notBlank(iuser.getDepartmaent())){
+							officelist = Office.dao.find("select * from sys_office where del_flag = 0 and parent_id = ? and name like ?",poffice.getId(),iuser.getOfficestr());
+							if(officelist.size()>0){
+								Office officetwo = officelist.get(0);
+								vu.setOfficeids(officetwo.getId()+"|");
+							}else{
+								vu.setOfficeids(poffice.getId()+"|");
+							}
+						}else{
+							vu.setOfficeids(poffice.getId()+"|");
+						}
+					}
+					vu.setRoleids("5589405c-19dd-4b8c-8bfb-a7a513c1ae26|");
+					//1.保存用户
+					User users =new User();
+					users.setName(iuser.getName());
+					users.setDuty(iuser.getDuty());
+					Dict dict = getDictByName(iuser.getUsertype(),"1003");
+					users.setUserType(StrKit.notNull(dict)?Integer.parseInt(dict.getDictkey()):0);
+					users.setLoginName(iuser.getCardno());
+					users.setCardno(iuser.getCardno());
+					users.setSex(iuser.getSex().equals("男")?0:1);
+					Dict dictminzu = getDictByName(iuser.getMinzu(),"1005");
+					users.setNation(StrKit.notNull(dictminzu)?Integer.parseInt(dictminzu.getDictkey()):0);
+					users.setYearling(Integer.parseInt(iuser.getZhouyear()));
+					users.setSeniority(iuser.getSeniority());
+					Dict dictzz = getDictByName(iuser.getPoliticsstatus(),"1004");
+					users.setPoliticsstatus(StrKit.notNull(dictzz)?Integer.parseInt(dictzz.getDictkey()):0);
+					vu.setUser(users);
+					
+					//2.保存用户对应机构
+					//3.保存用户对应角色
+					
+					saveuserinfo(vu,user);
+				}
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return errorlist;
+	}
+	private Dict getDictByName(String dictvalue,String type){
+		List<Dict> dictlist = Dict.dao.find("select * from sys_dict where del_flag = 0 and type = '"+type+"' and dictvalue like '%"+dictvalue+"%'");
+		Dict dict = null;
+		if(dictlist.size()>0){
+			dict = dictlist.get(0);
+		}
+		return dict;
 	}
 }

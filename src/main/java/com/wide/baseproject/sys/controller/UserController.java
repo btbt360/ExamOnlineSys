@@ -1,5 +1,6 @@
 package com.wide.baseproject.sys.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -15,8 +16,11 @@ import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.plugin.activerecord.tx.Tx;
+import com.jfinal.upload.UploadFile;
 import com.wide.base.BaseController;
+import com.wide.base.RenturnInfo;
 import com.wide.baseproject.exam.service.ExamService;
+import com.wide.baseproject.resource.controller.ItemBankController;
 import com.wide.baseproject.sys.service.DictService;
 import com.wide.baseproject.sys.service.LogService;
 import com.wide.baseproject.sys.service.OfficeService;
@@ -24,15 +28,25 @@ import com.wide.baseproject.sys.service.RoleService;
 import com.wide.baseproject.sys.service.UserService;
 import com.wide.common.model.Dict;
 import com.wide.common.model.Exam;
+import com.wide.common.model.Itembank;
 import com.wide.common.model.Office;
+import com.wide.common.model.Questionoptions;
 import com.wide.common.model.Role;
+import com.wide.common.model.Subject;
 import com.wide.common.model.User;
 import com.wide.common.model.query.QueryExam;
 import com.wide.common.model.query.QueryUser;
+import com.wide.common.model.simple.ImportDAX;
+import com.wide.common.model.simple.ImportDOX;
+import com.wide.common.model.simple.ImportPD;
+import com.wide.common.model.simple.ImportTK;
+import com.wide.common.model.simple.ImportUser;
+import com.wide.common.model.simple.ImportWD;
 import com.wide.config.UserToken;
 import com.wide.constant.EnumFuncType;
 import com.wide.constant.EnumOptType;
 import com.wide.util.ExportController;
+import com.wide.util.TypeChecker;
 import com.wide.validator.UserValidator;
 import com.wide.viewmodel.DataTablesModel;
 import com.wide.viewmodel.ViewUser;
@@ -48,7 +62,6 @@ public class UserController extends BaseController {
 			.enhance(OfficeService.class);
 	private static final LogService logService = Enhancer
 			.enhance(LogService.class);	
-	private static final ExamService examService = Enhancer.enhance(ExamService.class);
 
 	
 	/**
@@ -343,4 +356,49 @@ public class UserController extends BaseController {
 			e.printStackTrace();
 		}
 	 }
+	 /**
+		 * @author cg
+		 * 导入用户
+		 * 
+		 * */
+		public void importUser(){
+			setAttr("flagcg", getPara("flagcg"));
+			render("userImport.jsp");
+		}
+	 
+	 /**
+	  * @author cg
+	  * 用户下载模版
+	  * */
+		public void downloadExcel(){
+			String path =UserController.class.getResource("").getPath()+"ImportUser.xls";
+			 File file = new File(path);
+			    if (file.isFile()) {
+			        renderFile(file);
+			        return;
+			    }
+		    // return;
+		    renderNull();
+			
+		}
+	 /**
+	  * @author cg
+	  * 用户导入
+	  * */
+		public void uploadExcel() {
+		 	int flagcg=0;
+		 	try{
+		 		UploadFile file = this.getFile();
+		        File source = file.getFile();
+		        List<ImportUser> listuser=userService.checkExcel(source,getUser());
+	    		if(listuser.size()>0){
+	    			setAttr("listuser", listuser);
+	    		}
+		        flagcg =1;
+		 	}catch(Exception ex){
+		 		ex.printStackTrace();
+		 	}
+	        setAttr("flagcg", flagcg);
+			render("userImport.jsp");
+	    }
 }

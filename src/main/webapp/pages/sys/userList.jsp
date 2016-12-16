@@ -23,6 +23,7 @@
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="${basepath}/user/add">用户列表</a></li>
 						<li><a href="${basepath}/user/adduserinfo">用户添加</a></li>
+						<li><a href="${basepath}/user/importUser">用户导入</a></li>
 					</ul>
 					
 					<!-- 删除用户提示 -->

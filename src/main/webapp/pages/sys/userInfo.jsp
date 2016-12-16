@@ -39,6 +39,7 @@
 			<ul class="nav nav-tabs">
 				<li><a href="${basepath}/user/add">用户列表</a></li>
 				<li class="active"><a href="${basepath}/user/adduserinfo">用户添加</a>
+				<li><a href="${basepath}/user/importUser">用户导入</a></li>
 				</li>
 			</ul>
 			<div class="span12">
