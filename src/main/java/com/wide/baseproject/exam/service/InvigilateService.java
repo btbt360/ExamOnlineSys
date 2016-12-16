@@ -76,12 +76,14 @@ public class InvigilateService{
 		if (examineepage != null && !examineepage.equals("")) {
 			List<List<String>> rows = examineepage.getRows();
 			if (rows.size() > 0) {
-				for (int i = 0; i < rows.size(); i++) {
+				for (int i = 0; i < rows.size(); i++){
 					List<String> row = rows.get(i);
 					String path="xFilePath_"+i;
 					String id = examineepage.getIds().get(i)+"";
 					String type = row.get(5);
-					row.set(3, row.get(3)!=null&&!row.get(3).equals("")?"指纹匹配成功":"<input type='button' class='btn btn-primary' value='请匹配指纹' onclick=fingerprint('"+id+"') />");
+					Examinee ee = Examinee.dao.findById(id);
+					User user = User.dao.findById(ee.getUserId());
+					row.set(3, row.get(3)!=null&&!row.get(3).equals("")?"指纹匹配成功":"<input type='button' class='btn btn-primary' value='请匹配指纹' onclick=submitVerify('"+user.getFingerprintone()+"','"+id+"') />");
 					row.set(4, row.get(4)!=null&&!row.get(4).equals("")?"<img src='"+row.get(4)+"' class='img-rounded' style ='width:120px;height:120px;' />":"<input id='"+path+"' type='text' style='display: table-cell;vertical-align: middle;margin-top:3%;' />&nbsp;&nbsp;<input type='button' class='btn btn-primary' value='选择附件' onclick=BrowseServer('"+path+"','"+id+"') />");					
 					if(Integer.parseInt(type)<2&&Integer.parseInt(type)>0){
 						row.set(5, "<a href ='#' onclick=goDown('"+id+"') >下机</a> | <a href ='#' onclick=toAbsent('"+id+"') >缺考</a>");						
@@ -120,10 +122,7 @@ public class InvigilateService{
 		int p = 0;
 		Examinee ee = Examinee.dao.findById(id);
 		User user =User.dao.findById(ee!=null&&!ee.equals("")?ee.getUserId():"");
-		if(fingerpath.equals(user.getFingerprintone())||fingerpath.equals(user.getFingerprinttwo())){
-			Db.update("update sys_examinee set fingerprint ='"+fingerpath+"' where id = '"+id+"'");
-			p=1;
-		}
+		Db.update("update sys_examinee set fingerprint ='"+fingerpath+"' where id = '"+id+"'");
 		return p;
 	}
 	

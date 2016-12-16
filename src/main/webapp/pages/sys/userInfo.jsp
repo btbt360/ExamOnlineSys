@@ -4,6 +4,20 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:import url="/pages/include/pageNavigation.jsp" />
 <!-- block -->
+<div style="display:none;">
+<OBJECT ID="FPSLID1" WIDTH=40 HEIGHT=40
+								     CLASSID="CLSID:AEC85E68-EC97-4656-AE30-CFBB0B8DBA75">
+								        <PARAM NAME="_ExtentX" VALUE="5133">
+								        <PARAM NAME="_ExtentY" VALUE="5715">
+								    </OBJECT>
+							<COMMENT>
+							    <EMBED type="application/x-eskerplus"
+							        classid="clsid:AEC85E68-EC97-4656-AE30-CFBB0B8DBA75"
+							        codebase="FPScanner.ocx"                
+							        width=20 height=20>
+							    </EMBED>
+							</COMMENT>
+</div>
 <div class="block">
 	<div class="navbar navbar-inner block-header">
 		<div class="muted pull-left">
@@ -199,29 +213,22 @@
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="fingerprintone">指纹信息一：</label>
+						<label class="control-label" for="fingerprintone">指纹信息：</label>
 						<div class="controls">
 							<div class="progress progress-success" style="width: 20%;">
 								<div style="width: 0%;" class="bar" id="fingerprintoneempty"></div>
 								<div style="width: 100%;" class="bar" id="fingerprintonefull"></div>
 							</div>
-							<button type="button" id="submit1" class="btn btn-primary"
-								onclick="RegUser()">录入指纹</button>
-							<input type="hidden" name="user.fingerprintone"
-								id="fingerprintone" value="${user.fingerprintone}" />
+							<input type="button" id="init" class="btn btn-primary" value="初始化指纹仪" onClick="submitInit()" />
+							<button type="button" id="regbut" class="btn btn-primary" onclick="submitRegister()">录入指纹</button>
+							<button type="button" id="resetregbut" class="btn btn-primary" >重新录入指纹</button>
+							<input type="hidden" name="user.fingerprintone" id="fingerprintone" value="${user.fingerprintone}" />
 						</div>
 					</div>
-					<div class="control-group">
-						<label class="control-label" for="fingerprinttwo">指纹信息二：</label>
+					<div class="control-group" id = "relog">
+						<label class="control-label" for="msg">指纹录入日志：</label>
 						<div class="controls">
-							<div class="progress progress-success" style="width: 20%;">
-								<div style="width: 0%;" class="bar" id="fingerprinttwoempty"></div>
-								<div style="width: 100%;" class="bar" id="fingerprinttwofull"></div>
-							</div>
-							<button type="button" id="submit2" class="btn btn-primary"
-								onclick="RegUser2()">录入指纹</button>
-							<input type="hidden" name="user.fingerprinttwo"
-								id="fingerprinttwo" value="${user.fingerprinttwo}" />
+							<textarea name="msg" id="msg" rows="10"class="input-xlarge focused"></textarea>
 						</div>
 					</div>
 					<div class="control-group">
@@ -486,22 +493,121 @@
 		</div>
 	</form>
 </div>
+<script language="javascript">
+
+    function submitInit()
+	{
+      FPSLID1.ConnectfpScanner();
+      //alert (FPSLID1.GetSerialNumber());
+      $("#init").hide();
+	}
+	function submitRegister()
+	{
+    FPSLID1.EnrollCount =3;//这里设置登记次数
+    FPSLID1.BeginEnroll();//开始触发登记
+    $("#msg").val($("#msg").val() + "\r\n"+ "开始登记指纹");
+    $("#regbut").hide();
+	}
+
+	function submitVerify()
+	{
+		FPSLID1.StateMark = 2;//设置进入指纹验证状态
+		$("#msg").val($("#msg").val() + "\r\n"+"开始指纹验证");
+	}
+	
+	function submitGetVerTpl()
+	{
+		if (zkonline.GetVerTemplate()){
+		   alert(zkonline.VerifyTemplate);
+		}   
+	}
+
+</script>
+<script language="javascript" for='FPSLID1'   event='onFingerTouch(onTouch,ReaderSerNum)' >
+	 $("#msg").val($("#msg").val() +"\r\n" + "手指按下");
+</script> 
+ <script language="javascript" for='FPSLID1'    event='onFingerGone(onGone,ReaderSerNum)'>  //'手指离开事件
+ $("#msg").val($("#msg").val() + "\r\n" + "手指离开");
+ </script> 
+  
+ <script language="javascript" for='FPSLID1'    event='OnFpScannerDisConnect(DisConnect,ReaderSerNum)'> //'指纹仪按压事件
+ $("#msg").val($("#msg").val() + "\r\n" + "指纹仪断开");
+ </script>  
+  
+  
+  <script language="javascript" for='FPSLID1'    event='OnFpScannerConnect(Connect,ReaderSerNum)'>//'指纹仪连接事件
+  $("#msg").val($("#msg").val()+"\r\n" + "指纹仪已连接");
+ </script>  
+
+  <script language="javascript" for='FPSLID1'    event='EnrollIndex(Index)'>//'还需要按压多少次手指事件
+  $("#msg").val($("#msg").val() + "\r\n" + "您还需要按压" + Index + "次手指");
+</script>  
+
+ <script language="javascript" for='FPSLID1'    event='OnImageReceived(Pict)'>//'指纹仪取图
+  
+   FPSLID1.SaveFingerprintToImage("C:\\finger.bmp");
+ 
+ </script>  
+ 
+ 
+ 
+ <script language="javascript" for='FPSLID1'    event='OnFingerQuality(ActionResult,ReaderSerNum)'>//'判断指纹是否合格事件
+   
+    if (ActionResult==1)
+    {
+    	$("#msg").val($("#msg").val() +"\r\n" + "指纹合格");
+    }
+    else
+    {
+    	$("#msg").val($("#msg").val() +"\r\n" + "指纹不合格");
+     }
+
+</script>  
+ 
+
+ <script language="javascript" for='FPSLID1'    event='OnFpEnroll(ActionResult,Atemplate,ReaderSerNum)'>//'登记指纹事件
+   $("#fingerprintone").val(FPSLID1.GetRegTemplateAsStr());
+   $("#fingerprintoneempty").hide();
+   $("#fingerprintonefull").show();
+   $("#resetregbut").show();
+   $("#relog").hide();
+</script>  
+ 
+<script language="javascript" for='FPSLID1'    event='OnFpCapture(ActionResult,Atemplate,ReaderSerNum)'>//'验证指纹事件
+    
+  vertplbox.value = FPSLID1.GetVerTemplateAsStr(); 
+   //1:1 If FPSLID1.StateMark = 2 Then
+     if (FPSLID1.VerifyTemplateFromStr($("#fingerprintone").val(),vertplbox.value)){
+          star.value  =   ("验证成功");
+        }else
+      {
+          star.value  =  ("验证失败");  
+       }
+  
+</script>  
+
 <script type="text/javascript">
 	$("#xiangxi").hide();
-	$("#fingerprinttwofull").hide();
 	$("#fingerprintonefull").hide();
+	$("#resetregbut").hide();
 	var fingerprintoneStr = $("#fingerprintone").val();
 	if (fingerprintoneStr.trim() != '') {
 		$("#fingerprintoneempty").hide();
 		$("#fingerprintonefull").show();
+		$("#resetregbut").show();
+		$("#init").hide();
+		$("#regbut").hide();
+		$("#relog").hide();
 	}
-
-	var fingerprinttwoStr = $("#fingerprinttwo").val();
-	if (fingerprinttwoStr.trim() != '') {
-		$("#fingerprinttwoempty").hide();
-		$("#fingerprinttwofull").show();
-	}
-
+	$("#resetregbut").click(function(){
+		$("#fingerprintoneempty").show();
+		$("#fingerprintonefull").hide();
+		$("#resetregbut").hide();
+		$("#relog").show();
+		$("#msg").val('');
+		$("#init").show();
+		$("#regbut").show();
+	});
 	function checkshow() {
 		$("#xiangxi").show();
 	}
@@ -576,49 +682,14 @@
 	}
 
 	function RegUser() {
-
-		// if  (FPSOnline11.Register())
-		//  {
-		//   $("#fingerprintone").val(FPSOnline11.GetRegisterTemplate());
-		//	   $("#status").text("录入成功");
-		//}
-		// else{
-		//   $("#status").text("录入失败");
-
-		// }
-		//  var iCount = setInterval(showFingerprintone,3000);
 		setTimeout("showFingerprintone();", 3000);
 
 	}
 	function showFingerprintone() {
 		alert("录入成功");
 		$("#fingerprintone").val("111111");
-		//document.getElementById('fingerprintone').value = "111111";
-		//	 $("#fingerprintone").attr('value','111111');
 		$("#fingerprintoneempty").hide();
 		$("#fingerprintonefull").show();
-	}
-
-	function RegUser2() {
-
-		// if  (FPSOnline11.Register())
-		//  {
-		//   $("#fingerprintone").val(FPSOnline11.GetRegisterTemplate());
-		//	   $("#status").text("录入成功");
-		//}
-		// else{
-		//   $("#status").text("录入失败");
-
-		// }
-		// var iCount = setInterval(showFingerprinttwo,3000);
-		setTimeout("showFingerprinttwo();", 3000);
-
-	}
-	function showFingerprinttwo() {
-		alert("录入成功");
-		$("#fingerprinttwo").val("222222");
-		$("#fingerprinttwoempty").hide();
-		$("#fingerprinttwofull").show();
 	}
 	$(document).ready(function() {
 		$('.datetimepicker').datetimepicker({

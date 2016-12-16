@@ -3,6 +3,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:import url="/pages/include/pageNavigation.jsp" />
 <!-- block -->
+<div style="display:none;">
+<OBJECT ID="FPSLID1" WIDTH=40 HEIGHT=40
+								     CLASSID="CLSID:AEC85E68-EC97-4656-AE30-CFBB0B8DBA75">
+								        <PARAM NAME="_ExtentX" VALUE="5133">
+								        <PARAM NAME="_ExtentY" VALUE="5715">
+								    </OBJECT>
+							<COMMENT>
+							    <EMBED type="application/x-eskerplus"
+							        classid="clsid:AEC85E68-EC97-4656-AE30-CFBB0B8DBA75"
+							        codebase="FPScanner.ocx"                
+							        width=20 height=20>
+							    </EMBED>
+							</COMMENT>
+</div>
 	<div class="block">
 		<div class="navbar navbar-inner block-header">
 			<div class="muted pull-left">
@@ -54,8 +68,11 @@
 	                        <input class="input-medium focused" id="examId" name="examId" type="hidden" value="${examId}" />
 	                        </div>
 	                        <div class="span4 text-center">
+	                        <button class="btn btn-large btn-info" type="button" onClick="submitInit()" id="lianjiebut">连接指纹仪</button>
 	                        <button class="btn btn-large btn-primary" type="button" id="startexam">开始考试</button>
 	                        <button class="btn btn-danger btn-large" type="button" id="endexam">结束考试</button>
+	                        <textarea name="msg" id="msg" style="display:none;"></textarea>
+	                        <textarea name="yamz" id="yamz"  style="display:none;"></textarea>
 	                        </div>
 					</div>
 						<input type="hidden" id="subpages" name="subpages" />
@@ -63,7 +80,6 @@
 						<input type="hidden" id="fingerpath" name="fingerpath" />
 						<input type="hidden" id="ids" name="ids" />
 					<table id="userList" class="table table-striped table-bordered">
-					
 						<thead>
 							<tr>
 								<th width="10%">机器编号</th>
@@ -83,6 +99,100 @@
 		</div>
 		</div>
 </body>
+<script language="javascript">
+	var fingerstr ="";
+	var idscgg="";
+	function sssscc(finger,id){
+		alert(finger+"-------------------"+id);
+	}
+    function submitInit()
+	{
+      FPSLID1.ConnectfpScanner();
+      //alert (FPSLID1.GetSerialNumber());
+      alert("连接成功！");
+      $("#lianjiebut").hide();
+	}
+	function submitRegister()
+	{
+    FPSLID1.EnrollCount =3;//这里设置登记次数
+    FPSLID1.BeginEnroll();//开始触发登记
+    $("#msg").val($("#msg").val() + "\r\n"+ "开始登记指纹");
+	}
+
+	function submitVerify(finger,id)
+	{
+		alert("请扫描指纹！");
+		fingerstr =finger;
+		idscgg = id;
+		FPSLID1.StateMark = 2;//设置进入指纹验证状态
+		$("#msg").val($("#msg").val() + "\r\n"+"开始指纹验证");
+	}
+	
+	function submitGetVerTpl()
+	{
+		if (zkonline.GetVerTemplate()){
+		   alert(zkonline.VerifyTemplate);
+		}   
+	}
+
+</script>
+<script language="javascript" for='FPSLID1'   event='onFingerTouch(onTouch,ReaderSerNum)' >
+ $("#msg").val($("#msg").val() +"\r\n" + "手指按下");
+</script> 
+ <script language="javascript" for='FPSLID1'    event='onFingerGone(onGone,ReaderSerNum)'>  //'手指离开事件
+ $("#msg").val($("#msg").val() + "\r\n" + "手指离开");
+ </script> 
+ <script language="javascript" for='FPSLID1'    event='OnFpScannerDisConnect(DisConnect,ReaderSerNum)'> //'指纹仪按压事件
+ $("#msg").val($("#msg").val() + "\r\n" + "指纹仪断开");
+ </script>  
+  <script language="javascript" for='FPSLID1'    event='OnFpScannerConnect(Connect,ReaderSerNum)'>//'指纹仪连接事件
+  $("#msg").val($("#msg").val()+"\r\n" + "指纹仪已连接");
+ </script>  
+  <script language="javascript" for='FPSLID1'    event='EnrollIndex(Index)'>//'还需要按压多少次手指事件
+  $("#msg").val($("#msg").val() + "\r\n" + "您还需要按压" + Index + "次手指");
+</script>  
+ <script language="javascript" for='FPSLID1'    event='OnImageReceived(Pict)'>//'指纹仪取图
+   FPSLID1.SaveFingerprintToImage("C:\\finger.bmp");
+ </script>  
+ <script language="javascript" for='FPSLID1'    event='OnFingerQuality(ActionResult,ReaderSerNum)'>//'判断指纹是否合格事件
+    if (ActionResult==1){
+    	$("#msg").val($("#msg").val() +"\r\n" + "指纹合格");
+    }
+    else{
+    	$("#msg").val($("#msg").val() +"\r\n" + "指纹不合格");
+     }
+</script>  
+ 
+
+ <script language="javascript" for='FPSLID1'    event='OnFpEnroll(ActionResult,Atemplate,ReaderSerNum)'>//登记指纹事件
+   $("#fingerprintone").val(FPSLID1.GetRegTemplateAsStr());
+</script>  
+ 
+<script language="javascript" for='FPSLID1'    event='OnFpCapture(ActionResult,Atemplate,ReaderSerNum)'>//验证指纹事件
+//1:1 If FPSLID1.StateMark = 2 Then
+	 alert(fingerstr);
+     if (FPSLID1.VerifyTemplateFromStr(fingerstr,FPSLID1.GetVerTemplateAsStr())){
+          alert("验证成功");
+          $("#yamz").val("验证成功");
+          fingerprintTime(idscgg,fingerstr);
+        }else{
+          $("#yamz").val("验证失败");
+          alert("验证失败");  
+       }
+ 	function fingerprintTime(ids,fingerpath){
+ 		alert(ids);
+		$.ajax({
+			type : 'post',
+			url : '${basepath}/invigilate/getfingerprint?id=' + ids+'&fingerpath='+fingerpath,
+			cache : false,
+			dataType : 'json',
+			success : function(data) {
+				reshcg();
+			}
+		});
+	}
+</script>  
+
 <script type="text/javascript">
 	var intDiffs = parseInt(3600);//倒计时总秒数量
 	var timerss;
@@ -132,27 +242,6 @@
 				}
 			});
 		}
-	}
-	//上传指纹
-	function fingerprint(ids) {
-		//var fingerpath=$("#fingerpath").val();
-		$("#ids").val(ids);
-		setTimeout("fingerprintTime();",3000); 
-	}
-	
-	function fingerprintTime(){
-		var ids = $("#ids").val();
-		var fingerpath="111111";
-		$.ajax({
-			type : 'post',
-			url : '${basepath}/invigilate/getfingerprint?id=' + ids+'&fingerpath='+fingerpath,
-			cache : false,
-			dataType : 'json',
-			success : function(data) {
-				alert(data.message);
-				reshcg();
-			}
-		});
 	}
 	//考生缺考
 	function toAbsent(ids) {
