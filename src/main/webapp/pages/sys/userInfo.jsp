@@ -86,7 +86,7 @@
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="userType">用户类型： </label>
+						<label class="control-label" for="userType">主页类型： </label>
 						<div class="controls">
 							<select class="span6 m-wrap" id="usertype" name="user.userType">
 								<option value=''>请选择</option>
@@ -739,7 +739,9 @@
 		jqObj.set("user.loginName", "required", "请输入登录名!");
 		jqObj.set("user.cardno", "required", "请输入身份证号码!");
 		jqObj.set("user.userType", "required",  "请选择用户类型!");
-		jqObj.set("user.loginType", "required",  "请选择用户登录类型!");
+		jqObj.set("user.loginType", "required",  "请选择主页类型!");
+		jqObj.set("user.nation", "required",  "请选择民族!");
+		jqObj.set("user.yearling", "required",  "请选择周岁!");
 		/**
 		if(id!=null&&id==0){
 			  jqObj.set("user.loginName", "remote",  "登录名重复!");

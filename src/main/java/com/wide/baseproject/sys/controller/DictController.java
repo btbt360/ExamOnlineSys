@@ -124,7 +124,7 @@ public class DictController extends BaseController {
 		String id = getPara("id");
 		try{
 			if(id!=null&&!id.equals("")){
-				Db.update("update sys_cases set isdel = 1 where id = ? ",id);
+				Db.update("update sys_dict set del_flag = 1 where id = ? ",id);
 			}
 			logService.saveLog(EnumOptType.del.getEnumKey(),
 					EnumFuncType.dict.getEnumKey(), getCurrentUser()); // 数据字典删除日志保存

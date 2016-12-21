@@ -30,7 +30,7 @@
 					<fieldset>
 						<legend>添加考试安排</legend>
 						<div class="control-group">
-							<label class="control-label">试卷名称：</label>
+							<label class="control-label">考试名称：</label>
 							<div class="controls">
 							<input name="exam.id" type="hidden" value="${exam.id}" >
 								<input class="input-xlarge focused" id="name" name="exam.name"

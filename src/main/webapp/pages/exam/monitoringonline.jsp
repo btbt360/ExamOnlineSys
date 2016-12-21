@@ -215,8 +215,11 @@
 				cache : false,
 				dataType : 'json',
 				success : function(data) {
-					alert(data);
+					alert(data.message);
 					reshcg();
+					$("#endexam").hide();
+					clearInterval(timerss);
+					return;
 				}
 			});
 		}

@@ -273,10 +273,20 @@ class MyThread extends Thread {
             		jsnum = Integer.parseInt((exam.getDuration()*60+"").replace(".0", ""));
             	}
             	if(jsnum>0){
+            		int ksi=0;
             		for(int i= jsnum;i>0;i--){
                     	this.sleep(1000);
                     	exam.setEnddistancetime(i);
                     	exam.update();
+                    	ksi = i;
+            		}
+            		if(ksi == 0 ){
+            			exam.setStatus(2);
+            			exam.setEnddistancetime(0);
+            			exam.update();
+            			Db.update("update sys_examinee set status = 2 where exam_id = ? ",exam.getId());
+            			System.out.println("---考试结束---");
+            			return;
             		}
             	}else{
             		System.out.println("---考试结束---");

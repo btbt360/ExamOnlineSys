@@ -101,13 +101,14 @@ public class InvigilateService{
 		List<Examinee> elist = new ArrayList<Examinee>();
 		elist=Examinee.dao.find("select * from sys_examinee where isdel = 0 and isenable = 1 and exam_id ='"+id+"'");
 		if(id!=null&&!id.equals("")){
+			/**
 			if(elist.size()>0){
 				for(Examinee ee:elist){
 					if(ee.getFingerprint()!=null&&!ee.getFingerprint().equals("")){
 						Db.update("update sys_examinee set status = 3 where id ='"+ee.getId()+"'");
 					}
 				}
-			}
+			}**/
 			Db.update("update sys_examinee set status = 2 where exam_id = '"+id+"' and status not in (3,4)");
 			Exam ex = new Exam();
 			ex=Exam.dao.findById(id);

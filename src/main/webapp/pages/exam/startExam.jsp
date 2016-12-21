@@ -80,6 +80,7 @@ function timer(intDiff){
 				alert(data.message);
 				clockclosewindle(3);
 				clearInterval(timerss);
+				return;
 			}
 		});
 	}
@@ -129,7 +130,7 @@ function getAnswers(){
 }
 function updateanswer(questionid,sort,answerTypestr){
 	var strss='';
-	if(hqstr=='answeroption_'){
+	if(answerTypestr=='answeroption_'){
 		$("input[id^='"+answerTypestr+"']").each(function(i){
 			if($(this).is(':checked')){
 				strss = strss+$(this).val();
@@ -138,10 +139,7 @@ function updateanswer(questionid,sort,answerTypestr){
 	}else if(answerTypestr='answerwd'){
 		strss=$("#answerwd").val();
 	}
-	if(answerinfo!=strss){
-		alert("请点击 保存并进入下一题 按钮，请保存试题答案。");
-		return false;
-	}
+	
 	$.ajax({
 		type : 'post',
 		url : '${basepath}/examinee/getQuestions?exampapersid='+exampapersid+'&examid='+examid+'&examineeid='+examineeid+'&sorts='+sort,
@@ -164,6 +162,13 @@ function nextQuestion(sort,hqstr,questionid,answers){
 	    });
 	}else if(hqstr='answerwd'){
 		strss=$("#answerwd").val();
+	}
+	if(strss==''||strss==null){
+		if (confirm("当前题目未做回答，是否要进行下一题？")) {
+			
+		}else{
+			return false;
+		}
 	}
 	$.ajax({
 		type : 'post',

@@ -169,7 +169,10 @@ public class ExamineeController extends BaseController {
 				}
 			}
 			
+				
+			
 			//1.添加答案
+		if(StrKit.notBlank(answer)){
 			if(!TypeChecker.isEmpty(questionid)&&!TypeChecker.isEmpty(examineeid)&&!TypeChecker.isEmpty(examid)){
 				ealist = ExamAnswer.dao.find("select * from sys_exam_answer where examinee_id = ? and exam_id = ? and question_id = ? ",examineeid,examid,questionid);
 				if(ealist.size()>0){
@@ -193,6 +196,7 @@ public class ExamineeController extends BaseController {
 					ea.save();
 				}
 			}
+		}
 			//2.查询问题
 			String qustrhead = "";
 			String qustrbody = "";

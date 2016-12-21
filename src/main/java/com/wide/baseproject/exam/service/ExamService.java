@@ -42,21 +42,27 @@ public class ExamService {
 				row.set(6, row.get(7)+(row.get(8)!=null&&!row.get(8).equals("")?"、"+row.get(8):""));
 				row.set(7, "");
 				row.set(8, "");
-				if((DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(3)))>0){
+				if((DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(3)))>0&&row.get(9).equals("2")){
 					row.set(7, "<span class='label'>考试结束</span>");
 				}else if((DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(3)))<0 && (DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(2)))>=0){
-					row.set(7, "<span class='label label-success'>正在考试</span>");
-					
-				}else if((DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(2)))<0){
+					if(row.get(9).equals("0")){
+						row.set(7, "<span class='label label-success'>可以开始考试</span>");
+						row.set(8, "");
+					}else if(row.get(9).equals("1")){
+						row.set(7, "<span class='label label-success'>正在考试</span>");
+						row.set(8, "");
+					}else if(row.get(9).equals("2")){
+						row.set(7, "<span class='label'>考试结束</span>");
+						row.set(8, "");
+					}
+				}else if((DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()), row.get(2)))<0&&row.get(9).equals("0")){
 					row.set(7, "<span class='label label-info'>未开始考试</span>");
-				}
-				row.set(8, "");
-				if(Integer.parseInt(row.get(9))==0){
 					row.set(8, "<a href ='#' onclick=edit('" + id
 							+ "') >修改</a> | <a href='#' onclick=del('" + id + "') >删除</a>"  );
-				    
+				}else{
+					row.set(7, "<span class='label label-info'>未进行考试</span>");
+					row.set(8, "");
 				}
-				
 				row.remove(9);
 			   }
 			}

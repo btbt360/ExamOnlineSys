@@ -163,12 +163,10 @@ public class UserService {
 						ou.setUserId(userid);
 						ou.setOfficeId(s);
 						ou.save();
-					}
-					;
+					};
 				}
 			}
-		}
-		;
+		};
 	}
 	/**
 	 * 删除用户相关

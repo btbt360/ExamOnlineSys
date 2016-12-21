@@ -78,14 +78,20 @@
 						value="${dict.type}"> <div style="color: red; margin-top: 5px;"> ${dicttypeMsg}</div>	  
 							</div>						
 						</div>						
-						
+						<div class="control-group">
+							<label class="control-label" >关联数据：</label>														
+						      <div class="controls">
+								<input class="input-xlarge focused" id="dict.description" name="dict.description"
+									type="text"  value="${dict.description}" >
+							</div>				       							
+						</div>
 						<div class="control-group">
 							<label class="control-label" >备注：</label>														
 						      <div class="controls">
 								<input class="input-xlarge focused" id="dict.remarks" name="dict.remarks"
 									type="text"  value="${dict.remarks}" >
 							</div>				       							
-						</div>						
+						</div>				
 						     <div class="form-actions">
 							<button type="submit" class="btn btn-primary">保存</button>
 							<input type="button" value="返回"   class="btn"  onclick="javascript:window.location.href='${basepath}/dict/add'" >

@@ -41,12 +41,12 @@
 					<form action="${basepath}/exam/exportSubject" method="post" id="subform">
 						<div class="span12">
 							<div class="span4">
-								<label class="control-label" for="name">试卷名称：<input
+								<label class="control-label" for="name">考试名称：<input
 									class="input-medium focused" id="name" name="name"
 									type="text" /></label> 
 							</div>
 							<div class="span4">
-								<label class="control-label" for="code">试卷编码：<input
+								<label class="control-label" for="code">考试编码：<input
 									class="input-medium focused" id="code" name="code"
 									type="text" /></label> 
 							</div>
