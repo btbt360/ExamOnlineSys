@@ -90,7 +90,22 @@ public abstract class BaseExaminee<M extends BaseExaminee<M>> extends DbModel<M>
 		return get("ipaddress");
 	}
 
-	
+	public void setTotalscore(java.lang.Double totalscore) {
+		set("totalscore", totalscore);
+	}
+
+	public java.lang.Double getTotalscore() {
+		return get("totalscore");
+	}
+
+	public void setScoreslevel(java.lang.Integer scoreslevel) {
+		set("scoreslevel", scoreslevel);
+	}
+
+	public java.lang.Integer getScoreslevel() {
+		return get("scoreslevel");
+	}
+
 	public void setCreatorId(java.lang.String creatorId) {
 		set("creator_id", creatorId);
 	}
@@ -146,23 +161,7 @@ public abstract class BaseExaminee<M extends BaseExaminee<M>> extends DbModel<M>
 	public java.lang.Integer getIsdel() {
 		return get("isdel");
 	}
-	
-	public void setTotalscore(java.lang.Integer totalscore) {
-		set("totalscore", totalscore);
-	}
 
-	public java.lang.Integer getTotalscore() {
-		return get("totalscore");
-	}
-	
-	public void setScoreslevel(java.lang.Integer scoreslevel) {
-		set("scoreslevel", scoreslevel);
-	}
-
-	public java.lang.Integer getScoreslevel() {
-		return get("scoreslevel");
-	}
-	
 	public void setSculpturepath(java.lang.String sculpturepath) {
 		set("sculpturepath", sculpturepath);
 	}
@@ -178,7 +177,7 @@ public abstract class BaseExaminee<M extends BaseExaminee<M>> extends DbModel<M>
 	public java.lang.String getExamineename() {
 		return get("examineename");
 	}
-	
+
 	public void setIsfinishjudge(java.lang.Integer isfinishjudge) {
 		set("isfinishjudge", isfinishjudge);
 	}
@@ -186,4 +185,5 @@ public abstract class BaseExaminee<M extends BaseExaminee<M>> extends DbModel<M>
 	public java.lang.Integer getIsfinishjudge() {
 		return get("isfinishjudge");
 	}
+
 }

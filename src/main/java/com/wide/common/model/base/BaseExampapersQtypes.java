@@ -34,29 +34,28 @@ public abstract class BaseExampapersQtypes<M extends BaseExampapersQtypes<M>> ex
 		return get("sumtotal");
 	}
 
-	public void setSumscores(java.lang.Integer sumscores) {
+	public void setSumscores(java.lang.Double sumscores) {
 		set("sumscores", sumscores);
 	}
 
-	public java.lang.Integer getSumscores() {
+	public java.lang.Double getSumscores() {
 		return get("sumscores");
 	}
-	
-	public void setTypeId(java.lang.Integer typeId) {
-		set("type_id", typeId);
-	}
 
-	public java.lang.Integer getTypeId() {
-		return get("type_id");
-	}
-
-	
 	public void setExampapersId(java.lang.String exampapersId) {
 		set("exampapers_id", exampapersId);
 	}
 
 	public java.lang.String getExampapersId() {
 		return get("exampapers_id");
+	}
+
+	public void setTypeId(java.lang.Integer typeId) {
+		set("type_id", typeId);
+	}
+
+	public java.lang.Integer getTypeId() {
+		return get("type_id");
 	}
 
 }

@@ -18,6 +18,7 @@ import com.wide.common.model.ExampapersQuestion;
 import com.wide.common.model.Questions;
 import com.wide.common.model.User;
 import com.wide.common.model.query.QueryExam;
+import com.wide.util.DoubleUtil;
 import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
 
@@ -250,7 +251,7 @@ public class ExamineeController extends BaseController {
 			if(!TypeChecker.isEmpty(examineeid)){
 				List<ExamAnswer> answerList = new ArrayList<ExamAnswer>();
 				answerList = ExamAnswer.dao.find("select * from sys_exam_answer where examinee_id = ? and exam_id = ? ",examineeid,examid);
-				int sumsocres=0;
+				Double sumsocres=0.0;
 				if(answerList.size() >0){
 					for(ExamAnswer examAnswer:answerList){
 						Questions questions = Questions.dao.findById(examAnswer.getQuestionId());
@@ -259,7 +260,7 @@ public class ExamineeController extends BaseController {
 								ExampapersQuestion exampapersQuestion  = ExampapersQuestion.dao.getExampapersQuestion(examAnswer.getQuestionId(),exampapersid);
 								try{
 									if(!TypeChecker.isEmpty(exampapersQuestion)){
-										sumsocres = sumsocres + exampapersQuestion.getScores();
+										sumsocres =DoubleUtil.add(sumsocres, exampapersQuestion.getScores());
 										examAnswer.setAnswerscores(exampapersQuestion.getScores());
 										examAnswer.setUpdateBy(getUser().getId());
 										examAnswer.setUpdateDate(new Date());

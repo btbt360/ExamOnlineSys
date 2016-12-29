@@ -22,7 +22,8 @@
 <link href="${basepath}/static/frame/theme/vendors/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 <link href="${basepath}/static/frame/theme/assets/DT_bootstrap.css" rel="stylesheet" media="screen">
 <link href="${basepath}/static/css/style.css" rel="stylesheet" media="screen">
-  
+<link href="${basepath}/static/frame/icheck-1.x/skins/all.css" rel="stylesheet">
+
 <!-- JS -->
 <script src="${basepath}/static/frame/theme/vendors/jquery-validation/lib/jquery.js"></script>
 <script src="${basepath}/static/frame/theme/vendors/jquery-validation/dist/jquery.validate.js"></script>
@@ -65,5 +66,6 @@
 <script src="${basepath}/static/frame/theme/vendors/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
 <script src="${basepath}/ckeditor/ckeditor.js"></script>
 <script src="${basepath}/ckfinder/ckfinder.js"></script>
+<script src="${basepath}/static/frame/icheck-1.x/icheck.min.js"></script>
 
 

@@ -113,7 +113,7 @@ public class ExampapersController extends BaseController {
 							eq.setExampapersId(exampapers.getId());
 							eq.setTypeId(Integer.parseInt(getPara("questiontype"+i)));
 							eq.setTypename(Dict.dao.getDictByKeyType(getPara("questiontype"+i),"1002"));
-							eq.setSumscores(Integer.parseInt(getPara("sumscore"+i)));
+							eq.setSumscores(Double.parseDouble(getPara("sumscore"+i)));
 							eq.setSumtotal(Integer.parseInt(getPara("sumquestion"+i)));
 							eqlist.add(eq);
 						}
@@ -215,7 +215,7 @@ public class ExampapersController extends BaseController {
 	public void getAddQuestions(){
 		String exampapersid=getPara("exampapersid");
 		String questionid=getPara("questionid");
-		int score=getParaToInt("score");
+		Double score=Double.parseDouble(getPara("score"));
 		String questiontypeid = getPara("questiontypeid");
 		String questionname = Dict.dao.getDictByKeyType(questiontypeid,"1002");
 		int flag = exampapersService.getIsScoreAndIsTotal(exampapersid,questiontypeid,score);//判断试卷总题数和总分数
@@ -294,6 +294,29 @@ public class ExampapersController extends BaseController {
 		}
 		
 		renderJson(listq);
+	}
+	
+	/**
+	 * @author cg
+	 * 取消抽题方法
+	 * */
+	public void getResetAutochoose(){
+		String exampapersid=getPara("exampapersid");
+		String subjectid=getPara("subjectid");
+		String questiontypeid = getPara("questiontypeid");
+		String questionname = Dict.dao.getDictByKeyType(questiontypeid,"1002");
+		try{
+			int kk=exampapersService.goResetAutochoose(exampapersid,subjectid,questiontypeid);
+			if(kk>0){
+				setAttr("message", questionname+"删除抽取成功！");
+			}else{
+				setAttr("message", questionname+"删除抽题失败，请联系管理员！");
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+			setAttr("message", questionname+"删除抽题失败，请联系管理员！");
+		}
+		renderJson();
 	}
 	/**
 	 * @author cg

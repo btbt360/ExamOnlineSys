@@ -33,7 +33,7 @@ public class ExamineeService {
 			Object[] ob = listobj.get(0);
 			restrhead ="<legend>"+Dict.dao.getDictByKeyType(ob[3]+"","1002")+"</legend>"
 					+ "<div class='control-group'>"
-					+ "<div class='controls'><div style='span1 text-right'>"+ob[1]+"、</div><div style='span10 text-left'>"+ob[2]
+					+ "<div class='controls'><div style='span11 text-right'>"+ob[1]+"、"+ob[2]
 					+ "</div></div></div>";
 			restrbody= getrestrbody(ob[3]+"",ob[0]+"",examineeid,examid,(Integer.parseInt(ob[1]+"")+1));
 		}
@@ -68,7 +68,7 @@ public class ExamineeService {
 			}
 			String hqid="answeroption_";
 			restrbody = "<div class='control-group'>"
-					+ "<label class='control-label'>&nbsp;&nbsp;选项：</label>"
+					+ "<label class='control-label'>&nbsp;&nbsp;<h4>选项：</h4></label>"
 					+ "<div class='controls'>"+str
 					+ "</div></div>"
 					+"<div class='form-actions'>"
@@ -92,7 +92,7 @@ public class ExamineeService {
 			}
 			String hqid="answeroption_";
 			restrbody = "<div class='control-group'>"
-					+ "<label class='control-label'>&nbsp;&nbsp;选项：</label>"
+					+ "<label class='control-label'>&nbsp;&nbsp;<h4>选项：</h4></label>"
 					+ "<div class='controls'>"+str
 					+ "</div></div>"
 					+"<div class='form-actions'>"
@@ -101,19 +101,19 @@ public class ExamineeService {
 			String str = "";
 			if(!TypeChecker.isEmpty(ea.getId())){
 				if(ea.getAnswerinfo().equals("0")){
-					str = str+"&nbsp;&nbsp;<input type='radio' id='answeroption_0' value='0' name='answeroption' checked /> 否"+
-				          "&nbsp;&nbsp;<input type='radio' id='answeroption_1' value='1' name='answeroption'  /> 是";
+					str = str+"&nbsp;&nbsp;<input type='radio' id='answeroption_0' value='0' name='answeroption' checked /> 错"+
+				          "&nbsp;&nbsp;<input type='radio' id='answeroption_1' value='1' name='answeroption'  /> 对";
 				}else{
-					str = str+"&nbsp;&nbsp;<input type='radio' id='answeroption_0' value='0' name='answeroption'  否/> "+
-					          "&nbsp;&nbsp;<input type='radio' id='answeroption_1' value='1' name='answeroption' checked /> 是";
+					str = str+"&nbsp;&nbsp;<input type='radio' id='answeroption_0' value='0' name='answeroption'  /> 错"+
+					          "&nbsp;&nbsp;<input type='radio' id='answeroption_1' value='1' name='answeroption' checked /> 对";
 				}
 			}else{
-				str = str+"&nbsp;&nbsp;<input type='radio' id='answeroption_0' value='0' name='answeroption' /> 否"+
-				          "&nbsp;&nbsp;<input type='radio' id='answeroption_1' value='1' name='answeroption' /> 是";
+				str = str+"&nbsp;&nbsp;<input type='radio' id='answeroption_0' value='0' name='answeroption' /> 错"+
+				          "&nbsp;&nbsp;<input type='radio' id='answeroption_1' value='1' name='answeroption' /> 对";
 			}
 			String hqid="answeroption_";
 			restrbody = "<div class='control-group'>"
-					+ "<label class='control-label'>&nbsp;&nbsp;选项：</label>"
+					+ "<label class='control-label'>&nbsp;&nbsp;<h4>选项：</h4></label>"
 					+ "<div class='controls'>"+str
 					+ "</div></div>"
 					+"<div class='form-actions'>"
@@ -125,7 +125,7 @@ public class ExamineeService {
 			}
 			String hqid="answerwd";
 			restrbody = "<div class='control-group'>"
-					+ "<label class='control-label'>&nbsp;&nbsp;回答：</label>"
+					+ "<label class='control-label'>&nbsp;&nbsp;<h4>回答：</h4></label>"
 					+ "<div class='controls'><textarea id='answerwd' name='answerwd' rows='5' style='width: 50%;' placeholder='请输入答案!'>"+str
 					+ "</textarea></div></div>"
 					+"<div class='form-actions'>"
@@ -137,7 +137,7 @@ public class ExamineeService {
 			}
 			String hqid="answerwd";
 			restrbody = "<div class='control-group'>"
-					+ "<label class='control-label'>&nbsp;&nbsp;回答：</label>"
+					+ "<label class='control-label'>&nbsp;&nbsp;<h4>回答：</h4></label>"
 					+ "<div class='controls'><textarea id='answerwd' name='answerwd' rows='5' style='width: 50%;' placeholder='请输入答案!'>"+str
 					+ "</textarea></div></div>"
 					+"<div class='form-actions'>"

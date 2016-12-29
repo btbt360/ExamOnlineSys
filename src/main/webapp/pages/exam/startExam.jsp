@@ -55,7 +55,11 @@ $(document).ready(function() {
 	examineeid = '${examinee.id}';
 	getQuestions();
 	getAnswers();
-	
+	$('input').iCheck({
+		checkboxClass: 'icheckbox_minimal-red',
+		radioClass: 'iradio_minimal-red',
+		increaseArea: '20%' // optional
+	});
 });
 var timerss;
 
@@ -112,7 +116,7 @@ function getQuestions(){
 		cache : false,
 		dataType : 'json',
 		success : function(data) {
-			$("#questions").append(data.questionstr);
+			$("#questions").append("<h4>"+data.questionstr.replace("<p>","").replace("</p>","")+"</h4>");
 		}
 	});
 }
@@ -147,7 +151,7 @@ function updateanswer(questionid,sort,answerTypestr){
 		dataType : 'json',
 		success : function(data) {
 			$("#questions").empty();
-			$("#questions").append(data.questionstr);
+			$("#questions").append("<h4>"+data.questionstr.replace("<p>","").replace("</p>","")+"</h4>");
 		}
 	});
 }
@@ -194,7 +198,7 @@ function nextQuestion(sort,hqstr,questionid,answers){
 			}
 			$("#questions").empty();
 			$("#answers").empty();
-			$("#questions").append(data.questionstr);
+			$("#questions").append("<h4>"+data.questionstr.replace("<p>","").replace("</p>","")+"</h4>");
 			$("#answers").append(data.eqstr);
 		}
 	});

@@ -30,7 +30,8 @@
 				</div>
 				<form id="subinfoform" class="form-horizontal" action="${basepath}/subject/savesub" method="post">
 					<fieldset>
-						<legend class="text-right" id="autolegend"><button type="button" id="autochoosebut" class="btn btn-primary">自动抽取</button></legend>
+						<legend class="text-right" id="autolegend"><button type="button" id="autochoosebut" class="btn btn-primary">自动抽取</button>
+						<button type="button" id="resetchoosebut" class="btn btn-primary">清除抽取</button></legend>
 						<div class="control-group">
 							<label class="control-label" for="exampapersid">试卷选择：</label>
 							<div class="controls">
@@ -190,6 +191,7 @@ $(document).ready(
 		$(".chzn-select").chosen();
 		
 		$("#messagealert").hide();
+		$("#resetchoosebut").hide();
 		var flagcg = '${flagcg}';
 		if(flagcg!=null&&flagcg!=''){
 			$("#messagealert").show();
@@ -229,7 +231,39 @@ $(document).ready(
 					success : function(data) {
 						alert(data.message);
 						reshcg();
-						$("#autolegend").hide();
+						$("#autochoosebut").hide();
+						$("#resetchoosebut").show();
+					}
+				});
+			}
+		});
+		$("#resetchoosebut").click(function(){
+			var exampapersid = $('#exampapersid').val();
+			var subjectid = $('#subjectid').val();
+			var questiontypeid = $('#questiontypeid').val();
+			if(exampapersid==null||exampapersid==''){
+				alert("请选择试卷！");
+				return false;
+			}
+			if(subjectid==null||subjectid==''){
+				alert("请选择科目！");
+				return false;
+			}
+			if(questiontypeid==null||questiontypeid==''){
+				alert("请选择试题类型！");
+				return false;
+			}
+			if (confirm("是否清除已抽的题！")) {
+				$.ajax({
+					type : 'post',
+					url : '${basepath}/exampapers/getResetAutochoose?exampapersid='+exampapersid+'&subjectid='+subjectid+'&questiontypeid='+questiontypeid,
+					cache : false,
+					dataType : 'json',
+					success : function(data) {
+						alert(data.message);
+						reshcg();
+						$("#autochoosebut").show();
+						$("#resetchoosebut").hide();
 					}
 				});
 			}
@@ -276,7 +310,8 @@ $(document).ready(
 					html=html+"</select>";
 					$("#cress").append(html);
 					$(".chzn-select").chosen();
-					$("#autolegend").show();
+					$("#autochoosebut").show();
+					$("#resetchoosebut").hide();
 					reshcg();
 				}
 			});

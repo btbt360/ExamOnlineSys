@@ -50,11 +50,11 @@ public abstract class BaseExamAnswer<M extends BaseExamAnswer<M>> extends DbMode
 		return get("answerinfo");
 	}
 
-	public void setAnswerscores(java.lang.Integer answerscores) {
+	public void setAnswerscores(java.lang.Double answerscores) {
 		set("answerscores", answerscores);
 	}
 
-	public java.lang.Integer getAnswerscores() {
+	public java.lang.Double getAnswerscores() {
 		return get("answerscores");
 	}
 
@@ -146,5 +146,4 @@ public abstract class BaseExamAnswer<M extends BaseExamAnswer<M>> extends DbMode
 		return get("isdel");
 	}
 
-	
 }

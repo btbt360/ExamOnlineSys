@@ -1,6 +1,6 @@
 package com.wide.common.model.base;
 
-
+import com.jfinal.plugin.activerecord.Model;
 import com.wide.config.DbModel;
 import com.jfinal.plugin.activerecord.IBean;
 
@@ -17,16 +17,15 @@ public abstract class BaseQuestions<M extends BaseQuestions<M>> extends DbModel<
 	public java.lang.String getId() {
 		return get("id");
 	}
-	
 
 	public void setSubjectId(java.lang.String subjectId) {
-		set("subjectId", subjectId);
+		set("subject_id", subjectId);
 	}
 
 	public java.lang.String getSubjectId() {
-		return get("subjectId");
+		return get("subject_id");
 	}
-	
+
 	public void setItembankId(java.lang.String itembankId) {
 		set("itembank_id", itembankId);
 	}

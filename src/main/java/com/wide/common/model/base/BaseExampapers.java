@@ -34,11 +34,11 @@ public abstract class BaseExampapers<M extends BaseExampapers<M>> extends DbMode
 		return get("name");
 	}
 
-	public void setSumscore(java.lang.Integer sumscore) {
+	public void setSumscore(java.lang.Double sumscore) {
 		set("sumscore", sumscore);
 	}
 
-	public java.lang.Integer getSumscore() {
+	public java.lang.Double getSumscore() {
 		return get("sumscore");
 	}
 
@@ -113,6 +113,7 @@ public abstract class BaseExampapers<M extends BaseExampapers<M>> extends DbMode
 	public java.lang.Integer getIsdel() {
 		return get("isdel");
 	}
+
 	public void setEndfinish(java.lang.Integer endfinish) {
 		set("endfinish", endfinish);
 	}
@@ -120,5 +121,5 @@ public abstract class BaseExampapers<M extends BaseExampapers<M>> extends DbMode
 	public java.lang.Integer getEndfinish() {
 		return get("endfinish");
 	}
-	
+
 }

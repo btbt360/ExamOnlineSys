@@ -15,6 +15,7 @@ import com.wide.common.model.ExamAnswer;
 import com.wide.common.model.Examinee;
 import com.wide.common.model.ExampapersQtypes;
 import com.wide.common.model.query.QueryExaminee;
+import com.wide.util.DoubleUtil;
 import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
 
@@ -118,7 +119,7 @@ public class AchievementController extends BaseController {
 			Examinee examinee = new Examinee();
 			examinee = Examinee.dao.findById(examineeid);
 			//3.更新单个答案分数
-			ea.setAnswerscores(Integer.parseInt(score));
+			ea.setAnswerscores(Double.parseDouble(score));
 			ea.setJudgetype(1);
 			ea.setJudgepeopleid(getUser().getId());
 			ea.setJudgepeoplename(getUser().getName());
@@ -129,10 +130,10 @@ public class AchievementController extends BaseController {
 			//4.查询整个ExamAnswerlist 更新考生总分
 			List<ExamAnswer> ealist = new ArrayList<ExamAnswer>();
 			ealist = ExamAnswer.dao.find("select * from sys_exam_answer where exam_id = ? and examinee_id = ? ",examid,examineeid);
-			int sumscores= 0;
+			Double sumscores= 0.0;
 			if(ealist.size()>0){
 				for(ExamAnswer examAnswer:ealist){
-					sumscores = sumscores+examAnswer.getAnswerscores();
+					sumscores = DoubleUtil.add(sumscores, examAnswer.getAnswerscores());
 				}
 			}
 			examinee.setTotalscore(sumscores);
@@ -196,7 +197,7 @@ public class AchievementController extends BaseController {
 			examinee = Examinee.dao.findById(examineeid);
 			List<Dict> listdict = new ArrayList<Dict>();
 			listdict = Dict.dao.getDictByType("1015");
-			int sumscores = examinee.getTotalscore();
+			Double sumscores = examinee.getTotalscore();
 			if(listdict.size()>0){
 					if(Integer.parseInt(listdict.get(0).getDictkey())<sumscores&&sumscores<=Integer.parseInt(listdict.get(1).getDictkey())){
 						examinee.setScoreslevel(0);
@@ -243,7 +244,7 @@ public class AchievementController extends BaseController {
 			examinee = Examinee.dao.findById(examineeid);
 			List<Dict> listdict = new ArrayList<Dict>();
 			listdict = Dict.dao.getDictByType("1015");
-			int sumscores = examinee.getTotalscore();
+			Double sumscores = examinee.getTotalscore();
 			if(listdict.size()>0){
 					if(Integer.parseInt(listdict.get(0).getDictkey())<sumscores&&sumscores<=Integer.parseInt(listdict.get(1).getDictkey())){
 						examinee.setScoreslevel(0);

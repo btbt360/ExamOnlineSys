@@ -152,7 +152,7 @@ public class ExamService {
 			examinee.setSeatno(randomint[i]);
 			examinee.setMacaddress(Dict.dao.getDictByKeyType(randomint[i]+"", "1013"));
 			examinee.setIpaddress("");
-			examinee.setTotalscore(0);
+			examinee.setTotalscore(0.0);
 			examinee.setScoreslevel(0);
 			examinee.setIsdel(0);
 			examinee.setIsenable(1); //启用

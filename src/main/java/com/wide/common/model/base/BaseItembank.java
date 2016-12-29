@@ -1,6 +1,6 @@
 package com.wide.common.model.base;
 
-
+import com.jfinal.plugin.activerecord.Model;
 import com.wide.config.DbModel;
 import com.jfinal.plugin.activerecord.IBean;
 
@@ -40,6 +40,14 @@ public abstract class BaseItembank<M extends BaseItembank<M>> extends DbModel<M>
 
 	public java.lang.Integer getChecknum() {
 		return get("checknum");
+	}
+
+	public void setQuestiontype(java.lang.Integer questiontype) {
+		set("questiontype", questiontype);
+	}
+
+	public java.lang.Integer getQuestiontype() {
+		return get("questiontype");
 	}
 
 	public void setName(java.lang.String name) {
@@ -104,14 +112,6 @@ public abstract class BaseItembank<M extends BaseItembank<M>> extends DbModel<M>
 
 	public java.lang.Integer getIsdel() {
 		return get("isdel");
-	}
-	
-	public void setQuestiontype(java.lang.Integer questiontype) {
-		set("questiontype", questiontype);
-	}
-
-	public java.lang.Integer getQuestiontype() {
-		return get("questiontype");
 	}
 
 }

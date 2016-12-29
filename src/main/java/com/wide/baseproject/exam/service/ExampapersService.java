@@ -14,6 +14,7 @@ import com.wide.common.model.Questions;
 import com.wide.common.model.query.QueryExampapers;
 import com.wide.constant.EnumExamineeType;
 import com.wide.util.CGUtil;
+import com.wide.util.DoubleUtil;
 import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
 
@@ -50,11 +51,11 @@ public class ExampapersService {
 						
 					}else{
 						if(eqlist.size()>0&&endfinish==0){
-							int iio=0;//分数
+							Double iio=0.0;//分数
 							for(ExampapersQuestion e:eqlist){
-								iio =iio+e.getScores();
+								iio =DoubleUtil.add(iio, e.getScores());
 							}
-							if(Integer.parseInt(sumscore)==iio&&Integer.parseInt(sumtotal)==eqlist.size()){
+							if(Double.parseDouble(sumscore)==iio&&Integer.parseInt(sumtotal)==eqlist.size()){
 								ischouqu ="<a href ='#' onclick=queren('"+id+"') > 完成抽取</a> | ";
 							}else{
 								ischouqu ="<a href ='#' onclick=chouqu('"+id+"') > 继续抽取</a> | ";
@@ -100,12 +101,12 @@ public class ExampapersService {
 		}
 	}
 
-	public int getIsScoreAndIsTotal(String exampapersid, String questiontypeid,int score) {
+	public int getIsScoreAndIsTotal(String exampapersid, String questiontypeid,Double score) {
 		// TODO Auto-generated method stub
 		List<ExampapersQtypes> listtype = new ArrayList<ExampapersQtypes>();
 		List<ExampapersQuestion> listequestion = new ArrayList<ExampapersQuestion>();
 		ExampapersQtypes eqt= new ExampapersQtypes();
-		int scores = 0 ;
+		Double scores = 0.0 ;
 		if(!TypeChecker.isEmpty(exampapersid)&&!TypeChecker.isEmpty(questiontypeid)){
 			listtype = ExampapersQtypes.dao.find("select * from sys_exampapers_qtypes where exampapers_id = ? and type_id =? ",exampapersid,questiontypeid);
 			listequestion = ExampapersQuestion.dao.find("select t.* from sys_exampapers_question t,sys_questions t1 where t.exampapers_id = ? and t1.id= t.question_id and t1.questiontype = ? ", exampapersid,questiontypeid);
@@ -117,7 +118,7 @@ public class ExampapersService {
 			}
 			if(listequestion.size()>0){
 				for(ExampapersQuestion eq :listequestion){
-					scores = scores+eq.getScores();
+					scores = DoubleUtil.add(scores, eq.getScores());
 				}
 			}
 			if(scores+score>eqt.getSumscores()){
@@ -141,14 +142,14 @@ public class ExampapersService {
 		if(listeqt.size()>0){
 			eqt = listeqt.get(0);
 		}
-		int score = 0;
+		Double score = 0.0;
 		//3.对比题目个数，如果题目数小于总题数，择全部抽取，否则择随机抽取
 		if(listeq.size()==eqt.getSumtotal()){
 			shnum = 1;
 		}else{
 			if(eqt.getSumtotal()-listeq.size()>listquestion.size()){
 				//4.设置分数：如果总分数整除抽取的总题数。
-				score = eqt.getSumscores()/listquestion.size();
+				score = DoubleUtil.div(eqt.getSumscores(), Double.parseDouble(listquestion.size()+""), 1);
 				//5.保存每道题和试卷的对应关系和分数存储到试题试卷对照表中。
 				saveExampapersQuestions(listquestion,exampapersid,score);
 			}else{
@@ -160,7 +161,7 @@ public class ExampapersService {
 					listccc.add(listquestion.get(icc));
 					listquestion.remove(icc);
 				}
-				score = eqt.getSumscores()/eqt.getSumtotal();
+				score = DoubleUtil.div(eqt.getSumscores(),Double.parseDouble(eqt.getSumtotal()+""),1);
 				//5.保存每道题和试卷的对应关系和分数存储到试题试卷对照表中。
 				saveExampapersQuestions(listccc,exampapersid,score);
 			}
@@ -168,7 +169,7 @@ public class ExampapersService {
 		}
 		return shnum;
 	}
-	public void saveExampapersQuestions(List<Questions> list,String exampapersid,int score){
+	public void saveExampapersQuestions(List<Questions> list,String exampapersid,Double score){
 		if(list.size()>0){
 			for(Questions q:list){
 				ExampapersQuestion eq = new ExampapersQuestion();
@@ -229,5 +230,20 @@ public class ExampapersService {
 		}
 		
 	}
+
+public int goResetAutochoose(String exampapersid, String subjectid, String questiontypeid) {
+	// TODO Auto-generated method stub
+	int inum = 0;
+	List<ExampapersQuestion> list = new ArrayList<ExampapersQuestion>();
+	list=ExampapersQuestion.dao.find("select t1.* from sys_exampapers_question t1,sys_questions t2 where t1.exampapers_id = ? and t2.questiontype = ? "
+			+ " and t2.id = t1.question_id ",exampapersid,questiontypeid);
+	if(list.size()>0){
+		for(ExampapersQuestion eq:list){
+			eq.delete();
+		}
+	}
+	inum = 1;
+	return inum;
+}
 
 }
