@@ -6,6 +6,7 @@ public class QueryUser
 	private String starttime;
 	private String endtime;
 	private int usertype;
+	private String officeid;
 
 	public String getUsername()
 	{
@@ -46,4 +47,13 @@ public class QueryUser
 	{
 		this.usertype = usertype;
 	}
+
+	public String getOfficeid() {
+		return officeid;
+	}
+
+	public void setOfficeid(String officeid) {
+		this.officeid = officeid;
+	}
+	
 }

@@ -168,6 +168,7 @@ public class AchievementController extends BaseController {
 		String examineeid = getPara("examineeid");
 		List<ExampapersQtypes> eqlist = new ArrayList<ExampapersQtypes>();
 		eqlist = ExampapersQtypes.dao.find("select * from sys_exampapers_qtypes t,sys_exam t1 where t.exampapers_id=t1.exampapers_id and t1.id = ? ",examid);
+		Double sumscores = 0.0;
 		try{
 			if(eqlist.size()>0){
 				for(ExampapersQtypes eq:eqlist){
@@ -190,6 +191,7 @@ public class AchievementController extends BaseController {
 					ea.setUpdateBy(getUser().getId());
 					ea.setUpdateDate(new Date());
 					ea.update();
+					sumscores = DoubleUtil.add(sumscores, ea.getAnswerscores());
 				}
 			}
 			
@@ -197,7 +199,7 @@ public class AchievementController extends BaseController {
 			examinee = Examinee.dao.findById(examineeid);
 			List<Dict> listdict = new ArrayList<Dict>();
 			listdict = Dict.dao.getDictByType("1015");
-			Double sumscores = examinee.getTotalscore();
+			//sumscores = examinee.getTotalscore();
 			if(listdict.size()>0){
 					if(Integer.parseInt(listdict.get(0).getDictkey())<sumscores&&sumscores<=Integer.parseInt(listdict.get(1).getDictkey())){
 						examinee.setScoreslevel(0);
@@ -207,6 +209,7 @@ public class AchievementController extends BaseController {
 						examinee.setScoreslevel(2);
 					}
 			}
+			examinee.setTotalscore(sumscores);
 			examinee.setIsfinishjudge(1);
 			examinee.setUpdateBy(getUser().getId());
 			examinee.setUpdateDate(new Date());
@@ -226,6 +229,7 @@ public class AchievementController extends BaseController {
 	public void passAlreadyJudge(){
 		String examid = getPara("examid");
 		String examineeid = getPara("examineeid");
+		Double sumscores = 0.0;
 		try{
 			List<ExamAnswer> ealist = new ArrayList<ExamAnswer>();
 			ealist = ExamAnswer.dao.find("select * from sys_exam_answer where exam_id = ? and examinee_id = ? ",examid,examineeid);
@@ -238,13 +242,14 @@ public class AchievementController extends BaseController {
 					ea.setUpdateBy(getUser().getId());
 					ea.setUpdateDate(new Date());
 					ea.update();
+					sumscores = DoubleUtil.add(sumscores, ea.getAnswerscores());
 				}
 			}
 			Examinee examinee = new Examinee();
 			examinee = Examinee.dao.findById(examineeid);
 			List<Dict> listdict = new ArrayList<Dict>();
 			listdict = Dict.dao.getDictByType("1015");
-			Double sumscores = examinee.getTotalscore();
+			//Double sumscores = examinee.getTotalscore();
 			if(listdict.size()>0){
 					if(Integer.parseInt(listdict.get(0).getDictkey())<sumscores&&sumscores<=Integer.parseInt(listdict.get(1).getDictkey())){
 						examinee.setScoreslevel(0);
@@ -254,6 +259,7 @@ public class AchievementController extends BaseController {
 						examinee.setScoreslevel(2);
 					}
 			}
+			examinee.setTotalscore(sumscores);
 			examinee.setIsfinishjudge(1);
 			examinee.setUpdateBy(getUser().getId());
 			examinee.setUpdateDate(new Date());

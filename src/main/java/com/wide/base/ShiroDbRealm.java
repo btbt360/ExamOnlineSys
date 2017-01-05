@@ -45,6 +45,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
         if (StrKit.isBlank(loginName)) {
             throw new AuthenticationException("用户名不可以为空");
         }
+        /**
         boolean isCaptchaBlank = StrKit.isBlank(authcToken.getCaptcha());
         if (isCaptchaBlank) {
             throw new IncorrectCaptchaException("验证码不可以为空!");
@@ -58,7 +59,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
         boolean isRight = CaptchaRender.validate(md5Code, authcToken.getCaptcha());
         if (!isRight) {
             throw new IncorrectCaptchaException("验证码错误!");
-        }
+        }*/
         User user = new User();
         user.setLoginName(loginName);
         user.setPassword(new String(password));

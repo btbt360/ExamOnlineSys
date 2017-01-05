@@ -68,7 +68,7 @@
 						<!-- tbody是必须的 -->
 					</table>
 					<div class="span12 text-center">
-						<button class="btn btn-info btn-large" onclick="onekeypass();">一键复评</button>
+						<button class="btn btn-info btn-large" onclick="onekeypass();">批量复评</button>
 						&nbsp;&nbsp;&nbsp;&nbsp;
 						<button class="btn btn-success btn-large" onclick="passAlreadyJudge()">复评完成</button>
 					</div>

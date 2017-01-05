@@ -119,7 +119,7 @@
 	//使用input框打开ckfinder
 	function BrowseServer(inputId) {
 		var finder = new CKFinder();
-		finder.basePath = '${basepath}/ckfinder'; //导入CKFinder的路径 
+		finder.basePath = '${basepath}/ckfinder/ckfinder.html'; //导入CKFinder的路径 
 		finder.selectActionFunction = SetFileField; //设置文件被选中时的函数 
 		finder.selectActionData = inputId; //接收地址的input ID 
 		finder.popup();

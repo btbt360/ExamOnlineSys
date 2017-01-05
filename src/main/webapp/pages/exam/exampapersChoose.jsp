@@ -306,7 +306,7 @@ $(document).ready(
 					var html="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id='itembankid'  name='itembankid' placeholder='请选择试题题库！' multiple='multiple' class='chzn-select m-wrap'>";
 					jQuery.each(data, function(i,item){
 						 html=html+"<option value='"+item.ID+"'>"+item.NAME+"</option>";
-		            });
+		            }); 
 					html=html+"</select>";
 					$("#cress").append(html);
 					$(".chzn-select").chosen();

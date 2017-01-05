@@ -102,6 +102,7 @@ public class UserController extends BaseController {
 		queryUser.setEndtime(getPara("endtime"));
 		queryUser.setStarttime(getPara("starttime"));
 		queryUser.setUsername(getPara("username"));
+		queryUser.setOfficeid(getPara("officeid"));
 		DataTablesModel userpage = userService.getPageUser(getParaToInt("page")
 				.intValue(), getParaToInt("rp").intValue(), queryUser);
 		this.renderJson(userpage);

@@ -7,6 +7,7 @@ import com.wide.common.model.User;
 import com.wide.common.model.base.BaseUser;
 import com.wide.common.model.query.QueryUser;
 import com.wide.viewmodel.DataTablesModel;
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Page;
 
 /**
@@ -72,6 +73,9 @@ public class User extends BaseUser<User> {
 		}
 		if(query.getEndtime()!=null&&!query.getEndtime().equals("")){
 			where  +=" and create_date <=  '"+query.getEndtime().replace("00:00:00", "23:59:59")+"'";
+		}
+		if(StrKit.notBlank(query.getOfficeid())){
+			where  +=" and id in (select user_id from sys_office_user where office_id = '"+query.getOfficeid()+"')";
 		}
 		return where;
 		

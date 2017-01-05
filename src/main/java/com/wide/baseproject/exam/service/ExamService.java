@@ -135,7 +135,8 @@ public class ExamService {
 	 * 
 	 * */
 	public void saveExaminee(String[] str,String[] strName, String examid,String exampapersid,String userid){
-		int[] randomint = CGUtil.getSequence(str.length);
+	//	int[] randomint = CGUtil.getSequence(str.length);
+		int[] randomint = CGUtil.getSequence(30);
 		for(int i=0;i<str.length;i++){
 			Examinee examinee = new Examinee();
 			examinee.setId(CGUtil.createUUid());

@@ -38,6 +38,7 @@ public class ErrorSubjectController extends BaseController {
 	public void getErrorList(){
 		QueryError qe = new QueryError();
 		qe.setQuestiontype(getPara("questiontype"));
+		qe.setUserid(getUser().getId());
 		DataTablesModel errorpage = errorSubjectService.getPageError(getParaToInt("page")
 				.intValue(), getParaToInt("rp").intValue(), qe);
 		this.renderJson(errorpage);

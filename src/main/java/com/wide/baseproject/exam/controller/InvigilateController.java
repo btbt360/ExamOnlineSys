@@ -237,6 +237,7 @@ public class InvigilateController  extends BaseController {
 		if(em.getStatus()<1){
 			flag = 5;
 		}
+		//flag =1;
 		setAttr("flag", flag);
 		renderJson();
 	}

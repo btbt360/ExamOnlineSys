@@ -101,7 +101,7 @@
 	}
 
 	function del(ids) {
-		if (confirm("确定要删除该科目？")) {
+		if (confirm("确定要删除该字典？")) {
 			$.ajax({
 				type : 'post',
 				url : '${basepath}/dict/delete?id=' + ids,

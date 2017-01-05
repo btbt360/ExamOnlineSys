@@ -1,5 +1,6 @@
 package com.wide.common.model;
 
+import com.jfinal.kit.StrKit;
 import com.wide.common.model.base.BaseError;
 import com.wide.common.model.query.QueryError;
 import com.wide.util.TypeChecker;
@@ -13,7 +14,6 @@ public class Error extends BaseError<Error> {
 	public static final Error dao = new Error();
 
 	public DataTablesModel pageDataTables(int pageNum, int pageSize, QueryError qe) {
-		// TODO Auto-generated method stub
 		// TODO Auto-generated method stub
 	    String select = "select t.id,t1.title,t1.itembank_id,t1.questionanswer,t1.info,t1.questionanswerinfo,t.question_id";
 	    StringBuilder sqlExceptSelect = new StringBuilder(" from sys_error t,sys_questions t1 ");
@@ -36,8 +36,11 @@ public class Error extends BaseError<Error> {
 	 * */
 	private String whereQuery(QueryError qe){
 		String where=" where 1=1 and t1.id=t.question_id  ";
-		if(!TypeChecker.isEmpty(qe.getQuestiontype())){
+		if(StrKit.notBlank(qe.getQuestiontype())){
 			where = where + " and t1.questiontype = '"+qe.getQuestiontype()+"'";
+		}
+		if(StrKit.notBlank(qe.getUserid())){
+			where = where + " and t.user_id = '"+qe.getUserid()+"'";
 		}
 		return where;
 		

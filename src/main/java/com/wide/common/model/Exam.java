@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.jfinal.kit.StrKit;
 import com.wide.common.model.base.BaseExam;
 import com.wide.common.model.query.QueryExam;
 import com.wide.common.model.query.QueryExaminee;
@@ -92,6 +93,9 @@ public class Exam extends BaseExam<Exam> {
 		}
 		if(query.getEndtimes()!=null&&!query.getEndtimes().equals("")){
 			where  +=" and endtime > '"+DateUtil.toDateTimeStr(query.getEndtimes())+"'";
+		}
+		if(StrKit.notBlank(query.getUserid())){
+			where  +=" and id in (select exam_id from sys_examinee where user_id = '"+query.getUserid()+"')";
 		}
 		return where;
 		

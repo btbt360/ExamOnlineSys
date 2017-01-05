@@ -55,12 +55,17 @@
 										<option value="${dict.dictkey}">${dict.dictvalue}</option>
 									</c:forEach>
 								</select></label> 
+							</div><div class="span3">
+								<label class="control-label" for="subjectid">机构名称：
+									<input id="citySel" type="text" readonly value="" style="width:120px;" onclick="showMenu(); return false;"/>
+									<input name="officeid" id ="officeid" type="hidden"  >
+								</label> 
 							</div>
-							<div class="span4 text-center" >
+							<div class="span1 text-right" >
 						<button class="btn btn-medium btn-primary" type="button"
 							id="query">查询</button>&nbsp;&nbsp;&nbsp;&nbsp;
-						<button class="btn btn-medium btn-primary" type="button"
-							id="export">导出</button>
+<!-- 						<button class="btn btn-medium btn-primary" type="button" -->
+<!-- 							id="export">导出</button> -->
 					</div>
 						</div>
 						<input type="hidden" id="userpages" name="userpages" /><input
@@ -87,6 +92,9 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	<div id="menuContent" class="menuContent" style="display:none; position: absolute;background-color: #f5f5f5;border: 1px solid #ccc;">
+		<ul id="otree" class="ztree"></ul>
 	</div>
 </body>
 <script type="text/javascript">
@@ -138,7 +146,84 @@ function del(ids) {
 		});
 	}
 }
-	$(document).ready(function() {
+var setting = {
+	view : {
+		dblClickExpand : false
+	},
+	async : {
+		enable : true, //设置 zTree 是否开启异步加载模式
+		url : "${basepath}/office/getOfficeTree", //Ajax 获取数据的 URL 地址。
+		autoParam : [ "id", "name" ], //异步加载时需要自动提交父节点属性的参数。
+		otherParam : { //Ajax 请求提交的静态参数键值对。
+			"otherParam" : "zTreeAsyncTest"
+		},
+		dataFilter : filter
+	//用于对 Ajax 返回数据进行预处理的函数。
+	},
+	callback : {
+		onClick : onClick, //用于捕获节点被点击的事件回调函数
+		onAsyncSuccess : onAsyncSuccesso
+	}
+};
+var treeNodez;
+
+function filter(treeId, parentNode, childNodes) {
+	if (!childNodes)
+		return null;
+	for (var i = 0, l = childNodes.length; i < l; i++) {
+		childNodes[i].name = childNodes[i].name.replace(/\.n/g, '.');
+	}
+	return childNodes;
+}
+
+function onAsyncSuccesso(event, treeId, treeNode, msg) {
+	var treeObj = $.fn.zTree.getZTreeObj("otree");
+	var nodes = treeObj.getNodesByParam("parentId", 0, null);
+	if (nodes.length > 0) {
+		treeObj.expandNode(nodes[0], true, false, false);
+	}
+}
+
+function onClick(e, treeId, treeNode) {
+	var zTree = $.fn.zTree.getZTreeObj("otree"), nodes = zTree
+			.getSelectedNodes(), v = "";
+	var ids = '';
+	nodes.sort(function compare(a, b) {
+		return a.id - b.id;
+	});
+	for (var i = 0, l = nodes.length; i < l; i++) {
+		v += nodes[i].name + ",";
+		ids += nodes[i].id + ",";
+	}
+	if (v.length > 0)
+		v = v.substring(0, v.length - 1);
+	if (ids.length > 0)
+		ids = ids.substring(0, ids.length - 1);
+	$("#citySel").val(v);
+	$("#officeid").val(ids);
+}
+
+function showMenu() {
+	var cityObj = $("#citySel");
+	var cityOffset = $("#citySel").offset();
+	$("#menuContent").css({
+		left : cityOffset.left + "px",
+		top : cityOffset.top + cityObj.outerHeight() + "px"
+	}).slideDown("fast");
+	$("body").bind("mousedown", onBodyDown);
+}
+function hideMenu() {
+	$("#menuContent").fadeOut("fast");
+	$("body").unbind("mousedown", onBodyDown);
+}
+function onBodyDown(event) {
+	if (!(event.target.id == "menuBtn" || event.target.id == "menuContent" || $(
+			event.target).parents("#menuContent").length > 0)) {
+		hideMenu();
+	}
+}
+$(document).ready(function() {
+		$.fn.zTree.init($("#otree"), setting);
 		$('.datetimepicker').datetimepicker({  
             language:  'zh-CN',
             format: 'yyyy-mm-dd hh:ii:ss',
@@ -180,6 +265,7 @@ function del(ids) {
 		var usertype = $('#usertype').val();
 		var starttime = $('#starttime').val();
 		var endtime = $('#endtime').val();
+		var officeid = $('#officeid').val();
 		var oSettings = [ {
 			"name" : "username",
 			"value" : username
@@ -192,6 +278,9 @@ function del(ids) {
 		}, {
 			"name" : "endtime",
 			"value" : endtime
+		}, {
+			"name" : "officeid",
+			"value" : officeid
 		} ];
 		oTable.gridSearch(this, oSettings);
 	}

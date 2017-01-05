@@ -63,12 +63,13 @@ public class LoginController extends Controller {
      * @Description: 图形验证码   
      * @since V1.0.0
      */
-	@Clear
+	
+	/*@Clear
     public void img(){
         CaptchaRender img = new CaptchaRender(DEFAULT_CAPTCHA_LEN);
         this.setSessionAttr(CaptchaRender.DEFAULT_CAPTCHA_MD5_CODE_KEY, img.getMd5RandonCode());
         render(img);
-        }
+        }*/
 	/**
 	 * 验证
 	 * 

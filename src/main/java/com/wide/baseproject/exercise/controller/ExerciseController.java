@@ -25,7 +25,7 @@ public class ExerciseController extends BaseController{
 	
 	/**
 	 * @author lubin
-	 *  考试添加
+	 *  练习添加
 	 * 
 	 * */
 	public void addExercise(){
@@ -41,7 +41,7 @@ public class ExerciseController extends BaseController{
 	
 	/**
 	 * @author lubin
-	 * 考试列表
+	 * 练习列表
 	 * */
 	public void getExerciselist(){
 		QueryExercise queryExercise = new QueryExercise();
@@ -55,7 +55,7 @@ public class ExerciseController extends BaseController{
 	}
 	/**
 	 * @author lubin
-	 * 考试添加详细
+	 * 练习添加详细
 	 * 
 	 * */
 	public void addExerciseInfo(){
@@ -80,7 +80,7 @@ public class ExerciseController extends BaseController{
 	}
 	/**
 	 * @author lubin
-	 * 考试保存
+	 * 练习保存
 	 * 
 	 * */
 	
@@ -110,7 +110,7 @@ public class ExerciseController extends BaseController{
 	}
 	/**
 	 * @author lubin
-	 * 考试删除
+	 * 练习删除
 	 * */
 	public void delExercise(){
 		returninfo = new RenturnInfo();

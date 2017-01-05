@@ -10,7 +10,7 @@
 <title>文件管理</title>
 
 <c:import url="/pages/include/pageNavigationFile.jsp" />
-<style type="text/css">body, html, iframe, #ckfinder {margin:0;padding:0;border:0;width:100%;height:100%;overflow:hidden;}</style>
+<style type="text/css">body, html, iframe, #ckfinder {margin:0;padding:0;border:0;width:100%;height:1000px;}</style>
 </head>
 <body class="CKFinderFrameWindow">
 	<div id="ckfinder" style="margin-top: 3%"></div>

@@ -8,6 +8,7 @@ public class QueryExam {
 	private Date starttimes;
 	private Date endtimes;
 	private String code;
+	private String userid;
 
 	public String getName() {
 		return name;
@@ -37,6 +38,14 @@ public class QueryExam {
 	}
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public String getUserid() {
+		return userid;
+	}
+
+	public void setUserid(String userid) {
+		this.userid = userid;
 	}
 
 }
