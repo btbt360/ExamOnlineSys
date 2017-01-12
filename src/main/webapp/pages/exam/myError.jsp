@@ -21,7 +21,7 @@
 			<div class="block" style="border: 0px;">
 				<div class="block-content collapse in">
 						<div class="span12 text-center" style="margin-top:2%;">
-							<div class="span6">
+							<div class="span4">
 								<label class="control-label" for="questiontype">错题类型：
 								<select class="m-wrap" id="questiontype" name="questiontype" placeholder="请选择试题类型！">
 										<option value=''>请选择试题类型</option>
@@ -31,7 +31,28 @@
 								</select>
 								</label> 
 							</div>
-							<div class="span6"><button class="btn btn-medium btn-primary" type="button"id="query">查询</button>
+							<div class="span4">
+								<label class="control-label" for="name">考试名称：
+								<select class="m-wrap" id="examid" name="examid" placeholder="请选择试卷！">
+									<option value=''>请选择考试</option>
+								<c:forEach var="exam" items="${examlist}">
+									<option value='${exam.id}' <c:if test='${exam.id==examid}'>selected</c:if>>${exam.code} | ${exam.name}</option>
+								</c:forEach>
+								</select>
+								</label> 
+							</div>
+							<div class="span4">
+								<label class="control-label" for="name">错题来源：
+								<select class="m-wrap" id="restype" name="restype" >
+									<option value='0'>请选择来源</option>
+									<option value='1'>考试出错</option>
+									<option value='2'>练习出错</option>
+								</select>
+								</label> 
+							</div>
+							</div>
+							<div class="span12 text-right" style= "margin-top:2%;padding-right:7%;">
+								<button class="btn btn-medium btn-primary" type="button"id="query">查询</button>
 							</div>
 							</div>
 						<input type="hidden" id="subpages" name="subpages" />
@@ -62,16 +83,31 @@
 			serverSide : true,
 			"sAjaxSource" : "${basepath}/errorsubject/getErrorList"
 		});
-		
 		$("#query").click(function() {
 			reshcg();
+		});
+		$("#restype").change(function(){
+			var restype = $("#restype").val();
+			if(restype == 0 || restype == 1){
+				$("#examid").removeAttr("disabled");
+			}else{
+				$("#examid").attr("disabled","true");
+			}
 		});
 	});
 	function reshcg() {
 		var questiontype = $('#questiontype').val();
+		var restype = $("#restype").val();
+		var examid = $("#examid").val();
 		var oSettings = [ {
 			"name" : "questiontype",
 			"value" : questiontype
+		},{
+			"name" : "examid",
+			"value" : examid
+		},{
+			"name" : "restype",
+			"value" : restype
 		}];
 		oTable.gridSearch(this, oSettings);
 	}

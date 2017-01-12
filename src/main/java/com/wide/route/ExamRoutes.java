@@ -2,6 +2,7 @@ package com.wide.route;
 
 import com.jfinal.config.Routes;
 import com.wide.baseproject.exam.controller.AchievementController;
+import com.wide.baseproject.exam.controller.BespeakExamContrller;
 import com.wide.baseproject.exam.controller.ErrorSubjectController;
 import com.wide.baseproject.exam.controller.ExamController;
 import com.wide.baseproject.exam.controller.ExamineeController;
@@ -19,6 +20,7 @@ public class ExamRoutes extends Routes{
 		add("/examinee",ExamineeController.class,"/pages/exam/");
 		add("/achievement",AchievementController.class,"/pages/exam/");
 		add("/errorsubject",ErrorSubjectController.class,"/pages/exam/");
+		add("/bespeak",BespeakExamContrller.class,"/pages/bespeak/");
 		
 	}
 

@@ -13,6 +13,7 @@ import com.wide.common.model.query.QueryQuestion;
 import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
 import com.wide.common.model.Error;
+import com.wide.common.model.Exam;
 import com.wide.common.model.Exercise;
 import com.wide.common.model.Questions;
 
@@ -27,6 +28,9 @@ public class ErrorSubjectController extends BaseController {
 	public void adderror(){
 		List<Dict> dictlist = new ArrayList<Dict>();
 		dictlist = Dict.dao.getDictByType("1002");
+		List<Exam> examlist= new ArrayList<Exam>();
+		examlist = Exam.dao.find("select t1.* from sys_exam t1,sys_examinee t2 where t1.isdel = 0 and t1.isenable = 1 and t1.id= t2.exam_id and t2.user_id= ?",getUser().getId());
+		setAttr("examlist", examlist);
 		setAttr("dictlist", dictlist);
 		render("myError.jsp");
 	}
@@ -39,6 +43,8 @@ public class ErrorSubjectController extends BaseController {
 		QueryError qe = new QueryError();
 		qe.setQuestiontype(getPara("questiontype"));
 		qe.setUserid(getUser().getId());
+		qe.setExamid(getPara("examid"));
+		qe.setRestype(getPara("restype"));
 		DataTablesModel errorpage = errorSubjectService.getPageError(getParaToInt("page")
 				.intValue(), getParaToInt("rp").intValue(), qe);
 		this.renderJson(errorpage);
@@ -88,6 +94,8 @@ public class ErrorSubjectController extends BaseController {
 					Error error = new Error();
 					error.setId(createUUid());
 					error.setQuestionId(questionsid);
+					error.setRecourseId(error.getId());
+					error.setRecourseType(2);
 					error.setUserId(userid);
 					error.setCreatorId(userid);
 					error.setCreateDate(new Date());

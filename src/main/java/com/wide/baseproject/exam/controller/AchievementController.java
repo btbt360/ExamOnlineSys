@@ -273,7 +273,7 @@ public class AchievementController extends BaseController {
 	
 	public void addExamRecordList(){
 		List<Exam> examlist= new ArrayList<Exam>();
-		examlist = Exam.dao.find("select * from sys_exam where isdel = 0 and isenable = 1 ");
+		examlist = Exam.dao.find("select t1.* from sys_exam t1,sys_examinee t2 where t1.isdel = 0 and t1.isenable = 1 and t1.id= t2.exam_id and t2.user_id= ?",getUser().getId());
 		setAttr("examlist", examlist);
 		render("examineeResult.jsp");
 	}

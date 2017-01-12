@@ -241,7 +241,7 @@ public class ExamineeController extends BaseController {
 						}
 					
 					}
-					invigilateService.saveError(questionid,answer,getUser().getId());
+					invigilateService.saveError(questionid,answer,getUser().getId(),examid);
 				} 
 			}
 		}

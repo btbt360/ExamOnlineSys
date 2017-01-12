@@ -42,6 +42,12 @@ public class Error extends BaseError<Error> {
 		if(StrKit.notBlank(qe.getUserid())){
 			where = where + " and t.user_id = '"+qe.getUserid()+"'";
 		}
+		if(StrKit.notBlank(qe.getExamid())){
+			where = where + " and t.recourse_id = '"+qe.getExamid()+"'";
+		}
+		if(StrKit.notBlank(qe.getRestype())&&!qe.getRestype().equals("0")){
+			where = where + " and t.recourse_type = "+qe.getRestype()+"";
+		}
 		return where;
 		
 	}

@@ -140,7 +140,7 @@ public class InvigilateService {
 		return p;
 	}
 
-	public void saveError(String questionid, String answer, String userid) {
+	public void saveError(String questionid, String answer, String userid,String examid) {
 		// TODO Auto-generated method stub
 		Questions questions = Questions.dao.findById(questionid);
 		if (StrKit.notNull(questions)) {
@@ -152,6 +152,8 @@ public class InvigilateService {
 					error.setId(CGUtil.createUUid());
 					error.setQuestionId(questionid);
 					error.setUserId(userid);
+					error.setRecourseId(examid);
+					error.setRecourseType(1);
 					error.setUpdateBy(userid);
 					error.setUpdateDate(new Date());
 					error.setCreateDate(new Date());
