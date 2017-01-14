@@ -112,11 +112,15 @@ public class Exam extends BaseExam<Exam> {
 	
 	/**
 	 * 查询正在考试的信息
-	 * @param officeId
+	 * @param userid
 	 * @return
 	 */
-	public  List<Exam> getExamList(){
-		List<Exam> lists = find("select t.* from sys_exam t where 1=1 and t.isdel = 0 and t.starttime <'"+DateUtil.toDateTimeStr(new Date())+"' and t.endtime >= '"+DateUtil.toDateTimeStr(new Date())+"'");
+	public  List<Exam> getExamList(String userid){
+		String sql = "select t.* from sys_exam t where 1=1 and t.isdel = 0 and t.status in (0,1)  and t.starttime <'"+DateUtil.toDateTimeStr(new Date())+"' and t.endtime >= '"+DateUtil.toDateTimeStr(new Date())+"'";
+		if(StrKit.notBlank(userid)){
+			sql =  sql + " and t.id in (select exam_id from sys_examinee where user_id = '"+userid+"')";
+		}
+		List<Exam> lists = find(sql);
 		return lists;
 	}
 	

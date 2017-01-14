@@ -1,9 +1,12 @@
 package com.wide.baseproject.statistics.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.jfinal.kit.StrKit;
+import com.jfinal.plugin.activerecord.Db;
 import com.wide.common.model.Cases;
 import com.wide.common.model.Exam;
 import com.wide.common.model.ExamAnswer;
@@ -12,8 +15,11 @@ import com.wide.common.model.ExampapersQtypes;
 import com.wide.common.model.Office;
 import com.wide.common.model.Questionoptions;
 import com.wide.common.model.query.QueryStatistics;
+import com.wide.util.DateUtil;
+import com.wide.util.DoubleUtil;
 import com.wide.viewmodel.DataTablesModel;
 import com.wide.viewmodel.ViewChartData;
+import com.wide.viewmodel.ViewChartZDate;
 
 public class StatisticsService {
 
@@ -287,6 +293,80 @@ public class StatisticsService {
 			}
 		}
 		return examineeCountpage;
+	}
+
+
+
+	public List<ViewChartZDate> queryListChartDatas() {
+		// TODO Auto-generated method stub
+		String year = DateUtil.toDateStr(new Date()).substring(0, 4);
+		List<Integer> months = DateUtil.getsMonthList();
+		List<ViewChartZDate> list = new ArrayList<ViewChartZDate>();
+		if(months.size()>0){
+			for(int i : months){
+				String mothe= (i+1)<10?"0"+(i+1):(i+1)+"";
+				ViewChartZDate vzd = new ViewChartZDate();
+				Date ds = DateUtil.toDate(year+"-"+mothe+"-01");
+				Map<String, String> map = DateUtil.getFirstday_Lastday_Month(ds);
+				List<Object[]> listexaminee = Db.query("select sum(t.totalscore),count(*) from sys_examinee t,sys_exam t1 "
+						+ "where t.isdel = 0 and t.isenable = 1 and t.exam_id = t1.id"
+						+ " and t1.isdel = 0 and t1.isenable = 1 and t1.starttime > ? and t1.starttime < ? "
+						,map.get("first"),map.get("last"));
+				if(listexaminee.size()>0){
+					Object[] o = listexaminee.get(0);
+					Double dsum = StrKit.notNull(o[0])&&!o[0].equals("")?Double.parseDouble(o[0]+""):0.0;
+					Double count = StrKit.notNull(o[1])&&!(o[1]+"").equals("")&&!(o[1]+"").equals("0")?Double.parseDouble(o[1]+""):1.0;
+					vzd.setDatetime(year+"-"+(i<10?"0"+i:i+""));
+					vzd.setAverage(DoubleUtil.div(dsum, count, 2));
+				}
+				list.add(vzd);
+			}
+		}
+		return list;
+	}
+
+
+
+	public List<ViewChartData> queryMyChartDatas(String userid) {
+		// TODO Auto-generated method stub
+		String year = DateUtil.toDateStr(new Date()).substring(0, 4);
+		List<Integer> months = DateUtil.getsMonthList();
+		List<ViewChartData> list = new ArrayList<ViewChartData>();
+		if(months.size()>0){
+			for(int i : months){
+				ViewChartData vcd = new ViewChartData();
+				String mothe= (i+1)<10?"0"+(i+1):(i+1)+"";
+				Date ds = DateUtil.toDate(year+"-"+mothe+"-01");
+				Map<String, String> map = DateUtil.getFirstday_Lastday_Month(ds);
+				List<Examinee> listNoqualified = new ArrayList<Examinee>();
+				List<Examinee> listQualified = new ArrayList<Examinee>();
+				List<Examinee> listExcellent = new ArrayList<Examinee>();
+				//3.查询考试不合格次数
+				listNoqualified = Examinee.dao.find("select t.* from sys_examinee t,sys_exam t1 "
+						+ "where t.isdel = 0 and t.isenable = 1 and t.exam_id = t1.id"
+						+ " and t1.isdel = 0 and t1.isenable = 1 and t1.starttime > ?"
+						+ " and t1.starttime < ? and t.scoreslevel= ? and t.user_id = ? "
+						,map.get("first"),map.get("last"),0,userid);
+				//4.查询考试合格次数
+				listQualified = Examinee.dao.find("select t.* from sys_examinee t,sys_exam t1 "
+						+ "where t.isdel = 0 and t.isenable = 1 and t.exam_id = t1.id"
+						+ " and t1.isdel = 0 and t1.isenable = 1 and t1.starttime > ?"
+						+ " and t1.starttime < ? and t.scoreslevel= ? and t.user_id = ? "
+						,map.get("first"),map.get("last"),1,userid);
+				//5.查询考试优秀次数
+				listExcellent =  Examinee.dao.find("select t.* from sys_examinee t,sys_exam t1 "
+						+ "where t.isdel = 0 and t.isenable = 1 and t.exam_id = t1.id"
+						+ " and t1.isdel = 0 and t1.isenable = 1 and t1.starttime > ?"
+						+ " and t1.starttime < ? and t.scoreslevel= ? and t.user_id = ? "
+						,map.get("first"),map.get("last"),2,userid);
+				vcd.setKaoshixStr(year+"-"+(i<10?"0"+i:i+""));
+				vcd.setNoqualified(listNoqualified.size());
+				vcd.setExcellent(listExcellent.size());
+				vcd.setQualified(listQualified.size());
+				list.add(vcd);
+			}
+		}
+		return list;
 	}
 
 }

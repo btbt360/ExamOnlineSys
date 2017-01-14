@@ -13,6 +13,9 @@ import com.jfinal.aop.Before;
 import com.jfinal.aop.Clear;
 import com.jfinal.aop.Enhancer;
 import com.jfinal.core.Controller;
+import com.jfinal.json.FastJson;
+import com.jfinal.json.JFinalJson;
+import com.jfinal.kit.JsonKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
 import com.jfinal.plugin.activerecord.tx.Tx;
@@ -21,6 +24,7 @@ import com.wide.base.BaseController;
 import com.wide.base.RenturnInfo;
 import com.wide.baseproject.exam.service.ExamService;
 import com.wide.baseproject.resource.controller.ItemBankController;
+import com.wide.baseproject.statistics.service.StatisticsService;
 import com.wide.baseproject.sys.service.DictService;
 import com.wide.baseproject.sys.service.LogService;
 import com.wide.baseproject.sys.service.OfficeService;
@@ -49,6 +53,8 @@ import com.wide.util.ExportController;
 import com.wide.util.TypeChecker;
 import com.wide.validator.UserValidator;
 import com.wide.viewmodel.DataTablesModel;
+import com.wide.viewmodel.ViewChartData;
+import com.wide.viewmodel.ViewChartZDate;
 import com.wide.viewmodel.ViewUser;
 
 public class UserController extends BaseController {
@@ -62,6 +68,8 @@ public class UserController extends BaseController {
 			.enhance(OfficeService.class);
 	private static final LogService logService = Enhancer
 			.enhance(LogService.class);	
+
+	private static final StatisticsService statisticsService = Enhancer.enhance(StatisticsService.class);
 
 	
 	/**
@@ -150,16 +158,26 @@ public class UserController extends BaseController {
 	 */
 
 	public void mainindex() {	
-		List<Exam> examList = Exam.dao.getExamList();
+		List<Exam> examList = new ArrayList<Exam>();
 		UserToken ut = getCurrentUserToken();
 		ut.getVuser().setUser(userService.getUser(ut.getVuser().getUser()));
 		setAttr("userToken", ut);
 		String mark = getPara("message");
 		setAttr("message", mark);
-		setAttr("examList", examList);
+		
 		if(ut.getVuser().getUser().getLoginType()==0){
+			List<ViewChartData> list = new ArrayList<ViewChartData>();
+			list = statisticsService.queryMyChartDatas(getUser().getId());
+			setAttr("chartlist", JsonKit.toJson(list));
+			examList = Exam.dao.getExamList(getUser().getId());
+			setAttr("examList", examList);
 			render("mainexaminee.jsp");
 		}else{
+			List<ViewChartZDate> list = new ArrayList<ViewChartZDate>();
+			list = statisticsService.queryListChartDatas();
+			examList = Exam.dao.getExamList("");
+			setAttr("chartlist", JsonKit.toJson(list));
+			setAttr("examList", examList);
 			render("adminmain.jsp");
 		}
 		
@@ -402,4 +420,5 @@ public class UserController extends BaseController {
 	        setAttr("flagcg", flagcg);
 			render("userImport.jsp");
 	    }
+		
 }

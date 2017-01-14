@@ -109,6 +109,7 @@
 		            labels: ['及格','不及格','优秀'],
 		            barRatio: 0.4,
 		            xLabelMargin: 10,
+		            xLabelAngle: 60,
 		            hideHover: 'auto',
 		            barColors: ["#3d88ba",'#f56954','#00a65a']
 		        });

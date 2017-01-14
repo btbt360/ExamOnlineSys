@@ -110,24 +110,12 @@
 			$(".img-rounded").mouseout(function(){
 				$(this).removeClass("hoverimg");
 			});
-			
-			
+			var dates = '${chartlist}';
 			// Morris Bar Chart
 	        Morris.Bar({
 	            element: 'hero-bar',
-	            data: [
-	                {department: '2016年01月考', average: 62.5},
-	                {department: '2016年02月考', average: 71},
-	                {department: '2016年03月考', average: 58.5},
-	                {department: '2016年04月考', average: 80},
-	                {department: '2016年05月考', average: 64},
-	                {department: '2016年06月考', average: 72},
-	                {department: '2016年07月考', average: 53},
-	                {department: '2016年08月考', average: 91},
-	                {department: '2016年09月考', average: 78},
-	                {department: '2016年10月考', average: 65}
-	            ],
-	            xkey: 'department',
+	            data: eval('(' + dates + ')'),
+	            xkey: 'datetime',
 	            ykeys: ['average'],
 	            labels: ['平均分'],
 	            barRatio: 0.4,
@@ -135,75 +123,6 @@
 	            hideHover: 'auto',
 	            barColors: ['#3d88ba']
 	        });
-			var tax_data = [ {
-				"period" : "2016-01",
-				"qualified" : 15,
-				"noqualified" : 5,
-				"excellent" : 20
-				
-			}, {
-				"period" : "2016-02",
-				"qualified" : 10,
-				"noqualified" : 5,
-				"excellent" : 25
-				
-			}, {
-				"period" : "2016-03",
-				"qualified" :10,
-				"noqualified" :0,
-				"excellent" : 30
-				
-			}, {
-				"period" : "2016-04",
-				"qualified" : 15,
-				"noqualified" : 0,
-				"excellent" : 25
-				
-			}, {
-				"period" : "2016-05",
-				"qualified" : 5,
-				"noqualified" : 0,
-				"excellent" : 35
-				
-			}, {
-				"period" : "2016-06",
-				"qualified" : 7,
-				"noqualified" : 3,
-				"excellent" : 30
-				
-			}, {
-				"period" : "2016-07",
-				"qualified" : 9,
-				"noqualified" : 2,
-				"excellent" : 29
-				
-			}, {
-				"period" : "2016-08",
-				"qualified" : 2,
-				"noqualified" : 18,
-				"excellent" : 20
-				
-			}, {
-				"period" : "2016-09",
-				"qualified" : 6,
-				"noqualified" : 10,
-				"excellent" : 24
-				
-			}, {
-				"period" : "2016-10",
-				"qualified" : 6,
-				"noqualified" : 14,
-				"excellent" : 22
-				
-			}];
-			Morris.Line({
-				element : 'hero-graph',
-				data : tax_data,
-				xkey : 'period',
-				xLabels : "month",
-				ykeys : [ 'noqualified','qualified','excellent'],
-				labels : [ '不及格','及格','优秀']
-			});
 		});
 	</script>
 <c:import url="/pages/include/pageFoot.jsp" />

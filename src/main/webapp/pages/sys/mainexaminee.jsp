@@ -127,59 +127,12 @@
 			
 			
 			// Morris Line Chart
-			var tax_data = [ {
-				"period" : "2016-01",
-				"qualified" : 15,
-				"noqualified" : 5,
-				"excellent" : 20
-				
-			}, {
-				"period" : "2016-02",
-				"qualified" : 10,
-				"noqualified" : 5,
-				"excellent" : 25
-				
-			}, {
-				"period" : "2016-03",
-				"qualified" :10,
-				"noqualified" :0,
-				"excellent" : 30
-				
-			}, {
-				"period" : "2016-04",
-				"qualified" : 15,
-				"noqualified" : 0,
-				"excellent" : 25
-				
-			}, {
-				"period" : "2016-05",
-				"qualified" : 5,
-				"noqualified" : 0,
-				"excellent" : 35
-				
-			}, {
-				"period" : "2016-06",
-				"qualified" : 7,
-				"noqualified" : 3,
-				"excellent" : 30
-				
-			}, {
-				"period" : "2016-07",
-				"qualified" : 9,
-				"noqualified" : 2,
-				"excellent" : 29
-				
-			}, {
-				"period" : "2016-08",
-				"qualified" : 2,
-				"noqualified" : 18,
-				"excellent" : 20
-				
-			} ];
+			var tax_data = '${chartlist}';
+			
 			Morris.Line({
 				element : 'hero-graph',
-				data : tax_data,
-				xkey : 'period',
+				data : eval('(' + tax_data + ')'),
+				xkey : 'kaoshixStr',
 				xLabels : "month",
 				ykeys : [ 'noqualified','qualified','excellent'],
 				labels : [ '不及格','及格','优秀']

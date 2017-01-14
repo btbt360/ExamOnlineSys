@@ -205,6 +205,7 @@ public class ExamineeController extends BaseController {
 								ea.setUpdateBy(getUser().getId());
 								ea.setUpdateDate(new Date());
 								ea.update();
+								invigilateService.saveError(questionid,answer,getUser().getId(),examid);
 							}
 						}else{
 							if (answer.equals(questions.getQuestionanswer())){ 
@@ -238,10 +239,11 @@ public class ExamineeController extends BaseController {
 							ea.setIsenable(1);
 							ea.setJudgetime(new Date());
 							ea.save();
+							invigilateService.saveError(questionid,answer,getUser().getId(),examid);
 						}
 					
 					}
-					invigilateService.saveError(questionid,answer,getUser().getId(),examid);
+					
 				} 
 			}
 		}
