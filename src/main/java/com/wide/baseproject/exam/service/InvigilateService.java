@@ -99,8 +99,8 @@ public class InvigilateService {
 									+ "' type='text' style='display: table-cell;vertical-align: middle;margin-top:3%;' />&nbsp;&nbsp;<input type='button' class='btn btn-primary' value='选择附件' onclick=BrowseServer('"
 									+ path + "','" + id + "') />");
 					if (Integer.parseInt(type) < 2 && Integer.parseInt(type) > 0) {
-						row.set(5, "<a href ='#' onclick=goDown('" + id + "') >下机</a> | <a href ='#' onclick=toAbsent('"
-								+ id + "') >缺考</a>");
+						//row.set(5, "<a href ='#' onclick=goDown('" + id + "') >下机</a> | <a href ='#' onclick=toAbsent('"+ id + "') >缺考</a>");
+						row.set(5, "<a href ='#' onclick=toAbsent('"+ id + "') >缺考</a>");
 					} else {
 						row.set(5, "");
 					}

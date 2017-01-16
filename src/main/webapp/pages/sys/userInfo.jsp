@@ -86,7 +86,7 @@
 						</div>
 					</div>
 					<div class="control-group">
-						<label class="control-label" for="userType">主页类型： </label>
+						<label class="control-label" for="userType">用户类型： </label>
 						<div class="controls">
 							<select class="span6 m-wrap" id="usertype" name="user.userType">
 								<option value=''>请选择</option>

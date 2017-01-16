@@ -276,6 +276,7 @@ $(document).ready(
 				dataType : 'json',
 				success : function(data) {
 					$("#questiontypeid").empty();
+					 $("#questiontypeid").append("<option value=''>--全部类型--</option>");
 					jQuery.each(data, function(i,item){
 		                $("#questiontypeid").append("<option value='"+item.TYPE_ID+"'>"+item.TYPENAME+"</option>");
 		            });
