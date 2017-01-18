@@ -2,6 +2,9 @@ package com.wide.baseproject.exam.controller;
 
 import com.jfinal.aop.Enhancer;
 import com.wide.base.BaseController;
+import com.wide.baseproject.exam.service.BespeakExamService;
+import com.wide.common.model.query.QueryBespeak;
+import com.wide.viewmodel.DataTablesModel;
 
 /**
  * @author cg
@@ -9,7 +12,7 @@ import com.wide.base.BaseController;
  * */
 public class BespeakExamContrller extends BaseController {
 
-	private static BespeakExamContrller bespeakExamContrller = Enhancer.enhance(BespeakExamContrller.class);
+	private static BespeakExamService bespeakExamService = Enhancer.enhance(BespeakExamService.class);
 	
 	/**
 	 * @author cg
@@ -20,6 +23,23 @@ public class BespeakExamContrller extends BaseController {
 		
 		render("bespeaklist.jsp");
 	}
+	
+	/**
+	 * @author cg
+	 * 考试管理--考试预约
+	 * 
+	 * */
+	public void getbespeak(){
+		QueryBespeak qb = new QueryBespeak();
+		qb.setStarttime(getPara("startime"));
+		qb.setEndtime(getPara("endtime"));
+		qb.setNum(getParaToInt("num"));
+		qb.setBetype(getParaToInt("betype"));
+		DataTablesModel bespeakpage = bespeakExamService.getPageBespeak(getParaToInt("page")
+				.intValue(), getParaToInt("rp").intValue(), qb);
+		renderJson(bespeakpage);
+	}
+	
 	
 	/**
 	 * @author cg
@@ -65,13 +85,26 @@ public class BespeakExamContrller extends BaseController {
 	 * 
 	 * */
 	public void addquerybespeak(){
-		
+		int oldtype = getParaToInt("oldtype");
+		if(oldtype==1){
+			//正在预约考试查询
+		}else if(oldtype ==2){
+			//结束预约考试查询
+		}
 		render("querybespeak.jsp");
 	}
-	
 	/**
 	 * @author cg
-	 * 考生日程预约考试
+	 * 考生考试日程预约
+	 * 
+	 * */
+	public void addusersubscribe(){
+		
+		render("usersubscribe.jsp");
+	}
+	/**
+	 * @author cg
+	 * 我的预约
 	 * 
 	 * */
 	public void addschedulebespeak(){
@@ -114,13 +147,5 @@ public class BespeakExamContrller extends BaseController {
 			renderJson();
 		}
 	}
-	/**
-	 * @author cg
-	 * 考生预约考试查询
-	 * 
-	 * */
-	public void queryexamineebespeak(){
-		
-		render("examineebespeak.jsp");
-	}
+
 }
