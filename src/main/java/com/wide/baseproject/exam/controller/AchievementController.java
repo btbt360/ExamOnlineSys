@@ -26,7 +26,7 @@ public class AchievementController extends BaseController {
 	 * @author cg
 	 * 判卷页面
 	 * */
-	public void add(){
+	public void add(){   
 		List<Exam> examlist= new ArrayList<Exam>();
 		examlist = Exam.dao.find("select * from sys_exam where isdel = 0 and isenable = 1 ");
 		setAttr("examlist", examlist);

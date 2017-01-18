@@ -26,7 +26,7 @@
 						<c:if test="${flagcg==1}"><strong>保存成功！</strong></c:if>
 						<c:if test="${flagcg==0}"><strong>保存失败！</strong></c:if>
 				</div>
-				<form id="subinfoform" class="form-horizontal" action="${basepath}/exam/saveExam" method="post">
+				<form id="subinfoform" class="form-horizontal" action="${basepath}/exam/saveExam" method="post" onsubmit="return check();">
 					<fieldset>
 						<legend>添加考试安排</legend>
 						<div class="control-group">
@@ -67,7 +67,7 @@
 							<label class="control-label">考试时长：</label>
 							<div class="controls">
 								<input class="input-xlarge focused" id="duration" name="exam.duration"
-									type="text" value="${exam.duration}" readonly="readonly">
+									type="text" value="${exam.duration}" readonly="readonly">分钟
 							</div>
 						</div>
 						<div class="control-group">
@@ -262,6 +262,8 @@ function getAllCheckedNodeo() {
 	$("#allids").val(allids);
 	$("#usernamesview").text(str);
 	$("#usernames").val(str);
+	
+	
 }
 $(document).ready(function() {
 
@@ -294,7 +296,7 @@ $(document).ready(function() {
 	    }).on('changeDate', function (ev) {   
 	        $(this).datetimepicker('hide'); 
 	    });
-		
+
 		var jqObj = new JQvalidate();
  	    var subform ="subinfoform"; 
      	jqObj.setform(subform);
@@ -314,6 +316,16 @@ $(document).ready(function() {
 		var endTime=$('#endtimes').val();
 		if(startTime != ""){
 			$('#starttimestr').val(startTime);
+			var starttimes = startTime.substring(0, 10).split('-');
+			var starttime = starttimes[1] + '-' + starttimes[2] + '-' + starttimes[0] + ' ' + startTime.substring(10, 19);
+			starttime = starttime.replace(/-/g, "/");
+			var nowTime = getNowFormatDate();
+			nowTime = nowTime.replace(/-/g, "/");
+			var starthour=(Date.parse(starttime)-Date.parse(nowTime))/3600/1000;
+			if(starthour < 0){
+				 alert("开始时间不能小于当前时间！");
+				 startTime.focus();
+			}
 		}
 		if(endTime != ""){
 			$('#endtimestr').val(endTime);
@@ -321,6 +333,7 @@ $(document).ready(function() {
 		if(startTime != "" && endTime != ""){
 			var beginTimes = startTime.substring(0, 10).split('-');
 			var endTimes = endTime.substring(0, 10).split('-');
+			
 			
 			beginTime = beginTimes[1] + '-' + beginTimes[2] + '-' + beginTimes[0] + ' ' + startTime.substring(10, 19);
 		    endTime = endTimes[1] + '-' + endTimes[2] + '-' + endTimes[0] + ' ' + endTime.substring(10, 19);
@@ -330,12 +343,42 @@ $(document).ready(function() {
 		    var hour=(Date.parse(endTime)-Date.parse(beginTime))/3600/1000;
 		    
 			if (hour < 0) { 
-				  alert("开始时间不能大于结束时间！");
+				  alert("结束时间不能小于开始时间！");
 				  endTime.focus();
 			}else{
 				var minutes = parseInt(Math.abs((Date.parse(endTime)-Date.parse(beginTime))/(1000*60)));
 				$("#duration").val(minutes);
 			}
+		}
+	}
+	
+	function getNowFormatDate() {
+	    var date = new Date();
+	    var seperator1 = "-";
+	    var seperator2 = ":";
+	    var month = date.getMonth() + 1;
+	    var strDate = date.getDate();
+	    if (month >= 1 && month <= 9) {
+	        month = "0" + month;
+	    }
+	    if (strDate >= 0 && strDate <= 9) {
+	        strDate = "0" + strDate;
+	    }
+	    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+	            + " " + date.getHours() + seperator2 + date.getMinutes()
+	            + seperator2 + date.getSeconds();
+	    return currentdate;
+	}
+	
+	function check(){
+		var userIds = $("#userids").val();
+		var ids= new Array(); //定义一数组 
+		ids = userIds.split("\|");
+		if((ids.length-1) >3){
+			alert("参加考生人数不得大于30人,请重新选择！")
+			return false;
+		}else{
+			return true;
 		}
 	}
 	

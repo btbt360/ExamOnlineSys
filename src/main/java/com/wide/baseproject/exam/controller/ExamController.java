@@ -64,7 +64,7 @@ public class ExamController extends BaseController{
 		String userids = "";
 		if (examineeList.size() > 0) {
 			for (Examinee o : examineeList) {
-				usernames = usernames + "|" + o.getExamineename();
+				usernames = usernames + o.getExamineename()+ "|";
 				userids = userids + o.getUserId() + "|";
 			}
 		}
