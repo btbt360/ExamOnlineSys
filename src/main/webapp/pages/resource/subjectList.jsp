@@ -54,7 +54,7 @@
 							<strong><span id="messageee"></span></strong>
 						</div>
 					</div>
-					<form action="${basepath}/subject/exportSubject" method="post"
+					<form action="${basepath}/subject/addsub" method="post"
 						id="subform">
 						<div class="span12">
 							<div class="span4">
@@ -68,7 +68,7 @@
 									type="text" /></label> 
 							</div>
 							<div class="span4 text-right" >
-						<button class="btn btn-medium btn-primary" type="button"
+						<button class="btn btn-medium btn-primary" type="submit"
 							id="query">查询</button>
 <!-- 						<button class="btn btn-medium btn-primary" type="button" -->
 <!-- 							id="export">导出</button> -->

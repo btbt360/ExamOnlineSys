@@ -94,6 +94,7 @@ public class ExamService {
 			Date starttime = DateUtil.toDateTimeNot(starttimestr);
 			Date endtime = DateUtil.toDateTimeNot(endtimestr);
 			exam.setId(id);
+			exam.setCode("KS-"+DateUtil.toDateStr(new Date()).replace("-","")+"-"+CGUtil.getRandomInt());
 			exam.setStarttime(starttime);
 			exam.setEndtime(endtime);
 			exam.setNumber(str.length);

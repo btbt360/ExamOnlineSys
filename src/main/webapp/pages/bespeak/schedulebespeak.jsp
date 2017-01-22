@@ -12,19 +12,14 @@
 					<i class="icon-chevron-right show-sidebar" style="display: none;">
 						<a href='#' title="Show Sidebar" rel='tooltip'>&nbsp;</a>
 					</i>
-					<li><a href="#">考试管理</a> <span class="divider">/</span></li>
-					<li class="active">考试安排</li>
+					<li><a href="#">我的考试</a> <span class="divider">/</span></li>
+					<li class="active">我的预约</li>
 				</ul>
 			</div>
 		</div>
 		<div class="row-fluid">
 			<div class="block" style="border: 0px;">
 				<div class="block-content collapse in">
-					<ul class="nav nav-tabs">
-						<li class="active"><a href="${basepath}/exam/addExam">考试安排列表</a></li>
-						<li><a href="${basepath}/exam/addExamInfo">添加考试安排</a></li>
-					</ul>
-					
 					<!-- 删除用户提示 -->
 					<div class="span12">
 						<div class="alert alert-success"
@@ -40,22 +35,26 @@
 					</div>
 					<form action="${basepath}/exam/exportSubject" method="post" id="subform">
 						<div class="span12">
-							<div class="span4">
+							<div class="span3">
 								<label class="control-label" for="name">考试名称：<input
 									class="input-medium focused" id="name" name="name"
 									type="text" /></label> 
 							</div>
-							<div class="span4">
-								<label class="control-label" for="code">考试编码：<input
-									class="input-medium focused" id="code" name="code"
-									type="text" /></label> 
+							<div class="span3">
+							<label class="control-label" for="starttimes"><a href='#'
+								id="ceatetimes" style="color: black; text-decoration: none;">创建时间：</a><input type="text" class="input-medium datetimepicker"
+								id="starttimes" value="" name="starttimes"></label>
 							</div>
-							<div class="span4 text-right" >
-						<button class="btn btn-medium btn-primary" type="button"
-							id="query">查询</button>
+							<div class="span3">
+								<label class="control-label" for="endtimes"><a href='#'
+									id="ceatetimee" style="color: black; text-decoration: none;">至：</a><input type="text" class="input-medium datetimepicker" id="endtimes"
+									value="" name="endtimes"></label>
+							</div>
+							<div class="span3 text-center" >
+							<button class="btn btn-medium btn-primary" type="button" id="query">查询</button>
  						<!-- <button class="btn btn-medium btn-primary" type="button" 
 							id="export">计算分数</button> --> 
-					</div>
+							</div>
 						</div>
 						<input type="hidden" id="subpages" name="subpages" /><input
 							type="hidden" id="subrp" name="subrp" />
@@ -70,7 +69,7 @@
 								<th>考试结束时间</th>
 								<th>考试时长</th>
 								<th>考试人数</th>
-								<th>监考人</th>
+								<th>预约人数</th>
 								<th>考试状态</th>
 								<th>操作</th>
 							</tr>
@@ -85,59 +84,52 @@
 	</div>
 </body>
 <script type="text/javascript">
-function edit(ids) {
-	location.href = "${basepath}/exam/addExamInfo?id=" + ids;
-}
+$(document).ready(function() {
+		$('.datetimepicker').datetimepicker({  
+            language:  'zh-CN',
+            format: 'yyyy-mm-dd',
+            weekStart: 1,  
+            todayBtn:  1,  
+            autoclose: true,  
+            todayHighlight: 1,  
+            startView: 2,  
+            forceParse: true,  
+            minView:2,//只到天
+            showMeridian: 1  
+        }).on('changeDate', function (ev) {  
+            $(this).datetimepicker('hide');  
+        });
 
-function del(ids) {
-	if (confirm("确定要删除该考试？")) {
-		$.ajax({
-			type : 'post',
-			url : '${basepath}/exam/delExam?id=' + ids,
-			cache : false,
-			dataType : 'json',
-			success : function(data) {
-				if (data.result == 1) {
-					$("#successmessage").hide();
-					$("#errormessage").show();
-					$("#messageee").text("删除失败，请联系管理员！");
-				} else {
-					$("#errormessage").hide();
-					$("#successmessage").show();
-					$("#messagess").text("删除成功！");
-				}
-				reshcg();
-			}
-		});
-	}
-}
-	$(document).ready(function() {
-		oTable = $('#userList').initDT({
+		oTable = $('#roleList').initDT({
 			serverSide : true,
-			"sAjaxSource" : "${basepath}/exam/getExamlist"
+			"sAjaxSource" : "${basepath}/bespeak/schedulebespeak"
 		});
 
 		$("#query").click(function() {
 			reshcg();
 		});
-		$("#export").click(function() {
-			alert(1111);
-			/* $("#subpages").val(oTable.getCurrentPage());
-			$("#subrp").val(oTable.getPageSize());
-			$("#subform").submit(); */
-			location.href = "${basepath}/exam/countScore";
+
+		$('#ceatetimes').click(function() {
+			$('#starttimes').val('');
+		});
+		$('#ceatetimee').click(function() {
+			$('#endtimes').val('');
 		});
 
 	});
 	function reshcg() {
 		var name = $('#name').val();
-		var code = $('#code').val();
+		var starttimes = $('#starttimes').val();
+		var endtimes = $('#endtimes').val();
 		var oSettings = [ {
 			"name" : "name",
 			"value" : name
 		}, {
-			"name" : "code",
-			"value" : code
+			"name" : "starttimes",
+			"value" : starttimes
+		}, {
+			"name" : "endtimes",
+			"value" : endtimes
 		} ];
 		oTable.gridSearch(this, oSettings);
 	}

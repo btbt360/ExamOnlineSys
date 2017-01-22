@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Enhancer;
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wide.base.BaseController;
@@ -83,7 +84,7 @@ public class QuestionsController extends BaseController{
 		List<Questionoptions> questionoptionslist  =null;
 		Itembank itembank =null;
 		Subject subject = new Subject();
-		String subjectname = "";
+		String subjectname,questioncode = "";
 		if(questions!=null&&!questions.equals("")){
 			questiontypename = Dict.dao.getDictByKeyType(questions.getQuestiontype()+"", "1002");
 			questionoptionslist= questionsService.getQuestionoptionsByQuestionId(id);
@@ -95,10 +96,10 @@ public class QuestionsController extends BaseController{
 		setAttr("questions",questions);
 		setAttr("itembank",itembank);
 		setAttr("subjectlist",subjectlist);
+		setAttr("questioncode",questioncode);
 		setAttr("numcount",questionoptionslist!=null&&!questionoptionslist.equals("")?questionoptionslist.size():0);
 		setAttr("questionoptionslist",questionoptionslist);
 		setAttr("flagcg", getPara("flagcg"));
-		setAttr("subjectname", subjectname);
 		render("questionInfo.jsp");
 	}
 	
@@ -118,6 +119,7 @@ public class QuestionsController extends BaseController{
 				questions.setUpdateDate(new Date());
 			}else{
 				questions.setId(createUUid());
+				questions.setCode(getCodes(questions.getQuestiontype())+"-"+System.currentTimeMillis()+"-"+CGUtil.getRandomInt());
 				questions.getItembankId();
 				questions.setCreatorId(getUser().getId());
 				questions.setCreateDate(new Date());
@@ -166,8 +168,18 @@ public class QuestionsController extends BaseController{
 		returninfo = new RenturnInfo();
 		String id = getPara("id");
 		try{
+			
 			if(id!=null&&!id.equals("")){
-				Db.update("update sys_questions set isdel = 1 where id = ? ",id);
+				if(id.indexOf("|")!=-1){
+					String[] idss = id.split("[|]");
+					for(String ss: idss){
+						if(StrKit.notBlank(ss)){
+							Db.update("update sys_questions set isdel = 1 where id = ? ",ss);
+						}
+					}
+				}else{
+					Db.update("update sys_questions set isdel = 1 where id = ? ",id);					
+				}
 			}
 			returninfo.setResult(0);
 			returninfo.setResultInfo("删除成功！");
@@ -182,5 +194,16 @@ public class QuestionsController extends BaseController{
 		
 	}
 
+	private String getCodes(int num){
+		String kis = "";
+		switch(num){
+			case 1:kis = "DAX";
+			case 2:kis = "DOX";
+			case 3:kis = "PD";
+			case 4:kis = "TK";
+			case 5:kis = "WD";
+		}
+		return kis;
+	}
 
 }

@@ -352,7 +352,6 @@ $(document).ready(function() {
 				success : function(data) {
 					$("#questiontypename").val(data.questiontype.DICTVALUE);
 					$("#questiontype").val(data.questiontype.DICTKEY);
-					alert($("#questiontype").val());
 				}
 			});
 		});

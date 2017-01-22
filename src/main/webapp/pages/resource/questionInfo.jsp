@@ -58,13 +58,13 @@
 									type="hidden" value="${questions.questiontype}" >
 						</div>	
 						</div>
-						<div class="control-group">
+						<%-- <div class="control-group">
 							<label class="control-label">试题编码：</label>
 							<div class="controls">
 								<input class="input-xlarge focused" id="code" name="questions.code"
 									type="text" placeholder="请输入试题编码!" value="${questions.code}" >
 							</div>
-						</div>
+						</div> --%>
 						<div class="control-group" >
 							<label class="control-label">试题内容：</label>
 							<div class="controls">
@@ -348,7 +348,7 @@ $(document).ready(function() {
      	jqObj.setform(subform);
  	    jqObj.set("questions.subjectId", "required",  "请选择科目!");  
  	    jqObj.set("questions.itembankId", "required",  "请选择题库!");	 
- 	    jqObj.set("questions.code", "required",  "请输入试题编码!");
+ 	  //  jqObj.set("questions.code", "required",  "请输入试题编码!");
  	    jqObj.set("questions.questionanswer", "required",  "请输入试题答案!");
  	    jqObj.Run();
  	 

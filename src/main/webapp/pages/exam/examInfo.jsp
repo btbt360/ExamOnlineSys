@@ -37,14 +37,14 @@
 									type="text" placeholder="请输入试卷名称!" value="${exam.name}" >
 							</div>
 						</div>
-						<div class="control-group">
+						<%-- <div class="control-group">
 							<label class="control-label">考试编号：</label>
 							<div class="controls">
 							<input name="exam.id" type="hidden" value="${exam.code}" >
 								<input class="input-xlarge focused" id="name" name="exam.code"
 									type="text" placeholder="请输入考试编号!" value="${exam.code}" >
 							</div>
-						</div>
+						</div> --%>
 						<div class="control-group">
 							<label class="control-label">开始时间：</label>
 							<div class="controls">
@@ -301,7 +301,7 @@ $(document).ready(function() {
  	    var subform ="subinfoform"; 
      	jqObj.setform(subform);
  	    jqObj.set("exam.name", "required",  "请输入试卷名称!"); 
- 	    jqObj.set("exam.code", "required",  "请输入考试编号!"); 
+ 	   // jqObj.set("exam.code", "required",  "请输入考试编号!"); 
  	    jqObj.set("exam.starttime", "required",  "请输入开始时间!");
  	    jqObj.set("exam.endtime", "required",  "请输入结束时间!");
  	    jqObj.set("exam.address", "required",  "请输入考试地点!");
@@ -324,6 +324,7 @@ $(document).ready(function() {
 			var starthour=(Date.parse(starttime)-Date.parse(nowTime))/3600/1000;
 			if(starthour < 0){
 				 alert("开始时间不能小于当前时间！");
+				 $('#starttimes').val('');
 				 startTime.focus();
 			}
 		}
@@ -344,6 +345,7 @@ $(document).ready(function() {
 		    
 			if (hour < 0) { 
 				  alert("结束时间不能小于开始时间！");
+				  $('#endtimes').val('');
 				  endTime.focus();
 			}else{
 				var minutes = parseInt(Math.abs((Date.parse(endTime)-Date.parse(beginTime))/(1000*60)));
@@ -372,14 +374,21 @@ $(document).ready(function() {
 	
 	function check(){
 		var userIds = $("#userids").val();
+		if(userIds==''){
+			alert("请重新选择参加考生！");
+			return false;
+		}
 		var ids= new Array(); //定义一数组 
 		ids = userIds.split("\|");
-		if((ids.length-1) >3){
-			alert("参加考生人数不得大于30人,请重新选择！")
+		if((ids.length-1) >30){
+			alert("参加考生人数不得大于30人,请重新选择！");
+			$("#userids").val('');
+			$("#usernamesview").text('');
 			return false;
-		}else{
-			return true;
 		}
+		
+		return true;
+		
 	}
 	
 </script>

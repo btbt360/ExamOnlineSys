@@ -205,7 +205,7 @@ function onBodyDown(event) {
 	}
 }
 function checkinfo(itembid){
-	location.href = "${basepath}/questions/add?id=" + itembid;
+	location.href = "${basepath}/questions/add?itembid=" + itembid;
 }
 $(document).ready(
 		function() {

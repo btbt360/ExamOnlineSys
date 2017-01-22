@@ -74,8 +74,8 @@
 							<div class="span7 text-right" >
 							<button class="btn btn-medium btn-primary" type="button"
 							id="query">查询</button>
-<!-- 							<button class="btn btn-medium btn-primary" type="button" -->
-<!-- 								id="export">导出</button> -->
+ 							<button class="btn btn-medium btn-primary" type="button" 
+								id="deletesrows">删除</button> 
 							</div>
 							<div class="span1" id="htmlssss"></div>
 						</div>
@@ -86,6 +86,7 @@
 					<table id="userList" class="table table-striped table-bordered">
 						<thead>
 							<tr>
+								<th><input type="checkbox" id="checkalls" ><label for="checkalls">全选</label></th>
 								<th width="5%">序号</th>
 								<th width="10%">试题类型</th>
 								<th width="10%">试题编码</th>
@@ -245,12 +246,56 @@ $(document).ready(
 			$("#subrp").val(oTable.getPageSize());
 			$("#subform").submit();
 		});
-		var itembank = '${itembank}';
+		var itembank = '${itembank.id}';
 		if(itembank!=null&&itembank!=''){
-			$('#itembankid').empty();
-			$('#itembankid').append('<option value="'+itembank.id+'">'+itembank.name+'</option>');
+			var oSettings = [{
+				"name" : "itembankid",
+				"value" : itembank
+			} ];
+			oTable.gridSearch(this, oSettings);
 		}
-		
+		var checkfalse=true;
+		$("#checkalls").click(function(){
+			if(checkfalse){
+				$("input[id^='check_']").each(function () {
+					$(this).attr("checked", true);
+				});
+				checkfalse = false;
+			}else{
+				$("input[id^='check_']").each(function () {
+					$(this).attr("checked", false);
+				});
+				checkfalse = true;
+			}
+		});
+		$("#deletesrows").click(function(){
+			var strs = "";
+			$("input[id^='check_']").each(function () {
+				if($(this).attr("checked")){
+					strs = strs +"|"+$(this).val();
+				}
+			});
+			if (confirm("确定要删除所选试题？")) {
+				$.ajax({
+					type : 'post',
+					url : '${basepath}/questions/del?id=' + strs,
+					cache : false,
+					dataType : 'json',
+					success : function(data) {
+						if (data.result == 1) {
+							$("#successmessage").hide();
+							$("#errormessage").show();
+							$("#messageee").text("删除失败，请联系管理员！");
+						} else {
+							$("#errormessage").hide();
+							$("#successmessage").show();
+							$("#messagess").text("删除成功！");
+						}
+						reshcg();
+					}
+				});
+			}
+		});
 	});
 	function reshcg() {
 		var name = $('#name').val();

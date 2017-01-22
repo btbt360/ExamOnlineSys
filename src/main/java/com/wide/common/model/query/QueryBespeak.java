@@ -6,6 +6,7 @@ public class QueryBespeak {
 	private String endtime;
 	private int betype;
 	private int num;
+	private String examname;
 	public String getStarttime() {
 		return starttime;
 	}
@@ -29,6 +30,12 @@ public class QueryBespeak {
 	}
 	public void setNum(int num) {
 		this.num = num;
+	}
+	public String getExamname() {
+		return examname;
+	}
+	public void setExamname(String examname) {
+		this.examname = examname;
 	}
 	
 	

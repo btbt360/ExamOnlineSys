@@ -93,6 +93,11 @@ public class BespeakExamContrller extends BaseController {
 		}
 		render("querybespeak.jsp");
 	}
+	
+	  /*********************************************************************************************************/
+	 /********************************************考生预约考试功能内容**********************************************/
+	/*********************************************************************************************************/
+	
 	/**
 	 * @author cg
 	 * 考生考试日程预约
@@ -110,6 +115,21 @@ public class BespeakExamContrller extends BaseController {
 	public void addschedulebespeak(){
 		
 		render("schedulebespeak.jsp");
+	}
+	/**
+	 * @author cg
+	 * 我的预约
+	 * 
+	 * */
+	public void schedulebespeak(){
+		QueryBespeak qb = new QueryBespeak();
+		qb.setStarttime(getPara("starttimes"));
+		qb.setEndtime(getPara("endtimes"));
+		qb.setExamname(getPara("name"));
+		//预约考试
+		DataTablesModel bespeakpage = bespeakExamService.getPageBespeak(getParaToInt("page")
+				.intValue(), getParaToInt("rp").intValue(), qb);
+		renderJson();
 	}
 	/**
 	 * @author cg

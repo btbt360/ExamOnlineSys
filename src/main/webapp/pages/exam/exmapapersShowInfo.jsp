@@ -50,11 +50,13 @@
 			</div>
 	</div>
 	</div>
-			<div class="block" id="danxuan">
+			<div class="block" id="danxuan" >
+			<a href="#" onmouseover="this.style.cursor='hand'">
                <div class="navbar navbar-inner block-header">
                    <div class="muted pull-left">单项选择题</div>
                </div>
-               <div class="block-content collapse in">
+            </a>
+               <div class="block-content collapse in" id="danxuanmiss">
                    <div class="span12">
   					<table class="table table-bordered">
 						 <thead>
@@ -71,10 +73,12 @@
                </div>
              </div>
              <div class="block" id="duoxuan">
+             <a href="#" onmouseover="this.style.cursor='hand'">
                <div class="navbar navbar-inner block-header">
                    <div class="muted pull-left">多项选择题</div>
                </div>
-               <div class="block-content collapse in">
+             </a>
+               <div class="block-content collapse in" id="duoxuanmiss">
                    <div class="span12">
   					<table class="table table-bordered">
 						 <thead>
@@ -91,10 +95,12 @@
                </div>
              </div>
              <div class="block" id="panduan">
+             <a href="#" onmouseover="this.style.cursor='hand'">
                <div class="navbar navbar-inner block-header">
                    <div class="muted pull-left">判断题</div>
                </div>
-               <div class="block-content collapse in">
+              </a>
+               <div class="block-content collapse in" id="panduanmiss">
                    <div class="span12">
   					<table class="table table-bordered">
 						 <thead>
@@ -111,10 +117,12 @@
                </div>
              </div>
              <div class="block" id="wenda">
+             <a href="#" onmouseover="this.style.cursor='hand'">
                <div class="navbar navbar-inner block-header">
                    <div class="muted pull-left">问答题</div>
                </div>
-               <div class="block-content collapse in">
+             </a>
+               <div class="block-content collapse in" id="wendamiss">
                    <div class="span12">
   					<table class="table table-bordered">
 						 <thead>
@@ -131,10 +139,12 @@
                </div>
              </div>
              <div class="block" id="tiankong">
+             <a href="#" onmouseover="this.style.cursor='hand'">
                <div class="navbar navbar-inner block-header">
                    <div class="muted pull-left">填空题</div>
                </div>
-               <div class="block-content collapse in">
+             </a>
+               <div class="block-content collapse in" id="tiankongmiss">
                    <div class="span12">
   					<table class="table table-bordered">
 						 <thead>
@@ -158,6 +168,13 @@ $(document).ready(function() {
 		$("#panduan").hide();
 		$("#wenda").hide();
 		$("#tiankong").hide();
+		
+		var danxuanboolean = false;
+		var duoxuanboolean = false;
+		var panduanboolean = false;
+		var wendaboolean = false;
+		var tiankongboolean =false;
+		
 		$("#exampapersid").change(function() {
 			$.ajax({
 				type : 'post',
@@ -173,6 +190,51 @@ $(document).ready(function() {
 				}
 			});
 			
+		});
+		$("#danxuan").click(function(){
+			if(danxuanboolean){
+				danxuanboolean = false;
+				$("#danxuanmiss").show();
+			}else{
+				danxuanboolean = true;
+				$("#danxuanmiss").hide();
+			}
+		});
+		$("#duoxuan").click(function(){
+			if(duoxuanboolean){
+				duoxuanboolean = false;
+				$("#duoxuanmiss").show();
+			}else{
+				duoxuanboolean = true;
+				$("#duoxuanmiss").hide();
+			}
+		});
+		$("#panduan").click(function(){
+			if(panduanboolean){
+				panduanboolean = false;
+				$("#panduanmiss").show();
+			}else{
+				panduanboolean = true;
+				$("#panduanmiss").hide();
+			}
+		});
+		$("#wenda").click(function(){
+			if(wendaboolean){
+				wendaboolean = false;
+				$("#wendamiss").show();
+			}else{
+				wendaboolean = true;
+				$("#wendamiss").hide();
+			}
+		});
+		$("#tiankong").click(function(){
+			if(tiankongboolean){
+				tiankongboolean = false;
+				$("#tiankongmiss").show();
+			}else{
+				tiankongboolean = true;
+				$("#tiankongmiss").hide();
+			}
 		});
 	});
 function istype(){

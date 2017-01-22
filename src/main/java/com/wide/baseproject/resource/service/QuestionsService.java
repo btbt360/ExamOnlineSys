@@ -29,8 +29,8 @@ public class QuestionsService {
 					for (int i = 0; i < rows.size(); i++) {
 						int num = (pageNum-1)*pageSize+(i+1);
 						List<String> row = rows.get(i);
-						row.set(5, Integer.parseInt((row.get(5) + "")) == 1 ? "<font color='#00ff66'>启用</font>" : "<font color='#C9C9C9'>禁用</font>");
-						row.add(6, "<a href ='#' onclick=edit('" + row.get(0).trim()
+						row.add(6, Integer.parseInt((row.get(5) + "")) == 1 ? "<font color='#00ff66'>启用</font>" : "<font color='#C9C9C9'>禁用</font>");
+						row.add(7, "<a href ='#' onclick=edit('" + row.get(0).trim()
 								+ "') >修改</a> | <a href='#' onclick=del('" + row.get(0).trim() + "') >删除</a>"  );
 						List<Questionoptions> list =Questionoptions.dao.findByQuestionId(row.get(0).trim());
 						String option = "";
@@ -39,11 +39,20 @@ public class QuestionsService {
 								option = option + "</br>"+q.getCode()+"、"+q.getContant()+"。";
 							}
 						}
-						row.set(0, num+"");
+						row.set(0, "<input type='checkbox' id='check_"+num+"' value='"+row.get(0)+"' />");
 						if(Integer.parseInt(row.get(1))<3){
-							row.set(3, row.get(3)+option);
+							row.set(4, row.get(3)+option);
+						}else if(Integer.parseInt(row.get(1))==3){
+							row.set(5, row.get(4).equals("1")?"对":"错");
+						}else{
+							row.set(4, row.get(3));
+							row.set(5, row.get(4));
 						}
-						row.set(1, Dict.dao.getDictByKeyType(row.get(1),"1002"));
+						row.set(3, row.get(2));
+						row.set(2, Dict.dao.getDictByKeyType(row.get(1),"1002"));
+						row.set(1, num+"");
+						
+						
 					}
 				}
 			}

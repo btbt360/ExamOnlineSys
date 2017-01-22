@@ -20405,3 +20405,97 @@ Caused by: java.net.ConnectException: Connection refused: connect
 
 2017-01-17 21:41:44
 [ERROR]-[Thread: http-bio-8089-exec-6]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-01-20 16:29:23
+[ERROR]-[Thread: http-bio-8089-exec-1]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-01-21 22:07:22
+[WARN]-[Thread: http-bio-8089-exec-9]-[com.jfinal.core.ActionHandler.handle()]: 404 Action Not Found: /examinee/_blank
+
+2017-01-21 22:37:38
+[ERROR]-[Thread: http-bio-8089-exec-1]-[com.jfinal.core.ActionHandler.handle()]: /questions/add?itembid=cf7038d4-fc92-40d1-a7dd-4226e8d5e491
+com.jfinal.render.RenderException: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/resource/questionList.jsp at line 248
+
+245: 			$("#subrp").val(oTable.getPageSize());
+246: 			$("#subform").submit();
+247: 		});
+248: 		var itembank = '${itembank.ID}';
+249: 		if(itembank!=null&&itembank!=''){
+250: 			alert(itembank);
+251: 			$('#itembankid').empty();
+
+
+Stacktrace:
+	at com.jfinal.render.JspRender.render(JspRender.java:69)
+	at com.jfinal.core.ActionHandler.handle(ActionHandler.java:97)
+	at com.wide.util.JspSkipHandler.handle(JspSkipHandler.java:15)
+	at com.jfinal.plugin.druid.DruidStatViewHandler.handle(DruidStatViewHandler.java:75)
+	at com.jfinal.ext.handler.ContextPathHandler.handle(ContextPathHandler.java:47)
+	at com.jfinal.core.JFinalFilter.doFilter(JFinalFilter.java:72)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.executeChain(AbstractShiroFilter.java:449)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter$1.call(AbstractShiroFilter.java:365)
+	at org.apache.shiro.subject.support.SubjectCallable.doCall(SubjectCallable.java:90)
+	at org.apache.shiro.subject.support.SubjectCallable.call(SubjectCallable.java:83)
+	at org.apache.shiro.subject.support.DelegatingSubject.execute(DelegatingSubject.java:383)
+	at org.apache.shiro.web.servlet.AbstractShiroFilter.doFilterInternal(AbstractShiroFilter.java:362)
+	at org.apache.shiro.web.servlet.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:125)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:243)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:222)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:123)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:472)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:171)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:99)
+	at org.apache.catalina.valves.AccessLogValve.invoke(AccessLogValve.java:936)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:118)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:407)
+	at org.apache.coyote.http11.AbstractHttp11Processor.process(AbstractHttp11Processor.java:1004)
+	at org.apache.coyote.AbstractProtocol$AbstractConnectionHandler.process(AbstractProtocol.java:589)
+	at org.apache.tomcat.util.net.JIoEndpoint$SocketProcessor.run(JIoEndpoint.java:312)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: org.apache.jasper.JasperException: An exception occurred processing JSP page /pages/resource/questionList.jsp at line 248
+
+245: 			$("#subrp").val(oTable.getPageSize());
+246: 			$("#subform").submit();
+247: 		});
+248: 		var itembank = '${itembank.ID}';
+249: 		if(itembank!=null&&itembank!=''){
+250: 			alert(itembank);
+251: 			$('#itembankid').empty();
+
+
+Stacktrace:
+	at org.apache.jasper.servlet.JspServletWrapper.handleJspException(JspServletWrapper.java:568)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:470)
+	at org.apache.jasper.servlet.JspServlet.serviceJspFile(JspServlet.java:390)
+	at org.apache.jasper.servlet.JspServlet.service(JspServlet.java:334)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:305)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:210)
+	at org.apache.catalina.core.ApplicationDispatcher.invoke(ApplicationDispatcher.java:749)
+	at org.apache.catalina.core.ApplicationDispatcher.processRequest(ApplicationDispatcher.java:487)
+	at org.apache.catalina.core.ApplicationDispatcher.doForward(ApplicationDispatcher.java:412)
+	at org.apache.catalina.core.ApplicationDispatcher.forward(ApplicationDispatcher.java:339)
+	at com.jfinal.render.JspRender.render(JspRender.java:67)
+	... 30 more
+Caused by: javax.el.PropertyNotFoundException: Property 'ID' not found on type com.wide.common.model.Itembank
+	at javax.el.BeanELResolver$BeanProperties.get(BeanELResolver.java:237)
+	at javax.el.BeanELResolver$BeanProperties.access$400(BeanELResolver.java:214)
+	at javax.el.BeanELResolver.property(BeanELResolver.java:325)
+	at javax.el.BeanELResolver.getValue(BeanELResolver.java:85)
+	at org.apache.jasper.el.JasperELResolver.getValue(JasperELResolver.java:104)
+	at org.apache.el.parser.AstValue.getValue(AstValue.java:183)
+	at org.apache.el.ValueExpressionImpl.getValue(ValueExpressionImpl.java:185)
+	at org.apache.jasper.runtime.PageContextImpl.proprietaryEvaluate(PageContextImpl.java:1026)
+	at org.apache.jsp.pages.resource.questionList_jsp._jspService(questionList_jsp.java:335)
+	at org.apache.jasper.runtime.HttpJspBase.service(HttpJspBase.java:70)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:728)
+	at org.apache.jasper.servlet.JspServletWrapper.service(JspServletWrapper.java:432)
+	... 40 more
+
+2017-01-22 10:41:21
+[ERROR]-[Thread: http-bio-8089-exec-8]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误

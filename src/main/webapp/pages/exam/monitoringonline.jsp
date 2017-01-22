@@ -103,7 +103,7 @@
 	var fingerstr ="";
 	var idscgg="";
 	function sssscc(finger,id){
-		alert(finger+"-------------------"+id);
+		//alert(finger+"-------------------"+id);
 	}
     function submitInit()
 	{
@@ -170,7 +170,7 @@
  
 <script language="javascript" for='FPSLID1'    event='OnFpCapture(ActionResult,Atemplate,ReaderSerNum)'>//验证指纹事件
 //1:1 If FPSLID1.StateMark = 2 Then
-	 alert(fingerstr);
+	// alert(fingerstr);
      if (FPSLID1.VerifyTemplateFromStr(fingerstr,FPSLID1.GetVerTemplateAsStr())){
           alert("验证成功");
           $("#yamz").val("验证成功");
@@ -180,7 +180,7 @@
           alert("验证失败");  
        }
  	function fingerprintTime(ids,fingerpath){
- 		alert(ids);
+ 		//alert(ids);
 		$.ajax({
 			type : 'post',
 			url : '${basepath}/invigilate/getfingerprint?id=' + ids+'&fingerpath='+fingerpath,
