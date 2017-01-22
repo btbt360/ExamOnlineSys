@@ -40,7 +40,6 @@
 						<%-- <div class="control-group">
 							<label class="control-label">考试编号：</label>
 							<div class="controls">
-							<input name="exam.id" type="hidden" value="${exam.code}" >
 								<input class="input-xlarge focused" id="name" name="exam.code"
 									type="text" placeholder="请输入考试编号!" value="${exam.code}" >
 							</div>

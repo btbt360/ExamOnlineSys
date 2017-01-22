@@ -55,12 +55,12 @@
 							</div>
 							<div class="span3">
 								<label class="control-label" for="starttimes"><a href='#'
-									id="ceatetimes" style="color: black; text-decoration: none;">创建时间：</a><input type="text" class="input-medium datetimepicker"
-									id="starttimes" value="" name="createtimes"></label>
+									id="cretetimes" style="color: black; text-decoration: none;">创建时间：</a><input type="text" class="input-medium datetimepicker"
+									id="createtimes" value="" name="createtimes"></label>
 							</div>
 							<div class="span3">
 								<label class="control-label" for="endtimes"><a href='#'
-									id="ceatetimee" style="color: black; text-decoration: none;">至：</a><input type="text" class="input-medium datetimepicker" id="endtimes"
+									id="ceatetimee" style="color: black; text-decoration: none;">至：</a><input type="text" class="input-medium datetimepicker" id="createtimee"
 									value="" name="createtimee"></label>
 							</div>
 							</div>

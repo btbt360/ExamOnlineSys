@@ -146,8 +146,8 @@ public class DictController extends BaseController {
 		QueryDict queryDict = new QueryDict();
 		queryDict.setDictname(getPara("dictname"));
 		queryDict.setDicttype(getPara("dicttype"));
-		queryDict.setStarttimes(getParaToDate("starttimes"));
-		queryDict.setEndtimes(getParaToDate("endtimes"));
+		queryDict.setStarttimes(getPara("starttimes"));
+		queryDict.setEndtimes(getPara("endtimes"));
 		DataTablesModel dictpage = dictService.getPageDict(getParaToInt("page")
 				.intValue(), getParaToInt("rp").intValue(), queryDict);
 		this.renderJson(dictpage);

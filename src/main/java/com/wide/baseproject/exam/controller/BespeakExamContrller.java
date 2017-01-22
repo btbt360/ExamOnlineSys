@@ -1,9 +1,18 @@
 package com.wide.baseproject.exam.controller;
 
+import java.util.Date;
+
 import com.jfinal.aop.Enhancer;
+import com.jfinal.plugin.activerecord.Db;
 import com.wide.base.BaseController;
+import com.wide.base.RenturnInfo;
 import com.wide.baseproject.exam.service.BespeakExamService;
+import com.wide.common.model.Bespeakexam;
+import com.wide.common.model.Cases;
+import com.wide.common.model.Exam;
 import com.wide.common.model.query.QueryBespeak;
+import com.wide.util.CGUtil;
+import com.wide.util.DateUtil;
 import com.wide.viewmodel.DataTablesModel;
 
 /**
@@ -31,10 +40,11 @@ public class BespeakExamContrller extends BaseController {
 	 * */
 	public void getbespeak(){
 		QueryBespeak qb = new QueryBespeak();
-		qb.setStarttime(getPara("startime"));
-		qb.setEndtime(getPara("endtime"));
-		qb.setNum(getParaToInt("num"));
-		qb.setBetype(getParaToInt("betype"));
+		qb.setStarttime(getPara("starttimes"));
+		qb.setEndtime(getPara("endtimes"));
+		qb.setName(getPara("name"));
+//		qb.setNum(getParaToInt("num"));
+//		qb.setBetype(getParaToInt("betype"));
 		DataTablesModel bespeakpage = bespeakExamService.getPageBespeak(getParaToInt("page")
 				.intValue(), getParaToInt("rp").intValue(), qb);
 		renderJson(bespeakpage);
@@ -47,6 +57,22 @@ public class BespeakExamContrller extends BaseController {
 	 * 
 	 * */
 	public void addbespeak(){
+		String id = getPara("id");
+		Bespeakexam bespeakexam = null;
+		String starttimestr = "";
+		String endtimestr = "";
+		if(id!=null&&!id.equals("")){
+			bespeakexam = Bespeakexam.dao.findById(id);
+			starttimestr = DateUtil.toDateTimeStr(bespeakexam.getStarttime());
+			endtimestr = DateUtil.toDateTimeStr(bespeakexam.getEndtime());
+		}else{
+			bespeakexam = new Bespeakexam();
+		}
+		
+		setAttr("flagcg", getPara("flagcg"));
+		setAttr("starttimestr", starttimestr);
+		setAttr("endtimestr", endtimestr);
+		setAttr("bespeakexam", bespeakexam);
 		
 		render("bespeakinfo.jsp");
 	}
@@ -57,8 +83,37 @@ public class BespeakExamContrller extends BaseController {
 	 * 
 	 * */
 	public void savebespeak(){
+		String starttimestr = getPara("starttimestr");
+		String endtimestr = getPara("endtimestr");
+		Date starttime = DateUtil.toDateTimeNot(starttimestr);
+		Date endtime = DateUtil.toDateTimeNot(endtimestr);
+		int flagcg=0;
+		try{
+			Bespeakexam baBespeakexam = getModel(Bespeakexam.class)==null||getModel(Bespeakexam.class).equals("")?new Bespeakexam():getModel(Bespeakexam.class);
+			if(baBespeakexam.getId()!=null&&!baBespeakexam.getId().equals("")){
+				baBespeakexam.setUpdateBy(getUser().getId());
+				baBespeakexam.setStarttime(starttime);
+				baBespeakexam.setEndtime(endtime);
+				baBespeakexam.setUpdateDate(new Date());
+				baBespeakexam.update();
+			}else{
+				baBespeakexam.setId(createUUid());
+				baBespeakexam.setStarttime(starttime);
+				baBespeakexam.setEndtime(endtime);
+				baBespeakexam.setCreatorId(getUser().getId());
+				baBespeakexam.setCreateDate(new Date());
+				baBespeakexam.setUpdateBy(getUser().getId());
+				baBespeakexam.setUpdateDate(new Date());
+				baBespeakexam.setIsdel(0);
+				baBespeakexam.save();
+				
+			}
+			flagcg = 1;
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
 		
-		redirect("/bespeak/add?message=success", true);
+		redirect("/bespeak/add?flagcg="+flagcg, true);
 	}
 	
 	/**
@@ -76,8 +131,22 @@ public class BespeakExamContrller extends BaseController {
 	 * 
 	 * */
 	public void deletebespeak(){
-		
+		returninfo = new RenturnInfo();
+		String id = getPara("id");
+		try{
+			if(id!=null&&!id.equals("")){
+				Db.update("update sys_bespeakexam set isdel = 1 where id = ? ",id);
+			}
+			returninfo.setResult(0);
+			returninfo.setResultInfo("删除成功！");
+		}catch(Exception ex){
+			ex.printStackTrace();
+			returninfo.setResult(1);
+			returninfo.setResultInfo("删除失败！");
+		}
+		setAttr("returninfo", returninfo);
 		renderJson();
+		
 	}
 	/**
 	 * @author cg

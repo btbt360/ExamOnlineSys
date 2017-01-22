@@ -47,8 +47,8 @@ public class ExampapersController extends BaseController {
 		QueryExampapers queryExampapers = new QueryExampapers();
 		queryExampapers.setCode(getPara("code"));
 		queryExampapers.setName(getPara("name"));
-		queryExampapers.setCreatetimes(getParaToDate("createtimes"));
-		queryExampapers.setCreatetimee(getParaToDate("createtimee"));
+		queryExampapers.setCreatetimes(getPara("createtimes"));
+		queryExampapers.setCreatetimee(getPara("createtimee"));
 		DataTablesModel exampaperspage = exampapersService.getPageExampapers(getParaToInt("page")
 				.intValue(), getParaToInt("rp").intValue(), queryExampapers);
 		this.renderJson(exampaperspage);

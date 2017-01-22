@@ -42,8 +42,8 @@ public class ExamineeController extends BaseController {
 	public void getJoinExamlist() {
 		QueryExam queryExam = new QueryExam();
 		queryExam.setName(getPara("name"));
-		queryExam.setStarttimes(getParaToDate("starttimes"));
-		queryExam.setEndtimes(getParaToDate("endtimes"));
+		queryExam.setStarttimes(getPara("starttimes"));
+		queryExam.setEndtimes(getPara("endtimes"));
 		queryExam.setUserid(getUser().getId());
 		DataTablesModel invigilatepage = invigilateService.getPageInvigilate(getParaToInt("page").intValue(),
 				getParaToInt("rp").intValue(), queryExam, 0);

@@ -60,8 +60,8 @@ public class InvigilateController  extends BaseController {
 	public void getTable(){
 		QueryExam queryExam = new QueryExam();
 		queryExam.setName(getPara("name"));
-		queryExam.setStarttimes(getParaToDate("starttimes"));
-		queryExam.setEndtimes(getParaToDate("endtimes"));
+		queryExam.setStarttimes(getPara("starttimes"));
+		queryExam.setEndtimes(getPara("endtimes"));
 		DataTablesModel invigilatepage = invigilateService.getPageInvigilate(getParaToInt("page")
 				.intValue(), getParaToInt("rp").intValue(), queryExam,1);
 		this.renderJson(invigilatepage);

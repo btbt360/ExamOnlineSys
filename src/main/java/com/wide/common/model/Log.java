@@ -47,10 +47,10 @@ public class Log extends BaseLog<Log> {
 			where += " and title like '%" + queryLog.getLogName().trim() + "%'";
 		}
 		if (queryLog.getStarttimes() != null && !queryLog.getStarttimes().equals("")) {
-			where += " and create_date >= '" +DateUtil.toDateTimeStr(queryLog.getStarttimes())+ "'";
+			where += " and create_date >= '" +queryLog.getStarttimes()+ " 00:00:00'";
 		}
 		if (queryLog.getEndtimes() != null && !queryLog.getEndtimes().equals("")) {
-			where += " and create_date <=  '" +DateUtil.toDateTimeStr(queryLog.getEndtimes())+ "'";
+			where += " and create_date <=  '" +queryLog.getEndtimes()+ " 23:59:59'";
 		}
 		return where;
 

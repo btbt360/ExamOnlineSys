@@ -90,8 +90,8 @@ public class RoleController extends Controller {
 		QueryRole queryRole = new QueryRole();
 		queryRole.setRolename(getPara("rolename"));
 		queryRole.setRoletype(getPara("roletype"));
-		queryRole.setStarttimes(getParaToDate("starttimes"));
-		queryRole.setEndtimes(getParaToDate("endtimes"));
+		queryRole.setStarttimes(getPara("starttimes"));
+		queryRole.setEndtimes(getPara("endtimes"));
 		DataTablesModel rolepage = roleService.getPageRole(getParaToInt("page")
 				.intValue(), getParaToInt("rp").intValue(), queryRole);
 		this.renderJson(rolepage);
@@ -171,8 +171,8 @@ public class RoleController extends Controller {
 		QueryRole queryRole = new QueryRole();
 		String roletype = getPara("roletype");
 		queryRole.setRoletype(roletype == null || roletype.equals("") ? null: roletype);
-		queryRole.setStarttimes(getParaToDate("starttimes"));
-		queryRole.setEndtimes(getParaToDate("endtimes"));
+		queryRole.setStarttimes(getPara("starttimes"));
+		queryRole.setEndtimes(getPara("endtimes"));
 		queryRole.setRolename(getPara("rolename"));
 		DataTablesModel rolepage = roleService.getPageRole(
 				getParaToInt("rolepages").intValue(), getParaToInt("rolerp")

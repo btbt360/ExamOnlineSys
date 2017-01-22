@@ -6,8 +6,8 @@ public class QueryRole {
 
 	private String rolename;
 	private String roletype;
-	private Date starttimes;
-	private Date endtimes;
+	private String starttimes;
+	private String endtimes;
 	
 	
 	public String getRolename() {
@@ -22,16 +22,16 @@ public class QueryRole {
 	public void setRoletype(String roletype) {
 		this.roletype = roletype;
 	}
-	public Date getStarttimes() {
+	public String getStarttimes() {
 		return starttimes;
 	}
-	public void setStarttimes(Date starttimes) {
+	public void setStarttimes(String starttimes) {
 		this.starttimes = starttimes;
 	}
-	public Date getEndtimes() {
+	public String getEndtimes() {
 		return endtimes;
 	}
-	public void setEndtimes(Date endtimes) {
+	public void setEndtimes(String endtimes) {
 		this.endtimes = endtimes;
 	}
 	

@@ -89,10 +89,10 @@ public class Exam extends BaseExam<Exam> {
 			where  +=" and code = '"+query.getCode()+"'";
 		}
 		if(query.getStarttimes()!=null&&!query.getStarttimes().equals("")){
-			where  +=" and starttime < '"+DateUtil.toDateTimeStr(query.getStarttimes())+"'";
+			where  +=" and starttime > '"+query.getStarttimes()+"'";
 		}
 		if(query.getEndtimes()!=null&&!query.getEndtimes().equals("")){
-			where  +=" and endtime > '"+DateUtil.toDateTimeStr(query.getEndtimes())+"'";
+			where  +=" and endtime < '"+query.getEndtimes()+"'";
 		}
 		if(StrKit.notBlank(query.getUserid())){
 			where  +=" and id in (select exam_id from sys_examinee where user_id = '"+query.getUserid()+"')";

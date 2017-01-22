@@ -28,7 +28,7 @@
 							</div>
 							<div class="span3">
 								<label class="control-label" for="starttimes"><a href='#'
-									id="ceatetimes" style="color: black; text-decoration: none;">创建时间：</a><input type="text" class="input-medium datetimepicker"
+									id="ceatetimes" style="color: black; text-decoration: none;">考试开始时间：</a><input type="text" class="input-medium datetimepicker"
 									id="starttimes" value="" name="starttimes"></label>
 							</div>
 							<div class="span3">

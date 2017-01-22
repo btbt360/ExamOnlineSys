@@ -6,8 +6,8 @@ public class QueryDict {
 
 	private String dictname;
 	private String dicttype;
-	private Date starttimes;
-	private Date endtimes;
+	private String starttimes;
+	private String endtimes;
 	
 	
 	
@@ -23,16 +23,16 @@ public class QueryDict {
 	public void setDicttype(String dicttype) {
 		this.dicttype = dicttype;
 	}
-	public Date getStarttimes() {
+	public String getStarttimes() {
 		return starttimes;
 	}
-	public void setStarttimes(Date starttimes) {
+	public void setStarttimes(String starttimes) {
 		this.starttimes = starttimes;
 	}
-	public Date getEndtimes() {
+	public String getEndtimes() {
 		return endtimes;
 	}
-	public void setEndtimes(Date endtimes) {
+	public void setEndtimes(String endtimes) {
 		this.endtimes = endtimes;
 	}
 	

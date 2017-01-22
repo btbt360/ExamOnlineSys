@@ -30,8 +30,8 @@ public class LogController extends Controller {
 	public void loglist() {
 		QueryLog queryLog = new QueryLog();
 		queryLog.setLogName(getPara("logname"));
-		queryLog.setStarttimes(getParaToDate("starttimes"));
-		queryLog.setEndtimes(getParaToDate("endtimes"));
+		queryLog.setStarttimes(getPara("starttimes"));
+		queryLog.setEndtimes(getPara("endtimes"));
 		@SuppressWarnings("rawtypes")
 		DataTablesModel logpage = logService.getPageLog(getParaToInt("page").intValue(), getParaToInt("rp").intValue(),
 				queryLog);

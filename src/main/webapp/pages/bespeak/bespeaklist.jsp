@@ -12,8 +12,8 @@
 					<i class="icon-chevron-right show-sidebar" style="display: none;">
 						<a href='#' title="Show Sidebar" rel='tooltip'>&nbsp;</a>
 					</i>
-					<li><a href="#">考试管理</a> <span class="divider">/</span></li>
-					<li class="active">考试安排</li>
+					<li><a href="#">考试预约管理</a> <span class="divider">/</span></li>
+					<li class="active">考试预约管理安排</li>
 				</ul>
 			</div>
 		</div>
@@ -21,8 +21,8 @@
 			<div class="block" style="border: 0px;">
 				<div class="block-content collapse in">
 					<ul class="nav nav-tabs">
-						<li class="active"><a href="${basepath}/exam/addExam">考试安排列表</a></li>
-						<li><a href="${basepath}/exam/addExamInfo">添加考试安排</a></li>
+						<li class="active"><a href="${basepath}/bespeak/add">考试预约安排管理列表</a></li>
+						<li><a href="${basepath}/bespeak/addbespeak">添加考试预约管理</a></li>
 					</ul>
 					
 					<!-- 删除用户提示 -->
@@ -38,23 +38,26 @@
 							<strong><span id="messageee"></span></strong>
 						</div>
 					</div>
-					<form action="${basepath}/exam/exportSubject" method="post" id="subform">
+					<form action="${basepath}/bespeak/exportSubject" method="post" id="subform">
 						<div class="span12">
-							<div class="span4">
+							<div class="span3">
 								<label class="control-label" for="name">考试名称：<input
 									class="input-medium focused" id="name" name="name"
 									type="text" /></label> 
 							</div>
-							<div class="span4">
-								<label class="control-label" for="code">考试编码：<input
-									class="input-medium focused" id="code" name="code"
-									type="text" /></label> 
+							<div class="span3">
+								<label class="control-label" for="starttimes"><a href='#'
+									id="ceatetimes" style="color: black; text-decoration: none;">开始时间：</a><input type="text" class="input-medium datetimepicker"
+									id="starttimes" value="" name="starttimes"></label>
 							</div>
-							<div class="span4 text-right" >
+							<div class="span3">
+								<label class="control-label" for="endtimes"><a href='#'
+									id="ceatetimee" style="color: black; text-decoration: none;">结束时间：</a><input type="text" class="input-medium datetimepicker" id="endtimes"
+									value="" name="endtimes"></label>
+							</div>
+							<div class="span3 text-right" >
 						<button class="btn btn-medium btn-primary" type="button"
 							id="query">查询</button>
- 						<!-- <button class="btn btn-medium btn-primary" type="button" 
-							id="export">计算分数</button> --> 
 					</div>
 						</div>
 						<input type="hidden" id="subpages" name="subpages" /><input
@@ -68,10 +71,9 @@
 								<th>考试编号</th>
 								<th>考试开始时间</th>
 								<th>考试结束时间</th>
-								<th>考试时长</th>
 								<th>考试人数</th>
-								<th>监考人</th>
 								<th>考试状态</th>
+								<th>是否启用</th>
 								<th>操作</th>
 							</tr>
 						</thead>
@@ -86,14 +88,14 @@
 </body>
 <script type="text/javascript">
 function edit(ids) {
-	location.href = "${basepath}/exam/addExamInfo?id=" + ids;
+	location.href = "${basepath}/bespeak/addbespeak?id=" + ids;
 }
 
 function del(ids) {
 	if (confirm("确定要删除该考试？")) {
 		$.ajax({
 			type : 'post',
-			url : '${basepath}/exam/delExam?id=' + ids,
+			url : '${basepath}/bespeak/deletebespeak?id=' + ids,
 			cache : false,
 			dataType : 'json',
 			success : function(data) {
@@ -114,7 +116,7 @@ function del(ids) {
 	$(document).ready(function() {
 		oTable = $('#userList').initDT({
 			serverSide : true,
-			"sAjaxSource" : "${basepath}/exam/getExamlist"
+			"sAjaxSource" : "${basepath}/bespeak/getbespeak"
 		});
 
 		$("#query").click(function() {
@@ -127,18 +129,37 @@ function del(ids) {
 			$("#subform").submit(); */
 			location.href = "${basepath}/exam/countScore";
 		});
+		
+		
+		$('.datetimepicker').datetimepicker({  
+            language:  'zh-CN',
+            format: 'yyyy-mm-dd hh:ii:ss',
+            weekStart: 1,  
+            todayBtn:  1,  
+            autoclose: true,  
+            todayHighlight: 1,  
+            startView: 2,  
+            forceParse: true,  
+            showMeridian: 1  
+        }).on('changeDate', function (ev) {  
+            $(this).datetimepicker('hide');  
+        });
 
 	});
 	function reshcg() {
 		var name = $('#name').val();
-		var code = $('#code').val();
+		var starttimes = $('#starttimes').val();
+		var endtimes = $('#endtimes').val();
 		var oSettings = [ {
 			"name" : "name",
 			"value" : name
 		}, {
-			"name" : "code",
-			"value" : code
-		} ];
+			"name" : "starttimes",
+			"value" : starttimes
+		}, {
+			"name" : "endtimes",
+			"value" : endtimes
+		}  ];
 		oTable.gridSearch(this, oSettings);
 	}
 </script>

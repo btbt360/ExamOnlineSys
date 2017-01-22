@@ -76,10 +76,10 @@ public class Role extends BaseRole<Role> {
 			where  +=" and role_type = '"+query.getRoletype()+"'";
 		}
 		if(query.getStarttimes()!=null&&!query.getStarttimes().equals("")){
-			where  +=" and create_date >= '"+DateUtil.toDateTimeStr(query.getStarttimes())+"'";
+			where  +=" and create_date >= '"+query.getStarttimes()+" 00:00:00'";
 		}
 		if(query.getEndtimes()!=null&&!query.getEndtimes().equals("")){
-			where  +=" and create_date <=  '"+DateUtil.toDateTimeStr(query.getEndtimes()).replace("00:00:00", "23:59:59")+"'";
+			where  +=" and create_date <=  '"+query.getEndtimes()+" 23:59:59'";
 		}
 		return where;
 		

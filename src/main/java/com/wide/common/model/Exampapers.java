@@ -41,10 +41,10 @@ public class Exampapers extends BaseExampapers<Exampapers> {
 				where += " and code = '"+queryExampapers.getCode()+"'";
 			}
 			if(queryExampapers.getCreatetimes()!=null&&!queryExampapers.getCreatetimes().equals("")){
-				where += " and create_date < '"+DateUtil.toDateTimeStr(queryExampapers.getCreatetimes())+"'";
+				where += " and create_date > '"+queryExampapers.getCreatetimes()+"'";
 			}
 			if(queryExampapers.getCreatetimee()!=null&&!queryExampapers.getCreatetimee().equals("")){
-				where += " and create_date > '"+queryExampapers.getCreatetimee()+"'";
+				where += " and create_date < '"+queryExampapers.getCreatetimee()+"'";
 			}
 			if(queryExampapers.getName()!=null&&!queryExampapers.getName().equals("")){
 				where += " and name =%'"+queryExampapers.getName()+"'%";

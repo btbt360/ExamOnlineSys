@@ -4,6 +4,7 @@ import com.jfinal.kit.StrKit;
 import com.wide.common.model.base.BaseBespeakexam;
 import com.wide.common.model.query.QueryBespeak;
 import com.wide.common.model.query.QueryError;
+import com.wide.util.DateUtil;
 import com.wide.viewmodel.DataTablesModel;
 
 /**
@@ -15,8 +16,8 @@ public class Bespeakexam extends BaseBespeakexam<Bespeakexam> {
 
 	public DataTablesModel pageDataTables(int pageNum, int pageSize, QueryBespeak qb) {
 		// TODO Auto-generated method stub
-		String select = "select t.id,t1.title,t1.itembank_id,t1.questionanswer,t1.info,t1.questionanswerinfo,t.question_id";
-	    StringBuilder sqlExceptSelect = new StringBuilder(" from sys_error t,sys_questions t1 ");
+		String select = "select id,examname,examcode,starttime,endtime,number,isenable,status";
+	    StringBuilder sqlExceptSelect = new StringBuilder(" from sys_bespeakexam");
 	    /**
 	    if (search!=null&&!search.equals("")) {
 	        sqlExceptSelect.append(" AND (b.title like ? or b.content like ? )");
@@ -34,7 +35,17 @@ public class Bespeakexam extends BaseBespeakexam<Bespeakexam> {
 	 * 
 	 * */
 	private String whereQuery(QueryBespeak qb){
-		String where=" where 1=1 and t1.id=t.question_id  ";
+		String where=" where 1=1 and isdel = 0 ";
+		
+		if(qb.getName()!=null&&!qb.getName().equals("")){
+			where += " and name like '%"+qb.getName()+"%'";
+		}
+		if(qb.getStarttime()!=null&&!qb.getStarttime().equals("")){
+			where  +=" and starttime > '"+qb.getStarttime()+"'";
+		}
+		if(qb.getEndtime()!=null&&!qb.getEndtime().equals("")){
+			where  +=" and endtime < '"+qb.getEndtime()+"'";
+		}
 		
 		return where;
 		
@@ -44,7 +55,7 @@ public class Bespeakexam extends BaseBespeakexam<Bespeakexam> {
 	 * 
 	 * */
 	private String orderbyQuery(QueryBespeak qb){
-		String orderby = " order by t.create_date desc ";
+		String orderby = " order by create_date desc ";
 		return orderby;
 		
 	}
