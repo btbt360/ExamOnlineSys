@@ -270,12 +270,15 @@ class MyThread extends Thread {
             	//1.开始考试时触发此类
             	Exam exam = Exam.dao.findById(examid);
             	int jsnum  = 0;
-            	if(StrKit.notNull(exam)){
+            	if(StrKit.notNull(exam)&&exam.getStatus()!=2){
             		jsnum = Integer.parseInt((exam.getDuration()*60+"").replace(".0", ""));
+            	}else{
+            		System.out.println("---考试结束---");
+            		return;
             	}
             	if(jsnum>0){
             		int ksi=0;
-            		for(int i= jsnum;i>0;i--){
+            		for(int i= jsnum;i>-1;i--){
                     	this.sleep(1000);
                     	exam.setEnddistancetime(i);
                     	exam.update();
@@ -285,7 +288,6 @@ class MyThread extends Thread {
             			exam.setStatus(2);
             			exam.setEnddistancetime(0);
             			exam.update();
-            			Db.update("update sys_examinee set status = 2 where exam_id = ? ",exam.getId());
             			System.out.println("---考试结束---");
             			return;
             		}
