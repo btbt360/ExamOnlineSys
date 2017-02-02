@@ -11,6 +11,7 @@ import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wide.base.BaseController;
 import com.wide.base.RenturnInfo;
+import com.wide.baseproject.exam.service.AchievementService;
 import com.wide.baseproject.exam.service.ExamineeService;
 import com.wide.baseproject.exam.service.InvigilateService;
 import com.wide.common.model.Exam;
@@ -27,6 +28,8 @@ import com.wide.viewmodel.DataTablesModel;
 public class ExamineeController extends BaseController {
 	private static final InvigilateService invigilateService = Enhancer.enhance(InvigilateService.class);
 	private static final ExamineeService examineeService = Enhancer.enhance(ExamineeService.class);
+	private static final AchievementService achievementService = Enhancer.enhance(AchievementService.class);
+	
 
 	/**
 	 * @author cg 参加考试
@@ -340,6 +343,12 @@ public class ExamineeController extends BaseController {
 				examinee.setTotalscore(sumsocres);
 				examinee.update();
 			}
+			int flag = examineeService.changeGet(examid);
+			if(flag==0){
+				int fcg=achievementService.passJudgeList(examid, examineeid, getUser());
+				System.out.println(fcg==0?"自动判卷成功！":"判卷失败！");
+			}
+			
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}

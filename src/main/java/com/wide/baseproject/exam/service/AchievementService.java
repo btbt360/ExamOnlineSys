@@ -1,14 +1,19 @@
 package com.wide.baseproject.exam.service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import com.wide.common.model.Dict;
 import com.wide.common.model.Exam;
 import com.wide.common.model.ExamAnswer;
 import com.wide.common.model.Examinee;
 import com.wide.common.model.Questionoptions;
+import com.wide.common.model.User;
 import com.wide.common.model.query.QueryExaminee;
 import com.wide.constant.EnumExamType;
 import com.wide.constant.EnumExamineeType;
+import com.wide.util.DoubleUtil;
 import com.wide.viewmodel.DataTablesModel;
 
 public class AchievementService {
@@ -114,4 +119,55 @@ public class AchievementService {
 		return examineepage;
 	}
 
+	/**
+	 * @author cg
+	 * @param examid
+	 * @param examineeid
+	 * @param User
+	 * @return flag 0为保存成功 -1为保存失败
+	 * 选择题自动判卷
+	 * */
+	public int passJudgeList(String examid,String examineeid,User user){
+		Double sumscores = 0.0;
+		int flag = 0;
+		try{
+			List<ExamAnswer> ealist = new ArrayList<ExamAnswer>();
+			ealist = ExamAnswer.dao.find("select * from sys_exam_answer where exam_id = ? and examinee_id = ? ",examid,examineeid);
+			if(ealist.size()>0){
+				for(ExamAnswer ea:ealist){
+					ea.setJudgetype(1);
+					ea.setJudgepeopleid(user.getId());
+					ea.setJudgepeoplename(user.getName());
+					ea.setJudgetime(new Date());
+					ea.setUpdateBy(user.getId());
+					ea.setUpdateDate(new Date());
+					ea.update();
+					sumscores = DoubleUtil.add(sumscores, ea.getAnswerscores());
+				}
+			}
+			Examinee examinee = new Examinee();
+			examinee = Examinee.dao.findById(examineeid);
+			List<Dict> listdict = new ArrayList<Dict>();
+			listdict = Dict.dao.getDictByType("1015");
+			//Double sumscores = examinee.getTotalscore();
+			if(listdict.size()>0){
+					if(Integer.parseInt(listdict.get(0).getDictkey())<sumscores&&sumscores<=Integer.parseInt(listdict.get(1).getDictkey())){
+						examinee.setScoreslevel(0);
+					}else if(Integer.parseInt(listdict.get(1).getDictkey())<sumscores&&sumscores<=Integer.parseInt(listdict.get(2).getDictkey())){
+						examinee.setScoreslevel(1);
+					}else if(Integer.parseInt(listdict.get(2).getDictkey())<sumscores){
+						examinee.setScoreslevel(2);
+					}
+			}
+			examinee.setTotalscore(sumscores);
+			examinee.setIsfinishjudge(1);
+			examinee.setUpdateBy(user.getId());
+			examinee.setUpdateDate(new Date());
+			examinee.update();
+		}catch(Exception ex){
+			ex.printStackTrace();
+			flag = -1;
+		}
+		return flag;
+	}
 }

@@ -7,6 +7,7 @@ import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.wide.common.model.Dict;
 import com.wide.common.model.ExamAnswer;
+import com.wide.common.model.ExampapersQtypes;
 import com.wide.common.model.Questionoptions;
 import com.wide.util.TypeChecker;
 
@@ -146,5 +147,26 @@ public class ExamineeService {
 		}
 		
 		return restrbody;
+	}
+	/**
+	 * @author cg
+	 * @param examid
+	 * 根据考试编码查询考试的试题类型
+	 * @return flag 0全部是选择题和判断题 1是杂题 
+	 * */
+	public int changeGet(String examid){
+		int flag = 0;
+		List<ExampapersQtypes> list = new ArrayList<ExampapersQtypes>();
+		list = ExampapersQtypes.dao.find("SELECT t2.* FROM sys_exam t ,sys_exampapers t1, sys_exampapers_qtypes t2  WHERE "
+				+ " t.id = ? AND t.exampapers_id = t1.id AND t1.id = t2.exampapers_id",examid);
+		if(list.size()>0){
+			for(ExampapersQtypes eq:list){
+				if(eq.getTypeId()>3){
+					flag = 1;
+					break;
+				}
+			}
+		}
+		return flag;
 	}
 }

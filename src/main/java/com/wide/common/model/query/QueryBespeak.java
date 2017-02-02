@@ -9,11 +9,7 @@ public class QueryBespeak {
 	private String name;
 	private int betype;
 	private int num;
-<<<<<<< Updated upstream
 	private String examname;
-=======
-	
->>>>>>> Stashed changes
 	public String getStarttime() {
 		return starttime;
 	}
@@ -38,22 +34,16 @@ public class QueryBespeak {
 	public void setNum(int num) {
 		this.num = num;
 	}
-<<<<<<< Updated upstream
 	public String getExamname() {
 		return examname;
 	}
 	public void setExamname(String examname) {
 		this.examname = examname;
 	}
-=======
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	
->>>>>>> Stashed changes
-	
-	
 }

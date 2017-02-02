@@ -20499,3 +20499,27 @@ Caused by: javax.el.PropertyNotFoundException: Property 'ID' not found on type c
 
 2017-01-22 10:41:21
 [ERROR]-[Thread: http-bio-8089-exec-8]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-01-30 10:57:39
+[ERROR]-[Thread: http-bio-8089-exec-2]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-01-30 10:57:48
+[ERROR]-[Thread: http-bio-8089-exec-2]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-01-30 10:57:58
+[ERROR]-[Thread: http-bio-8089-exec-2]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-02 10:20:06
+[ERROR]-[Thread: http-bio-8089-exec-10]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-02 10:20:10
+[ERROR]-[Thread: http-bio-8089-exec-10]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-02 10:20:18
+[ERROR]-[Thread: http-bio-8089-exec-10]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-02 10:20:28
+[ERROR]-[Thread: http-bio-8089-exec-10]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-02 10:34:29
+[ERROR]-[Thread: http-bio-8089-exec-6]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误

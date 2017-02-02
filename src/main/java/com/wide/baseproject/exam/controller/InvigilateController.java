@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Timer;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Enhancer;
@@ -13,6 +14,8 @@ import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wide.base.BaseController;
+import com.wide.baseproject.exam.service.AchievementService;
+import com.wide.baseproject.exam.service.ExamineeService;
 import com.wide.baseproject.exam.service.InvigilateService;
 import com.wide.common.model.Dict;
 import com.wide.common.model.Exam;
@@ -20,12 +23,15 @@ import com.wide.common.model.Examinee;
 import com.wide.common.model.User;
 import com.wide.common.model.query.QueryExam;
 import com.wide.common.model.query.QueryExaminee;
+import com.wide.config.UserToken;
 import com.wide.util.CGUtil;
 import com.wide.viewmodel.DataTablesModel;
 
 public class InvigilateController  extends BaseController {
 
 	private static final InvigilateService invigilateService = Enhancer.enhance(InvigilateService.class);
+	private static final ExamineeService examineeService = Enhancer.enhance(ExamineeService.class);
+	private static final AchievementService achievementService = Enhancer.enhance(AchievementService.class);
 	
 	/**
 	 * @author cg
@@ -96,7 +102,7 @@ public class InvigilateController  extends BaseController {
 		exam.setEnddistancetime(Integer.parseInt((exam.getDuration()*60+"").split("[.]")[0]));
 		exam.setStatus(1);
 		exam.update();
-		MyThread myThread = new MyThread(exam.getId());
+		MyThread myThread = new MyThread(exam.getId(),getUser());
 		myThread.start();
 		setAttr("message", exam.getDuration());
 		renderJson();
@@ -111,6 +117,18 @@ public class InvigilateController  extends BaseController {
 		String id = getPara("id");
 		try{
 			invigilateService.gettofinish(id);
+			int flag = examineeService.changeGet(id);
+			List<Examinee> examineelist = new ArrayList<Examinee>();
+			examineelist = Examinee.dao.find("select * from sys_examinee where exam_id = ? ",id);
+			if(examineelist.size()>0){
+				for(Examinee e:examineelist){
+					if(flag==0){
+						int fcg=achievementService.passJudgeList(id, e.getId(), getUser());
+						System.out.println(fcg==0?"自动判卷成功！":"判卷失败！");
+					}
+				}
+			}
+			
 		}catch(Exception ex){
 			ex.printStackTrace();
 		}
@@ -258,9 +276,30 @@ public class InvigilateController  extends BaseController {
 }
 
 class MyThread extends Thread {
+	private static final ExamineeService examineeService = Enhancer.enhance(ExamineeService.class);
+	private static final AchievementService achievementService = Enhancer.enhance(AchievementService.class);
 	public String examid;
-	public MyThread(String examid){
+	public User user;
+	public MyThread(String examid,User user){
 		this.examid = examid;
+		this.user = user;
+	}
+	private void passExam(String examid){
+		try{
+			int flag = examineeService.changeGet(examid);
+			List<Examinee> examineelist = new ArrayList<Examinee>();
+			examineelist = Examinee.dao.find("select * from sys_examinee where exam_id = ? ",examid);
+			if(examineelist.size()>0){
+				for(Examinee e:examineelist){
+					if(flag==0){
+						int fcg=achievementService.passJudgeList(examid, e.getId(), user);
+						System.out.println(fcg==0?"自动判卷成功！":"判卷失败！");
+					}
+				}
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
 	}
     @Override
     public void run() {
@@ -273,6 +312,7 @@ class MyThread extends Thread {
             	if(StrKit.notNull(exam)&&exam.getStatus()!=2){
             		jsnum = Integer.parseInt((exam.getDuration()*60+"").replace(".0", ""));
             	}else{
+            		this.passExam(examid);
             		System.out.println("---考试结束---");
             		return;
             	}
@@ -288,10 +328,12 @@ class MyThread extends Thread {
             			exam.setStatus(2);
             			exam.setEnddistancetime(0);
             			exam.update();
+            			this.passExam(examid);
             			System.out.println("---考试结束---");
             			return;
             		}
             	}else{
+            		this.passExam(examid);
             		System.out.println("---考试结束---");
             		return;
             	}
