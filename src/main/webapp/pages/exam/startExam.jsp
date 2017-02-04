@@ -156,6 +156,7 @@ function updateanswer(questionid,sort,answerTypestr){
 	});
 }
 function nextQuestion(sort,hqstr,questionid,answers){
+	$("#checknext").hide();
 	answerinfo = answers;
 	var strss='';
 	if(hqstr=='answeroption_'){

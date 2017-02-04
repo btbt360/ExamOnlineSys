@@ -73,7 +73,7 @@ public class ExamineeService {
 					+ "<div class='controls'>"+str
 					+ "</div></div>"
 					+"<div class='form-actions'>"
-					+ "<button type='button' class='btn btn-primary' onclick=nextQuestion('"+sort+"','"+hqid+"','"+questionid+"','"+ea.getAnswerinfo()+"')>保存并进入下一题</button></div>";
+					+ "<button type='button' class='btn btn-primary'  id='checknext' onclick=nextQuestion('"+sort+"','"+hqid+"','"+questionid+"','"+ea.getAnswerinfo()+"')>保存并进入下一题</button></div>";
 		}else if(Integer.parseInt(instr)==2){
 			//多选题
 			listqp = Questionoptions.dao.findByQuestionId(questionid);
@@ -97,7 +97,7 @@ public class ExamineeService {
 					+ "<div class='controls'>"+str
 					+ "</div></div>"
 					+"<div class='form-actions'>"
-					+ "<button type='button' class='btn btn-primary' onclick=nextQuestion('"+sort+"','"+hqid+"','"+questionid+"','"+ea.getAnswerinfo()+"')>保存并进入下一题</button></div>";
+					+ "<button type='button' class='btn btn-primary' id='checknext' onclick=nextQuestion('"+sort+"','"+hqid+"','"+questionid+"','"+ea.getAnswerinfo()+"')>保存并进入下一题</button></div>";
 		}else if(Integer.parseInt(instr)==3){//判断题
 			String str = "";
 			if(!TypeChecker.isEmpty(ea.getId())){
@@ -118,7 +118,7 @@ public class ExamineeService {
 					+ "<div class='controls'>"+str
 					+ "</div></div>"
 					+"<div class='form-actions'>"
-					+ "<button type='button' class='btn btn-primary' onclick=nextQuestion('"+sort+"','"+hqid+"','"+questionid+"','"+ea.getAnswerinfo()+"')>保存并进入下一题</button></div>";
+					+ "<button type='button' class='btn btn-primary' id='checknext' onclick=nextQuestion('"+sort+"','"+hqid+"','"+questionid+"','"+ea.getAnswerinfo()+"')>保存并进入下一题</button></div>";
 		}else if(Integer.parseInt(instr)==4){//问答题
 			String str = "";
 			if(!TypeChecker.isEmpty(ea.getId())){
@@ -130,7 +130,7 @@ public class ExamineeService {
 					+ "<div class='controls'><textarea id='answerwd' name='answerwd' rows='5' style='width: 50%;' placeholder='请输入答案!'>"+str
 					+ "</textarea></div></div>"
 					+"<div class='form-actions'>"
-					+ "<button type='button' class='btn btn-primary' onclick=nextQuestion('"+sort+"','"+hqid+"','"+questionid+"','"+ea.getAnswerinfo()+"')>保存并进入下一题</button></div>";
+					+ "<button type='button' class='btn btn-primary' id='checknext' onclick=nextQuestion('"+sort+"','"+hqid+"','"+questionid+"','"+ea.getAnswerinfo()+"')>保存并进入下一题</button></div>";
 		}else if(Integer.parseInt(instr)==5){//填空题
 			String str = "";
 			if(!TypeChecker.isEmpty(ea.getId())){
@@ -142,7 +142,7 @@ public class ExamineeService {
 					+ "<div class='controls'><textarea id='answerwd' name='answerwd' rows='5' style='width: 50%;' placeholder='请输入答案!'>"+str
 					+ "</textarea></div></div>"
 					+"<div class='form-actions'>"
-					+ "<button type='button' class='btn btn-primary' onclick=nextQuestion('"+sort+"','"+hqid+"','"+questionid+"','"+ea.getAnswerinfo()+"')>保存并进入下一题</button></div>";
+					+ "<button type='button' class='btn btn-primary' id='checknext' onclick=nextQuestion('"+sort+"','"+hqid+"','"+questionid+"','"+ea.getAnswerinfo()+"')>保存并进入下一题</button></div>";
 		
 		}
 		

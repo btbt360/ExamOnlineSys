@@ -13,7 +13,7 @@
 						<a href='#' title="Show Sidebar" rel='tooltip'>&nbsp;</a>
 					</i>
 					<li><a href="#">我的考试</a> <span class="divider">/</span></li>
-					<li class="active">我的预约</li>
+					<li class="active">我已预约</li>
 				</ul>
 			</div>
 		</div>
@@ -35,22 +35,17 @@
 					</div>
 					<form action="${basepath}/exam/exportSubject" method="post" id="subform">
 						<div class="span12">
-							<div class="span3">
-								<label class="control-label" for="name">考试名称：<input
-									class="input-medium focused" id="name" name="name"
-									type="text" /></label> 
-							</div>
-							<div class="span3">
+							<div class="span4">
 							<label class="control-label" for="starttimes"><a href='#'
 								id="ceatetimes" style="color: black; text-decoration: none;">创建时间：</a><input type="text" class="input-medium datetimepicker"
 								id="starttimes" value="" name="starttimes"></label>
 							</div>
-							<div class="span3">
+							<div class="span4">
 								<label class="control-label" for="endtimes"><a href='#'
 									id="ceatetimee" style="color: black; text-decoration: none;">至：</a><input type="text" class="input-medium datetimepicker" id="endtimes"
 									value="" name="endtimes"></label>
 							</div>
-							<div class="span3 text-center" >
+							<div class="span4 text-center" >
 							<button class="btn btn-medium btn-primary" type="button" id="query">查询</button>
  						<!-- <button class="btn btn-medium btn-primary" type="button" 
 							id="export">计算分数</button> --> 
@@ -67,11 +62,10 @@
 								<th>考试编号</th>
 								<th>考试开始时间</th>
 								<th>考试结束时间</th>
-								<th>考试时长</th>
 								<th>考试人数</th>
-								<th>预约人数</th>
 								<th>考试状态</th>
-								<th>操作</th>
+								<th>启用状态</th>
+								<th>预约状态</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -100,7 +94,7 @@ $(document).ready(function() {
             $(this).datetimepicker('hide');  
         });
 
-		oTable = $('#roleList').initDT({
+		oTable = $('#userList').initDT({
 			serverSide : true,
 			"sAjaxSource" : "${basepath}/bespeak/schedulebespeak"
 		});
@@ -118,13 +112,9 @@ $(document).ready(function() {
 
 	});
 	function reshcg() {
-		var name = $('#name').val();
 		var starttimes = $('#starttimes').val();
 		var endtimes = $('#endtimes').val();
 		var oSettings = [ {
-			"name" : "name",
-			"value" : name
-		}, {
 			"name" : "starttimes",
 			"value" : starttimes
 		}, {

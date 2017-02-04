@@ -421,4 +421,24 @@ public class UserController extends BaseController {
 			render("userImport.jsp");
 	    }
 		
+		public void getuserinfo(){
+			String id = getPara("id");
+			User user = new User();
+			user = User.dao.findById(id);
+			String yonghuleixing = Dict.dao.getDictByKeyType(user.getUserType()+"", "1003");
+			List<Office> listoffice = new ArrayList<Office>();
+			listoffice = Office.dao.find("select t.* from sys_office t ,sys_office_user t1 where t.id = t1.office_id and t1.user_id = ? ",id);
+			String officenames="";
+			if(listoffice.size()>0){
+				for(Office o:listoffice){
+					officenames =officenames +o.getName()+ " | ";
+				}
+			}
+			setAttr("username", user.getName());
+			setAttr("idcard", user.getCardno());
+			setAttr("officenames", officenames);
+			setAttr("yonghuleixing", yonghuleixing);
+			renderJson();
+		}
+		
 }

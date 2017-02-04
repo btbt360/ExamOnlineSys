@@ -1,19 +1,26 @@
 package com.wide.baseproject.exam.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import com.alibaba.fastjson.JSON;
 import com.jfinal.aop.Enhancer;
+import com.jfinal.json.JFinalJson;
+import com.jfinal.kit.JsonKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.wide.base.BaseController;
 import com.wide.base.RenturnInfo;
 import com.wide.baseproject.exam.service.BespeakExamService;
 import com.wide.common.model.Bespeakexam;
+import com.wide.common.model.BespeakexamExaminee;
 import com.wide.common.model.Cases;
 import com.wide.common.model.Exam;
 import com.wide.common.model.query.QueryBespeak;
 import com.wide.util.CGUtil;
 import com.wide.util.DateUtil;
 import com.wide.viewmodel.DataTablesModel;
+import com.wide.viewmodel.ViewCalendar;
 
 /**
  * @author cg
@@ -154,13 +161,21 @@ public class BespeakExamContrller extends BaseController {
 	 * 
 	 * */
 	public void addquerybespeak(){
-		int oldtype = getParaToInt("oldtype");
-		if(oldtype==1){
-			//正在预约考试查询
-		}else if(oldtype ==2){
-			//结束预约考试查询
-		}
 		render("querybespeak.jsp");
+	}
+	/**
+	 * @author cg
+	 * 预约考试查询
+	 * 
+	 * */
+	public void getQuerybespeak(){
+		QueryBespeak qb = new QueryBespeak();
+		qb.setStarttime(getPara("starttimes"));
+		qb.setStarttime(getPara("endtimes"));
+		DataTablesModel bespeakpage = bespeakExamService.getPageBespeakQuery(getParaToInt("page")
+				.intValue(), getParaToInt("rp").intValue(), qb);
+		renderJson(bespeakpage);
+		
 	}
 	
 	  /*********************************************************************************************************/
@@ -173,8 +188,35 @@ public class BespeakExamContrller extends BaseController {
 	 * 
 	 * */
 	public void addusersubscribe(){
-		
+		try{
+			List<ViewCalendar> vclist = new ArrayList<ViewCalendar>();
+			vclist = bespeakExamService.usersubscribe(getUser());
+			setAttr("vclist",JsonKit.toJson(vclist));
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
 		render("usersubscribe.jsp");
+	}
+	/**
+	 * @author cg
+	 * cx考生考试日程预约
+	 * 
+	 * */
+	public void getUsersubscribe(){
+		String id = getPara("id");
+		try{
+			Bespeakexam be = Bespeakexam.dao.findById(id);
+			List<BespeakexamExaminee> listeee = bespeakExamService.getBeSList(id,null);
+			List<BespeakexamExaminee> listuser = bespeakExamService.getBeSList(id,getUser().getId());
+			setAttr("bespeakexam", be);
+			setAttr("alreadynum", listeee.size());
+			setAttr("flag", listuser.size()>0?true:false);
+			setAttr("flagcg",(DateUtil.compare_date(DateUtil.toDateTimeStr(new Date()),
+					DateUtil.toDateTimeStr(be.getStarttime()))>0)?false:true);
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}
+		renderJson();
 	}
 	/**
 	 * @author cg
@@ -194,11 +236,11 @@ public class BespeakExamContrller extends BaseController {
 		QueryBespeak qb = new QueryBespeak();
 		qb.setStarttime(getPara("starttimes"));
 		qb.setEndtime(getPara("endtimes"));
-		qb.setExamname(getPara("name"));
+		qb.setUserid(getUser().getId());
 		//预约考试
 		DataTablesModel bespeakpage = bespeakExamService.getPageBespeak(getParaToInt("page")
 				.intValue(), getParaToInt("rp").intValue(), qb);
-		renderJson();
+		renderJson(bespeakpage);
 	}
 	/**
 	 * @author cg
@@ -217,11 +259,18 @@ public class BespeakExamContrller extends BaseController {
 	 * */
 	public void savebespeakinfo(){
 		String flag = getPara("flag");
-		if(flag.equals("1")){
-			redirect("/bespeak/addschedulebespeak?message=success", true);			
+		String id = getPara("id");
+		List<BespeakexamExaminee> listuser = bespeakExamService.getBeSList(id,getUser().getId());
+		if(listuser.size()>0){
+			System.out.println("已经预定");
 		}else{
-			redirect("/bespeak/addsubscribelist?message=success", true);
+			BespeakexamExaminee be = new BespeakexamExaminee();
+			be.setId(createUUid());
+			be.setExamId(id);
+			be.setExamineeId(getUser().getId());
+			be.save();
 		}
+		renderJson();
 	}
 	/**
 	 * @author cg
@@ -230,11 +279,16 @@ public class BespeakExamContrller extends BaseController {
 	 * */
 	public void cancelbespeak(){
 		String flag = getPara("flag");//1为日程展示 2为列表展示
-		if(flag.equals("1")){
-			redirect("/bespeak/addschedulebespeak?message=success", true);			
+		String id = getPara("id");
+		List<BespeakexamExaminee> listuser = bespeakExamService.getBeSList(id,getUser().getId());
+		if(listuser.size()>0){
+			for(BespeakexamExaminee be:listuser){
+				be.delete();
+			}
 		}else{
-			renderJson();
+			System.out.println("无预定");
 		}
+		renderJson();
 	}
 
 }

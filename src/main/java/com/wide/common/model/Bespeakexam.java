@@ -46,7 +46,9 @@ public class Bespeakexam extends BaseBespeakexam<Bespeakexam> {
 		if(qb.getEndtime()!=null&&!qb.getEndtime().equals("")){
 			where  +=" and endtime < '"+qb.getEndtime()+"'";
 		}
-		
+		if(StrKit.notBlank(qb.getUserid())){
+			where  +=" and id in (select distinct exam_id from sys_bespeakexam_examinee where examinee_id='"+qb.getUserid()+"')";
+		}
 		return where;
 		
 	}
@@ -59,4 +61,6 @@ public class Bespeakexam extends BaseBespeakexam<Bespeakexam> {
 		return orderby;
 		
 	}
+	
+	
 }

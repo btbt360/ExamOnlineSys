@@ -10,6 +10,7 @@ public class QueryBespeak {
 	private int betype;
 	private int num;
 	private String examname;
+	private String userid;
 	public String getStarttime() {
 		return starttime;
 	}
@@ -46,4 +47,11 @@ public class QueryBespeak {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public String getUserid() {
+		return userid;
+	}
+	public void setUserid(String userid) {
+		this.userid = userid;
+	}
+	
 }
