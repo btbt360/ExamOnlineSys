@@ -41,12 +41,14 @@ public class QuestionsService {
 						}
 						row.set(0, "<input type='checkbox' id='check_"+num+"' value='"+row.get(0)+"' />");
 						if(Integer.parseInt(row.get(1))<3){
+							row.set(5, row.get(4));
 							row.set(4, row.get(3)+option);
 						}else if(Integer.parseInt(row.get(1))==3){
 							row.set(5, row.get(4).equals("1")?"对":"错");
-						}else{
 							row.set(4, row.get(3));
+						}else{
 							row.set(5, row.get(4));
+							row.set(4, row.get(3));
 						}
 						row.set(3, row.get(2));
 						row.set(2, Dict.dao.getDictByKeyType(row.get(1),"1002"));

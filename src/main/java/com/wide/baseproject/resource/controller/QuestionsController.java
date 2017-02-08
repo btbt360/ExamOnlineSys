@@ -84,7 +84,8 @@ public class QuestionsController extends BaseController{
 		List<Questionoptions> questionoptionslist  =null;
 		Itembank itembank =null;
 		Subject subject = new Subject();
-		String subjectname,questioncode = "";
+		String subjectname = "";
+		String questioncode = "";
 		if(questions!=null&&!questions.equals("")){
 			questiontypename = Dict.dao.getDictByKeyType(questions.getQuestiontype()+"", "1002");
 			questionoptionslist= questionsService.getQuestionoptionsByQuestionId(id);
@@ -96,6 +97,7 @@ public class QuestionsController extends BaseController{
 		setAttr("questions",questions);
 		setAttr("itembank",itembank);
 		setAttr("subjectlist",subjectlist);
+		setAttr("subjectname",subjectname);
 		setAttr("questioncode",questioncode);
 		setAttr("numcount",questionoptionslist!=null&&!questionoptionslist.equals("")?questionoptionslist.size():0);
 		setAttr("questionoptionslist",questionoptionslist);
@@ -175,10 +177,16 @@ public class QuestionsController extends BaseController{
 					for(String ss: idss){
 						if(StrKit.notBlank(ss)){
 							Db.update("update sys_questions set isdel = 1 where id = ? ",ss);
+							Questions qu = new Questions();
+							qu = Questions.dao.findById(ss);
+							Db.update("update sys_itembank set sumtotal = (sumtotal-1) where id = ? ",qu.getItembankId());
 						}
 					}
 				}else{
-					Db.update("update sys_questions set isdel = 1 where id = ? ",id);					
+					Db.update("update sys_questions set isdel = 1 where id = ? ",id);
+					Questions qu = new Questions();
+					qu = Questions.dao.findById(id);
+					Db.update("update sys_itembank set sumtotal = (sumtotal-1) where id = ? ",qu.getItembankId());
 				}
 			}
 			returninfo.setResult(0);
@@ -190,8 +198,6 @@ public class QuestionsController extends BaseController{
 		}
 		setAttr("returninfo", returninfo);
 		renderJson();
-		
-		
 	}
 
 	private String getCodes(int num){

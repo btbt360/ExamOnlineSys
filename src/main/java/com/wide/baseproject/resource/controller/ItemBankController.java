@@ -14,9 +14,11 @@ import java.util.List;
 import java.util.Map;
 
 import com.alibaba.fastjson.JSONObject;
+import com.jfinal.aop.Before;
 import com.jfinal.aop.Enhancer;
 import com.jfinal.kit.PathKit;
 import com.jfinal.plugin.activerecord.Db;
+import com.jfinal.plugin.activerecord.tx.Tx;
 import com.jfinal.upload.UploadFile;
 import com.wide.base.BaseController;
 import com.wide.base.RenturnInfo;
@@ -27,6 +29,7 @@ import com.wide.baseproject.sys.service.DictService;
 import com.wide.common.model.Dict;
 import com.wide.common.model.Itembank;
 import com.wide.common.model.Questionoptions;
+import com.wide.common.model.Questions;
 import com.wide.common.model.Subject;
 import com.wide.common.model.query.QueryItemBank;
 import com.wide.common.model.query.QuerySubject;
@@ -129,12 +132,20 @@ public class ItemBankController extends BaseController{
 	 * @author cg
 	 * 删除题库
 	 * */
+	@Before(Tx.class)
 	public void del(){
 		returninfo = new RenturnInfo();
 		String id = getPara("id");
 		try{
 			if(id!=null&&!id.equals("")){
 				Db.update("update sys_itembank set isdel = 1 where id = ? ",id);
+			}
+			List<Questions> list = new ArrayList<Questions>();
+			list = Questions.dao.find("select * from sys_questions where itembank_id = ? ",id);
+			if(list.size()>0){
+				for(Questions q:list){
+					Db.update("update sys_questions set isdel = 1 where id = ? ",q.getId());
+				}
 			}
 			returninfo.setResult(0);
 			returninfo.setResultInfo("删除成功！");
@@ -158,14 +169,12 @@ public class ItemBankController extends BaseController{
 		String questiontypename= "";
 		List<Questionoptions> questionoptionslist  =null;
 		Itembank itembank =null;
-		
 		setAttr("questiontypename",questiontypename);
 		setAttr("itembank",itembank);
 		setAttr("subjectlist",subjectlist);
 		setAttr("numcount",questionoptionslist!=null&&!questionoptionslist.equals("")?questionoptionslist.size():0);
 		setAttr("questionoptionslist",questionoptionslist);
 		setAttr("flagcg", getPara("flagcg"));
-
 		render("itembankImport.jsp");
 		//renderJson();
 	}

@@ -47,14 +47,18 @@ var exampapersid ='';
 var examid ='';
 var examineeid ='';
 var answerinfo = '';
+var sumqunesions = '';
+var awc = [];
 $(document).ready(function() {
 	var intDiff = '${exam.enddistancetime}';
 	timer(intDiff);
 	exampapersid = '${exam.exampapersId}';
 	examid = '${exam.id}';
 	examineeid = '${examinee.id}';
-	getQuestions();
-	getAnswers();
+	sumqunesions = '${sumqunesions}';
+	awc = randomsw(sumqunesions);
+	getQuestions(awc);
+	getAnswers(awc);
 	$('input').iCheck({
 		checkboxClass: 'icheckbox_minimal-red',
 		radioClass: 'iradio_minimal-red',
@@ -62,7 +66,26 @@ $(document).ready(function() {
 	});
 });
 var timerss;
-
+function randomsw(num){
+	var arr=new Array();
+	for(var i=0;i<num;i++){
+		while(true){
+			var flag = true;
+			var ppp = Math.floor(Math.random()*(num)+1);
+			for(var i = 0;i<arr.length; i++){
+				if(arr[i] == ppp){
+					flag = false;
+					break;
+				}
+			}
+			if(flag){
+				arr[i] = ppp;
+				break;
+			}
+		}
+	}
+	return arr;
+}
 function timer(intDiff){
 	timerss=window.setInterval(function(){
 	var day=0,
@@ -109,10 +132,17 @@ function closewin()
 	self.close();
 }
 
-function getQuestions(){
+function getQuestions(numarr){
+	if(numarr==null||numarr==''){
+		numarr = awc;
+	}
+	var numarrstr = '';
+	for(var i = 0 ;i<numarr.length;i++){
+		numarrstr = numarr[i]+"|"+numarrstr;
+	}
 	$.ajax({
 		type : 'post',
-		url : '${basepath}/examinee/getQuestions?exampapersid='+exampapersid+'&examid='+examid+'&examineeid='+examineeid+'&sorts=0',
+		url : '${basepath}/examinee/getQuestions?exampapersid='+exampapersid+'&examid='+examid+'&examineeid='+examineeid+'&sorts=1&numarrstr='+numarrstr,
 		cache : false,
 		dataType : 'json',
 		success : function(data) {
@@ -121,10 +151,17 @@ function getQuestions(){
 	});
 }
 
-function getAnswers(){
+function getAnswers(numarr){
+	if(numarr==null||numarr==''){
+		numarr = awc;
+	}
+	var numarrstr = '';
+	for(var i = 0 ;i<numarr.length;i++){
+		numarrstr = numarr[i]+"|"+numarrstr;
+	}
 	$.ajax({
 		type : 'post',
-		url : '${basepath}/examinee/getAnswers?exampapersid='+exampapersid+'&examid='+examid+'&examineeid='+examineeid,
+		url : '${basepath}/examinee/getAnswers?exampapersid='+exampapersid+'&examid='+examid+'&examineeid='+examineeid+'&numarrstr='+numarrstr,
 		cache : false,
 		dataType : 'json',
 		success : function(data) {
@@ -143,10 +180,14 @@ function updateanswer(questionid,sort,answerTypestr){
 	}else if(answerTypestr='answerwd'){
 		strss=$("#answerwd").val();
 	}
-	
+
+	var numarrstr = '';
+	for(var i = 0 ;i<awc.length;i++){
+		numarrstr = awc[i]+"|"+numarrstr;
+	}
 	$.ajax({
 		type : 'post',
-		url : '${basepath}/examinee/getQuestions?exampapersid='+exampapersid+'&examid='+examid+'&examineeid='+examineeid+'&sorts='+sort,
+		url : '${basepath}/examinee/getQuestions?exampapersid='+exampapersid+'&examid='+examid+'&examineeid='+examineeid+'&sorts='+sort+'&numarrstr='+numarrstr,
 		cache : false,
 		dataType : 'json',
 		success : function(data) {
@@ -175,10 +216,14 @@ function nextQuestion(sort,hqstr,questionid,answers){
 			return false;
 		}
 	}
+	var numarrstr = '';
+	for(var i = 0 ;i<awc.length;i++){
+		numarrstr = awc[i]+"|"+numarrstr;
+	}
 	$.ajax({
 		type : 'post',
 		url : '${basepath}/examinee/getUpdateQuestionAnswer?exampapersid='+exampapersid+'&examid='+examid
-				+'&examineeid='+examineeid+'&sort='+sort+'&answer='+strss+'&questionid='+questionid,
+				+'&examineeid='+examineeid+'&sort='+sort+'&answer='+strss+'&questionid='+questionid+'&numarrstr='+numarrstr,
 		cache : false,
 		dataType : 'json',
 		success : function(data) {

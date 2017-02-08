@@ -252,10 +252,11 @@ public class InvigilateController  extends BaseController {
 		if(em.getStatus()<1){
 			flag = 5;
 		}
+		/**
 		if(!ee.getMacaddress().equals(macstr)&&StrKit.notBlank(ee.getMacaddress())&&StrKit.notBlank(macstr)){
 			flag = 6;
 		}
-		flag =1;
+		*/
 		setAttr("flag", flag);
 		renderJson();
 	}

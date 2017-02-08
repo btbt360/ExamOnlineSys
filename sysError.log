@@ -20676,3 +20676,30 @@ java.lang.NullPointerException
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
 	at java.lang.Thread.run(Thread.java:745)
+
+2017-02-06 10:15:12
+[WARN]-[Thread: http-bio-8089-exec-2]-[com.jfinal.core.ActionHandler.handle()]: 404 Action Not Found: /examinee/_blank
+
+2017-02-06 17:14:08
+[ERROR]-[Thread: http-bio-8089-exec-5]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-06 17:14:12
+[ERROR]-[Thread: http-bio-8089-exec-5]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-06 18:12:42
+[ERROR]-[Thread: http-bio-8089-exec-7]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-06 18:12:51
+[ERROR]-[Thread: http-bio-8089-exec-7]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-06 22:42:54
+[ERROR]-[Thread: http-bio-8089-exec-3]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-08 15:24:24
+[ERROR]-[Thread: http-bio-8089-exec-8]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-08 17:38:17
+[ERROR]-[Thread: http-bio-8089-exec-5]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-08 21:42:55
+[WARN]-[Thread: http-bio-8089-exec-7]-[com.jfinal.core.ActionHandler.handle()]: 404 Action Not Found: /examinee/_blank

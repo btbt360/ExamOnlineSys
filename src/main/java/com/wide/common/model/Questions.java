@@ -37,16 +37,16 @@ public class Questions extends BaseQuestions<Questions> {
 	private String whereQuery(QueryQuestion question){
 		String where=" where 1=1  and isdel = 0 and isenable = 1 ";
 		if(!TypeChecker.isEmpty(question.getCode())){
-			where += " and code like '%"+question.getCode()+"%'";
+			where += " and code like '%"+question.getCode().trim()+"%'";
 		}
 		if(!TypeChecker.isEmpty(question.getItembankid())){
-			where += " and itembank_id = '"+question.getItembankid()+"'";
+			where += " and itembank_id = '"+question.getItembankid().trim()+"'";
 		}
 		if(!TypeChecker.isEmpty(question.getQuestionstype())&&!question.getQuestionstype().equals("0")){
-			where += " and questiontype = '"+question.getQuestionstype()+"'";
+			where += " and questiontype = '"+question.getQuestionstype().trim()+"'";
 		}
 		if(!TypeChecker.isEmpty(question.getSubjectid())){
-			where += " and subject_id = '"+question.getSubjectid()+"'";
+			where += " and subject_id = '"+question.getSubjectid().trim()+"'";
 		}
 		if(TypeChecker.isEmpty(question.getExampapersid())){
 			where += " and 1 <> 1 ";
@@ -60,7 +60,7 @@ public class Questions extends BaseQuestions<Questions> {
 				}
 				strbuf= strbuf.substring(0, strbuf.length()-1);
 			}
-			where += " and itembank_id in ("+strbuf+")";
+			where += " and itembank_id in ("+strbuf.trim()+")";
 		}
 		return where;
 		

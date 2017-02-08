@@ -21,7 +21,7 @@ public class ExamineeService {
 	 * @param examineeid String 考生id
 	 * @param sort int 试题排序
 	 * */
-	public String getQuestions(String exampapersid, String examid, String examineeid, int sort) {
+	public String getQuestions(String exampapersid, String examid, String examineeid, int sort,String[] arges) {
 		// TODO Auto-generated method stub
 		List<Object[]> listobj =new ArrayList<Object[]> ();
 		String restrhead = "";
@@ -29,14 +29,14 @@ public class ExamineeService {
 		//查询考试问题表
 		listobj = Db.query("select t3.id,t2.sort,t3.title,t3.questiontype from sys_exam t,sys_exampapers t1,sys_exampapers_question t2,sys_questions t3 where "+
 					"t.exampapers_id = t1.id and t1.id=t2.exampapers_id and t2.question_id = t3.id and t1.id= ? and t.id = ? and t2.sort = ? order by t2.sort asc ",
-					exampapersid,examid,sort==0?1:sort);
+					exampapersid,examid,Integer.parseInt(arges.length>=sort?arges[sort-1]:sort+""));
 		if(listobj.size()>0){
 			Object[] ob = listobj.get(0);
 			restrhead ="<legend>"+Dict.dao.getDictByKeyType(ob[3]+"","1002")+"</legend>"
 					+ "<div class='control-group'>"
-					+ "<div class='controls'><div style='span11 text-right'>"+ob[1]+"、"+ob[2]
+					+ "<div class='controls'><div style='span11 text-right'>"+(sort==0?1:sort)+"、"+ob[2]
 					+ "</div></div></div>";
-			restrbody= getrestrbody(ob[3]+"",ob[0]+"",examineeid,examid,(Integer.parseInt(ob[1]+"")+1));
+			restrbody= getrestrbody(ob[3]+"",ob[0]+"",examineeid,examid,(sort==0?1:sort)+1);
 		}
 		return restrhead+restrbody;
 	}

@@ -271,10 +271,11 @@ $(document).ready(
 		$("#deletesrows").click(function(){
 			var strs = "";
 			$("input[id^='check_']").each(function () {
-				if($(this).attr("checked")){
+				if($(this).is(':checked')){
 					strs = strs +"|"+$(this).val();
 				}
 			});
+			
 			if (confirm("确定要删除所选试题？")) {
 				$.ajax({
 					type : 'post',
@@ -298,13 +299,13 @@ $(document).ready(
 		});
 	});
 	function reshcg() {
-		var name = $('#name').val();
+		var code = $('#code').val();
 		var subjectid = $('#subjectid').val();
 		var questionstype = $('#questionstype').val();
 		var itembankid = $('#itembankid').val();
 		var oSettings = [ {
-			"name" : "name",
-			"value" : name
+			"name" : "code",
+			"value" : code
 		}, {
 			"name" : "subjectid",
 			"value" : subjectid
