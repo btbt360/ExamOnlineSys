@@ -20703,3 +20703,48 @@ java.lang.NullPointerException
 
 2017-02-08 21:42:55
 [WARN]-[Thread: http-bio-8089-exec-7]-[com.jfinal.core.ActionHandler.handle()]: 404 Action Not Found: /examinee/_blank
+
+2017-02-10 09:34:28
+[ERROR]-[Thread: http-bio-8089-exec-9]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-10 10:12:32
+[ERROR]-[Thread: http-bio-8089-exec-6]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-13 17:08:48
+[ERROR]-[Thread: http-bio-8089-exec-8]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-15 12:58:28
+[ERROR]-[Thread: http-bio-8089-exec-8]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-15 12:58:36
+[ERROR]-[Thread: http-bio-8089-exec-1]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-15 17:26:58
+[ERROR]-[Thread: http-bio-8089-exec-9]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-16 13:33:19
+[WARN]-[Thread: http-bio-8089-exec-4]-[com.jfinal.core.ActionHandler.handle()]: 404 Action Not Found: /examinee/_blank
+
+2017-02-16 21:38:57
+[ERROR]-[Thread: http-bio-8089-exec-10]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-16 21:54:13
+[ERROR]-[Thread: http-bio-8089-exec-8]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-17 09:39:29
+[ERROR]-[Thread: http-bio-8089-exec-10]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-17 09:39:43
+[ERROR]-[Thread: http-bio-8089-exec-10]-[com.wide.baseproject.sys.controller.LoginController.doLogin()]: 用户名或者密码错误
+
+2017-02-17 09:40:56
+[WARN]-[Thread: http-bio-8089-exec-9]-[com.jfinal.core.ActionHandler.handle()]: 404 Action Not Found: /exam/addExaminfo
+
+2017-02-17 09:41:24
+[WARN]-[Thread: http-bio-8089-exec-9]-[com.jfinal.core.ActionHandler.handle()]: 404 Action Not Found: /exam/addExaminfo
+
+2017-02-17 09:41:57
+[WARN]-[Thread: http-bio-8089-exec-5]-[com.jfinal.core.ActionHandler.handle()]: 404 Action Not Found: /exam/addExaminfo
+
+2017-02-17 09:41:59
+[WARN]-[Thread: http-bio-8089-exec-5]-[com.jfinal.core.ActionHandler.handle()]: 404 Action Not Found: /exam/addExaminfo

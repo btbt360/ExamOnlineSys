@@ -138,13 +138,13 @@ public class AchievementController extends BaseController {
 			}
 			examinee.setTotalscore(sumscores);
 			List<Dict> listdict = new ArrayList<Dict>();
-			listdict = Dict.dao.getDictByType("1015");
+			listdict = Dict.dao.getDictByCType("1015");
 			if(listdict.size()>0){
-					if(Integer.parseInt(listdict.get(0).getDictkey())<sumscores&&sumscores<=Integer.parseInt(listdict.get(1).getDictkey())){
+					if(Integer.parseInt(listdict.get(0).getDictkey())<=sumscores&&sumscores<Integer.parseInt(listdict.get(1).getDictkey())){
 						examinee.setScoreslevel(0);
-					}else if(Integer.parseInt(listdict.get(1).getDictkey())<sumscores&&sumscores<=Integer.parseInt(listdict.get(2).getDictkey())){
+					}else if(Integer.parseInt(listdict.get(1).getDictkey())<=sumscores&&sumscores<Integer.parseInt(listdict.get(2).getDictkey())){
 						examinee.setScoreslevel(1);
-					}else if(Integer.parseInt(listdict.get(2).getDictkey())<sumscores){
+					}else if(Integer.parseInt(listdict.get(2).getDictkey())<=sumscores){
 						examinee.setScoreslevel(2);
 					}
 			}
@@ -198,14 +198,14 @@ public class AchievementController extends BaseController {
 			Examinee examinee = new Examinee();
 			examinee = Examinee.dao.findById(examineeid);
 			List<Dict> listdict = new ArrayList<Dict>();
-			listdict = Dict.dao.getDictByType("1015");
+			listdict = Dict.dao.getDictByCType("1015");
 			//sumscores = examinee.getTotalscore();
 			if(listdict.size()>0){
-					if(Integer.parseInt(listdict.get(0).getDictkey())<sumscores&&sumscores<=Integer.parseInt(listdict.get(1).getDictkey())){
+					if(Integer.parseInt(listdict.get(0).getDictkey())<=sumscores&&sumscores<Integer.parseInt(listdict.get(1).getDictkey())){
 						examinee.setScoreslevel(0);
-					}else if(Integer.parseInt(listdict.get(1).getDictkey())<sumscores&&sumscores<=Integer.parseInt(listdict.get(2).getDictkey())){
+					}else if(Integer.parseInt(listdict.get(1).getDictkey())<=sumscores&&sumscores<Integer.parseInt(listdict.get(2).getDictkey())){
 						examinee.setScoreslevel(1);
-					}else if(Integer.parseInt(listdict.get(2).getDictkey())<sumscores){
+					}else if(Integer.parseInt(listdict.get(2).getDictkey())<=sumscores){
 						examinee.setScoreslevel(2);
 					}
 			}
@@ -248,14 +248,14 @@ public class AchievementController extends BaseController {
 			Examinee examinee = new Examinee();
 			examinee = Examinee.dao.findById(examineeid);
 			List<Dict> listdict = new ArrayList<Dict>();
-			listdict = Dict.dao.getDictByType("1015");
+			listdict = Dict.dao.getDictByCType("1015");
 			//Double sumscores = examinee.getTotalscore();
 			if(listdict.size()>0){
-					if(Integer.parseInt(listdict.get(0).getDictkey())<sumscores&&sumscores<=Integer.parseInt(listdict.get(1).getDictkey())){
+					if(Integer.parseInt(listdict.get(0).getDictkey())<=sumscores&&sumscores<Integer.parseInt(listdict.get(1).getDictkey())){
 						examinee.setScoreslevel(0);
-					}else if(Integer.parseInt(listdict.get(1).getDictkey())<sumscores&&sumscores<=Integer.parseInt(listdict.get(2).getDictkey())){
+					}else if(Integer.parseInt(listdict.get(1).getDictkey())<=sumscores&&sumscores<Integer.parseInt(listdict.get(2).getDictkey())){
 						examinee.setScoreslevel(1);
-					}else if(Integer.parseInt(listdict.get(2).getDictkey())<sumscores){
+					}else if(Integer.parseInt(listdict.get(2).getDictkey())<=sumscores){
 						examinee.setScoreslevel(2);
 					}
 			}

@@ -198,6 +198,7 @@ function updateanswer(questionid,sort,answerTypestr){
 }
 function nextQuestion(sort,hqstr,questionid,answers){
 	$("#checknext").hide();
+	$("#answers").hide();
 	answerinfo = answers;
 	var strss='';
 	if(hqstr=='answeroption_'){
@@ -213,7 +214,10 @@ function nextQuestion(sort,hqstr,questionid,answers){
 		if (confirm("当前题目未做回答，是否要进行下一题？")) {
 			
 		}else{
+			$("#checknext").show();
+			$("#answers").show();
 			return false;
+			
 		}
 	}
 	var numarrstr = '';
@@ -244,6 +248,7 @@ function nextQuestion(sort,hqstr,questionid,answers){
 			}
 			$("#questions").empty();
 			$("#answers").empty();
+			$("#answers").show();
 			$("#questions").append("<h4>"+data.questionstr.replace("<p>","").replace("</p>","")+"</h4>");
 			$("#answers").append(data.eqstr);
 		}

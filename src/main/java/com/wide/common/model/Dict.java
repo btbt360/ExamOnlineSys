@@ -98,10 +98,16 @@ public class Dict extends BaseDict<Dict> {
 	 * @param type
 	 * @return
 	 */
+	public List<Dict> getDictByCType(String type) {
+		List<Dict> lists = find("select * from sys_dict where type = ? and del_flag=0  order by description asc ",type);
+		return 	 lists ;
+	}
+	
 	public List<Dict> getDictByType(String type) {
 		List<Dict> lists = find("select * from sys_dict where type = ? and del_flag=0  order by dictkey asc ",type);
 		return 	 lists ;
 	}
+	
 	/**
 	 * 按字典类型查询对象
 	 * @param type

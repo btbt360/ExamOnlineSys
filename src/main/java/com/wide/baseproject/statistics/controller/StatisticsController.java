@@ -135,7 +135,7 @@ public class StatisticsController extends BaseController{
 	 * */
 	public void examCountDapartment(){
 		List<Exam> examlist =  Exam.dao.find("select * from sys_exam ");
-		List<Dict> dictlit = Dict.dao.getDictByType("1015");
+		List<Dict> dictlit = Dict.dao.getDictByCType("1015");
 		setAttr("examlist", examlist);
 		setAttr("dictlit", dictlit);
 		render("examCountDapartment.jsp");
@@ -162,7 +162,7 @@ public class StatisticsController extends BaseController{
 	 * */
 	public void examCountPost(){
 		List<Exam> examlist =  Exam.dao.find("select * from sys_exam ");
-		List<Dict> dictlit = Dict.dao.getDictByType("1015");
+		List<Dict> dictlit = Dict.dao.getDictByCType("1015");
 		setAttr("examlist", examlist);
 		setAttr("dictlit", dictlit);
 		render("examCountPost.jsp");
@@ -188,7 +188,7 @@ public class StatisticsController extends BaseController{
 	 * */
 	public void examCount(){
 		List<Exam> examlist =  Exam.dao.find("select * from sys_exam ");
-		List<Dict> dictlit = Dict.dao.getDictByType("1015");
+		List<Dict> dictlit = Dict.dao.getDictByCType("1015");
 		setAttr("examlist", examlist);
 		setAttr("dictlit", dictlit);
 		render("examCount.jsp");

@@ -16,7 +16,7 @@
 		<div class="block-content collapse in">
 		<ul class="nav nav-tabs">
 			<li><a href="${basepath}/exam/addExam">考试安排列表</a></li>
-			<li class="active"><a href="${basepath}/exam/addExaminfo">添加考试安排</a></li>
+			<li class="active"><a href="${basepath}/exam/addExamInfo">添加考试安排</a></li>
 		</ul>
 			<div class="span12">
 				<div <c:if test="${flagcg==1}">class="alert alert-success"</c:if>

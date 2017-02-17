@@ -31,6 +31,11 @@ public class ErrorSubjectService {
 					}
 					row.set(0,row.get(0)+option);
 					row.set(1, Itembank.dao.findById(row.get(1)).getName());
+					if(row.get(2).equals("0")){
+						row.set(2, "错");
+					}else if(row.get(2).equals("1")){
+						row.set(2, "对");
+					}
 					row.set(5,"<a href='#' onclick=removenerror('"+id+"') >移除</a>");
 				}
 			}

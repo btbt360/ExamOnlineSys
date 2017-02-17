@@ -146,7 +146,7 @@ public class InvigilateService {
 		if (StrKit.notNull(questions)) {
 			if (questions.getQuestionanswer() != answer) {
 				List<Error> list = new ArrayList<Error>();
-				list = Error.dao.find("select * from sys_error where question_id = ? and user_id = ?", questionid, userid);
+				list = Error.dao.find("select * from sys_error where question_id = ? and user_id = ? and recourse_id = ? and recourse_type = 1", questionid, userid,examid);
 				if (list.size() <= 0) {
 					Error error = new Error();
 					error.setId(CGUtil.createUUid());

@@ -61,8 +61,8 @@
 						<thead>
 							<tr>
 								<th width="30%">错题内容</th>
-								<th width="5%">属于题库</th>
-								<th width="25%">错题答案</th>
+								<th width="15%">属于题库</th>
+								<th width="15%">错题答案</th>
 								<th width="10%">错题描述</th>
 								<th width="20%">错题解答</th>
 								<th width="10%">操作</th>
