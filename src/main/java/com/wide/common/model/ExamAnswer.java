@@ -117,5 +117,12 @@ public class ExamAnswer extends BaseExamAnswer<ExamAnswer> {
 		return orderby;
 		
 	}
+	public List<ExamAnswer> getEalist(String examineeid,String examid,String questionid){
+		List<ExamAnswer> ealist = new ArrayList<ExamAnswer>();
+		ealist=ExamAnswer.dao.find(
+				"select * from sys_exam_answer where examinee_id = ? and exam_id = ? and question_id = ? ",
+				examineeid, examid, questionid);
+		return ealist;
+	}
 	
 }

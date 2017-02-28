@@ -85,9 +85,9 @@ public class User extends BaseUser<User> {
 	 * 
 	 * */
 	private String orderbyQuery(QueryUser query){
-		String orderby = " order by create_date desc ";
+		String orderby = " order by create_date desc";
 		return orderby;
-		
+		//select count(*)  from sys_user   where 1=1  and del_flag = 0   USING gbk) COLLATE gbk_chinese_ci
 	}
    /**
     * 根据登录名和密码查询用户

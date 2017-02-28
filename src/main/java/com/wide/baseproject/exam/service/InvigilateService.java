@@ -140,30 +140,6 @@ public class InvigilateService {
 		return p;
 	}
 
-	public void saveError(String questionid, String answer, String userid,String examid) {
-		// TODO Auto-generated method stub
-		Questions questions = Questions.dao.findById(questionid);
-		if (StrKit.notNull(questions)) {
-			if (questions.getQuestionanswer() != answer) {
-				List<Error> list = new ArrayList<Error>();
-				list = Error.dao.find("select * from sys_error where question_id = ? and user_id = ? and recourse_id = ? and recourse_type = 1", questionid, userid,examid);
-				if (list.size() <= 0) {
-					Error error = new Error();
-					error.setId(CGUtil.createUUid());
-					error.setQuestionId(questionid);
-					error.setUserId(userid);
-					error.setRecourseId(examid);
-					error.setRecourseType(1);
-					error.setUpdateBy(userid);
-					error.setUpdateDate(new Date());
-					error.setCreateDate(new Date());
-					error.setCreatorId(userid);
-					error.setIsenable(1);
-					error.setIsdel(0);
-					error.save();
-				}
-			}
-		}
-	}
+	
 
 }

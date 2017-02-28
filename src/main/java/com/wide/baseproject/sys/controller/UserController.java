@@ -165,14 +165,14 @@ public class UserController extends BaseController {
 		String mark = getPara("message");
 		setAttr("message", mark);
 		
-		if(ut.getVuser().getUser().getLoginType()==0){
+		if(ut.getVuser().getUser().getLoginType()<2){
 			List<ViewChartData> list = new ArrayList<ViewChartData>();
 			list = statisticsService.queryMyChartDatas(getUser().getId());
 			setAttr("chartlist", JsonKit.toJson(list));
 			examList = Exam.dao.getExamList(getUser().getId());
 			setAttr("examList", examList);
 			render("mainexaminee.jsp");
-		}else{
+		}else if(ut.getVuser().getUser().getLoginType()==2){
 			List<ViewChartZDate> list = new ArrayList<ViewChartZDate>();
 			list = statisticsService.queryListChartDatas();
 			examList = Exam.dao.getExamList("");
