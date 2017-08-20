@@ -21,7 +21,7 @@
 			<div class="block" style="border: 0px;">
 				<div class="block-content collapse in">
 					<ul class="nav nav-tabs">
-						<li ><a href="${basepath}/statistics/examCountDapartment">部门考试统计</a></li>
+						<li ><a href="${basepath}/statistics/examCountDapartment">人员考试成绩统计</a></li>
 						<li class="active"><a href="${basepath}/statistics/examCountPost">岗位考试统计</a></li>
 						<li ><a href="${basepath}/statistics/examCount">人员考试统计</a></li>
 					</ul>

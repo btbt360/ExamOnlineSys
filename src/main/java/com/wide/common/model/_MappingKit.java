@@ -20,6 +20,7 @@ public class _MappingKit {
 		arp.addMapping("sys_bespeakexam", "id", Bespeakexam.class);
 		arp.addMapping("sys_bespeakexam_examinee", "id", BespeakexamExaminee.class);
 		arp.addMapping("sys_cases", "id", Cases.class);
+		arp.addMapping("sys_curriculum", "id", Curriculum.class);
 		arp.addMapping("sys_dict", "id", Dict.class);
 		arp.addMapping("sys_error", "id", Error.class);
 		arp.addMapping("sys_exam", "id", Exam.class);
@@ -47,9 +48,12 @@ public class _MappingKit {
 		arp.addMapping("sys_role_right", "right_id,role_id", RoleRight.class);
 		arp.addMapping("sys_subject", "id", Subject.class);
 		arp.addMapping("sys_textbook", "id", Textbook.class);
+		arp.addMapping("sys_train", "id", Train.class);
 		arp.addMapping("sys_user", "id", User.class);
 		// Composite Primary Key order: role_id,user_id
 		arp.addMapping("sys_user_role", "role_id,user_id", UserRole.class);
+		// Composite Primary Key order: train_id,user_id
+		arp.addMapping("sys_user_train", "train_id,user_id", UserTrain.class);
 	}
 }
 

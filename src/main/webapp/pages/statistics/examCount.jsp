@@ -21,10 +21,12 @@
 			<div class="block" style="border: 0px;">
 				<div class="block-content collapse in">
 					<ul class="nav nav-tabs">
-						<li ><a href="${basepath}/statistics/examCountDapartment">部门考试统计</a></li>
+						<li ><a href="${basepath}/statistics/examCountDapartment">人员考试成绩统计</a></li>
 						<li ><a href="${basepath}/statistics/examCountPost">岗位考试统计</a></li>
 						<li class="active"><a href="${basepath}/statistics/examCount">人员考试统计</a></li>
 					</ul>
+					<form action="${basepath}/statistics/exportExamineeExam" method="post"
+						id="userform">
 					<div class="span12">
 						<div class="span4 text-center">
 								<label class="control-label" for="name">考试名称：
@@ -50,12 +52,15 @@
 						</div>
 						<div class="span2 text-center">
 						    <button class="btn btn-medium btn-primary" type="button" id="query">查询</button>
+						    <button class="btn btn-medium btn-primary" type="button" id="export">导出</button> 
  							<input type="hidden" id="subpages" name="subpages" /><input type="hidden" id="subrp" name="subrp" />
 						</div>
 					</div>
+					</form>
 						<table id="userList" class="table table-striped table-bordered">
 							<thead>
 								<tr>
+									<th >组织机构名称</th>
 									<th >考生姓名</th>
 									<th >考试次数</th>
 									<th >考试不合格次数</th>
@@ -101,6 +106,9 @@
 		});
 		$("#query").click(function() {
 			reshcg();
+		});
+		$("#export").click(function() {
+			$("#userform").submit();
 		});
 	});
 	function reshcg() {

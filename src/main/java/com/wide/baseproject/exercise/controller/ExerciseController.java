@@ -9,8 +9,6 @@ import com.jfinal.plugin.activerecord.Db;
 import com.wide.base.BaseController;
 import com.wide.base.RenturnInfo;
 import com.wide.baseproject.exercise.service.ExerciseService;
-import com.wide.baseproject.resource.service.QuestionsService;
-import com.wide.baseproject.resource.service.SubjectService;
 import com.wide.common.model.Dict;
 import com.wide.common.model.Exercise;
 import com.wide.common.model.Questions;
@@ -21,7 +19,6 @@ import com.wide.viewmodel.DataTablesModel;
 
 public class ExerciseController extends BaseController{
 	private static final ExerciseService exerciseService = Enhancer.enhance(ExerciseService.class);
-	private static final SubjectService subjectService = Enhancer.enhance(SubjectService.class);
 	
 	/**
 	 * @author lubin
@@ -99,6 +96,7 @@ public class ExerciseController extends BaseController{
 				exercise.setCreateDate(new Date());
 				exercise.setUpdateBy(getUser().getId());
 				exercise.setUpdateDate(new Date());
+				exercise.setExercisetype(0);
 				exercise.setIsdel(0);
 				exercise.save();
 			}

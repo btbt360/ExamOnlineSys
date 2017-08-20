@@ -93,12 +93,23 @@ public abstract class DbModel<T extends DbModel> extends Model<T> {
     	Map<String,String> map  = new LinkedHashMap<String,String>();
     	if(rps.length>0){
     		for(String s: rps){
-    			if(s.indexOf(".")!=-1){
-    				String sssew = s.split("[.]")[1];
-    				list.add(sssew);    				
+    			if(s.toUpperCase().indexOf(" AS ")!=-1){
+    				String strcg = s.toUpperCase().split(" AS ")[1];
+    				if(strcg.indexOf(".")!=-1){
+        				String sssew = strcg.split("[.]")[1];
+        				list.add(sssew);    				
+        			}else{
+        				list.add(strcg);
+        			}
     			}else{
-    				list.add(s);
+    				if(s.indexOf(".")!=-1){
+        				String sssew = s.split("[.]")[1];
+        				list.add(sssew);    				
+        			}else{
+        				list.add(s);
+        			}
     			}
+    			
     		}
     	}
     	if(list.size()>0){

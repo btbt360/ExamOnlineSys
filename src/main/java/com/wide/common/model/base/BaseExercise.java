@@ -122,4 +122,12 @@ public abstract class BaseExercise<M extends BaseExercise<M>> extends DbModel<M>
 		return get("isdel");
 	}
 
+	public void setExercisetype(java.lang.Integer exercisetype) {
+		set("exercisetype", exercisetype);
+	}
+
+	public java.lang.Integer getExercisetype() {
+		return get("exercisetype");
+	}
+
 }

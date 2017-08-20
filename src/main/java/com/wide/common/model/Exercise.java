@@ -14,7 +14,7 @@ public class Exercise extends BaseExercise<Exercise> {
 	public static final Exercise dao = new Exercise();
 	
 	@SuppressWarnings("rawtypes")
-	public DataTablesModel pageDataTables(int pageNum, int pageSize, QueryExercise queryExercise) {
+	public DataTablesModel pageDataTables(int pageNum, int pageSize, QueryExercise queryExercise,int flag) {
 		// TODO Auto-generated method stub
 	    String select = "select id,name,subject_id,itembank_id,sumcount,alreadycount,isenable";
 	    StringBuilder sqlExceptSelect = new StringBuilder(" from sys_exercise ");
@@ -25,7 +25,7 @@ public class Exercise extends BaseExercise<Exercise> {
 	        parameters.add("%" + search + "%");
 	    } 
 	     **/
-	    sqlExceptSelect.append(whereQuery(queryExercise));
+	    sqlExceptSelect.append(whereQuery(queryExercise,flag));
 	    sqlExceptSelect.append(orderbyQuery(queryExercise));
 	    
 	    return this.paginateDataTables(pageNum, pageSize, select, sqlExceptSelect.toString());
@@ -34,8 +34,13 @@ public class Exercise extends BaseExercise<Exercise> {
 	 * query where查询
 	 * 
 	 * */
-	private String whereQuery(QueryExercise query){
+	private String whereQuery(QueryExercise query,int flag){
 		String where=" where 1=1  and isdel = 0 ";
+		if(flag==0){
+			where += " and exercisetype = 0 ";
+		}else{
+			where += " and exercisetype = 1 ";
+		}
 		if(!TypeChecker.isEmpty(query.getName())){
 			where += " and name like '%"+query.getName()+"%'";
 		}

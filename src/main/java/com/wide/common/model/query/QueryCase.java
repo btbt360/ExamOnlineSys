@@ -3,6 +3,7 @@ package com.wide.common.model.query;
 public class QueryCase {
 	private String name ;
 	private String casetitle;
+	private String code;
 	public String getName() {
 		return name;
 	}
@@ -15,7 +16,12 @@ public class QueryCase {
 	public void setCasetitle(String casetitle) {
 		this.casetitle = casetitle;
 	}
-	
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
+	}
 	
 
 }

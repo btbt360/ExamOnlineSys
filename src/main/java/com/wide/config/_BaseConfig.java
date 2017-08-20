@@ -11,6 +11,7 @@ import com.wide.route.ExerciseRoutes;
 import com.wide.route.ResourceRoutes;
 import com.wide.route.StatisticsRoutes;
 import com.wide.route.SysRoutes;
+import com.wide.route.TrainRoutes;
 import com.wide.util.JspSkipHandler;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
@@ -58,6 +59,7 @@ public class _BaseConfig extends JFinalConfig {
 		me.add(new ResourceRoutes());
 		me.add(new ExerciseRoutes());
 		me.add(new StatisticsRoutes());
+		me.add(new TrainRoutes());
 	}
 	
 	/**

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.jfinal.aop.Before;
 import com.jfinal.aop.Enhancer;
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.tx.Tx;
 import com.wide.base.BaseController;
@@ -25,7 +26,11 @@ import com.wide.common.model.User;
 import com.wide.common.model.query.QueryCase;
 import com.wide.common.model.query.QueryExam;
 import com.wide.common.model.query.QueryStatistics;
+import com.wide.common.model.query.QueryUser;
+import com.wide.constant.EnumFuncType;
+import com.wide.constant.EnumOptType;
 import com.wide.util.DateUtil;
+import com.wide.util.ExportController;
 import com.wide.viewmodel.DataTablesModel;
 import com.wide.viewmodel.ViewChartData;
 
@@ -40,10 +45,39 @@ public class StatisticsController extends BaseController{
 	 * 
 	 * */
 	public void examineeCount(){
-		List<Exam> examlist =  Exam.dao.find("select * from sys_exam ");
+		List<Exam> examlist =  Exam.dao.find("select * from sys_exam where isdel = 0 and isenable = 1 order by starttime desc");
 		setAttr("examlist", examlist);
 		render("examineeCount.jsp");
 	}
+	public void getExamineeCount(){
+		QueryStatistics queryStatistics = new QueryStatistics();
+		queryStatistics.setExamid(getPara("examid"));
+		queryStatistics.setStarttime(getPara("starttimes"));
+		queryStatistics.setEndtime(getPara("endtimes"));
+		DataTablesModel casepage = statisticsService.getPageExamExamineeCount(getParaToInt("page")
+				.intValue(), getParaToInt("rp").intValue(), queryStatistics);
+		this.renderJson(casepage);
+	}
+	/**
+	 * @author cg
+	 * @deprecated 考试统计导出
+	 * */
+	public void exportExam() {		
+		QueryStatistics queryStatistics = new QueryStatistics();
+		queryStatistics.setExamid(getPara("examid"));
+		queryStatistics.setStarttime(getPara("starttimes"));
+		queryStatistics.setEndtime(getPara("endtimes"));
+		List<Object[]> casepage = statisticsService.exportPageExamExamineeCount(Integer.MAX_VALUE, Integer.MAX_VALUE, queryStatistics);
+		String[] heades = { "考试编码", "	考试名称", "考试总人数", "考试不合格人数", "考试合格人数", "考试优秀人数" };
+		ExportController.exportXLSRecord(casepage, "考试统计", heades,
+				"1", this.getResponse());
+		List<Exam> examlist =  Exam.dao.find("select * from sys_exam where isdel = 0 and isenable = 1 order by starttime desc");
+		setAttr("examlist", examlist);
+		render("examineeCount.jsp");
+		return;
+	}
+	
+	
 	/**
 	 * @author cg
 	 * 考生成绩统计图表数据
@@ -63,7 +97,7 @@ public class StatisticsController extends BaseController{
 	 * 
 	 * */
 	public void dapartmentCount(){
-		List<Exam> examlist =  Exam.dao.find("select * from sys_exam ");
+		List<Exam> examlist =  Exam.dao.find("select * from sys_exam where isdel = 0 and isenable = 1 order by starttime desc");
 		setAttr("examlist", examlist);
 		render("dapartmentCount.jsp");
 	}
@@ -87,7 +121,7 @@ public class StatisticsController extends BaseController{
 	 * 
 	 * */
 	public void postCount(){
-		List<Exam> examlist =  Exam.dao.find("select * from sys_exam ");
+		List<Exam> examlist =  Exam.dao.find("select * from sys_exam where isdel = 0 and isenable = 1 order by starttime desc");
 		setAttr("examlist", examlist);
 		render("postCount.jsp");
 	}
@@ -111,7 +145,7 @@ public class StatisticsController extends BaseController{
 	 * 
 	 * */
 	public void errorrateCount(){
-		List<Exam> examlist =  Exam.dao.find("select * from sys_exam ");
+		List<Exam> examlist =  Exam.dao.find("select * from sys_exam where isdel = 0 and isenable = 1 order by starttime desc");
 		setAttr("examlist", examlist);
 		render("errorrateCount.jsp");
 	}
@@ -134,7 +168,7 @@ public class StatisticsController extends BaseController{
 	 * 
 	 * */
 	public void examCountDapartment(){
-		List<Exam> examlist =  Exam.dao.find("select * from sys_exam ");
+		List<Exam> examlist =  Exam.dao.find("select * from sys_exam where isdel = 0 and isenable = 1 order by starttime desc");
 		List<Dict> dictlit = Dict.dao.getDictByCType("1015");
 		setAttr("examlist", examlist);
 		setAttr("dictlit", dictlit);
@@ -161,7 +195,7 @@ public class StatisticsController extends BaseController{
 	 * 
 	 * */
 	public void examCountPost(){
-		List<Exam> examlist =  Exam.dao.find("select * from sys_exam ");
+		List<Exam> examlist =  Exam.dao.find("select * from sys_exam where isdel = 0 and isenable = 1 order by starttime desc");
 		List<Dict> dictlit = Dict.dao.getDictByCType("1015");
 		setAttr("examlist", examlist);
 		setAttr("dictlit", dictlit);
@@ -187,7 +221,7 @@ public class StatisticsController extends BaseController{
 	 * 
 	 * */
 	public void examCount(){
-		List<Exam> examlist =  Exam.dao.find("select * from sys_exam ");
+		List<Exam> examlist =  Exam.dao.find("select * from sys_exam where isdel = 0 and isenable = 1 order by starttime desc");
 		List<Dict> dictlit = Dict.dao.getDictByCType("1015");
 		setAttr("examlist", examlist);
 		setAttr("dictlit", dictlit);
@@ -195,7 +229,7 @@ public class StatisticsController extends BaseController{
 	}
 	/**
 	 * @author lubin
-	 *  岗位考试统计
+	 *  人员考试统计
 	 * 
 	 * */
 	public void examCountfind(){
@@ -207,4 +241,55 @@ public class StatisticsController extends BaseController{
 				.intValue(), getParaToInt("rp").intValue(), queryStatistics);
 		this.renderJson(casepage);
 	}	
+
+	/**
+	 * @author cg
+	 * @deprecated 考试人员统计导出
+	 * */
+	public void exportExamineeExam() {		
+		QueryStatistics queryStatistics = new QueryStatistics();
+		queryStatistics.setExamid(getPara("examid"));
+		queryStatistics.setStarttime(getPara("starttimes"));
+		queryStatistics.setEndtime(getPara("endtimes"));
+		List<Object[]> casepage = statisticsService.getPageExamfind(Integer.MAX_VALUE, Integer.MAX_VALUE, queryStatistics);
+		String[] heades = { "组织机构名称", "考生姓名", "考试次数", "考试不合格人数", "考试合格人数", "考试优秀人数" };
+		ExportController.exportXLSRecord(casepage, "考试人员统计导出", heades,
+				"1", this.getResponse());
+		List<Exam> examlist =  Exam.dao.find("select * from sys_exam where isdel = 0 and isenable = 1 order by starttime desc");
+		setAttr("examlist", examlist);
+		render("examCount.jsp");
+		return;
+	}
+	/**
+	 * @author cg
+	 * @deprecated 更新remarks
+	 * */
+	public void updateremark(){
+		String id =getPara("id");
+		String remark = getPara("remark");
+		Examinee examinee = Examinee.dao.findById(id);
+		int pass= 0;
+		try{
+			if(StrKit.notNull(examinee)){
+				examinee.setRemark(remark);
+				examinee.update();
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+			pass = 1;
+		}
+		this.renderJson(pass);
+	}
+	/**
+	 * @author cg
+	 *  @deprecated 查看信息
+	 * */
+	public void checkinfo(){
+		String id =getPara("id");
+		Examinee examinee = Examinee.dao.findById(id);
+		Exam exam = Exam.dao.findById(examinee.getExamId());
+		examinee.setExamId(exam.getName());
+		setAttr("examinee",examinee);
+		render("examcheckInfo.jsp");
+	}
 }

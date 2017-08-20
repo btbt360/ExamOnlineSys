@@ -21,7 +21,7 @@
 			<div class="block" style="border: 0px;">
 				<div class="block-content collapse in">
 					<ul class="nav nav-tabs">
-						<li class="active"><a href="${basepath}/statistics/examCountDapartment">部门考试统计</a></li>
+						<li class="active"><a href="${basepath}/statistics/examCountDapartment">人员考试成绩统计</a></li>
 						<li ><a href="${basepath}/statistics/examCountPost">岗位考试统计</a></li>
 						<li ><a href="${basepath}/statistics/examCount">人员考试统计</a></li>
 					</ul>
@@ -52,15 +52,34 @@
 						    <button class="btn btn-medium btn-primary" type="button" id="query">查询</button>
  							<input type="hidden" id="subpages" name="subpages" /><input type="hidden" id="subrp" name="subrp" />
 						</div>
+						<!-- 弹出层 start -->
+								<div class="modal hide fade" id="oModal" tabindex="-1" role="dialog">
+									<div class="modal-header">
+										<button class="close" type="button" data-dismiss="modal">×</button>
+										<h3 id="myModalLabel">添加评价</h3>
+									</div>
+									<div class="modal-body">
+										<div class="control-group">
+										<label class="control-label">评价内容：</label>
+										<div class="controls">
+											<input class="input-xlarge focused" id="remarks" name="remarks" type="text"
+												placeholder="请输入评价内容！" value="${remarks}">
+										</div>
+									</div>
+									<div class="modal-footer">
+										<a href="#" class="btn" id="oclosed">关闭</a>
+										<a href="#" class="btn btn-primary" id="savearea">保存</a>
+									</div>
+								</div>
+								<!-- 弹出层 end -->
 					</div>
 						<table id="userList" class="table table-striped table-bordered">
 							<thead>
 								<tr>
-									<th >部门名称</th>
+									<th >单位名称</th>
+									<th >人员姓名</th>
 									<th >考试次数</th>
-									<th >考试不合格人数</th>
-									<th >考试合格人数</th>
-									<th >考试优秀人数</th>
+									<th >考试名称/成绩/评价</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -73,7 +92,7 @@
 	</div>
 </body>
 <script type="text/javascript">
-
+var ids ='';
 	$(document).ready(function() {
 		$('.datetimepicker').datetimepicker({  
             language:  'zh-CN',
@@ -89,6 +108,28 @@
         }).on('changeDate', function (ev) {  
             $(this).datetimepicker('hide');  
         });
+		
+		$("#oclosed").click(function() {
+			$('#oModal').modal('hide');
+		});
+		$("#savearea").click(function() {
+			$.ajax({
+				type : 'post',
+				url : '${basepath}/statistics/updateremark?remark=' + $("#remarks").val() +'&id='+ids,
+				cache : false,
+				dataType : 'json',
+				success : function(data) {
+					if (data == 1) {
+						alert("更新失败，请联系管理员！");
+					} else {
+						alert("更新成功！");
+					}
+					reshcg();
+				}
+			});
+			$("#remarks").val("");
+			$('#oModal').modal('hide');
+		});
 		$('#ceatetimes').click(function() {
 			$('#starttimes').val('');
 		});
@@ -118,6 +159,14 @@
 			"value" : endtime
 		}];
 		oTable.gridSearch(this, oSettings);
+	}
+	function pingjia(id){
+		$('#oModal').modal('show');
+		ids = id;
+	}
+	function xiangxi(id){
+		var tempwindow = window.open ('_blank', 'newwindow','width='+(window.screen.availWidth-10)+',height='+(window.screen.availHeight-30)+ ',top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');
+		tempwindow.location="${basepath}/statistics/checkinfo?id="+id;
 	}
 </script>
 <c:import url="/pages/include/pageFoot.jsp" />

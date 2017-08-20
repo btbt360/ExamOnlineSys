@@ -6,7 +6,9 @@ import java.util.List;
 import com.jfinal.kit.StrKit;
 import com.wide.common.model.base.BaseExampapersQtypes;
 import com.wide.common.model.query.QueryCase;
+import com.wide.common.model.query.QueryExaminee;
 import com.wide.common.model.query.QueryStatistics;
+import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
 
 /**
@@ -23,5 +25,7 @@ public class ExampapersQtypes extends BaseExampapersQtypes<ExampapersQtypes> {
 		return list;
 	}
 
+	
+	
 	
 }

@@ -17,7 +17,7 @@ public class ExerciseService {
 
 	public DataTablesModel getPageExercise(int pageNum, int pageSize, QueryExercise queryExercise) {
 		// TODO Auto-generated method stub
-		DataTablesModel exercisepage = Exercise.dao.pageDataTables(pageNum, pageSize, queryExercise);
+		DataTablesModel exercisepage = Exercise.dao.pageDataTables(pageNum, pageSize, queryExercise,0);
 		
 		if (exercisepage != null && !exercisepage.equals("")) {
 			List<List<String>> rows = exercisepage.getRows();

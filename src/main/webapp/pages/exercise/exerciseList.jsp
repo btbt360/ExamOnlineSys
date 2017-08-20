@@ -99,7 +99,7 @@
 	}
 
 	function del(ids) {
-		if (confirm("确定要删除该科目？")) {
+		if (confirm("确定要删除该练习？")) {
 			$.ajax({
 				type : 'post',
 				url : '${basepath}/exercise/delExercise?id=' + ids,

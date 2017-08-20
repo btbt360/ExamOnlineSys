@@ -156,49 +156,30 @@ public class StatisticsService {
 	public DataTablesModel getPageExamCountDapartmentfind(int pageNum, int pageSize,
 			QueryStatistics queryStatistics) {
 		// TODO Auto-generated method stub
-		String whereStr = "";
-		if(!StrKit.isBlank(queryStatistics.getStarttime())){
-			whereStr += " and t3.starttime > '"+queryStatistics.getStarttime()+" 00:00:00'";
-		}
-		if(!StrKit.isBlank(queryStatistics.getEndtime())){
-			whereStr += " and t3.endtime < '"+queryStatistics.getEndtime()+" 23:59:59'";
-		}
-		if(!StrKit.isBlank(queryStatistics.getExamid())){
-			whereStr += " and t3.id = '"+queryStatistics.getExamid()+"'";
-		}
 		//1.查询部门的对象
-		DataTablesModel officeCountpage = Office.dao.getPageExamCountDapartmentfind(pageNum, pageSize, queryStatistics);
-		if(StrKit.notNull(officeCountpage)){
-			List<List<String>> rows = officeCountpage.getRows();
+		DataTablesModel examineeCountpage = Examinee.dao.getPageExamcjCountfind(pageNum, pageSize, queryStatistics);
+		if(StrKit.notNull(examineeCountpage)){
+			List<List<String>> rows = examineeCountpage.getRows();
 			if (rows.size() > 0) {
 				for (int i = 0; i < rows.size(); i++) {
 					List<String> row = rows.get(i);
-					String id = row.get(0);
-					row.set(0, row.get(1));
-					List<Exam> listexam = new ArrayList<Exam>();
-					List<Examinee> listNoqualified = new ArrayList<Examinee>();
-					List<Examinee> listQualified = new ArrayList<Examinee>();
-					List<Examinee> listExcellent = new ArrayList<Examinee>();
-					if(!StrKit.isBlank(id)){
-						//2.查询考试次数
-						listexam = Exam.dao.findExamByOfficeId(id,whereStr);
-						//3.查询考试不合格人数
-						listNoqualified = Examinee.dao.getDapartmentExamineeByType(id,0,whereStr);
-						//4.查询考试合格人数
-						listQualified = Examinee.dao.getDapartmentExamineeByType(id,1,whereStr);
-						//5.查询考试优秀人数
-						listExcellent = Examinee.dao.getDapartmentExamineeByType(id,2,whereStr);
+					String userid = row.get(3);
+					List<Object[]> list = new ArrayList<Object[]>();
+					list = Db.query("select t2.name,t1.totalscore,t1.remark,t1.id from sys_examinee t1,sys_exam t2 where t1.exam_id = t2.id and t1.user_id = ? ",userid);
+					String userstr ="";
+					if(list.size()>0){
+						for(Object[] o:list){
+							String ostr = o[3]+"";
+							userstr +=o[0]+"&nbsp;&nbsp;|&nbsp;&nbsp;"+o[1]+"&nbsp;&nbsp;|&nbsp;&nbsp;评价："+(StrKit.notNull(o[2])?o[2]+"":"<a href='#' onclick=pingjia('"+ostr+"')>添加评价</a>")
+									+"&nbsp;&nbsp;|&nbsp;&nbsp;<a href='#' onclick=xiangxi('"+ostr+"')>详细</a><br/>";
+						}
 					}
-					row.set(1, listexam.size()+"");
-					row.add(2, listNoqualified.size()+"");
-					row.add(3, listQualified.size()+"");
-					row.add(4, listExcellent.size()+"");
+					row.set(3, userstr);
 				}
 			}
 		}
-		return officeCountpage;
+		return examineeCountpage;
 	}
-
 
 
 	public DataTablesModel getPageExamCountPostfind(int pageNum, int pageSize, QueryStatistics queryStatistics) {
@@ -251,51 +232,16 @@ public class StatisticsService {
 
 	public DataTablesModel getPageExamCountfind(int pageNum, int pageSize, QueryStatistics queryStatistics) {
 		// TODO Auto-generated method stub
-		//1.查询考生的对象
-		String whereStr = " ";
-		if(!StrKit.isBlank(queryStatistics.getStarttime())){
-			whereStr += " and t1.starttime > '"+queryStatistics.getStarttime()+" 00:00:00'";
-		}
-		if(!StrKit.isBlank(queryStatistics.getEndtime())){
-			whereStr += " and t1.endtime < '"+queryStatistics.getEndtime()+" 23:59:59'";
-		}
-		if(!StrKit.isBlank(queryStatistics.getExamid())){
-			whereStr += " and t1.id = '"+queryStatistics.getExamid()+"'";
-		}
 		DataTablesModel examineeCountpage = Examinee.dao.getPageExamCountfind(pageNum, pageSize, queryStatistics);
-		if(StrKit.notNull(examineeCountpage)){
-			List<List<String>> rows = examineeCountpage.getRows();
-			if (rows.size() > 0) {
-				for (int i = 0; i < rows.size(); i++) {
-					List<String> row = rows.get(i);
-					String id = row.get(0);
-					row.set(0, row.get(1));
-					
-					List<Examinee> listexam = new ArrayList<Examinee>();
-					List<Examinee> listNoqualified = new ArrayList<Examinee>();
-					List<Examinee> listQualified = new ArrayList<Examinee>();
-					List<Examinee> listExcellent = new ArrayList<Examinee>();
-					if(!StrKit.isBlank(id)){
-						//2.查询考试次数
-						listexam = Examinee.dao.find("select t.* from sys_examinee t ,sys_exam t1  where t.user_id = ? and t1.isdel = 0 and t1.isenable = 1 and t.exam_id = t1.id "+whereStr,id);
-						//3.查询考试不合格次数
-						listNoqualified = Examinee.dao.find("select t.* from sys_examinee t ,sys_exam t1 where t.user_id = ? and t.scoreslevel= ? and t1.isdel = 0 and t1.isenable = 1 and t.exam_id = t1.id "+whereStr,id,0);
-						//4.查询考试合格次数
-						listQualified = Examinee.dao.find("select t.* from sys_examinee t ,sys_exam t1 where t.user_id = ? and t.scoreslevel= ? and t1.isdel = 0 and t1.isenable = 1 and t.exam_id = t1.id "+whereStr,id,1);
-						//5.查询考试优秀次数
-						listExcellent =  Examinee.dao.find("select t.* from sys_examinee t ,sys_exam t1 where t.user_id = ? and t.scoreslevel= ? and t1.isdel = 0 and t1.isenable = 1 and t.exam_id = t1.id "+whereStr,id,2);
-					}
-					row.set(1, listexam.size()+"");
-					row.add(2, listNoqualified.size()+"");
-					row.add(3, listQualified.size()+"");
-					row.add(4, listExcellent.size()+"");
-				}
-			}
-		}
 		return examineeCountpage;
 	}
 
 
+	public List<Object[]> getPageExamfind(int pageNum, int pageSize, QueryStatistics queryStatistics) {
+		// TODO Auto-generated method stub
+		List<Object[]> lists= Examinee.dao.exportPageExamCountfind(pageNum, pageSize, queryStatistics);
+		return lists;
+	}
 
 	public List<ViewChartZDate> queryListChartDatas() {
 		// TODO Auto-generated method stub
@@ -367,6 +313,27 @@ public class StatisticsService {
 			}
 		}
 		return list;
+	}
+
+
+
+	public DataTablesModel getPageExamExamineeCount(int pageNum, int pageSize, QueryStatistics queryStatistics) {
+		// TODO Auto-generated method stub
+		DataTablesModel examCountpage = Exam.dao.getPageExamExamineeCount(pageNum, pageSize, queryStatistics);
+		if (examCountpage != null && !examCountpage.equals("")) {
+			List<List<String>> rows = examCountpage.getRows();
+			if (rows.size() > 0) {
+				for (int i = 0; i < rows.size(); i++) {
+					List<String> row = rows.get(i);
+				}
+			}
+		}
+		return examCountpage;
+	}
+	public List<Object[]> exportPageExamExamineeCount(int pageNum, int pageSize, QueryStatistics queryStatistics) {
+		// TODO Auto-generated method stub
+		List<Object[]> examCountpage = Exam.dao.exportPageExamExamineeCount(pageNum, pageSize, queryStatistics);
+		return examCountpage;
 	}
 
 }

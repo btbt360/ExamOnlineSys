@@ -17,6 +17,8 @@
 				</ul>
 			</div>
 		</div>
+		<form action="${basepath}/statistics/exportExam" method="post"
+						id="userform">
 		<div class="row-fluid">
 			<div class="block" style="border: 0px;">
 				<div class="block-content collapse in">
@@ -44,18 +46,35 @@
 								</select>
 								</label> 
 					</div>
+					<input type="hidden" id="userpages" name="userpages" /><input
+							type="hidden" id="userrp" name="userrp" />
 					<div class="span2 text-right" >
 						<button class="btn btn-medium btn-primary" type="button" id="query">查询</button>
+						<button class="btn btn-medium btn-primary" type="button" id="export">导出</button> 
 					</div>
+ 						
 					 </div>
-					 <div class="span12">
-                        <div id="hero-bar" style="height: 30%;width:95%"></div>
-                     </div>
+					 <table id="examList" class="table table-striped table-bordered">
+						<thead>
+							<tr>
+								<th>考试编码</th>
+								<th>考试名称</th>
+								<th>考试总人数</th>
+								<th>考试不合格人数</th>
+								<th>考试合格人数</th>
+								<th>考试优秀人数</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+						<!-- tbody是必须的 -->
+					</table>
 				    </div>
 					
 				</div>
 			</div>
 		</div>
+		</form>
 	</div>
 </body>
 <script type="text/javascript">
@@ -75,19 +94,27 @@
         }).on('changeDate', function (ev) {  
             $(this).datetimepicker('hide');  
         });
-		$("#query").click(function() {
-			chartdatas();
-		});
 		$('#ceatetimes').click(function() {
 			$('#starttimes').val('');
 		});
 		$('#ceatetimee').click(function() {
 			$('#endtimes').val('');
 		});
-		chartdatas();
+		//chartdatas();
 		// Morris Bar Chart
-			
+		oTable = $('#examList').initDT({
+			serverSide : true,
+			"sAjaxSource" : "${basepath}/statistics/getExamineeCount"
+		});
+		$("#query").click(function() {
+			reshcg();
+		});
+		$("#export").click(function() {
+			$("#userform").submit();
+		});
 	});
+	
+	/**
 	function chartdatas(){
 		$("#hero-bar").empty();
 		var datastr='';
@@ -117,6 +144,22 @@
 		});
 		
 	}
-	
+	*/
+	function reshcg() {
+		var examid = $('#examid').val();
+		var starttimes = $('#starttimes').val();
+		var endtimes = $('#endtimes').val();
+		var oSettings = [ {
+			"name" : "examid",
+			"value" : examid
+		}, {
+			"name" : "starttimes",
+			"value" : starttimes
+		}, {
+			"name" : "endtimes",
+			"value" : endtimes
+		}];
+		oTable.gridSearch(this, oSettings);
+	}
 </script>
 <c:import url="/pages/include/pageFoot.jsp" />

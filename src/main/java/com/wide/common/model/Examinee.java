@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.jfinal.kit.StrKit;
+import com.jfinal.plugin.activerecord.Db;
 import com.wide.common.model.base.BaseExaminee;
 import com.wide.common.model.query.QueryExam;
 import com.wide.common.model.query.QueryExaminee;
@@ -114,27 +115,46 @@ public class Examinee extends BaseExaminee<Examinee> {
 					+ "and t1.id =t2.user_id and t.exam_id = t3.id and t.scoreslevel=? and t2.office_id = ? "+whereStr,type,officeid);
 			return list;
 		}
-		
-		public DataTablesModel getPageExamCountfind(int pageNum, int pageSize, QueryStatistics queryStatistics) {
+		//人员成绩统计
+		public DataTablesModel getPageExamcjCountfind(int pageNum, int pageSize, QueryStatistics queryStatistics) {
 			// TODO Auto-generated method stub
 			final List<Object> parameters = new ArrayList<Object>();
-			String select = "select DISTINCT t.user_id , t.examineename ";
-			StringBuilder sqlExceptSelect = new StringBuilder("from sys_examinee t ,sys_exam t1 ");
+			String select = "SELECT DISTINCT t2.name AS exam_id ,t1.examineename , COUNT(*) AS status, t1.user_id ";
+			StringBuilder sqlExceptSelect = new StringBuilder(" FROM  sys_exam t ,sys_examinee t1,sys_office t2,sys_office_user t3 ");
 			sqlExceptSelect.append(whereQueryExamCountfind(queryStatistics));
 			return this.paginateDataTables(pageNum, pageSize, select.toString(), sqlExceptSelect.toString());
 		}
+		//人员统计
+		public DataTablesModel getPageExamCountfind(int pageNum, int pageSize, QueryStatistics queryStatistics) {
+			// TODO Auto-generated method stub
+			final List<Object> parameters = new ArrayList<Object>();
+			String select = "SELECT DISTINCT t2.name AS exam_id ,t1.examineename , COUNT(*) AS status, (SUM(t1.scoreslevel = 0) ) AS fingerprint "
+					+ ", (SUM(t1.scoreslevel = 1)) AS ticketcode , (SUM(t1.scoreslevel = 2)) AS macaddress ";
+			StringBuilder sqlExceptSelect = new StringBuilder(" FROM  sys_exam t ,sys_examinee t1,sys_office t2,sys_office_user t3 ");
+			sqlExceptSelect.append(whereQueryExamCountfind(queryStatistics));
+			return this.paginateDataTables(pageNum, pageSize, select.toString(), sqlExceptSelect.toString());
+		}
+		
+		public List<Object[]> exportPageExamCountfind(int pageNum, int pageSize, QueryStatistics queryStatistics){
+			String select = "SELECT DISTINCT t2.name AS exam_id ,t1.examineename , COUNT(*) AS status, (SUM(t1.scoreslevel = 0) ) AS fingerprint "
+					+ ", (SUM(t1.scoreslevel = 1)) AS ticketcode , (SUM(t1.scoreslevel = 2)) AS macaddress FROM sys_exam t ,sys_examinee t1,sys_office t2,sys_office_user t3 "+whereQueryExamCountfind(queryStatistics);
+			List<Object[]> list = new ArrayList<Object[]>();
+			list = Db.query(select);
+			return list;
+		}
 		private String whereQueryExamCountfind(QueryStatistics queryStatistics) {
 			// TODO Auto-generated method stub
-			String whereStr = " where t1.isdel = 0 and t1.isenable = 1 and t.exam_id = t1.id ";
+			String whereStr = "WHERE t1.isdel = 0 AND t1.isenable = 1 AND t.id = t1.exam_id AND t1.user_id=t3.user_id AND t2.id = t3.office_id ";
 			if(!StrKit.isBlank(queryStatistics.getStarttime())){
-				whereStr += " and t1.starttime > '"+queryStatistics.getStarttime()+" 00:00:00'";
+				whereStr += " and t.starttime > '"+queryStatistics.getStarttime()+" 00:00:00'";
 			}
 			if(!StrKit.isBlank(queryStatistics.getEndtime())){
-				whereStr += " and t1.endtime < '"+queryStatistics.getEndtime()+" 23:59:59'";
+				whereStr += " and t.endtime < '"+queryStatistics.getEndtime()+" 23:59:59'";
 			}
 			if(!StrKit.isBlank(queryStatistics.getExamid())){
-				whereStr += " and t1.id = '"+queryStatistics.getExamid()+"'";
+				whereStr += " and t.id = '"+queryStatistics.getExamid()+"'";
 			}
+			whereStr += " GROUP BY t2.name,t1.examineename ";
 			return whereStr;
 		}
 		

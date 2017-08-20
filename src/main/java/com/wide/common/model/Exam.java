@@ -5,9 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import com.jfinal.kit.StrKit;
+import com.jfinal.plugin.activerecord.Db;
 import com.wide.common.model.base.BaseExam;
 import com.wide.common.model.query.QueryExam;
 import com.wide.common.model.query.QueryExaminee;
+import com.wide.common.model.query.QueryStatistics;
 import com.wide.util.DateUtil;
 import com.wide.util.TypeChecker;
 import com.wide.viewmodel.DataTablesModel;
@@ -137,7 +139,7 @@ public class Exam extends BaseExam<Exam> {
 	 * query where查询
 	 * 
 	 * */
-	private String whereQueryExamRecord(QueryExaminee queryExaminee){
+	private String whereQueryExamRecord(QueryExaminee queryExaminee ){
 		String where=" where t.id = t1.exam_id ";
 		if(!TypeChecker.isEmpty(queryExaminee.getExamId())){
 			where += " and t.id = '"+queryExaminee.getExamId()+"'";
@@ -172,6 +174,64 @@ public class Exam extends BaseExam<Exam> {
 		list = find("select DISTINCT t3.* from sys_examinee t,sys_office_user t1,sys_exam t3 where t.exam_id = t3.id and t.user_id = t1.user_id and t1.office_id = ? "+whereStr,id);		
 		return list;
 	}
+
+	public DataTablesModel getPageExamExamineeCount(int pageNum, int pageSize, QueryStatistics queryStatistics) {
+		// TODO Auto-generated method stub
+		final List<Object> parameters = new ArrayList<Object>();
+	    String select = "select DISTINCT t.code,t.name,(SELECT COUNT(*) FROM sys_examinee  WHERE exam_id = t.id) AS institution,"
+	    		+ "(SELECT COUNT(*) FROM sys_examinee  WHERE exam_id = t.id AND scoreslevel = 0) AS invigilatenameone,"
+	    		+ "(SELECT COUNT(*) FROM sys_examinee  WHERE exam_id = t.id AND scoreslevel = 1) AS invigilatenametwo,"
+	    		+ "(SELECT COUNT(*) FROM sys_examinee  WHERE exam_id = t.id AND scoreslevel = 2) AS demand ";
+	    StringBuilder sqlExceptSelect = new StringBuilder(" from sys_exam t ");
+	    /**
+	    if (search!=null&&!search.equals("")) {
+	        sqlExceptSelect.append(" AND (b.title like ? or b.content like ? )");
+	        parameters.add("%" + search + "%");
+	        parameters.add("%" + search + "%");
+	    } 
+	     **/
+	    sqlExceptSelect.append(whereQueryExamExamineeCount(queryStatistics));
+	    sqlExceptSelect.append(orderbyQueryExamExamineeCount(queryStatistics));
+	    
+	    return this.paginateDataTables(pageNum, pageSize, select.toString(), sqlExceptSelect.toString());
+	}
+	public List<Object[]> exportPageExamExamineeCount(int pageNum, int pageSize, QueryStatistics queryStatistics) {
+		// TODO Auto-generated method stub
+	    String select = "select DISTINCT t.code,t.name,(SELECT COUNT(*) FROM sys_examinee  WHERE exam_id = t.id) AS institution,"
+	    		+ "(SELECT COUNT(*) FROM sys_examinee  WHERE exam_id = t.id AND scoreslevel = 0) AS invigilatenameone,"
+	    		+ "(SELECT COUNT(*) FROM sys_examinee  WHERE exam_id = t.id AND scoreslevel = 1) AS invigilatenametwo,"
+	    		+ "(SELECT COUNT(*) FROM sys_examinee  WHERE exam_id = t.id AND scoreslevel = 2) AS demand from sys_exam t "+whereQueryExamExamineeCount(queryStatistics)+orderbyQueryExamExamineeCount(queryStatistics);
+	    List<Object[]> list = Db.query(select);
+	    return list;
+	}
+	/**
+	 * query where查询
+	 * 
+	 * */
+	private String whereQueryExamExamineeCount(QueryStatistics queryStatistics){
+		String where=" where 1=1 and isdel = 0 and isenable = 1 ";
+		if(!TypeChecker.isEmpty(queryStatistics.getExamid())){
+			where += " and t.id = '"+queryStatistics.getExamid()+"'";
+		}
+		if(!TypeChecker.isEmpty(queryStatistics.getStarttime())){
+			where  +=" and t.starttime >= '"+queryStatistics.getStarttime()+"'";
+		}
+		if(!TypeChecker.isEmpty(queryStatistics.getEndtime())){
+			where  +=" and t.starttime <= '"+queryStatistics.getEndtime()+"'";
+		}
+		return where;
+		
+	}
+	/**
+	 * query order by 
+	 * 
+	 * */
+	private String orderbyQueryExamExamineeCount(QueryStatistics queryStatistics){
+		String orderby = " order by t.starttime desc ";
+		return orderby;
+		
+	}
+
 	
 }
 

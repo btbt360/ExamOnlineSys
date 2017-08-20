@@ -90,14 +90,6 @@ public abstract class BaseError<M extends BaseError<M>> extends DbModel<M> imple
 		return get("isdel");
 	}
 
-	public void setRecourseType(java.lang.Integer recourseType) {
-		set("recourse_type", recourseType);
-	}
-
-	public java.lang.Integer getRecourseType() {
-		return get("recourse_type");
-	}
-	
 	public void setRecourseId(java.lang.String recourseId) {
 		set("recourse_id", recourseId);
 	}
@@ -105,4 +97,13 @@ public abstract class BaseError<M extends BaseError<M>> extends DbModel<M> imple
 	public java.lang.String getRecourseId() {
 		return get("recourse_id");
 	}
+
+	public void setRecourseType(java.lang.Integer recourseType) {
+		set("recourse_type", recourseType);
+	}
+
+	public java.lang.Integer getRecourseType() {
+		return get("recourse_type");
+	}
+
 }

@@ -5,6 +5,7 @@ import com.wide.baseproject.resource.controller.CaseController;
 import com.wide.baseproject.resource.controller.ItemBankController;
 import com.wide.baseproject.resource.controller.QuestionsController;
 import com.wide.baseproject.resource.controller.SubjectController;
+import com.wide.baseproject.resource.controller.TextbookController;
 
 public class ResourceRoutes extends Routes{
 
@@ -15,6 +16,7 @@ public class ResourceRoutes extends Routes{
 		add("/case",CaseController.class,"/pages/resource/");
 		add("/item",ItemBankController.class,"/pages/resource/");
 		add("/questions",QuestionsController.class,"/pages/resource/");
+		add("/textbook",TextbookController.class,"/pages/resource/");
 	}
 
 }

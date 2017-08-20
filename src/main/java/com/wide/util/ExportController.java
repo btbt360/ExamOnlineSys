@@ -28,7 +28,7 @@ public class ExportController {
      * @return void
      * @date 2015-7-30下午2:00:05
      */
-    public static void exportXLSRecord(List<List<String>> dataList,String fileName,String[] tabletitle,String xlsType,
+    public static void exportXLSRecord(List<Object[]> dataList,String fileName,String[] tabletitle,String xlsType,
     		HttpServletResponse getHttpResponse){
         if(null != dataList && dataList.size() > 0){
             //导出类型
@@ -109,10 +109,10 @@ public class ExportController {
                 //生成XLS sheet body 数据行
                 for (int i = 0; i < dataList.size(); i++) {
                     Row sheetRow = sheet.createRow(i + 1);// sheet页数据行
-                    List<String> dataRow = dataList.get(i);// 数据库数据行
+                    Object[] dataRow = dataList.get(i);// 数据库数据行
                     for (int j = 0; j < tabletitle.length; j++) {
                         Cell cell = sheetRow.createCell(j);
-                            Object dataValue = dataRow.get(j);
+                            Object dataValue = dataRow[j];
                             if (null != dataValue) {
                                 cell.setCellValue(dataValue.toString());
                                 cell.setCellStyle(bodyStyle);
