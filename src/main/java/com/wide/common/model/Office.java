@@ -63,4 +63,26 @@ public class Office extends BaseOffice<Office> {
 		StringBuilder sqlExceptSelect = new StringBuilder("from sys_office where del_flag = 0 and type = 3 order by create_date desc ");
 		return this.paginateDataTables(pageNum, pageSize, select.toString(), sqlExceptSelect.toString());
 	}
+	/**
+	 * 
+	 * 迭代查询机构
+	 * */
+	public static void sortList(List<Office> list, List<Office> sourcelist, String parentId, boolean cascade){
+		for (int i=0; i<sourcelist.size(); i++){
+			Office e = sourcelist.get(i);
+			if ( e.getParentId() != null && e.getParentId().equals(parentId)){
+				list.add(e);
+				if (cascade){
+					// 判断是否还有子节点, 有则继续获取子节点
+					for (int j=0; j<sourcelist.size(); j++){
+						Office child = sourcelist.get(j);
+						if (child.getParentId() != null && child.getParentId().equals(e.getId())){
+							sortList(list, sourcelist, e.getId(), true);
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
 }

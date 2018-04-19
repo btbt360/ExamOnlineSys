@@ -170,15 +170,11 @@ public class OfficeController extends Controller {
 		office.setAreaId(office.getAreaId() == null ? "" : office.getAreaId());
 		office.setParentId(office.getParentId() == null ? "" : office
 				.getParentId());
+		String maxsort = officeService.findMaxSort(office.getParentId());
 		if (StrKit.notBlank(office.getId())) {
 			lastOffice = officeService.getOfficeByid(office.getId());
 			if(!lastOffice.getParentId().equals(office.getParentId())){
-				String maxsort = officeService.findMaxSort(office.getParentId());
-				office.setSort(CGUtil.createSort(
-						oldoffice.getSort() == null
-								|| oldoffice.getSort().equals("") ? 0.0 : oldoffice
-								.getSort(), Double.parseDouble(maxsort == null
-								|| maxsort.equals("") ? "0" : maxsort)));
+				office.setSort(Integer.parseInt(maxsort)+1);
 			}
 			office.update();
 			logService.saveLog(EnumOptType.edit.getEnumKey(),
@@ -187,12 +183,8 @@ public class OfficeController extends Controller {
 			office.setId(CGUtil.createUUid());
 			office.setParentIds((office.getParentId() == null ? "" : office
 					.getParentId()) + "|" + office.getId());
-			String maxsort = officeService.findMaxSort(office.getParentId());
-			office.setSort(CGUtil.createSort(
-					oldoffice.getSort() == null
-							|| oldoffice.getSort().equals("") ? 0.0 : oldoffice
-							.getSort(), Double.parseDouble(maxsort == null
-							|| maxsort.equals("") ? "0" : maxsort)));
+			
+			office.setSort(Integer.parseInt(maxsort)+1);
 			office.setGrade("0");
 			office.setCreateBy(getCurrentUser().getId());
 			office.setCreateDate(new Date());

@@ -3,6 +3,7 @@ package com.wide.baseproject.resource.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.wide.common.model.Dict;
 import com.wide.common.model.Menu;
@@ -40,8 +41,10 @@ public class SubjectService {
 
 	public List<Subject> getSubjecyListAll(QuerySubject querySubject) {
 		// TODO Auto-generated method stub
-		List<Subject> list = new ArrayList();
-		list = Subject.dao.getSubjecyListAll(querySubject);
+		List<Subject> sourcelist = new ArrayList<Subject>();
+		List<Subject> list = new ArrayList<Subject>();
+		sourcelist = Subject.dao.getSubjecyListAll(querySubject);
+		Subject.dao.sortList(list, sourcelist, "", true);
 		return list;
 	}
 
@@ -55,7 +58,7 @@ public class SubjectService {
 		if (list.size() > 0) {
 			sort = list.get(0) + "";
 		}
-		return sort;
+		return StrKit.notBlank(sort)?sort:"0";
 	}
 
 	public String countChild(String id) {

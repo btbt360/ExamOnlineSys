@@ -7,6 +7,7 @@ import java.util.List;
 import com.wide.common.model.Menu;
 import com.wide.common.model.Right;
 import com.wide.viewmodel.ViewTree;
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 
 public class MenuService {
@@ -18,8 +19,10 @@ public class MenuService {
 	 * @return List<Menu>
 	 */
 	public List<Menu> getMenuAll() {
+		List<Menu> sourcelist = new ArrayList<Menu>();
 		List<Menu> mlist = new ArrayList<Menu>();
-		mlist = Menu.dao.getMenuAll();
+		sourcelist = Menu.dao.getMenuAll();
+		Menu.dao.sortList(mlist, sourcelist, "", true);
 		return mlist;
 	}
 
@@ -116,7 +119,7 @@ public class MenuService {
 		if (list.size() > 0) {
 			sort = list.get(0) + "";
 		}
-		return sort;
+		return StrKit.notBlank(sort)?sort:"0";
 	}
 
 	/**

@@ -65,6 +65,7 @@ public class MenuController extends Controller
 	public void menuSave()
 	{
 		Menu menu = getModel(Menu.class);
+		String maxsort = menuService.findMaxSort(menu.getParentId());
 		if (menu.getId() == null) // 如果不存在ID值就是新增的地区，走添加方法
 		{
 			Menu menup = menuService.getMenuById(menu.getParentId());
@@ -83,9 +84,7 @@ public class MenuController extends Controller
 			menu.setUpdateDate(new Date());
 			menu.setParentId(menu.getParentId() == null ? "" : menu.getParentId());
 			menu.setParentIds(menu.getParentId() == "" ? "" : (menu.getParentId() + "|" + menu.getId()));
-			String maxsort = menuService.findMaxSort(menu.getParentId());
-			menu.setSort(CGUtil.createSort(menup.getSort() == null || menup.getSort().equals("") ? 0.0 : menup.getSort(),
-					Double.parseDouble(maxsort == null || maxsort.equals("") ? "0" : maxsort)));
+			menu.setSort(Integer.parseInt(maxsort)+1);
 			/*---------------赋值结束--------------*/
 			menu.save();
 			setAttr("menu", menu);
@@ -99,6 +98,10 @@ public class MenuController extends Controller
 			menu.setParentId(menu.getParentId() == null ? "" : menu.getParentId());
 			menu.setUpdateBy(user.getId()); // 修改人为当前用户
 			menu.setUpdateDate(new Date()); // 修改日期为当前时间
+			Menu lastMenu =  menuService.getMenuById(menu.getId());
+			if(!lastMenu.getParentId().equals(menu.getParentId())){
+				menu.setSort(Integer.parseInt(maxsort)+1);
+			}
 			menu.update(); // menu.update()方法
 			setAttr("message", "success");
 			redirect("/menu/add?message=success", true);

@@ -41,11 +41,11 @@ public abstract class BaseMenu<M extends BaseMenu<M>> extends Model<M> implement
 		return get("name");
 	}
 
-	public void setSort(java.lang.Double sort) {
+	public void setSort(java.lang.Integer sort) {
 		set("sort", sort);
 	}
 
-	public java.lang.Double getSort() {
+	public java.lang.Integer getSort() {
 		return get("sort");
 	}
 

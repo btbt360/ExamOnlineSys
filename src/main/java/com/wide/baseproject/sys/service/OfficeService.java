@@ -10,6 +10,7 @@ import com.wide.common.model.Menu;
 import com.wide.common.model.Office;
 import com.wide.common.model.User;
 import com.wide.viewmodel.ViewTree;
+import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 
 public class OfficeService {
@@ -184,7 +185,9 @@ public class OfficeService {
 	 */
 	public List<Office> getOfficeAll() {
 		// TODO Auto-generated method stub
-		return Office.dao.getOfficeAll();
+		List<Office> list = new ArrayList<Office>();
+		Office.dao.sortList(list,Office.dao.getOfficeAll(), "", true);
+		return list;
 	}
 	/**
 	 * 根据机构Id查询机构对象
@@ -224,7 +227,7 @@ public class OfficeService {
 		 if(list.size()>0){
 			 sort = list.get(0)+"";
 		 }
-		 return sort;
+		 return StrKit.notBlank(sort)?sort:"0";
 	}
 	/**
 	 * 查询组织机构中的地区树

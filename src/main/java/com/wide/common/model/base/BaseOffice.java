@@ -42,11 +42,11 @@ public abstract class BaseOffice<M extends BaseOffice<M>> extends DbModel<M> imp
 		return get("name");
 	}
 
-	public void setSort(java.lang.Double sort) {
+	public void setSort(java.lang.Integer sort) {
 		set("sort", sort);
 	}
 
-	public java.lang.Double getSort() {
+	public java.lang.Integer getSort() {
 		return get("sort");
 	}
 

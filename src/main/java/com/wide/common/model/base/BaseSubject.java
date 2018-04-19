@@ -58,11 +58,11 @@ public abstract class BaseSubject<M extends BaseSubject<M>> extends DbModel<M> i
 		return get("parentpath");
 	}
 
-	public void setSort(java.lang.Double sort) {
+	public void setSort(java.lang.Integer sort) {
 		set("sort", sort);
 	}
 
-	public java.lang.Double getSort() {
+	public java.lang.Integer getSort() {
 		return get("sort");
 	}
 

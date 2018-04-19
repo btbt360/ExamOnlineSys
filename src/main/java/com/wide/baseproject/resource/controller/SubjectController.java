@@ -77,7 +77,7 @@ public class SubjectController extends BaseController{
 		try{
 			Subject subject = getModel(Subject.class)==null||getModel(Subject.class).equals("")?new Subject():getModel(Subject.class);
 			Subject subjectp = Subject.dao.findById(subject.getParentid());
-			
+			String maxsort = subjectService.findMaxSort(subject.getParentid());
 			if (subjectp == null || subjectp.getSort().equals(""))
 			{
 				subjectp = new Subject();
@@ -85,9 +85,7 @@ public class SubjectController extends BaseController{
 			if(StrKit.notBlank(subject.getId())){
 				Subject subjectlast = Subject.dao.findById(subject.getId());
 				if(!subjectlast.getParentid().equals(subject.getParentid())){
-					String maxsort = subjectService.findMaxSort(subject.getParentid());
-					subject.setSort(CGUtil.createSort(subjectp.getSort() == null || subjectp.getSort().equals("") ? 0.0 : subjectp.getSort(),
-							Double.parseDouble(maxsort == null || maxsort.equals("") ? "0" : maxsort)));
+					subject.setSort(Integer.parseInt(maxsort)+1);
 				}
 				subject.setUpdateBy(getUser().getId());
 				subject.setUpdateDate(new Date());
@@ -96,9 +94,7 @@ public class SubjectController extends BaseController{
 				subject.setId(createUUid());
 				subject.setParentid(subject.getParentid() == null ? "" : subject.getParentid());
 				subject.setParentpath(subject.getParentid() == "" ? "" : (subject.getParentid() + "|" + subject.getId()));
-				String maxsort = subjectService.findMaxSort(subject.getParentid());
-				subject.setSort(CGUtil.createSort(subjectp.getSort() == null || subjectp.getSort().equals("") ? 0.0 : subjectp.getSort(),
-						Double.parseDouble(maxsort == null || maxsort.equals("") ? "0" : maxsort)));
+				subject.setSort(Integer.parseInt(maxsort)+1);
 				subject.setCreatorId(getUser().getId());
 				subject.setCreateDate(new Date());
 				subject.setUpdateBy(getUser().getId());

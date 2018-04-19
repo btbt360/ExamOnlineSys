@@ -2,6 +2,7 @@ package com.wide.common.model;
 
 import java.util.List;
 
+import com.jfinal.kit.StrKit;
 import com.wide.common.model.base.BaseSubject;
 import com.wide.common.model.query.QuerySubject;
 import com.wide.viewmodel.DataTablesModel;
@@ -87,4 +88,28 @@ public class Subject extends BaseSubject<Subject> {
 		List<Subject> list =find(select);
 		return list;
 	}
+	
+	/**
+	 * 
+	 * 迭代查询类别
+	 * */
+	public static void sortList(List<Subject> list, List<Subject> sourcelist, String parentId, boolean cascade){
+		for (int i=0; i<sourcelist.size(); i++){
+			Subject e = sourcelist.get(i);
+			if ( e.getParentid() != null && e.getParentid().equals(parentId)){
+				list.add(e);
+				if (cascade){
+					// 判断是否还有子节点, 有则继续获取子节点
+					for (int j=0; j<sourcelist.size(); j++){
+						Subject child = sourcelist.get(j);
+						if (child.getParentid() != null && child.getParentid().equals(e.getId())){
+							sortList(list, sourcelist, e.getId(), true);
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+	
 }
